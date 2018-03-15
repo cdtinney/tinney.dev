@@ -1,0 +1,65 @@
+<div class="contact-card">
+  <div class="contact-card__icon-container">
+
+    {% if site.social.linkedIn %}
+      <a
+        class="contact-card__icon-container__icon"
+        title="{{ site.social.github }} on LinkedIn"
+        href="https://www.linkedin.com/in/{{ site.social.linkedIn }}"
+        target="_blank"
+      >
+        <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+
+    {% if site.social.gitHub %}
+      <a
+        class="contact-card__icon-container__icon"
+        title="{{ site.social.github }} on GitHub"
+        href="https://github.com/{{ site.social.gitHub }}"
+        target="_blank"
+      >
+        <i class="fab fa-github fa-lg" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+
+    {% if site.social.spotify %}
+      <a
+        class="contact-card__icon-container__icon"
+        title="{{ site.social.spotify }} on Spotify"
+        href="https://open.spotify.com/user/{{ site.social.spotify }}"
+        target="_blank"
+      >
+        <i class="fab fa-spotify fa-lg" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+
+    {% if site.social.goodreads %}
+      <a
+        class="contact-card__icon-container__icon"
+        title="{{ site.social.goodreads }} on Goodreads"
+        href="https://goodreads.com/{{ site.social.goodreads }}"
+        target="_blank"
+      >
+        <i class="fab fa-goodreads fa-lg" aria-hidden="true"></i>
+      </a>
+    {% endif %}
+
+  </div>
+  <div class="contact-card__email">
+    {% if site.email && site.displayedEmail %}
+      <i
+        class="contact-card__email__icon far fa-envelope"
+        aria-hidden="true"
+        aria-title="E-mail address"
+      >       
+      </i>
+      <a
+        class="contact-card__email__mail-to"
+        href="mailto:{{ site.email }}"
+      >
+        {{ site.displayedEmail }}
+      </a>
+    {% endif %}
+  </div>
+</div>

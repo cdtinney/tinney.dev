@@ -1,0 +1,9 @@
+$base-font-family: 'Lato', Helvetica, Arial, sans-serif !default;
+
+// Colors
+$brand-color: #35B4DE;
+$grey-color: #828282;
+$grey-color--dark:  darken($grey-color, 25%) !default;
+
+@import 'theme/base';
+@import 'theme/layout';

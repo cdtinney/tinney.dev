@@ -1,0 +1,113 @@
+function parseGrid(str) {
+    return str.split(/\n/).map(parseRow);
+}
+
+function parseRow(row) {
+    return row.split(/\s+/).map(function(cell) {
+        return parseInt(cell, 10);
+    });
+}
+
+function createTwoDimensionalArray(numRows, numCols) {
+    var grid = new Array(numRows);
+    for (var r=0; r<numRows; r++) {
+        grid[r] = new Array(numCols);
+    }
+    return grid;
+}
+
+function findLongestSeqFromCellHelper(grid, row, col, visitedGrid) {
+    var longestSeqLength = 1;
+    
+    var rowBegin = Math.max(0, row - 1);
+    var rowEnd = Math.min(grid.length - 1, row + 1);
+    var colBegin = Math.max(0, col - 1);
+    var colEnd = Math.min(grid[row].length - 1, col + 1);
+    
+    for (var i = rowBegin; i < rowEnd; i++) {
+        for (var j = colBegin; j < colEnd; j++) {
+            console.log(`\tVisiting neighbor ${i}, ${j}`);
+            var isCurrCell = i === row && j === col;
+            var alreadyVisited = visitedGrid[i][j];
+            if (isCurrCell || alreadyVisited) {
+                continue;
+            }
+            
+            // Ignore neighbors that don't fit the subsequence.
+            var neighborVal = grid[i][j];
+            var diff = Math.abs(grid[row][col], neighborVal);
+            if (diff < 3) {
+                continue;
+            }
+            
+            visitedGrid[i][j] = true;
+            
+            var neighborSeqLength =
+                findLongestSeqFromCellHelper(
+                    grid, i, j, visitedGrid);
+            console.log(
+                `\tlongestSeqNeighbor (${i}, ${j}) = ${neighborSeqLength}`);
+            if (neighborSeqLength > longestSeqLength) {
+                longestSeqLength = neighborSeqLength + 1;
+            }            
+        }
+    }
+    
+    return longestSeqLength;
+}
+ 
+function findLongestSeqFromCell(grid, row, col) {
+    var visitedGrid =
+            createTwoDimensionalArray(grid.length, grid[0].length);
+    visitedGrid[row][col] = true;
+    
+    return findLongestSeqFromCellHelper(grid, row, col, visitedGrid);
+}
+
+/**
+ * Take a rectangular grid of numbers and find the length
+ * of the longest sub-sequence.
+ * Return the length as an integer.
+ *
+ * NOTE: This is a brute-force approach, to start. It's really slow:
+ * TODO Time-complexity
+ */
+function longestSequence(grid) {
+    // TODO: Error-checking, early termination
+
+    var longestSeqLength = 0;
+    for (var row = 0; row < grid.length; row++) {
+        // TODO We need to ensure the grid is normalized s.t.
+        // empty spaces are filled with -1 or something.
+        // Otherwise, grid[0].length may not be accurate.
+        for (var col = 0; col < grid[0].length; col++) {
+            var longestSeqLengthForCell =
+                findLongestSeqFromCell(grid, row, col);
+            console.log(
+                `longestSeq (${row}, ${col}) = ${longestSeqLengthForCell}`);
+
+            if (longestSeqLengthForCell > longestSeqLength) {
+                longestSeqLength = longestSeqLengthForCell;
+            }
+        }
+    }
+    
+    return longestSeqLength;
+}
+
+function main() {
+    var data = '';
+    process.stdin.resume();
+    process.stdin.setEncoding('utf-8');
+    process.stdin.on('data', function(chunk) {
+        data += chunk;
+    });
+
+    process.stdin.on('end', function() {
+        var grid = parseGrid(data);
+        var length = longestSequence(grid);
+        console.log(length);
+    });
+}
+
+main();

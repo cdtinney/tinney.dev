@@ -1,0 +1,104 @@
+/**
+ * Common classes, to be extended only.
+ */
+
+%max-height-flex-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+%content-column {
+  width: 34em;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/**
+ * Layout classes.
+ */
+
+.default-content {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.home {
+  @extend %max-height-flex-column;
+  justify-content: center;
+}
+
+/**
+ * Includes classes.
+ */
+
+.about-header {
+  @extend %content-column;
+  text-align: center;
+}
+
+.about-header__title {
+  display: inline-block;
+  padding: 0 4px;
+  line-height: 0.9em;
+  border-bottom: 1px solid $grey-color;
+  cursor: default;
+
+  &:hover {
+    border-bottom-color: $brand-color;
+  }
+}
+
+.contact-card {
+  @extend %content-column;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.contact-card__icon-container {
+  text-align: center;
+}
+
+.contact-card__icon-container__icon {
+  color: #333333;
+  text-decoration: none;
+
+  &:hover {
+    color: $brand-color;
+  }
+
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
+}
+
+.contact-card__email {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5em;
+  line-height: 1;
+}
+
+.contact-card__email__icon {
+  margin: 0 6px;
+}
+
+.contact-card__email__mail-to {
+  color: $grey-color--dark;
+
+  &:hover {
+    color: $brand-color;
+  }
+}
+
+.footer {
+  padding: 4px;
+  color: $grey-color--dark;
+  font-size: 0.7em;
+  text-align: center;
+}
