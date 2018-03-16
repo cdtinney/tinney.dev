@@ -24,8 +24,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  min-height: 100%;
+  height: calc(100%);
 }
 
 /**
@@ -169,6 +168,8 @@
 }
 
 .footer {
+  position: fixed;
+  bottom: 0;
   padding: 4px;
   color: $grey-color--dark;
   font-size: 0.7em;
