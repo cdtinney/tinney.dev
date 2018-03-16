@@ -20,12 +20,10 @@
  */
 
 .default-content {
-  display: flex;
-  flex-direction: column;
+  flex: 1;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  min-height: 100%;
+
 }
 
 /**
@@ -122,13 +120,6 @@
 
   &:not(:last-child) {
     margin-right: 40px;
-  }
-
-  /**
-   * FontAwesome icons use an <i> element.
-   */
-  i {
-    line-height: 1;
   }
 }
 
