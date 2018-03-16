@@ -169,6 +169,8 @@
 }
 
 .footer {
+  position: fixed;
+  bottom: 0;
   padding: 4px;
   color: $grey-color--dark;
   font-size: 0.7em;
