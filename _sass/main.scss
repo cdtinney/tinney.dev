@@ -5,5 +5,6 @@ $brand-color: #35B4DE;
 $grey-color: #828282;
 $grey-color--dark:  darken($grey-color, 25%) !default;
 
+@import 'includes/reset';
 @import 'theme/base';
 @import 'theme/layout';

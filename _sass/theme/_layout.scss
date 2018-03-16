@@ -26,9 +26,52 @@
 
 }
 
+/**
+ * Page classes.
+ */
+
 .home {
   @extend %max-height-flex-column;
   justify-content: center;
+}
+
+.page {
+  @extend %max-height-flex-column;  
+}
+
+.page__header {
+  display: flex;
+  align-items: baseline;
+  padding: 0 5%;
+  border-bottom: 1px solid $grey-color;
+}
+
+.page__header__separator {
+  margin: 0 10px;
+}
+
+.albums {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  .albums__album {
+    flex: 1 0 200px; /** Can grow, can't shrink, min width 300px. */
+    max-width: 400px;
+    margin: 7px;
+    .albums__album__img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+/** Make the albums smaller on mobile. */
+@media screen and (max-width: 400px) {
+  .albums__album {
+    flex-basis: 150px;
+    margin: 4px;
+  }
 }
 
 /**
@@ -40,7 +83,7 @@
   text-align: center;
 }
 
-.about-header__title {
+.brand {
   display: inline-block;
   padding: 0 4px;
   line-height: 0.9em;
@@ -50,6 +93,10 @@
   &:hover {
     border-bottom-color: $brand-color;
   }
+}
+
+.brand__link {
+  color: #000;
 }
 
 .contact-card {
@@ -93,6 +140,22 @@
 
   &:hover {
     color: $brand-color;
+  }
+}
+
+.page-links {
+  @extend %content-column;
+  display: flex;
+  justify-content: center;
+}
+
+.page-links__link {
+  padding: 4px;
+  color: $grey-color--dark;
+  border: 1px solid $grey-color;
+
+  &:hover {
+    border-color: $brand-color;
   }
 }
 
