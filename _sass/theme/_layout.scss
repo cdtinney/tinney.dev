@@ -158,11 +158,12 @@
 .page-links {
   @extend %content-column;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .page-links__link {
   width: 100px;
+  margin: 0 8px;
   padding: 4px;
   color: $grey-color--dark;
   border: 1px solid $grey-color;
