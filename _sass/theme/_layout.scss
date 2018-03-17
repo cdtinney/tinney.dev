@@ -66,6 +66,10 @@
   }
 }
 
+.faq {
+  padding: 5% 5%;
+}
+
 /** Make the albums smaller on mobile. */
 @media screen and (max-width: 400px) {
   .albums__album {
@@ -121,6 +125,14 @@
   &:not(:last-child) {
     margin-right: 40px;
   }
+
+  /**
+   * Reset line-height of FontAwesome icons to prevent
+   * inline overflow issues.
+   */
+  i {
+    line-height: 1;
+  }
 }
 
 .contact-card__email {
@@ -146,17 +158,18 @@
 .page-links {
   @extend %content-column;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .page-links__link {
+  width: 100px;
   padding: 4px;
   color: $grey-color--dark;
   border: 1px solid $grey-color;
   border-radius: 3px;
-  -webkit-box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
-  -moz-box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
-  box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
 
   &:hover {
     border-color: $brand-color;
