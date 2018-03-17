@@ -11,7 +11,7 @@ title: faq
 
 A: Six.
 
-## Q: True?
+## Q: Are you interested in the deal of the week?
 
-A: True.
+A: No, thank you.
 </div>
