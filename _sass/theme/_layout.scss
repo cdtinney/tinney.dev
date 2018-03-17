@@ -153,6 +153,10 @@
   padding: 4px;
   color: $grey-color--dark;
   border: 1px solid $grey-color;
+  border-radius: 3px;
+  -webkit-box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
+  -moz-box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
+  box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
 
   &:hover {
     border-color: $brand-color;
