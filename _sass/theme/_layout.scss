@@ -50,6 +50,11 @@
   margin: 0 10px;
 }
 
+.albums-wrapper {
+  height: 100%;
+  overflow-y: scroll;
+}
+
 .albums {
   display: flex;
   flex-wrap: wrap;

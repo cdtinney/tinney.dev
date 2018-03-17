@@ -6,17 +6,19 @@ layout: page
 title: albums
 ---
 
-<div class="albums">
-  {% for album in site.data.albums %}
-    {% if album.mbid %}
-    <span class="albums__album">
-      <a href="http://musicbrainz.org/release/{{ album.mbid }}">
-        <img
-          class="albums__album__img"
-          src="http://coverartarchive.org/release/{{ album.mbid }}/front"
-        />
-      </a>
-    </span>
-    {% endif %}
-  {% endfor %}  
+<div class="albums-wrapper">
+  <div class="albums">
+    {% for album in site.data.albums %}
+      {% if album.mbid %}
+      <div class="albums__album">
+        <a href="http://musicbrainz.org/release/{{ album.mbid }}">
+          <img
+            class="albums__album__img"
+            src="http://coverartarchive.org/release/{{ album.mbid }}/front"
+          />
+        </a>
+      </div>
+      {% endif %}
+    {% endfor %}  
+  </div>
 </div>
