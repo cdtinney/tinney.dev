@@ -1,0 +1,49 @@
+---
+permalink: "/spotify/"
+layout: page
+title: spotify
+---
+
+<div class="spotify-wrapper">
+  <div class="spotify">
+    {% for playlist in site.data.spotify.playlists %}
+
+      <div class="spotify__playlist">
+
+        <!-- Users can follow playlists from other users, or the 'Spotify' user. If there is one specified for the playlist,
+        use that; default to the username in configuration (it is assumed to be present). -->
+        {% if playlist.user != null %}
+          {% assign user = playlist.user %}
+        {% else %}
+          {% assign user = site.social.spotify %}
+        {% endif %}
+
+        <h2 class="spotify__playlist__name">
+
+          <a
+            href="https://open.spotify.com/user/{{ user }}/playlist/{{ playlist.id }}"
+            class="spotify__playlist__name__link"
+          >
+          {{ playlist.name }}
+          </a>
+
+        </h2>
+
+        <div class="spotify__playlist__embed">
+          <div class="spotify__playlist__loader"></div>
+          <iframe
+            class="spotify__playlist__iframe"
+            src="https://embed.spotify.com/?uri=spotify:user:{{user}}:playlist:{{playlist.id}}" 
+            width="300"
+            height="380"
+            frameborder="0"
+            z-index="2"
+          >
+          </iframe>
+        </div>
+
+      </div>
+    {% endfor %}  
+  </div>
+</div>
+

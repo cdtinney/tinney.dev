@@ -4,7 +4,9 @@ $brand-color: #35B4DE;
 $grey-color: #828282;
 $grey-color--dark:  darken($grey-color, 25%) !default;
 
-$box-shadow: 2px 2px 1px 0px rgba(161,161,161,0.25);
+$box-shadow-color: rgba(161, 161, 161, 1);
+$box-shadow: 2px 2px 1px 0px transparentize($box-shadow-color, 0.75);
+$box-shadow--lg: 0 0 0 0, 6px 6px 16px transparentize(darken($box-shadow-color, 25%), 0.75);
 
 @import 'includes/reset';
 @import 'theme/base';

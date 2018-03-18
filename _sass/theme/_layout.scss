@@ -52,7 +52,7 @@
 
 .albums-wrapper {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto
 }
 
 .albums {
@@ -71,16 +71,83 @@
   }
 }
 
-.faq {
-  padding: 5% 5%;
-}
-
 /** Make the albums smaller on mobile. */
 @media screen and (max-width: 400px) {
   .albums__album {
     flex-basis: 150px;
     margin: 4px;
   }
+}
+
+.faq {
+  padding: 5%;
+}
+
+.spotify-wrapper {
+  height: 100%;
+  overflow-y: auto
+}
+
+.spotify {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+
+.spotify__playlist {
+  margin: 10px;
+  box-shadow: $box-shadow--lg;
+}
+
+.spotify__playlist__name {
+  padding: 4px 0 4px 4px;
+}
+
+.spotify__playlist__name__link {
+  color: $grey-color--dark;
+  text-decoration: none;
+
+  &:hover {
+    color: $brand-color;
+    text-decoration: underline;
+  }
+}
+
+.spotify__playlist__embed {
+  position: relative;
+  width: 300px;
+  height: 380px;
+}
+
+.spotify__playlist__iframe {
+  position: relative;
+  z-index: 2;
+}
+
+.spotify__playlist__loader {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 2px solid #fff;
+  border-right-color: transparent;
+  border-radius: 50%;
+  box-shadow: 0 0 25px 2px $brand-color;
+
+  // Animate it!
+  animation: spin 1s linear infinite;
+
+  // Make sure it's hidden under the Spotify embed.
+  z-index: 1;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg);   opacity: 0.2; }
+  50%  { transform: translate(-50%, -50%) rotate(180deg); opacity: 1.0; }
+  to   { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.2; }
 }
 
 /**
