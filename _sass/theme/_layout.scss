@@ -36,7 +36,12 @@
 }
 
 .page {
-  @extend %max-height-flex-column;  
+  @extend %max-height-flex-column;
+
+  .page-links {
+    margin-top: auto;
+    margin-bottom: 0.5em;
+  }
 }
 
 .page__header {
@@ -254,6 +259,7 @@
 
   &:hover {
     border-color: $brand-color;
+    color: lighten($grey-color--dark, 25%);
   }
 }
 
