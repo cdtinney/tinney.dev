@@ -194,20 +194,26 @@
   margin-top: 10px;
 }
 
-.contact-card__icon-container {
+.contact-card__icon-container,
+.contact-card--sm__icon-container {
   text-align: center;
 }
 
 .contact-card__icon-container__icon {
+
+  &:not(:last-child) {
+    margin-right: 40px;
+  }
+
+}
+
+.contact-card__icon-container__icon,
+.contact-card--sm__icon-container__icon {
   color: #333333;
   text-decoration: none;
 
   &:hover {
     color: $brand-color;
-  }
-
-  &:not(:last-child) {
-    margin-right: 40px;
   }
 
   /**
@@ -219,6 +225,12 @@
   }
 }
 
+.contact-card--sm__icon-container__icon {
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
+
 .contact-card__email {
   display: flex;
   justify-content: center;
@@ -227,11 +239,23 @@
   line-height: 1;
 }
 
-.contact-card__email__icon {
+.contact-card--sm {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.contact-card--sm__email {
+  margin-left: 1em;
+}
+
+.contact-card__email__icon,
+.contact-card--sm__email__icon {
   margin: 0 6px;
 }
 
-.contact-card__email__mail-to {
+.contact-card__email__mail-to, 
+.contact-card--sm__email__mail-to {
   color: $grey-color--dark;
 
   &:hover {
