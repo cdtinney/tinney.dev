@@ -5,7 +5,24 @@
 
 Built with love, but mostly Jekyll, HTML, and SCSS.
 
-License
-=======
+## Developing
+
+Requirements:
+
+* [Jekyll](https://jekyllrb.com/docs/installation/)
+
+Running (watch mode):
+
+```
+jekyll serve
+```
+
+Building:
+
+```
+jekyll build
+```
+
+## License
 
 MIT
