@@ -231,7 +231,7 @@
   }
 }
 
-.contact-card__email {
+.contact-card__email, .contact-card__resume {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -255,7 +255,8 @@
 }
 
 .contact-card__email__mail-to, 
-.contact-card--sm__email__mail-to {
+.contact-card--sm__email__mail-to,
+.contact-card__resume__link,  {
   color: $grey-color--dark;
 
   &:hover {
