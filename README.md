@@ -1,26 +1,39 @@
-[![Build Status](https://travis-ci.org/cdtinney/cdtinney.github.io.svg?branch=master)](https://travis-ci.org/cdtinney/cdtinney.github.io)
+# cdtinney.github.io
+> Personal website built with Gatsby.
 
-# colintinney.com
-> Personal website.
+## Contents
 
-Built with love, but mostly Jekyll, HTML, and SCSS.
+- [Contents](#contents)
+- [Getting Started](#getting-started)
+  - [Installing](#installing)
+  - [Running](#running)
+  - [Building](#building)
+- [License](#license)
 
-## Developing
+## Getting Started
 
-Requirements:
+### Installing
 
-* [Jekyll](https://jekyllrb.com/docs/installation/)
-
-Running (watch mode):
-
-```
-jekyll serve
-```
-
-Building:
+To install dependencies:
 
 ```
-jekyll build
+$ npm install
+```
+
+### Running
+
+To run a development server:
+
+```
+$ npm run develop
+```
+
+### Building
+
+To build for production:
+
+```
+$ npm run build
 ```
 
 ## License
