@@ -1,20 +1,33 @@
 import React from 'react';
+import { StaticQuery, graphql } from "gatsby"
 
 import brandStyles from './Brand.module.css';
 
 export default function Brand() {
-  // TODO Use siteMetadata
-  const siteUrl = 'https://colintinney.com';
-  const brand = 'colin tinney';
-
   return (
-    <h1 class={brandStyles.header}>
-      <a
-        href={siteUrl}
-        class={brandStyles.link}
-      >
-        {brand}
-      </a>
-    </h1>
+    <StaticQuery
+      query={
+        graphql`
+          query {
+            site {
+              siteMetadata {
+                title,
+                url
+              }
+            }
+          }
+        `
+      }
+      render={data => (
+        <h1 class={brandStyles.header}>
+          <a
+            href={data.site.siteMetadata.url}
+            class={brandStyles.link}
+          >
+        {data.site.siteMetadata.title}
+        </a>
+      </h1>
+      )}
+    />
   );
 }

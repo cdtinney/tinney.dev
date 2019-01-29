@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Colin Tinney',
+    title: 'colin tinney',
     url: 'https://colintinney.com',
     contact: {
       name: 'Colin Tinney',
