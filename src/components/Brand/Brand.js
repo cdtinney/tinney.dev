@@ -24,9 +24,9 @@ export default function Brand() {
             href={data.site.siteMetadata.url}
             class={brandStyles.link}
           >
-        {data.site.siteMetadata.title}
-        </a>
-      </h1>
+            {data.site.siteMetadata.title}
+          </a>
+        </h1>
       )}
     />
   );
