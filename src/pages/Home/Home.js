@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DefaultLayout from '../../layout/DefaultLayout/';
+import DefaultLayout from '../../layouts/DefaultLayout/';
 import AboutHeader from '../../components/AboutHeader/';
 
 import homeStyles from './Home.module.css';

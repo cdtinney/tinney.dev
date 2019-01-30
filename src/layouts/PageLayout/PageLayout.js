@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DefaultLayout from '../../components/layout/DefaultLayout';
+import DefaultLayout from '../DefaultLayout/';
 import Brand from '../../components/Brand';
 
 import pageLayoutStyles from 'Page.module.css';
