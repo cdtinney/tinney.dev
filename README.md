@@ -5,12 +5,17 @@
 
 - [Contents](#contents)
 - [Getting Started](#getting-started)
+  - [Requirements](#requirements)
   - [Installing](#installing)
   - [Running](#running)
   - [Building](#building)
 - [License](#license)
 
 ## Getting Started
+
+### Requirements
+
+* Node.js - Latest LTS release
 
 ### Installing
 
