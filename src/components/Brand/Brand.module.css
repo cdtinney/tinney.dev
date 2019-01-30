@@ -1,7 +1,15 @@
 .header {
+  display: inline-block;
+  padding: 0 4px;
+  line-height: 0.9em;
+  /*border-bottom: 1px solid $grey-color;*/
+  cursor: default;
 
+  &:hover {
+    /*border-bottom-color: $brand-color;*/
+  }
 }
 
 .link {
-
+  color: #000;
 }

@@ -6,7 +6,7 @@ import footerStyles from './Footer.module.css';
 export function Footer({ data }) {
   return (
     <footer className={footerStyles.footer}>
-      Copyright © 2018 { data.site.siteMetadata.title }. All Rights Reserved.
+      Copyright © 2018 { data.site.siteMetadata.contact.name }. All Rights Reserved.
     </footer>
   );
 }
@@ -19,13 +19,15 @@ export default function FooterContainer() {
           query {
             site {
               siteMetadata {
-                title,
+                contact {
+                  name,
+                },
               }
             }
           }
         `
       }
-      render={Footer}
+      render={data => <Footer data={data}/>}
     />
   );
 }
