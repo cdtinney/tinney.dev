@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Default from '../../components/layout/Default/';
+import DefaultLayout from '../../layout/DefaultLayout/';
 import AboutHeader from '../../components/AboutHeader/';
 
 import homeStyles from './Home.module.css';
 
 export default function Home() {
   return (
-    <Default>
+    <DefaultLayout>
       <div className={homeStyles.container}>
         <AboutHeader/>
       </div>
-    </Default>
+    </DefaultLayout>
   );
 }
