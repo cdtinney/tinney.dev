@@ -16,7 +16,7 @@ function Icon({ title, href, label, icon }) {
   );
 }
 
-export default function ContactCard() {
+function ContactCard({ data }) {
   return (
     <div className={contactCardStyles.container}>
       <div className={contactCardStyles.container__icons}>
@@ -24,5 +24,34 @@ export default function ContactCard() {
       <div className={contactCardStyles.container__resume}>
       </div>
     </div>
+  );
+}
+
+export default function ContactCardWithData() {
+  return (
+    <StaticQuery
+      query={
+        graphql`
+          query {
+            site {
+              siteMetadata {
+                contact {
+                  name,
+                  email,
+                  displayedEmail
+                },
+                social {
+                  gitHub,
+                  linkedIn,
+                  spotify,
+                  goodreads
+                }
+              }
+            }
+          }
+        `
+      }
+      render={ContactCard}
+    />
   );
 }
