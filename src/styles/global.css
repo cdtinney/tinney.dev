@@ -14,7 +14,7 @@ html {
  * HACK: Apply styles to Gatsby div and inner wrapping
  * div for routing.
  */
-body, #___gatsby, #___gatsby > * {
+body, .gatsby__body, .gatsby__body > * {
   display: flex;
   flex-direction: column;
   height: 100vh;
