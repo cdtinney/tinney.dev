@@ -4,9 +4,20 @@ import { StaticQuery, graphql } from 'gatsby';
 import footerStyles from './Footer.module.css';
 
 export function Footer({ data }) {
+  const {
+    site: {
+      siteMetadata: {
+        year,
+        contact: {
+          name,
+        },
+      },
+    }
+  } = data;
+
   return (
     <footer className={footerStyles.footer}>
-      Copyright © 2018 { data.site.siteMetadata.contact.name }. All Rights Reserved.
+      Copyright © { year } { name }. All Rights Reserved.
     </footer>
   );
 }
@@ -19,6 +30,7 @@ export default function FooterContainer() {
           query {
             site {
               siteMetadata {
+                year,
                 contact {
                   name,
                 },
