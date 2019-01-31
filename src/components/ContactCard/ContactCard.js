@@ -30,7 +30,7 @@ function ContactCard({ data }) {
         >
         </i>
         <a
-          href="mailto:{{ site.email }}"
+          href={`mailto:${ data.site.siteMetadata.contact.email }`}
         >
           { data.site.siteMetadata.contact.displayedEmail }
         </a>
