@@ -22,6 +22,19 @@ function ContactCard({ data }) {
     <div className={contactCardStyles.container}>
       <div className={contactCardStyles.container__icons}>
       </div>
+      <div className={contactCardStyles.container__email}>
+        <i
+          className="contact-card__email__icon far fa-envelope"
+          aria-hidden="true"
+          aria-title="E-mail address"
+        >
+        </i>
+        <a
+          href="mailto:{{ site.email }}"
+        >
+          { data.site.siteMetadata.contact.displayedEmail }
+        </a>
+      </div>
       <div className={contactCardStyles.container__resume}>
         <a
           href={data.site.siteMetadata.contact.resumeUrl}
