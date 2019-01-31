@@ -19,10 +19,10 @@ export default function Brand() {
         `
       }
       render={data => (
-        <h1 class={brandStyles.header}>
+        <h1 className={brandStyles.header}>
           <a
             href={data.site.siteMetadata.url}
-            class={brandStyles.link}
+            className={brandStyles.link}
           >
             {data.site.siteMetadata.title}
           </a>

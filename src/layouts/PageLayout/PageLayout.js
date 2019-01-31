@@ -9,7 +9,7 @@ export default function PageLayout({ title, children }) {
   return (
     <DefaultLayout>
       <div className={pageLayoutStyles.container}>
-        <header class={pageLayoutStyles.header}>
+        <header className={pageLayoutStyles.header}>
           <span>
             <Brand />
           </span>
