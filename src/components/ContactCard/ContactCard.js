@@ -37,7 +37,7 @@ function ContactCard({ data }) {
       <div className={contactCardStyles.container__email}>
         <FontAwesomeIcon
           icon={faEnvelope}
-          className={contactCardStyles.icon}
+          className={`${contactCardStyles.icon} ${contactCardStyles.email__icon}`}
         />
         <a
           href={`mailto:${ data.site.siteMetadata.contact.email }`}
