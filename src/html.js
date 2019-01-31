@@ -12,6 +12,9 @@ export default function HTML(props) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
+        <link rel="stylesheet" href="/stylesheets/font-awesome/css/fa-brands.css"></link>
+        <link rel="stylesheet" href="/stylesheets/font-awesome/css/fa-regular.css"></link>
+        <link rel="stylesheet" href="/stylesheets/font-awesome/css/fontawesome.min.css"></link>
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
