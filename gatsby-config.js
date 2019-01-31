@@ -10,10 +10,8 @@ module.exports = {
       resumeUrl: 'https://drive.google.com/open?id=1l5p9B44vyGf0fjST5Tm-I-zXBwQd2GXtUj_RUunx3MU', 
     },
     social: {
-      gitHub: 'cdtinney',
-      linkedIn: 'cdtinney',
-      spotify: 'cdtinney',
-      goodreads: 'cdtinney',
+      github: 'cdtinney',
+      linkedin: 'cdtinney',
     },
   },
 };

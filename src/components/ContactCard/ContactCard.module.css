@@ -12,14 +12,10 @@
   margin: 0 6px;
 }
 
-.container__icons {
-
+.container__social {
+  margin-bottom: 1.25em;
 }
 
-.icon-container {
-  
-}
-
-.container__resume {
-  margin: 1.5em;
+.container__email {
+  margin-bottom: 1.25em;
 }
