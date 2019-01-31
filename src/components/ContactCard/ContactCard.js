@@ -1,4 +1,5 @@
 import React from 'react';
+import { StaticQuery, graphql } from 'gatsby';
 
 import contactCardStyles from './ContactCard.module.css';
 
@@ -22,6 +23,11 @@ function ContactCard({ data }) {
       <div className={contactCardStyles.container__icons}>
       </div>
       <div className={contactCardStyles.container__resume}>
+        <a
+          href={data.site.siteMetadata.contact.resumeUrl}
+        >
+          resume
+        </a>
       </div>
     </div>
   );
@@ -38,7 +44,8 @@ export default function ContactCardWithData() {
                 contact {
                   name,
                   email,
-                  displayedEmail
+                  displayedEmail,
+                  resumeUrl,
                 },
                 social {
                   gitHub,
@@ -51,7 +58,7 @@ export default function ContactCardWithData() {
           }
         `
       }
-      render={ContactCard}
+      render={data => <ContactCard data={data} />}
     />
   );
 }

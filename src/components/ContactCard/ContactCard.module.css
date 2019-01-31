@@ -1,5 +1,11 @@
 .container {
+  /** TODO Refactor to component */
+  width: 34em;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 
+  text-align: center;
 }
 
 .container__icons {
