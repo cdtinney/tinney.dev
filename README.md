@@ -27,7 +27,7 @@ $ npm install
 
 ### Running
 
-To run a development server:
+To run a development server with live-reload:
 
 ```
 $ npm run develop
@@ -35,11 +35,13 @@ $ npm run develop
 
 ### Building
 
-To build for production:
+To build the website for production:
 
 ```
 $ npm run build
 ```
+
+Build output is located within the `public` folder.
 
 ## License
 
