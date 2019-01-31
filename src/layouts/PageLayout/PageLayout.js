@@ -3,7 +3,7 @@ import React from 'react';
 import DefaultLayout from '../DefaultLayout/';
 import Brand from '../../components/Brand';
 
-import pageLayoutStyles from 'Page.module.css';
+import pageLayoutStyles from './PageLayout.module.css';
 
 export default function PageLayout({ title, children }) {
   return (
