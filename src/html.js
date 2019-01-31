@@ -11,6 +11,7 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
