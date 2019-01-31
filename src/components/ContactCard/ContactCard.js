@@ -1,4 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons'
+
 import { StaticQuery, graphql } from 'gatsby';
 
 import contactCardStyles from './ContactCard.module.css';
@@ -23,12 +26,10 @@ function ContactCard({ data }) {
       <div className={contactCardStyles.container__icons}>
       </div>
       <div className={contactCardStyles.container__email}>
-        <i
-          className="contact-card__email__icon far fa-envelope"
-          aria-hidden="true"
-          aria-title="E-mail address"
-        >
-        </i>
+        <FontAwesomeIcon
+          icon={faEnvelope}
+          className={contactCardStyles.icon}
+        />
         <a
           href={`mailto:${ data.site.siteMetadata.contact.email }`}
         >
