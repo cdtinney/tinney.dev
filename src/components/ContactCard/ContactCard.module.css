@@ -14,6 +14,10 @@
   margin: 0 6px;
 }
 
+.email__icon {
+  vertical-align: text-bottom;
+}
+
 .container__social {
   margin-bottom: 1.25em;
 }
