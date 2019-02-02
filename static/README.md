@@ -45,7 +45,7 @@ $ npm install
 
 ### Running
 
-To run a development server with live-reload:
+To run a development server with live-reload (and linting):
 
 ```
 $ npm run develop
