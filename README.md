@@ -1,6 +1,8 @@
 # cdtinney.github.io
 > Personal website built with Gatsby.
 
+[![Build Status](https://travis-ci.org/cdtinney/cdtinney.github.io.svg?branch=master)](https://travis-ci.org/cdtinney/cdtinney.github.io)
+
 ## Contents
 
 - [Contents](#contents)
