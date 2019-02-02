@@ -10,4 +10,6 @@ deploy:
   github-token: $GITHUB_TOKEN # Secure variable
   keep-history: true
   on:
-    branch: master
+    branch: develop
+  # User pages must be published to `master`
+  target-branch: master
