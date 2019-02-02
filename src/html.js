@@ -12,6 +12,7 @@ export default function HTML(props) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
+        <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
