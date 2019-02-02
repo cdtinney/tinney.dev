@@ -6,12 +6,21 @@
 ## Contents
 
 - [Contents](#contents)
+- [Introduction](#introduction)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Installing](#installing)
   - [Running](#running)
   - [Building](#building)
 - [License](#license)
+
+## Introduction
+
+This website is built with:
+
+* [GatsbyJS](gatsbyjs.org) for static website generation using React
+* [Travis CI](https://travis-ci.org) for continuous integration (CI)
+  and deployment to GitHub pages
 
 ## Getting Started
 
