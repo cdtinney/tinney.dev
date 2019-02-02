@@ -11,6 +11,7 @@ module.exports = {
     social: {
       github: 'cdtinney',
       linkedin: 'cdtinney',
+      fiveHundredPx: 'colintinney',
     },
   },
 };
