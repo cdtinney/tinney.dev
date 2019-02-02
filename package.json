@@ -5,10 +5,11 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "develop": "gatsby develop",
-    "start": "npm run develop",
     "build": "gatsby build",
+    "deploy": "gatsby build && gh-pages -d public -b master",
+    "develop": "gatsby develop",
     "serve": "gatsby serve",
+    "start": "npm run develop",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "dependencies": {
@@ -27,5 +28,8 @@
   },
   "bugs": {
     "url": "https://github.com/cdtinney/cdtinney.github.io/issues"
+  },
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
   }
 }
