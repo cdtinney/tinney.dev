@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, fa500px } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -47,7 +48,7 @@ function ContactCard({ data }) {
       </div>
       <div className={contactCardStyles.container__email}>
         <a
-          href={`mailto:${ data.site.siteMetadata.contact.email }`}
+          href={`mailto:${data.site.siteMetadata.contact.email}`}
         >
           <FontAwesomeIcon
             icon={faEnvelope}
@@ -62,12 +63,16 @@ function ContactCard({ data }) {
           href={data.site.siteMetadata.contact.resumeUrl}
           className={contactCardStyles.container__resume__link}
         >
-          here's my resume
+          {"Here's my resume"}
         </a>
       </div>
     </div>
   );
 }
+
+ContactCard.propTypes = {
+  data: PropTypes.shape.isRequired,
+};
 
 export default function ContactCardWithData() {
   return (

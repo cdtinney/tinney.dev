@@ -14,4 +14,7 @@ module.exports = {
       fiveHundredPx: 'colintinney',
     },
   },
+  plugins: [
+    'gatsby-plugin-eslint',
+  ],
 };
