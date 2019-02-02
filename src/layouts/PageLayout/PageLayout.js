@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import DefaultLayout from '../DefaultLayout/';
+import DefaultLayout from '../DefaultLayout';
 import Brand from '../../components/Brand';
 
 import pageLayoutStyles from './PageLayout.module.css';
@@ -23,5 +24,10 @@ export default function PageLayout({ title, children }) {
         { children }
       </div>
     </DefaultLayout>
-  )
+  );
 }
+
+PageLayout.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
