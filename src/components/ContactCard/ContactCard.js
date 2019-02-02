@@ -35,13 +35,13 @@ function ContactCard({ data }) {
         </a>
       </div>
       <div className={contactCardStyles.container__email}>
-        <FontAwesomeIcon
-          icon={faEnvelope}
-          className={`${contactCardStyles.icon} ${contactCardStyles.email__icon}`}
-        />
         <a
           href={`mailto:${ data.site.siteMetadata.contact.email }`}
         >
+          <FontAwesomeIcon
+            icon={faEnvelope}
+            className={`${contactCardStyles.icon} ${contactCardStyles.email__icon}`}
+          />
           { data.site.siteMetadata.contact.displayedEmail }
         </a>
       </div>
