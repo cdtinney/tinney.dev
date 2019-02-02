@@ -5,7 +5,9 @@ import PageLayout from '../../layouts/PageLayout';
 import pageNotFoundStyles from './PageNotFound.module.css';
 
 export default function PageNotFound() {
-  const route = window.location.pathname.replace('/', '');
+  // `window` will not be defined in builds
+  const windowGlobal = typeof window !== 'undefined' && window;
+  const route = windowGlobal ? windowGlobal.location.pathname.replace('/', '') : '';
   return (
     <PageLayout title={`'${route}' is not accessible`}>
       <div className={pageNotFoundStyles.container}>
