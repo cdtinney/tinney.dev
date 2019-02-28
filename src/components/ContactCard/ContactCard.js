@@ -58,12 +58,11 @@ function ContactCard({ data }) {
         </a>
       </div>
       <div className={contactCardStyles.container__resume}>
-        <span>hire me -</span>
         <a
           href={data.site.siteMetadata.contact.resumeUrl}
           className={contactCardStyles.container__resume__link}
         >
-          {"here's my resume"}
+          {'resume'}
         </a>
       </div>
     </div>

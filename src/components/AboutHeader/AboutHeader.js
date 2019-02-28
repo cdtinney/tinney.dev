@@ -9,7 +9,10 @@ export default function AboutHeader() {
     <header className={aboutHeaderStyles.header}>
       <Brand />
       <p>
-        {"Hi. I'm a software developer. I do things. I like other things. Click some things if you'd like."}
+        {"Hi! I'm a software developer, specializing in web technologies."}
+      </p>
+      <p>
+        {"Let's work together."}
       </p>
     </header>
   );
