@@ -70,7 +70,22 @@ function ContactCard({ data }) {
 }
 
 ContactCard.propTypes = {
-  data: PropTypes.shape.isRequired,
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        contact: PropTypes.shape({
+          email: PropTypes.string.isRequired,
+          displayedEmail: PropTypes.string.isRequired,
+          resumeUrl: PropTypes.string.isRequired,
+        }).isRequired,
+        social: PropTypes.shape({
+          github: PropTypes.string.isRequired,
+          linkedin: PropTypes.string.isRequired,
+          fiveHundredPx: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default function ContactCardWithData() {

@@ -16,5 +16,15 @@ module.exports = {
   },
   plugins: [
     'gatsby-plugin-eslint',
+    'gatsby-plugin-catch-links',
+    'gatsby-plugin-react-helmet', {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/data/posts`,
+        name: 'posts',
+      },
+    },{ 
+      resolve: 'gatsby-transformer-remark',
+    },
   ],
 };
