@@ -1,0 +1,47 @@
+const path = require('path');
+
+module.exports.createPages = function createPages({
+  actions,
+  graphql,
+}) {
+  return graphql(`{
+    allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date] }
+      limit: 1000
+    ) {
+      edges {
+        node {
+          excerpt(pruneLength: 250)
+          html
+          id
+          frontmatter {
+            date
+            path
+            title
+          }
+        }
+      }
+    }
+  }`).then((result) => {
+    if (result.errors) {
+      return Promise.reject(errors);
+    }
+
+    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+      const {
+        frontmatter: {
+          path: postPath,
+          title,
+        },
+      } = node;
+
+      console.log(`Creating blog post (title = ${title}, path = ${postPath})`);
+
+      actions.createPage({
+        path: fullPath,
+        component: path.resolve(`src/templates/BlogPost/index.js`),
+        context: {} // Additional data can be passed via context
+      });
+    });
+  });
+};
