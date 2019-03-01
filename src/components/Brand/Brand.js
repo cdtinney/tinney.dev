@@ -1,9 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 
-import brandStyles from './Brand.module.css';
+import classes from './Brand.module.css';
 
-export default function Brand() {
+function Brand({
+  underline,
+}) {
   return (
     <StaticQuery
       query={
@@ -19,10 +22,10 @@ export default function Brand() {
         `
       }
       render={data => (
-        <h1 className={brandStyles.header}>
+        <h1 className={`${classes.header} ${underline ? classes.headerUnderline : ''}`}>
           <a
             href={data.site.siteMetadata.url}
-            className={brandStyles.link}
+            className={classes.link}
           >
             {data.site.siteMetadata.title}
           </a>
@@ -31,3 +34,13 @@ export default function Brand() {
     />
   );
 }
+
+Brand.propTypes = {
+  underline: PropTypes.bool,
+};
+
+Brand.defaultProps = {
+  underline: true,
+};
+
+export default Brand;

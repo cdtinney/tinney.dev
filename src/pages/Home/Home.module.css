@@ -1,8 +1,17 @@
 .container {
-  /** TODO Refactor to component */
+  width: 34em;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   display: flex;
   flex-direction: column;
   height: 100%;
 
   justify-content: center;
+}
+
+.contactCard {
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }

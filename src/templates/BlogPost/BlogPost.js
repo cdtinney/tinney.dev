@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 
+import BlogLayout from '../../layouts/BlogLayout';
+
+import classes from './BlogPost.module.css';
+
 export default function BlogPost({ data }) {
   const {
     markdownRemark: post,
@@ -12,17 +16,30 @@ export default function BlogPost({ data }) {
   const {
     frontmatter: {
       title,
+      date,
     },
   } = post;
 
   return (
-    <div>
-      <Helmet title={`blog - ${title}`} />
-      <div>
-        <h1>{title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </div>
-    </div>
+    <BlogLayout>
+      <React.Fragment>
+        <Helmet title={`blog - ${title}`} />
+        <article>
+          <header>
+            <h1 className={classes.title}>
+              {title}
+            </h1>
+            <p className={classes.date}>
+              {date}
+            </p>
+          </header>
+          <div
+            className={classes.content}
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        </article>
+      </React.Fragment>
+    </BlogLayout>
   );
 }
 

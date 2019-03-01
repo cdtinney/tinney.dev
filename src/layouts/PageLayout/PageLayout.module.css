@@ -1,5 +1,9 @@
 .container {
-  /** TODO Refactor to component */
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 42rem;
+  padding: 0 1.3125rem 2.625rem 1.3125rem;
+  
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -8,10 +12,19 @@
 .header {
   display: flex;
   align-items: baseline;
-  padding: 0 5%;
+  padding: 0 1.3125rem;
   border-bottom: 1px solid #828282;
 }
 
 .separator {
   margin: 0 10px;
+}
+
+.title {
+  cursor: pointer;
+  word-break: break-word;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 1.33em;
 }

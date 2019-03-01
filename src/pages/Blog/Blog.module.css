@@ -1,0 +1,17 @@
+.preview {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem 1rem;
+}
+
+.previewTitle {
+  margin: 0;
+}
+
+.previewDate {
+  font-size: 0.75rem;
+}
+
+.previewExcerpt {
+  font-family: 'Merriweather', 'Georgia', serif;
+  margin-bottom: 0;
+}
