@@ -38,8 +38,8 @@ module.exports.createPages = function createPages({
       console.log(`Creating blog post (title = ${title}, path = ${postPath})`);
 
       actions.createPage({
-        path: fullPath,
-        component: path.resolve(`src/templates/BlogPost/index.js`),
+        path: postPath,
+        component: path.resolve(`src/templates/BlogPost/BlogPost.js`),
         context: {} // Additional data can be passed via context
       });
     });

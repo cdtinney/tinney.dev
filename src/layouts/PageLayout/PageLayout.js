@@ -4,21 +4,28 @@ import PropTypes from 'prop-types';
 import DefaultLayout from '../DefaultLayout';
 import Brand from '../../components/Brand';
 
-import pageLayoutStyles from './PageLayout.module.css';
+import classes from './PageLayout.module.css';
 
-export default function PageLayout({ title, children }) {
+function PageLayout({ title, titleHref, children }) {
   return (
     <DefaultLayout>
-      <div className={pageLayoutStyles.container}>
-        <header className={pageLayoutStyles.header}>
+      <div className={classes.container}>
+        <header className={classes.header}>
           <span>
-            <Brand />
+            <Brand underline={false} />
           </span>
-          <span className={pageLayoutStyles.separator}>
+          <span className={classes.separator}>
             /
           </span>
-          <h3>
-            { title }
+          <h3 className={classes.title}>
+            {titleHref
+              ? (
+                <a href={titleHref}>
+                  { title }
+                </a>
+              )
+              : { title }
+            }
           </h3>
         </header>
         { children }
@@ -29,5 +36,12 @@ export default function PageLayout({ title, children }) {
 
 PageLayout.propTypes = {
   title: PropTypes.string.isRequired,
+  titleHref: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
+
+PageLayout.defaultProps = {
+  titleHref: null,
+};
+
+export default PageLayout;
