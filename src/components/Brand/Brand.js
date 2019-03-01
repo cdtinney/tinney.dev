@@ -15,7 +15,6 @@ function Brand({
             site {
               siteMetadata {
                 title,
-                url
               }
             }
           }
@@ -24,7 +23,7 @@ function Brand({
       render={data => (
         <h1 className={`${classes.header} ${underline ? classes.headerUnderline : ''}`}>
           <a
-            href={data.site.siteMetadata.url}
+            href="/"
             className={classes.link}
           >
             {data.site.siteMetadata.title}
