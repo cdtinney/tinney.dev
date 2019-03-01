@@ -1,1 +1,3 @@
-export { default } from './PageNotFound';
+import PageNotFound from './PageNotFound';
+
+export default PageNotFound;

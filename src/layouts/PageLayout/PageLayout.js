@@ -15,7 +15,7 @@ function PageLayout({ title, titleHref, children }) {
             <Brand underline={false} />
           </span>
           <span className={classes.separator}>
-            /
+            {'/'}
           </span>
           <h3 className={classes.title}>
             {titleHref
@@ -24,7 +24,7 @@ function PageLayout({ title, titleHref, children }) {
                   { title }
                 </a>
               )
-              : { title }
+              : title
             }
           </h3>
         </header>

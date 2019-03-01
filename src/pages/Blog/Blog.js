@@ -39,11 +39,13 @@ BlogPostPreview.propTypes = {
 };
 
 export default function Blog({
-  data,
+  data = {},
 }) {
   const {
-    edges: posts,
-  } = data.allMarkdownRemark;
+    allMarkdownRemark: {
+      edges: posts = [],
+    } = {},
+  } = data;
 
   const nonEmptyPosts = posts
     .filter(post => post.node.frontmatter.title.length > 0);
