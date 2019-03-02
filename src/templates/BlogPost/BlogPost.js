@@ -1,7 +1,6 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 
 import BlogLayout from '../../layouts/BlogLayout';
@@ -25,29 +24,21 @@ export default function BlogPost({ data }) {
   const pageTitle = `blog - ${title}`;
 
   return (
-    <BlogLayout>
-      <React.Fragment>
-        <Helmet>
-          <title>{pageTitle}</title>
-          <meta name="description" content={pageDescription} />
-          <meta property="og:title" content={pageTitle} />
-          <meta property="og:description" content={pageDescription} />
-        </Helmet>
-        <article>
-          <header>
-            <h1 className={classes.title}>
-              {title}
-            </h1>
-            <p className={classes.date}>
-              {date}
-            </p>
-          </header>
-          <div
-            className={classes.content}
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
-        </article>
-      </React.Fragment>
+    <BlogLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+      <article>
+        <header>
+          <h1 className={classes.title}>
+            {title}
+          </h1>
+          <p className={classes.date}>
+            {date}
+          </p>
+        </header>
+        <div
+          className={classes.content}
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
+      </article>
     </BlogLayout>
   );
 }

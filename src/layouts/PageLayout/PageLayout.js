@@ -6,9 +6,15 @@ import Brand from '../../components/Brand';
 
 import classes from './PageLayout.module.css';
 
-function PageLayout({ title, titleHref, children }) {
+function PageLayout({
+  pageTitle,
+  pageDescription,
+  title,
+  titleHref,
+  children,
+}) {
   return (
-    <DefaultLayout>
+    <DefaultLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <div className={classes.container}>
         <header className={classes.header}>
           <span>
@@ -35,6 +41,8 @@ function PageLayout({ title, titleHref, children }) {
 }
 
 PageLayout.propTypes = {
+  pageTitle: PropTypes.string.isRequired,
+  pageDescription: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   titleHref: PropTypes.string,
   children: PropTypes.node.isRequired,
