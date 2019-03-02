@@ -18,12 +18,19 @@ export default function BlogPost({ data }) {
       title,
       date,
     },
+    excerpt,
   } = post;
+
+  const pageDescription = excerpt;
+  const pageTitle = `blog - ${title}`;
 
   return (
     <BlogLayout>
       <React.Fragment>
-        <Helmet title={`blog - ${title}`} />
+        <Helmet>
+          <meta name="description" content={pageDescription} />
+          <title>{pageTitle}</title>
+        </Helmet>
         <article>
           <header>
             <h1 className={classes.title}>
@@ -50,6 +57,7 @@ BlogPost.propTypes = {
         title: PropTypes.string.isRequired,
       }).isRequired,
       html: PropTypes.string.isRequired,
+      excerpt: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };
@@ -63,6 +71,7 @@ export const pageQuery = graphql`
         path
         title
       }
+      excerpt(pruneLength: 155)
     }
   }
 `;

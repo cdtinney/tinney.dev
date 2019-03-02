@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
+import Helmet from 'react-helmet';
 
 import BlogLayout from '../../layouts/BlogLayout';
 
@@ -52,6 +53,9 @@ export default function Blog({
 
   return (
     <BlogLayout>
+      <Helmet>
+        <title>colin tinney - blog</title>
+      </Helmet>
       <div>
         {nonEmptyPosts
           .map(({ node: post }) => {
