@@ -10,10 +10,16 @@ import PageLinks from '../../components/PageLinks';
 import classes from './Home.module.css';
 
 export default function Home() {
+  const pageTitle = 'colin tinney';
+  const pageDescription = 'A personal website';
+
   return (
     <DefaultLayout>
       <Helmet>
-        <title>colin tinney</title>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
       </Helmet>
       <div className={classes.container}>
         <header>

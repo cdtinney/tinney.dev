@@ -48,13 +48,19 @@ export default function Blog({
     } = {},
   } = data;
 
+  const pageTitle = 'colin tinney - blog';
+  const pageDescription = 'A personal blog';
+
   const nonEmptyPosts = posts
     .filter(post => post.node.frontmatter.title.length > 0);
 
   return (
     <BlogLayout>
       <Helmet>
-        <title>colin tinney - blog</title>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
       </Helmet>
       <div>
         {nonEmptyPosts

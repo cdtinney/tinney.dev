@@ -28,8 +28,10 @@ export default function BlogPost({ data }) {
     <BlogLayout>
       <React.Fragment>
         <Helmet>
-          <meta name="description" content={pageDescription} />
           <title>{pageTitle}</title>
+          <meta name="description" content={pageDescription} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:description" content={pageDescription} />
         </Helmet>
         <article>
           <header>
