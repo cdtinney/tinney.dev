@@ -25,6 +25,22 @@ module.exports = {
       },
     },{ 
       resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [{
+          resolve: `gatsby-remark-prismjs`,
+        },{
+          resolve: `gatsby-remark-images`,
+          options: {
+            // It's important to specify the maxWidth (in pixels) of
+            // the content container as this plugin uses this as the
+            // base for generating different widths of each image.
+            maxWidth: 590,
+            // Wrapper <div> styles.
+            wrapperStyle: 'margin: 1rem; ' +
+              'box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); '
+          },
+        }],
+      },
     },
   ],
 };
