@@ -23,7 +23,7 @@ module.exports = {
         path: `${__dirname}/data/posts`,
         name: 'posts',
       },
-    },{ 
+    }, { 
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [{
@@ -48,6 +48,16 @@ module.exports = {
               'box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); '
           },
         }],
+      },
+    }, {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: 'UA-87415138',
+        // Puts tracking script in the head instead of the body
+        head: false,
+        // Anonymizes users and respects do-not-track
+        anonymize: true,
+        respectDNT: true,
       },
     },
   ],
