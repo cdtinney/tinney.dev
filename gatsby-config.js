@@ -27,6 +27,10 @@ module.exports = {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [{
+          // IMPORTANT: This must be before `prism`.
+          // See: https://github.com/gatsbyjs/gatsby/issues/5764
+          resolve: 'gatsby-remark-autolink-headers',
+        }, {
           resolve: `gatsby-remark-prismjs`,
         },{
           resolve: `gatsby-remark-images`,
@@ -35,8 +39,12 @@ module.exports = {
             // the content container as this plugin uses this as the
             // base for generating different widths of each image.
             maxWidth: 590,
+            // Quality level of generated images (1-100).
+            // The default is 50.
+            quality: 100,
             // Wrapper <div> styles.
-            wrapperStyle: 'margin: 1rem; ' +
+            wrapperStyle:
+              'margin: 1rem; ' +
               'box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); '
           },
         }],
