@@ -32,8 +32,16 @@ h1 {
   font-size: 2em;
 }
 
-h3 {
+h2 {
   font-size: 1.33em;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+h4 {
+  font-weight: bold;
 }
 
 p {
@@ -48,4 +56,8 @@ a {
 
 a:hover {
   color: #35B4DE;
+}
+
+li {
+  margin: 0.35rem 0;
 }

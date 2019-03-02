@@ -9,3 +9,22 @@
 .content {
   font-family: 'Merriweather', 'Georgia', serif;
 }
+
+.content > h3 {
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.content a {
+  color: #35B4DE;
+  text-decoration: underline;
+}
+
+.content li > p {
+  margin: 0;
+}
+
+code {
+  padding: 0;
+  font-size: 0.8rem;
+}
