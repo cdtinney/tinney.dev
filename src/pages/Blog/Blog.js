@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
-import Helmet from 'react-helmet';
 
 import BlogLayout from '../../layouts/BlogLayout';
 
@@ -55,13 +54,7 @@ export default function Blog({
     .filter(post => post.node.frontmatter.title.length > 0);
 
   return (
-    <BlogLayout>
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-      </Helmet>
+    <BlogLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <div>
         {nonEmptyPosts
           .map(({ node: post }) => {

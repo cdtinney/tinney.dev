@@ -1,5 +1,4 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 
 import PageLayout from '../../layouts/PageLayout';
 
@@ -9,12 +8,15 @@ export default function PageNotFound() {
   const route = typeof window === 'undefined'
     ? ''
     : window.location.pathname.replace('/', '');
+  const pageTitle = '404'
+  const pageDescription = 'This page is missing.';
 
   return (
-    <PageLayout title={`'${route}' is not accessible`}>
-      <Helmet>
-        <title>colin tinney - 404</title>
-      </Helmet>
+    <PageLayout
+      pageTitle={pageTitle}
+      pageDescription={pageDescription}
+      title={`'${route}' is not accessible`}
+    >
       <div className={classes.container}>
         <span title="Just kidding. This is a 404 page.">
           {'This content is not available in your country.'}

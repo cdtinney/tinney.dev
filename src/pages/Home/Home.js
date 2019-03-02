@@ -14,13 +14,7 @@ export default function Home() {
   const pageDescription = 'A personal website';
 
   return (
-    <DefaultLayout>
-      <Helmet>
-        <title>{pageTitle}</title>
-        <meta name="description" content={pageDescription} />
-        <meta property="og:title" content={pageTitle} />
-        <meta property="og:description" content={pageDescription} />
-      </Helmet>
+    <DefaultLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <div className={classes.container}>
         <header>
           <Brand />
