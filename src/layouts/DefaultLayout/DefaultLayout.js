@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
+import ScrollUp from '../../components/ScrollUp';
+
 import classes from './DefaultLayout.module.css';
 
 function DefaultLayout({ pageTitle, pageDescription, children }) {
@@ -16,6 +18,7 @@ function DefaultLayout({ pageTitle, pageDescription, children }) {
       <main className={classes.content} aria-label="Content">
         { children }
       </main>
+      <ScrollUp />
     </React.Fragment>
   );
 }

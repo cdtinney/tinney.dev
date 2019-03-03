@@ -8,7 +8,7 @@ export default function PageNotFound() {
   const route = typeof window === 'undefined'
     ? ''
     : window.location.pathname.replace('/', '');
-  const pageTitle = '404'
+  const pageTitle = '404';
   const pageDescription = 'This page is missing.';
 
   return (
