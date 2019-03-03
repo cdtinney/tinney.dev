@@ -8,11 +8,11 @@ function PageLinks({ links }) {
   return (
     <div className={classes.container}>
       {links.map(({ to, name }) => (
-        <div key={name} className={classes.linkContainer}>
-          <Link to={to}>
+        <Link key={to} to={to}>
+          <div className={classes.linkContainer}>
             {name}
-          </Link>
-        </div>
+          </div>
+        </Link>
       ))}
     </div>
   );

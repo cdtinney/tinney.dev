@@ -4,6 +4,14 @@
   margin-bottom: 1rem;
 }
 
+.container > a {
+  color: rgb(134, 41, 209);
+}
+
+.container > a:hover {
+  color: rgb(134, 41, 209, 0.7);
+}
+
 .linkContainer {
   width: 80px;
   margin: 0 0.5rem;
@@ -12,10 +20,6 @@
   border-radius: 2px;
 }
 
-.linkContainer > a {
-  color: rgb(134, 41, 209);
-}
-
-.linkContainer > a:hover {
-  color: rgb(134, 41, 209, 0.7);
+.linkContainer:hover {
+  border-color: rgb(134, 41, 209, 0.7);
 }
