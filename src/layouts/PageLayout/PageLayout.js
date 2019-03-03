@@ -26,7 +26,7 @@ function PageLayout({
           <h3 className={classes.title}>
             {titleHref
               ? (
-                <a href={titleHref}>
+                <a className={classes.titleLink} href={titleHref}>
                   { title }
                 </a>
               )
