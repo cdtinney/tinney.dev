@@ -1,5 +1,5 @@
 {
- "name": "spune",
+ "name": "spune (WIP)",
  "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
  "techStack": [
     "React", "Redux", "Node.js", "Jest", "Heroku"
