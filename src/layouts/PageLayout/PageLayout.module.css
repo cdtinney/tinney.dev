@@ -3,7 +3,7 @@
   margin-right: auto;
   max-width: 42rem;
   padding: 0 1.3125rem 2.625rem 1.3125rem;
-  
+
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -27,4 +27,8 @@
   text-overflow: ellipsis;
   overflow: hidden;
   line-height: 1.33em;
+}
+
+.titleLink {
+  color: #000;
 }

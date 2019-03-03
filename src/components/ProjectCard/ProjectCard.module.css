@@ -1,0 +1,30 @@
+.card {
+  width: 100%;
+  max-width: 300px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+}
+
+.name {
+  color: rgb(134, 41, 209, 0.75);
+}
+
+.shortDescription {
+  margin: 0.35rem 0;
+  font-size: 0.9rem;
+}
+
+.techStack {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.link {
+  text-decoration: underline;
+  margin: 0 0.5rem;
+}

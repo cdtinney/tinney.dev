@@ -10,7 +10,7 @@
 }
 
 .headerUnderline:hover {
-  border-bottom-color: #35B4DE;
+  border-bottom-color:  rgba(53, 180, 222, 0.8);
 }
 
 .link {

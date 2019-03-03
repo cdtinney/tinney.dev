@@ -21,7 +21,7 @@ function PageLinks({ links }) {
 PageLinks.propTypes = {
   links: PropTypes.arrayOf(PropTypes.shape({
     to: PropTypes.string.isRequired,
-    naame: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   })).isRequired,
 };
 

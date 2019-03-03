@@ -16,11 +16,18 @@ module.exports = {
   plugins: [
     'gatsby-plugin-eslint',
     'gatsby-plugin-catch-links',
-    'gatsby-plugin-react-helmet', {
+    'gatsby-plugin-react-helmet',
+    'gatsby-transformer-json', {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/data/posts`,
         name: 'posts',
+      },
+    }, {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/data/projects`,
+        name: 'projects',
       },
     }, {
       resolve: 'gatsby-transformer-remark',

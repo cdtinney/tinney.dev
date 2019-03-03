@@ -19,11 +19,20 @@
 }
 
 .container__social, .container__email {
+  color: #424242 !important;
   margin-bottom: 1em;
 }
 
 .container__resume {
   padding: 6px;
-  border: 1px solid #35B4DE;
+  border: 1px solid rgba(53, 180, 222);
   border-radius: 2px;
+}
+
+.container__social a, .container__email a {
+  color: rgba(66, 66, 66);
+}
+
+.container__social a:hover, .container__email a:hover {
+  color: rgba(66, 66, 66, 0.7);
 }

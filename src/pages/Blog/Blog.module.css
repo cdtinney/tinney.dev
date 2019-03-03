@@ -8,11 +8,11 @@
 }
 
 .previewTitle > a {
-  color: rgb(134, 41, 209, 0.5);
+  color: rgb(134, 41, 209, 0.75);
 }
 
 .previewTitle > a:hover {
-  color: #35B4DE;
+  color: rgb(134, 41, 209, 0.5);
 }
 
 .previewDate {

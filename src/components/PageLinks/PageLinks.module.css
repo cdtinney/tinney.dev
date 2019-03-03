@@ -12,6 +12,10 @@
   border-radius: 2px;
 }
 
-.linkContainer > a:hover {
+.linkContainer > a {
   color: rgb(134, 41, 209);
+}
+
+.linkContainer > a:hover {
+  color: rgb(134, 41, 209, 0.7);
 }

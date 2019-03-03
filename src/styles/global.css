@@ -24,10 +24,10 @@ body, .gatsby__body, .gatsby__body > * {
 
 h1, h2 {
   display: block;
-  font-weight: bold; 
+  font-weight: bold;
 }
 
-h1 {  
+h1 {
   margin: 0.5em 0;
   font-size: 2em;
 }
@@ -51,11 +51,11 @@ p {
 
 a {
   text-decoration: none;
-  color: #424242;
+  color: rgba(53, 180, 222);
 }
 
 a:hover {
-  color: #35B4DE;
+  color: rgba(53, 180, 222, 0.7);
 }
 
 li {
