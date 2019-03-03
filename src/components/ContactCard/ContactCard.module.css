@@ -24,6 +24,7 @@
 }
 
 .container__resume {
+  width: 80px;
   padding: 6px;
   border: 1px solid rgba(53, 180, 222);
   border-radius: 2px;
