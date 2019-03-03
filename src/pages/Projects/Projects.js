@@ -15,6 +15,7 @@ function Projects({ data = {} }) {
   return (
     <PageLayout
       title="projects"
+      titleHref="/projects"
       pageTitle="colin tinney - projects"
       pageDescription="Personal projects."
     >
