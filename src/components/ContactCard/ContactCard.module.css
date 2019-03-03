@@ -30,6 +30,10 @@
   border-radius: 2px;
 }
 
+.container__resume:hover {
+  border-color: rgba(53, 180, 222, 0.7);
+}
+
 .container__social a, .container__email a {
   color: rgba(66, 66, 66);
 }

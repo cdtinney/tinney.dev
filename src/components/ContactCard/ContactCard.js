@@ -57,13 +57,12 @@ function ContactCard({ data }) {
           { data.site.siteMetadata.contact.displayedEmail }
         </a>
       </div>
-      <div className={classes.container__resume}>
-        <a
-          href={data.site.siteMetadata.contact.resumeUrl}
-        >
-          {'resume'}
-        </a>
-      </div>
+      <a
+        className={classes.container__resume}
+        href={data.site.siteMetadata.contact.resumeUrl}
+      >
+        {'resume'}
+      </a>
     </div>
   );
 }
