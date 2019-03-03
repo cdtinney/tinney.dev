@@ -15,12 +15,18 @@ export default function PageNotFound() {
     <PageLayout
       pageTitle={pageTitle}
       pageDescription={pageDescription}
-      title={`'${route}' is not accessible`}
+      title="404"
     >
       <div className={classes.container}>
-        <span title="Just kidding. This is a 404 page.">
+        <h1 className={classes.route}>
+          {route}
+        </h1>
+        <h2>
           {'This content is not available in your country.'}
-        </span>
+        </h2>
+        <div className={classes.truth}>
+          {'Just kidding. This page does not exist.'}
+        </div>
       </div>
     </PageLayout>
   );

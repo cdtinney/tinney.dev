@@ -1,6 +1,12 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.truth {
+  margin-top: 0.7rem;
+  font-size: 0.7rem;
 }
