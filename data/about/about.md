@@ -3,6 +3,6 @@ I’m a software developer with a background in the media broadcast industry. I 
 Core values:
 
 * **Pragmatism** - I value taking the practical approach (within reason).
-* **Long-Term Thinking** - It's not always wise to implement a quick solution if it impacts the chance success over a long period.
+* **Long-Term Thinking** - It's not always wise to rush and implement a quick solution if it impacts the chance of success over a longer period..
 * **Open-Mindedness** - One should defend good, rational ideas but always be open to new approaches.
 * **Continuous Improvement** - No matter the situation, there's a learning experience to be had; we should always strive to be improving ourselves. 
