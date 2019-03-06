@@ -1,5 +1,5 @@
 {
-  "name": "cdtinney.github.io",
+  "name": "tinney.dev",
   "private": true,
   "description": "A simple personal website",
   "version": "0.1.0",
@@ -40,10 +40,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cdtinney/cdtinney.github.io"
+    "url": "https://github.com/cdtinney/tinney.dev"
   },
   "bugs": {
-    "url": "https://github.com/cdtinney/cdtinney.github.io/issues"
+    "url": "https://github.com/cdtinney/tinney.dev/issues"
   },
   "devDependencies": {
     "eslint": "^5.13.0",

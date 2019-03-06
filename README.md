@@ -1,4 +1,4 @@
-# cdtinney.github.io
+# tinney.dev
 > Personal website built with Gatsby.
 
 [![Build Status](https://travis-ci.org/cdtinney/tinney.dev.svg?branch=develop)](https://travis-ci.org/cdtinney/tinney.dev)
