@@ -19,6 +19,7 @@ export default function About({
       pageTitle="colin tinney - about"
       pageDescription="A personal profile"
       title="about"
+      titleHref="/about"
     >
       <div>
         <div
