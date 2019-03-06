@@ -1,5 +1,5 @@
 # tinney.dev
-> Personal website built with Gatsby.
+> A personal website.
 
 [![Build Status](https://travis-ci.org/cdtinney/tinney.dev.svg?branch=develop)](https://travis-ci.org/cdtinney/tinney.dev)
 
@@ -7,7 +7,12 @@
 
 - [Contents](#contents)
 - [Introduction](#introduction)
-- [Getting Started](#getting-started)
+- [Content](#content)
+  - [Blog](#blog)
+    - [Format](#format)
+  - [Projects](#projects)
+    - [Format](#format-1)
+- [Developing](#developing)
   - [Requirements](#requirements)
   - [Installing](#installing)
   - [Running](#running)
@@ -18,11 +23,66 @@
 
 This website is built with:
 
-* [GatsbyJS](gatsbyjs.org) for static website generation
-* [Travis CI](https://travis-ci.org) for continuous integration
+* [GatsbyJS](gatsbyjs.org) - Static website generation using React
+* [Travis CI](https://travis-ci.org) - Continuous integration
   and deployment to GitHub Pages
 
-## Getting Started
+## Content
+
+### Blog
+
+Blogging is done via creation of Markdown files located within the `data/posts` folder.
+
+During builds, Gatsby creates pages for each post file.
+
+#### Format
+
+Post file format is as follows:
+
+`YYYY-MM-DD-title.md`:
+
+```
+---
+path: "/foo-bar
+date: "YYYY-MM-DD"
+title: "Foo Bar"
+---
+
+Markdown content goes here.
+```
+
+### Projects
+
+Projects are added via JSON files in `data/projects` and made available to the application
+via GraphQL queries.
+
+#### Format
+
+Project file format is as follows:
+
+`project.json`:
+
+```json
+{
+  // Project name
+ "name": "foo",
+  // Projects are displayed in ascending order
+ "order": 1,
+ // Short description of the project
+ "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
+ // List of technologies used
+ "techStack": [
+    "React", "Redux", "Node.js/Express", "Jest", "Heroku", "MongoDB"
+ ],
+ // Homepage for the project
+ "homepageUrl": "https://spune.tinney.dev",
+ // Link to source code
+ "gitHubUrl": "https://github.com/cdtinney/spune"
+}
+
+```
+
+## Developing
 
 Development is done on the `develop` branch.
   * All commits to `develop` are automatically deployed.
@@ -36,6 +96,8 @@ Deployment (i.e. build output) is found on `master`.
 * Node.js - Latest LTS release
 
 ### Installing
+
+First, clone the repository.
 
 To install dependencies:
 
