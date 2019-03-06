@@ -1,6 +1,6 @@
-I’m a software developer with a background in the media broadcast industry. I hold a Bachelors of Computer Science (Honours) degree from Carleton University, Canada. I specialize in web technologies. I’m passionate about high-quality engineering and positive user experiences.
+I’m a software developer with a professional background in the media broadcast industry. I hold a Bachelors of Computer Science (Honours) degree from Carleton University, Canada. I specialize in web technologies. I’m passionate about high-quality engineering and positive user experiences.
 
-Core values:
+A few of my core values:
 
 * **Pragmatism** - I value taking the practical approach (within reason).
 * **Long-Term Thinking** - It's not always wise to rush and implement a quick solution if it impacts the chance of success over a longer period.
