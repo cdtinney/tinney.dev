@@ -30,6 +30,12 @@ module.exports = {
         name: 'projects',
       },
     }, {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/data/about/about.md`,
+        name: 'about',
+      },
+    },  {
       resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [{

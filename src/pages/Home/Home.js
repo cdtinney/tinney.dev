@@ -12,6 +12,9 @@ export default function Home() {
   const pageTitle = 'colin tinney';
   const pageDescription = 'A personal website';
   const pageLinks = [{
+    to: '/about',
+    name: 'about',
+  }, {
     to: '/blog',
     name: 'blog',
   }, {

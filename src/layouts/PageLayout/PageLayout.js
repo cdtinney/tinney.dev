@@ -20,19 +20,21 @@ function PageLayout({
           <span>
             <Brand underline={false} />
           </span>
-          <span className={classes.separator}>
-            {'/'}
+          <span className={classes.titleContainer}>
+            <span className={classes.separator}>
+              {'/'}
+            </span>
+            <h3 className={classes.title}>
+              {titleHref
+                ? (
+                  <a className={classes.titleLink} href={titleHref}>
+                    { title }
+                  </a>
+                )
+                : title
+              }
+            </h3>
           </span>
-          <h3 className={classes.title}>
-            {titleHref
-              ? (
-                <a className={classes.titleLink} href={titleHref}>
-                  { title }
-                </a>
-              )
-              : title
-            }
-          </h3>
         </header>
         { children }
       </div>

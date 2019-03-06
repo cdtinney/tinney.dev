@@ -1,11 +1,15 @@
 const path = require('path');
 
+/**
+ * Creates blog post pages using GraphQL queries.
+ */
 module.exports.createPages = function createPages({
   actions,
   graphql,
 }) {
   return graphql(`{
     allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "\/posts/" } },
       sort: { order: DESC, fields: [frontmatter___date] }
       limit: 1000
     ) {

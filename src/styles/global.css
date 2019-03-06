@@ -59,5 +59,9 @@ a:hover {
 }
 
 li {
-  margin: 0.35rem 0;
+  line-height: 1.45rem;
+}
+
+strong {
+  font-weight: bold;
 }
