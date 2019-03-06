@@ -10,14 +10,14 @@ import PageLinks from '../../components/PageLinks';
 import classes from './Home.module.css';
 
 export default function Home({
-  data,
+  data = {},
 }) {
   const {
     site: {
       siteMetadata: {
         title,
-      },
-    },
+      } = {},
+    } = {},
   } = data;
 
   const pageDescription = 'A personal website';

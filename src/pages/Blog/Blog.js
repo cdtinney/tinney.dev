@@ -48,8 +48,8 @@ export default function Blog({
     site: {
       siteMetadata: {
         title: siteTitle,
-      },
-    },
+      } = {},
+    } = {},
   } = data;
 
   const pageTitle = `${siteTitle} - blog`;

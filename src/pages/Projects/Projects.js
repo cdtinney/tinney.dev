@@ -13,8 +13,8 @@ function Projects({ data = {} }) {
     site: {
       siteMetadata: {
         title,
-      },
-    },
+      } = {},
+    } = {},
   } = data;
 
   return (

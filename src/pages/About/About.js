@@ -14,8 +14,8 @@ export default function About({
     site: {
       siteMetadata: {
         title,
-      },
-    },
+      } = {},
+    } = {},
   } = data;
 
   const aboutHtml = edges.length ? edges[0].node.html : null;
