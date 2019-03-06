@@ -1,4 +1,6 @@
 .card {
+  display: flex;
+  flex-direction: column;
   max-width: 350px;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
@@ -21,6 +23,7 @@
 .links {
   display: flex;
   justify-content: space-around;
+  margin-top: auto;
 }
 
 .link {
