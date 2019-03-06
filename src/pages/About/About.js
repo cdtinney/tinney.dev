@@ -11,12 +11,17 @@ export default function About({
     allMarkdownRemark: {
       edges = [],
     } = {},
+    site: {
+      siteMetadata: {
+        title,
+      },
+    },
   } = data;
 
   const aboutHtml = edges.length ? edges[0].node.html : null;
   return (
     <PageLayout
-      pageTitle="colin tinney - about"
+      pageTitle={`${title} - about`}
       pageDescription="A personal profile"
       title="about"
       titleHref="/about"
@@ -38,6 +43,11 @@ About.propTypes = {
           html: PropTypes.string.isRequired,
         }).isRequired,
       })).isRequired,
+    }).isRequired,
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }).isRequired,
     }).isRequired,
   }).isRequired,
 };

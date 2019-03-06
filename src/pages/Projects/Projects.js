@@ -10,13 +10,18 @@ function Projects({ data = {} }) {
     allProjectsJson: {
       edges: projects = [],
     } = {},
+    site: {
+      siteMetadata: {
+        title,
+      },
+    },
   } = data;
 
   return (
     <PageLayout
       title="projects"
       titleHref="/projects"
-      pageTitle="colin tinney - projects"
+      pageTitle={`${title} - projects`}
       pageDescription="Personal projects."
     >
       <section className={classes.projects}>

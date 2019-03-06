@@ -12,6 +12,7 @@
     - [Format](#format)
   - [Projects](#projects)
     - [Format](#format-1)
+- [Usage](#usage)
 - [Developing](#developing)
   - [Requirements](#requirements)
   - [Installing](#installing)
@@ -79,8 +80,16 @@ Project file format is as follows:
  // Link to source code
  "gitHubUrl": "https://github.com/cdtinney/spune"
 }
-
 ```
+
+## Usage
+
+If you want to make this website your own:
+
+1) Fork the repository
+2) Update `siteMetadata` and the Google Analytics tracking ID in `gatsby-config.js`
+3) Update the page `<title>` in `html.js`
+4) Delete/update content in `data` and/or write your own
 
 ## Developing
 

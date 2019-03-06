@@ -1,3 +1,4 @@
+import { graphql } from 'gatsby';
 import { config } from '@fortawesome/fontawesome-svg-core';
 
 import Home from './Home';
@@ -6,5 +7,14 @@ import Home from './Home';
 // it gets loaded before SVG elements are rendered
 config.autoAddCss = false;
 
-// TODO How to change this?
 export default Home;
+
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title,
+      }
+    }
+  }
+`;

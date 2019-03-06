@@ -45,9 +45,14 @@ export default function Blog({
     allMarkdownRemark: {
       edges: posts = [],
     } = {},
+    site: {
+      siteMetadata: {
+        title: siteTitle,
+      },
+    },
   } = data;
 
-  const pageTitle = 'colin tinney - blog';
+  const pageTitle = `${siteTitle} - blog`;
   const pageDescription = 'A personal blog';
 
   const nonEmptyPosts = posts
@@ -96,6 +101,11 @@ Blog.propTypes = {
           }).isRequired,
         }).isRequired,
       })).isRequired,
+    }).isRequired,
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }).isRequired,
     }).isRequired,
   }).isRequired,
 };

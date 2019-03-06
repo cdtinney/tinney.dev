@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
 
@@ -8,8 +9,17 @@ import PageLinks from '../../components/PageLinks';
 
 import classes from './Home.module.css';
 
-export default function Home() {
-  const pageTitle = 'colin tinney';
+export default function Home({
+  data,
+}) {
+  const {
+    site: {
+      siteMetadata: {
+        title,
+      },
+    },
+  } = data;
+
   const pageDescription = 'A personal website';
   const pageLinks = [{
     to: '/about',
@@ -23,7 +33,10 @@ export default function Home() {
   }];
 
   return (
-    <DefaultLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+    <DefaultLayout
+      pageTitle={title}
+      pageDescription={pageDescription}
+    >
       <div className={classes.container}>
         <header>
           <Brand />
@@ -36,3 +49,13 @@ export default function Home() {
     </DefaultLayout>
   );
 }
+
+Home.propTypes = {
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
