@@ -5,10 +5,13 @@ export default Projects;
 
 export const pageQuery = graphql`
   query {
-    allProjectsJson {
+    allProjectsJson(
+      sort: { order: ASC, fields: [order, name] }
+    ) {
       edges {
         node {
           id
+          order
           name
           shortDescription
           techStack
