@@ -26,12 +26,12 @@
 .container__resume {
   width: 80px;
   padding: 6px;
-  border: 1px solid rgba(53, 180, 222);
+  border: 1px solid rgba(231, 60, 112);
   border-radius: 2px;
 }
 
 .container__resume:hover {
-  border-color: rgba(53, 180, 222, 0.7);
+  color: rgba(231, 60, 112, 0.65);
 }
 
 .container__social a, .container__email a {
