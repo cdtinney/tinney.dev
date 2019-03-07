@@ -3,11 +3,10 @@
   flex-direction: column;
   max-width: 350px;
   padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
 }
 
 .name {
-  color: rgb(134, 41, 209, 0.75);
+  cursor: default;
 }
 
 .shortDescription {

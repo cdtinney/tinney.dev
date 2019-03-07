@@ -1,0 +1,28 @@
+body {
+  color: rgb(33, 32, 40);
+  background-color: rgba(250, 250, 250);
+}
+
+.primary {
+  color: rgb(11, 90, 158);
+}
+
+.primary:hover {
+  color: rgba(11, 90, 158, 0.65);
+}
+
+.secondary, a {
+  color: rgba(168, 45, 28);
+}
+
+.secondary:hover, a:hover {
+  color: rgba(168, 45, 28, 0.65);
+}
+
+.card {
+  background-color: rgba(250, 250, 255, 0.5);
+}
+
+.shadow  {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+}

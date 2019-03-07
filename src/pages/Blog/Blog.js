@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
 
+import Anchor from '../../components/Anchor';
 import BlogLayout from '../../layouts/BlogLayout';
 
+import theme from '../../styles/theme.module.css';
 import classes from './Blog.module.css';
 
 function BlogPostPreview({
@@ -13,13 +14,19 @@ function BlogPostPreview({
   title,
 }) {
   return (
-    <div className={classes.preview}>
+    <div
+      className={`
+        ${classes.preview}
+        ${theme.card}
+        ${theme.shadow}
+      `}
+    >
       <h1 className={classes.previewTitle}>
-        <Link
-          to={path}
+        <Anchor
+          href={path}
         >
           {title}
-        </Link>
+        </Anchor>
       </h1>
       <p className={classes.previewDate}>
         {date}

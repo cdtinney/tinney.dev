@@ -7,14 +7,6 @@
   margin: 0;
 }
 
-.previewTitle > a {
-  color: rgb(134, 41, 209, 0.75);
-}
-
-.previewTitle > a:hover {
-  color: rgb(134, 41, 209, 0.5);
-}
-
 .previewDate {
   font-size: 0.75rem;
 }

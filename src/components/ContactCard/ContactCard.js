@@ -1,31 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { StaticQuery, graphql } from 'gatsby';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub, faLinkedin, fa500px } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
-import { StaticQuery, graphql } from 'gatsby';
-
+import Anchor from '../Anchor';
+import AnchorButton from '../AnchorButton';
 import classes from './ContactCard.module.css';
 
-function ContactCard({ data }) {
+function ContactCard({
+  data = {},
+}) {
+  const {
+    site: {
+      siteMetadata: {
+        social = {},
+        contact = {},
+      } = {},
+    } = {},
+  } = data;
+
   return (
     <div className={classes.container}>
       <div className={classes.container__social}>
-        <a
-          title={`${data.site.siteMetadata.social.github} on GitHub`}
-          href={`https://github.com/${data.site.siteMetadata.social.github}`}
-          aria-label="GitHub profile"
+        <Anchor
+          title={`${social.github} on GitHub`}
+          href={`https://github.com/${social.github}`}
+          ariaLabel="GitHub profile"
         >
           <FontAwesomeIcon
             icon={faGithub}
             className={classes.icon}
             size="lg"
           />
-        </a>
-        <a
-          title={`${data.site.siteMetadata.social.linkedin} on LinkedIn`}
-          href={`https://linkedin.com/in/${data.site.siteMetadata.social.linkedin}`}
+        </Anchor>
+        <Anchor
+          title={`${social.linkedin} on LinkedIn`}
+          href={`https://linkedin.com/in/${social.linkedin}`}
           aria-label="LinkedIn profile"
         >
           <FontAwesomeIcon
@@ -33,10 +46,10 @@ function ContactCard({ data }) {
             className={classes.icon}
             size="lg"
           />
-        </a>
-        <a
-          title={`${data.site.siteMetadata.social.fiveHundredPx} on 500px`}
-          href={`https://500px.com/${data.site.siteMetadata.social.fiveHundredPx}`}
+        </Anchor>
+        <Anchor
+          title={`${social.fiveHundredPx} on 500px`}
+          href={`https://500px.com/${social.fiveHundredPx}`}
           aria-label="500px profile"
         >
           <FontAwesomeIcon
@@ -44,25 +57,25 @@ function ContactCard({ data }) {
             className={classes.icon}
             size="lg"
           />
-        </a>
+        </Anchor>
       </div>
       <div className={classes.container__email}>
-        <a
-          href={`mailto:${data.site.siteMetadata.contact.email}`}
+        <Anchor
+          href={`mailto:${contact.email}`}
         >
           <FontAwesomeIcon
             icon={faEnvelope}
             className={`${classes.icon} ${classes.email__icon}`}
           />
-          { data.site.siteMetadata.contact.displayedEmail }
-        </a>
+          { contact.displayedEmail }
+        </Anchor>
       </div>
-      <a
-        className={classes.container__resume}
-        href={data.site.siteMetadata.contact.resumeUrl}
-      >
-        {'resume'}
-      </a>
+      <AnchorButton
+        href={contact.resumeUrl}
+        text="resume"
+        color="secondary"
+        className={`${classes.container__resume}`}
+      />
     </div>
   );
 }

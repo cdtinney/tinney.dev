@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import theme from '../../styles/theme.module.css';
 import classes from './ProjectCard.module.css';
 
 function ProjectCard({
@@ -11,8 +12,14 @@ function ProjectCard({
   gitHubUrl,
 }) {
   return (
-    <div className={classes.card}>
-      <h2 className={classes.name}>
+    <div
+      className={`
+        ${classes.card}
+        ${theme.card}
+        ${theme.shadow}
+      `}
+    >
+      <h2 className={`${classes.name} ${theme.primary}`}>
         {name}
       </h2>
       <p className={classes.shortDescription}>

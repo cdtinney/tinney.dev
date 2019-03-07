@@ -1,0 +1,22 @@
+.anchorButton {
+  width: 80px;
+  margin: 0 0.5rem;
+  padding: 6px;
+  border-radius: 2px;
+}
+
+.primary {
+  border: 1px solid rgb(11, 90, 158);
+}
+
+.primary:hover {
+  border-color: rgba(11, 90, 158, 0.65);
+}
+
+.secondary {
+  border: 1px solid rgb(168, 45, 28);
+}
+
+.secondary:hover {
+  border-color: rgba(168, 45, 28, 0.65);
+}

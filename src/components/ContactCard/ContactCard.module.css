@@ -26,12 +26,7 @@
 .container__resume {
   width: 80px;
   padding: 6px;
-  border: 1px solid rgba(231, 60, 112);
   border-radius: 2px;
-}
-
-.container__resume:hover {
-  color: rgba(231, 60, 112, 0.65);
 }
 
 .container__social a, .container__email a {

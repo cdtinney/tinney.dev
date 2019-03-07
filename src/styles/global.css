@@ -49,19 +49,14 @@ p {
   line-height: 1.25em;
 }
 
-a {
-  text-decoration: none;
-  color: rgba(231, 60, 112);
-}
-
-a:hover {
-  color: rgba(231, 60, 112, 0.65);
-}
-
 li {
   line-height: 1.45rem;
 }
 
 strong {
   font-weight: bold;
+}
+
+a {
+  text-decoration: none;
 }

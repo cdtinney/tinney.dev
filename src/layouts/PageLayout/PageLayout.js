@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import DefaultLayout from '../DefaultLayout';
 import Brand from '../../components/Brand';
+import Anchor from '../../components/Anchor';
 
 import classes from './PageLayout.module.css';
 
@@ -27,9 +28,9 @@ function PageLayout({
             <h3 className={classes.title}>
               {titleHref
                 ? (
-                  <a className={classes.titleLink} href={titleHref}>
+                  <Anchor className={classes.titleLink} href={titleHref}>
                     { title }
-                  </a>
+                  </Anchor>
                 )
                 : title
               }

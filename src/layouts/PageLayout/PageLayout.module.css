@@ -13,7 +13,7 @@
   display: flex;
   align-items: baseline;
   padding: 0 1.3125rem;
-  border-bottom: 1px solid #828282;
+  border-bottom: 1px solid rgba(15, 15, 15, 0.4);
 }
 
 .titleContainer {

@@ -9,10 +9,10 @@
   border-bottom: 1px solid #828282;
 }
 
-.headerUnderline:hover {
-  border-bottom-color: rgba(15, 89, 118, 0.65);
+.link {
+  color: rgba(33, 32, 40) !important;
 }
 
-.link {
-  color: #000;
+.link:hover {
+  color: rgba(33, 32, 40, 0.7) !important;
 }

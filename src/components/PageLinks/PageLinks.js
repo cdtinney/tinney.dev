@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
+
+import AnchorButton from '../AnchorButton';
 
 import classes from './PageLinks.module.css';
 
 function PageLinks({ links }) {
   return (
-    <div className={classes.container}>
+    <div
+      className={`${classes.container}`}
+    >
       {links.map(({ to, name }) => (
-        <Link key={to} to={to}>
-          <div className={classes.linkContainer}>
-            {name}
-          </div>
-        </Link>
+        <AnchorButton
+          key={to}
+          href={to}
+          color="primary"
+          text={name}
+        />
       ))}
     </div>
   );
