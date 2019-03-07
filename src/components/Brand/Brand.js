@@ -24,7 +24,9 @@ function Brand({
       }
       render={data => (
         <h1
-          className={`${classes.header} ${underline ? classes.headerUnderline : ''}`}
+          className={
+            `${classes.header} ${underline ? classes.headerUnderline : ''}`
+          }
         >
           <Anchor
             href="/"

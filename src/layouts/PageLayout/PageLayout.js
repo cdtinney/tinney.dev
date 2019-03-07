@@ -18,7 +18,7 @@ function PageLayout({
     <DefaultLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <div className={classes.container}>
         <header className={classes.header}>
-          <span>
+          <span className={classes.brandContainer}>
             <Brand underline={false} />
           </span>
           <span className={classes.titleContainer}>
