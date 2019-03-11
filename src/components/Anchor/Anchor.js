@@ -12,6 +12,7 @@ const colorEnum = {
 
 export default function Anchor({
   href,
+  external,
   title,
   ariaLabel,
   color,
@@ -21,20 +22,27 @@ export default function Anchor({
   const classNames = `${classes.root} `
     + `${colorEnum[color]} `
     + `${className} `;
-  return (
-    <Link
-      className={classNames}
-      to={href}
-      title={title}
-      aria-label={ariaLabel}
-    >
-      {children}
-    </Link>
-  );
+  const props = {
+    title,
+    className: classNames,
+    'aria-label': ariaLabel,
+  };
+
+  return external
+    ? (
+      <a href={href} {...props}>
+        { children }
+      </a>
+    ) : (
+      <Link to={href} {...props}>
+        { children }
+      </Link>
+    );
 }
 
 Anchor.propTypes = {
   href: PropTypes.string.isRequired,
+  external: PropTypes.bool,
   title: PropTypes.string,
   ariaLabel: PropTypes.string,
   color: PropTypes.string,
@@ -43,6 +51,7 @@ Anchor.propTypes = {
 };
 
 Anchor.defaultProps = {
+  external: false,
   title: null,
   ariaLabel: null,
   color: 'primary',

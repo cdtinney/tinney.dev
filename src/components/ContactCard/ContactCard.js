@@ -28,6 +28,7 @@ function ContactCard({
         <Anchor
           title={`${social.github} on GitHub`}
           href={`https://github.com/${social.github}`}
+          external
           ariaLabel="GitHub profile"
         >
           <FontAwesomeIcon
@@ -39,6 +40,7 @@ function ContactCard({
         <Anchor
           title={`${social.linkedin} on LinkedIn`}
           href={`https://linkedin.com/in/${social.linkedin}`}
+          external
           aria-label="LinkedIn profile"
         >
           <FontAwesomeIcon
@@ -50,6 +52,7 @@ function ContactCard({
         <Anchor
           title={`${social.fiveHundredPx} on 500px`}
           href={`https://500px.com/${social.fiveHundredPx}`}
+          external
           aria-label="500px profile"
         >
           <FontAwesomeIcon
@@ -62,6 +65,7 @@ function ContactCard({
       <div className={classes.container__email}>
         <Anchor
           href={`mailto:${contact.email}`}
+          external
         >
           <FontAwesomeIcon
             icon={faEnvelope}
@@ -72,6 +76,7 @@ function ContactCard({
       </div>
       <AnchorButton
         href={contact.resumeUrl}
+        external
         text="resume"
         color="secondary"
         className={`${classes.container__resume}`}

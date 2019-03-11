@@ -12,6 +12,7 @@ const colorEnum = {
 
 export default function AnchorButton({
   href,
+  external,
   title,
   text,
   ariaLabel,
@@ -24,6 +25,7 @@ export default function AnchorButton({
   return (
     <Anchor
       href={href}
+      external={external}
       title={title}
       ariaLabel={ariaLabel}
       color={color}
@@ -36,6 +38,7 @@ export default function AnchorButton({
 
 AnchorButton.propTypes = {
   href: PropTypes.string.isRequired,
+  external: PropTypes.bool,
   title: PropTypes.string,
   text: PropTypes.string.isRequired,
   ariaLabel: PropTypes.string,
@@ -44,6 +47,7 @@ AnchorButton.propTypes = {
 };
 
 AnchorButton.defaultProps = {
+  external: false,
   title: null,
   ariaLabel: null,
   color: 'primary',
