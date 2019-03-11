@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'gatsby-link';
 
 import theme from '../../styles/theme.module.css';
 import classes from './Anchor.module.css';
@@ -21,14 +22,14 @@ export default function Anchor({
     + `${colorEnum[color]} `
     + `${className} `;
   return (
-    <a
+    <Link
       className={classNames}
-      href={href}
+      to={href}
       title={title}
       aria-label={ariaLabel}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
