@@ -1,8 +1,15 @@
 .anchorButton {
+  position: relative;
   width: 80px;
   margin: 0 0.5rem;
   padding: 6px;
   border-radius: 2px;
+  transition: top ease 1s;
+  box-shadow: 2px 2px 6px 0 rgba(95, 95, 95, 0.15);
+}
+
+.anchorButton:hover {
+  top: -1px;
 }
 
 .primary {
