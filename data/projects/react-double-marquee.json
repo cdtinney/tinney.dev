@@ -1,0 +1,9 @@
+{
+  "name": "react-double-marquee",
+  "shortDescription": "React marquee component, published to NPM.",
+  "techStack": [
+    "React", "Rollup"
+  ],
+  "homepageUrl": "https://www.npmjs.com/package/react-double-marquee",
+  "gitHubUrl": "https://github.com/cdtinney/react-double-marquee"
+ }
