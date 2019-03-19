@@ -24,7 +24,10 @@ export default function BlogPost({ data }) {
   const pageTitle = `blog - ${title}`;
 
   return (
-    <BlogLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+    <BlogLayout
+      pageTitle={pageTitle}
+      pageDescription={pageDescription}
+    >
       <article>
         <header>
           <h1 className={classes.title}>

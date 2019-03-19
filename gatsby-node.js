@@ -15,11 +15,7 @@ module.exports.createPages = function createPages({
     ) {
       edges {
         node {
-          excerpt(pruneLength: 250)
-          html
-          id
           frontmatter {
-            date
             path
             title
           }
@@ -28,10 +24,10 @@ module.exports.createPages = function createPages({
     }
   }`).then((result) => {
     if (result.errors) {
-      return Promise.reject(errors);
+      return Promise.reject(result.errors);
     }
 
-    result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+    return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       const {
         frontmatter: {
           path: postPath,
@@ -43,8 +39,8 @@ module.exports.createPages = function createPages({
 
       actions.createPage({
         path: postPath,
-        component: path.resolve(`src/templates/BlogPost/BlogPost.js`),
-        context: {} // Additional data can be passed via context
+        component: path.resolve('src/templates/BlogPost/BlogPost.js'),
+        context: {}, // Additional data can be passed via context
       });
     });
   });
