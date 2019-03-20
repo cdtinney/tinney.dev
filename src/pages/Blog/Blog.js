@@ -8,7 +8,7 @@ import theme from '../../styles/theme.module.css';
 import classes from './Blog.module.css';
 
 function BlogPostPreview({
-  excerptHtml,
+  excerpt,
   path,
   date,
   title,
@@ -31,13 +31,9 @@ function BlogPostPreview({
       <p className={classes.previewDate}>
         {date}
       </p>
-      <p
-        className={classes.previewExcerpt}
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{
-          __html: excerptHtml,
-        }}
-      />
+      <p className={classes.previewExcerpt}>
+        {excerpt}
+      </p>
     </div>
   );
 }
@@ -46,7 +42,7 @@ BlogPostPreview.propTypes = {
   path: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
-  excerptHtml: PropTypes.string.isRequired,
+  excerpt: PropTypes.string.isRequired,
 };
 
 export default function Blog({
@@ -87,7 +83,7 @@ export default function Blog({
             return (
               <BlogPostPreview
                 key={id}
-                excerptHtml={excerpt}
+                excerpt={excerpt}
                 path={path}
                 date={date}
                 title={title}
