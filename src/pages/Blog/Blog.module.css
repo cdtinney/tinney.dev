@@ -1,5 +1,6 @@
 .preview {
-  height: 150px;
+  box-sizing: content-box;
+  height: 140px;
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.5rem 1rem 1rem 1rem;
@@ -12,7 +13,7 @@
 
 .previewDate {
   font-size: 0.75rem;
-  padding-top: 0.25rem;
+  margin-top: 0.25rem;
   margin-bottom: 0;
 }
 
