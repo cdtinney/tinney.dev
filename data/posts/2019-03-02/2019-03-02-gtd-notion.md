@@ -6,6 +6,8 @@ title: "Notion + GTD"
 
 The aim of this post is to provide instructions for setting up a "Getting Things Done (GTD)"-style workflow using Notion. It does _not_ cover the workflow itself; it only covers how to setup the necessary views within Notion.
 
+<!-- end -->
+
 The target audience is people familiar with GTD that want to try a new tool for implementing it.
 
 Some context:
