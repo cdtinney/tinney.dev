@@ -9,7 +9,16 @@ module.exports.createPages = function createPages({
 }) {
   return graphql(`{
     allMarkdownRemark(
-      filter: { fileAbsolutePath: { regex: "\/posts/" } },
+      filter: {
+        fileAbsolutePath: {
+          regex: "\/posts/"
+        }
+        frontmatter: {
+          draft: {
+            ne: true
+          }
+        }
+      },
       sort: { order: DESC, fields: [frontmatter___date] }
       limit: 1000
     ) {
