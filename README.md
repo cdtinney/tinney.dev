@@ -102,7 +102,8 @@ If you want to make this website your own:
 1) Fork the repository
 2) Update `siteMetadata` and the Google Analytics tracking ID in `gatsby-config.js`
 3) Update the page `<title>` in `html.js`
-4) Delete/update content in `data` and/or write your own
+4) Delete/update content in `data` and/or write your own,
+    using the [content](#content) section as a guide
 
 ## Developing
 
