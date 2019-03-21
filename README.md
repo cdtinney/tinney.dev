@@ -63,7 +63,7 @@ Project file format is as follows:
 
 `project.json`:
 
-```json
+```
 {
   // Project name
  "name": "foo",
