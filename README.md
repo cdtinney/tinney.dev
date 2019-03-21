@@ -24,7 +24,7 @@
 
 This website is built with:
 
-* [GatsbyJS](gatsbyjs.org) - Static website generation using React
+* [GatsbyJS](https://gatsbyjs.org) - Static website generation using React
 * [Travis CI](https://travis-ci.org) - Continuous integration
   and deployment to GitHub Pages
 
