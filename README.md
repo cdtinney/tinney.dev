@@ -12,6 +12,7 @@
     - [Format](#format)
   - [Projects](#projects)
     - [Format](#format-1)
+  - [About](#about)
 - [Usage](#usage)
 - [Developing](#developing)
   - [Requirements](#requirements)
@@ -29,6 +30,12 @@ This website is built with:
   and deployment to GitHub Pages
 
 ## Content
+
+The website provides three primary forms of content:
+
+* Blog posts
+* Project cards
+* 'About' information
 
 ### Blog
 
@@ -81,6 +88,12 @@ Project file format is as follows:
  "gitHubUrl": "https://github.com/cdtinney/spune"
 }
 ```
+
+
+### About
+
+Personal information must be written within `data/about/about.md`. This will
+be rendered onto the 'About' page.
 
 ## Usage
 
