@@ -109,10 +109,12 @@ If you want to make this website your own:
 
 Development is done on the `develop` branch.
   * All commits to `develop` are automatically deployed.
-  * Development should be done on branches sourced from `develop`, NOT `master`.
+  * **Development must be done on branches off `develop`, NOT `master`.**
+  * This means that pull requests should set `develop` as the base.
 
 Deployment (i.e. build output) is found on `master`.
   * This is because GitHub Pages User Pages must be deployed on `master`.
+  * **Travis CI is solely responsible for deploying builds to `master`.**
 
 ### Requirements
 
