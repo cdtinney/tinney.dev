@@ -1,0 +1,9 @@
+{
+  "name": "Aerotrike Aviation",
+  "shortDescription": "Small business website [for my mom :')].",
+  "techStack": [
+    "Gatsby", "Bootstrap"
+  ],
+  "homepageUrl": "https://aerotrikeaviation.com",
+  "gitHubUrl": "https://github.com/cdtinney/aerotrike-aviation"
+ }
