@@ -1,8 +1,23 @@
 .card {
   display: flex;
   flex-direction: column;
-  max-width: 350px;
+  width: 100%;
   padding: 1rem;
+  margin: 0.5rem;
+}
+
+@media all and (min-width: 400px) {
+  .card {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media all and (min-width: 500px) {
+  .card {
+    width: 45%;
+  }
 }
 
 .name {
@@ -12,6 +27,7 @@
 .shortDescription {
   margin: 0.35rem 0;
   font-size: 0.9rem;
+  height: 2rem;
 }
 
 .techStack {

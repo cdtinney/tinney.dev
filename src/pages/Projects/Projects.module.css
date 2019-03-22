@@ -1,8 +1,6 @@
 .projects {
-  display: grid;
-  grid-column-gap: 1rem;
-  grid-row-gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
-  justify-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: content-box;
   padding: 1rem 0;
 }
