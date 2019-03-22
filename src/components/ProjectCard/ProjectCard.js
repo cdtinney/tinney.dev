@@ -19,9 +19,11 @@ function ProjectCard({
         ${theme.shadow}
       `}
     >
-      <h2 className={`${classes.name} ${theme.primary}`}>
-        {name}
-      </h2>
+      <a href={homepageUrl}>
+        <h2 className={`${classes.name} ${theme.primary}`}>
+          {name}
+        </h2>
+      </a>
       <p className={classes.shortDescription}>
         {shortDescription}
       </p>
