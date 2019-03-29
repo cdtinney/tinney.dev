@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 
+import classNames from '../../utils/classNames';
+
 import theme from '../../styles/theme.module.css';
 import classes from './Anchor.module.css';
 
@@ -19,12 +21,13 @@ export default function Anchor({
   className,
   children,
 }) {
-  const classNames = `${classes.root} `
-    + `${colorEnum[color]} `
-    + `${className} `;
   const props = {
     title,
-    className: classNames,
+    className: classNames(
+      classes.root,
+      colorEnum[color],
+      className,
+    ),
     'aria-label': ariaLabel,
   };
 
