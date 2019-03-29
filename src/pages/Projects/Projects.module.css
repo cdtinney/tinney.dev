@@ -1,6 +1,7 @@
 .projects {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   box-sizing: content-box;
   padding: 1rem 0;
 }
