@@ -1,10 +1,20 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function HTML(props) {
+  const {
+    body,
+    bodyAttributes,
+    headComponents,
+    htmlAttributes,
+    preBodyComponents,
+    postBodyComponents,
+  } = props;
+
   return (
     <html
-      {...props.htmlAttributes}
+      {...htmlAttributes}
       lang="en"
     >
       <head>
@@ -15,32 +25,33 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"></link>
-        <link rel='shortcut icon' type='image/x-icon' href='/favicon.png' />
-        {props.headComponents}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
+        {headComponents}
       </head>
-      <body {...props.bodyAttributes}>
-        {props.preBodyComponents}
+      <body {...bodyAttributes}>
+        {preBodyComponents}
         <noscript key="noscript" id="gatsby-noscript">
           This app works best with JavaScript enabled.
         </noscript>
         <div
-          key={`body`}
+          key="body"
           id="___gatsby"
-          dangerouslySetInnerHTML={{ __html: props.body }}
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: body }}
           className="gatsby__body"
         />
-        {props.postBodyComponents}
+        {postBodyComponents}
       </body>
     </html>
-  )
+  );
 }
 
 HTML.propTypes = {
-  htmlAttributes: PropTypes.object,
-  headComponents: PropTypes.array,
-  bodyAttributes: PropTypes.object,
-  preBodyComponents: PropTypes.array,
-  body: PropTypes.string,
-  postBodyComponents: PropTypes.array,
+  htmlAttributes: PropTypes.object.isRequired,
+  headComponents: PropTypes.array.isRequired,
+  bodyAttributes: PropTypes.object.isRequired,
+  preBodyComponents: PropTypes.array.isRequired,
+  body: PropTypes.string.isRequired,
+  postBodyComponents: PropTypes.array.isRequired,
 };
