@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Anchor from '../Anchor';
 
+import theme from '../../styles/theme.module.css';
 import classes from './AnchorButton.module.css';
 
 const colorEnum = {
@@ -21,7 +22,8 @@ export default function AnchorButton({
 }) {
   const classNames = `${classes.anchorButton} `
     + `${className} `
-    + `${colorEnum[color]} `;
+    + `${colorEnum[color]} `
+    + `${theme.button}`;
   return (
     <Anchor
       href={href}

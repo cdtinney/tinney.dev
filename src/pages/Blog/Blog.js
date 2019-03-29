@@ -18,7 +18,7 @@ function BlogPostPreview({
       className={`
         ${classes.preview}
         ${theme.card}
-        ${theme.shadow}
+        ${theme.button}
       `}
     >
       <h1 className={classes.previewTitle}>

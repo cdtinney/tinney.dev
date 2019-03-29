@@ -16,7 +16,7 @@ function ProjectCard({
       className={`
         ${classes.card}
         ${theme.card}
-        ${theme.shadow}
+        ${theme.button}
       `}
     >
       <a href={homepageUrl}>
