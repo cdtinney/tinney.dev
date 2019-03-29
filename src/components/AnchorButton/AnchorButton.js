@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 import Anchor from '../Anchor';
 
-import theme from '../../styles/theme.module.css';
+import Theme from '../../proptypes/Theme';
+import withTheme from '../../hocs/withTheme';
+import classNames from '../../utils/classNames';
+
 import classes from './AnchorButton.module.css';
 
 const colorEnum = {
@@ -11,7 +14,8 @@ const colorEnum = {
   secondary: classes.secondary,
 };
 
-export default function AnchorButton({
+export function AnchorButton({
+  theme,
   href,
   external,
   title,
@@ -20,10 +24,6 @@ export default function AnchorButton({
   color,
   className,
 }) {
-  const classNames = `${classes.anchorButton} `
-    + `${className} `
-    + `${colorEnum[color]} `
-    + `${theme.button}`;
   return (
     <Anchor
       href={href}
@@ -31,7 +31,12 @@ export default function AnchorButton({
       title={title}
       ariaLabel={ariaLabel}
       color={color}
-      className={classNames}
+      className={classNames(
+        classes.anchorButton,
+        colorEnum[color],
+        theme.button,
+        className,
+      )}
     >
       { text }
     </Anchor>
@@ -39,6 +44,7 @@ export default function AnchorButton({
 }
 
 AnchorButton.propTypes = {
+  theme: Theme.isRequired,
   href: PropTypes.string.isRequired,
   external: PropTypes.bool,
   title: PropTypes.string,
@@ -55,3 +61,5 @@ AnchorButton.defaultProps = {
   color: 'primary',
   className: '',
 };
+
+export default withTheme(AnchorButton);
