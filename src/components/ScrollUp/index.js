@@ -1,3 +1,3 @@
-import ScrollUp from './ScrollUp';
+import ThemedScrollUp from './ScrollUp';
 
-export default ScrollUp;
+export default ThemedScrollUp;

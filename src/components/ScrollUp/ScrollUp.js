@@ -1,10 +1,14 @@
 import React from 'react';
 import ScrollToTop from 'react-scroll-up';
 
-import theme from '../../styles/theme.module.css';
+import Theme from '../../proptypes/Theme';
+import withTheme from '../../hocs/withTheme';
+
 import classes from './ScrollUp.module.css';
 
-export default function ScrollUp() {
+export function ScrollUp({
+  theme,
+}) {
   const classNames = `${classes.container} ${theme.button}`;
   return (
     <ScrollToTop showUnder={160}>
@@ -14,3 +18,9 @@ export default function ScrollUp() {
     </ScrollToTop>
   );
 }
+
+ScrollUp.propTypes = {
+  theme: Theme.isRequired,
+};
+
+export default withTheme(ScrollUp);
