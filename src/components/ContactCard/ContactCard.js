@@ -10,11 +10,16 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
+import Theme from '../../proptypes/Theme';
+import withTheme from '../../hocs/withTheme';
+import classNames from '../../utils/classNames';
+
 import Anchor from '../Anchor';
 import AnchorButton from '../AnchorButton';
 import classes from './ContactCard.module.css';
 
 function ContactCard({
+  theme,
   data = {},
 }) {
   const {
@@ -83,13 +88,14 @@ function ContactCard({
         external
         text="resume"
         color="secondary"
-        className={`${classes.container__resume}`}
+        className={classNames(classes.container__resume, theme.button)}
       />
     </div>
   );
 }
 
 ContactCard.propTypes = {
+  theme: Theme.isRequired,
   data: PropTypes.shape({
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
@@ -107,6 +113,8 @@ ContactCard.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+const ThemedContactCard = withTheme(ContactCard);
 
 export default function ContactCardWithData() {
   return (
@@ -132,7 +140,7 @@ export default function ContactCardWithData() {
           }
         `
       }
-      render={data => <ContactCard data={data} />}
+      render={data => <ThemedContactCard data={data} />}
     />
   );
 }

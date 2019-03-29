@@ -26,7 +26,6 @@
 .container__resume {
   width: 80px;
   padding: 6px;
-  border-radius: 2px;
 }
 
 .container__social a, .container__email a {

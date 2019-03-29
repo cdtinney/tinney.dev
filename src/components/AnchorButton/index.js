@@ -1,3 +1,3 @@
-import AnchorButton from './AnchorButton';
+import ThemedAnchorButton from './AnchorButton';
 
-export default AnchorButton;
+export default ThemedAnchorButton;

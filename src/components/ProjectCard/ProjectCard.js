@@ -18,7 +18,6 @@ function ProjectCard({
       className={
         classNames(
           classes.card,
-          theme.card,
           theme.button,
         )
       }

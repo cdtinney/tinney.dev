@@ -17,7 +17,6 @@ function BlogPostPreview({
     <div
       className={`
         ${classes.preview}
-        ${theme.card}
         ${theme.button}
       `}
     >
