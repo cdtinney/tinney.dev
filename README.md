@@ -56,8 +56,14 @@ date: "YYYY-MM-DD"
 title: "Foo Bar"
 ---
 
-Markdown content goes here.
+Excerpt content goes here (raw text only).
+
+<!-- end -->
+
+Body content goes here (Markdown).
 ```
+
+Excerpts will be parsed from the end of the frontmatter section until `<!-- end -->`.
 
 ### Projects
 
