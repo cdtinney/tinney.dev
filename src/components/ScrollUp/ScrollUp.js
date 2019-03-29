@@ -3,16 +3,16 @@ import ScrollToTop from 'react-scroll-up';
 
 import Theme from '../../proptypes/Theme';
 import withTheme from '../../hocs/withTheme';
+import classNames from '../../utils/classNames';
 
 import classes from './ScrollUp.module.css';
 
 export function ScrollUp({
   theme,
 }) {
-  const classNames = `${classes.container} ${theme.button}`;
   return (
     <ScrollToTop showUnder={160}>
-      <div className={classNames}>
+      <div className={classNames(classes.container, theme.button)}>
         up ↑
       </div>
     </ScrollToTop>

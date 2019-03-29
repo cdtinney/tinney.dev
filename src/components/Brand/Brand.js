@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 
+import classNames from '../../utils/classNames';
 import Anchor from '../Anchor';
 
 import classes from './Brand.module.css';
@@ -24,9 +25,9 @@ function Brand({
       }
       render={data => (
         <h1
-          className={
-            `${classes.header} ${underline ? classes.headerUnderline : ''}`
-          }
+          className={classNames(classes.header, {
+            [classes.headerUnderline]: underline,
+          })}
         >
           <Anchor
             href="/"

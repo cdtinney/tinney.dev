@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import classNames from '../../utils/classNames';
+
 import theme from '../../styles/theme.module.css';
 import classes from './ProjectCard.module.css';
 
@@ -13,14 +15,16 @@ function ProjectCard({
 }) {
   return (
     <div
-      className={`
-        ${classes.card}
-        ${theme.card}
-        ${theme.button}
-      `}
+      className={
+        classNames(
+          classes.card,
+          theme.card,
+          theme.button,
+        )
+      }
     >
       <a href={homepageUrl}>
-        <h2 className={`${classes.name} ${theme.primary}`}>
+        <h2 className={classNames(classes.name, theme.primary)}>
           {name}
         </h2>
       </a>
