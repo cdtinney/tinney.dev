@@ -1,14 +1,21 @@
 language: node_js
 node_js:
   - "node"
+
 script:
   - npm run build
+
 deploy:
+  # Indicate we're using GitHub Pages for deployment
   provider: pages
+  # Website will be copied from the `public` directory
   local_dir: public
+  # Do not delete build artifacts (i.e. public folder)
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN # Secure variable
+  # GitHub app auth token is set as secure environment variables
+  github-token: $GITHUB_TOKEN
   keep-history: true
+  # Only deploy from `develop` branch
   on:
     branch: develop
   # User pages must be published to `master`
