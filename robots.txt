@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.tinney.dev/sitemap.xml
+Host: https://tinney.dev
