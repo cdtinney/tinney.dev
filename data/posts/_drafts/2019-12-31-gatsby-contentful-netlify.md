@@ -4,9 +4,8 @@ date: "2019-12-31"
 title: "How-To: Gatsby + Contentful + Netlify"
 ---
 
-How-To: Setup Gatsby with a Contentful CMS integration
-deployed to Netlify with production and staging/preview
-environments.
+Figure out how to setup Gatsby with a Contentful CMS integration
+and deploy it to Netlify with production and staging environments.
 
 <!-- end -->
 
