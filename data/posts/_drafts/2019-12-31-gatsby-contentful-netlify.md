@@ -1,6 +1,6 @@
 ---
 path: "/blog/gatsby-contentful-netlify"
-date: "2019-01-01"
+date: "2019-12-31"
 title: "How-To: Gatsby + Contentful + Netlify"
 ---
 

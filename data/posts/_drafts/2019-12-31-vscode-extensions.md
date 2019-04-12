@@ -1,6 +1,6 @@
 ---
 path: "/blog/vscode-extensions"
-date: "2019-01-01"
+date: "2019-12-31"
 title: "Some VS Code Extensions"
 ---
 
