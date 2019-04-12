@@ -15,8 +15,17 @@ module.exports = {
     },
   },
   plugins: [
-    'gatsby-plugin-sitemap',
-    'gatsby-plugin-eslint',
+    'gatsby-plugin-sitemap', {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://tinney.dev',
+        sitemap: 'https://www.tinney.dev/sitemap.xml',
+        policy: [{
+          userAgent: '*',
+          allow: '/',
+        }],
+      },
+    }, 'gatsby-plugin-eslint',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
     'gatsby-transformer-json', {
