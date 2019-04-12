@@ -19,6 +19,9 @@
   - [Installing](#installing)
   - [Running](#running)
   - [Building](#building)
+- [Deploying](#deploying)
+  - [Travis CI](#travis-ci)
+  - [Google Analytics](#google-analytics)
 - [License](#license)
 
 ## Introduction
@@ -153,6 +156,28 @@ $ npm run build
 ```
 
 Build output is located within the `public` folder.
+
+## Deploying
+
+### Travis CI
+
+The website can be served via GitHub pages after being built by Travis CI.
+
+The configuration file is found at `.travis.yml`; the `GITHUB_TOKEN` environment
+variable must be set.
+
+The flow is as follows:
+
+1) Code is pushed to a branch
+2) The branch is built via the config
+3) If the branch is `develop`, build output is pushed to `master`
+4) GitHub Pages serves `master`
+
+### Google Analytics
+
+Google Analytics support is built-in. Simply update the tracking ID
+found in `gatsby-config.js` under the options for the `gatsby-plugin-google-analytics`
+plugin.
 
 ## License
 
