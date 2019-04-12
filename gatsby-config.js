@@ -1,5 +1,6 @@
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://tinney.dev',
     title: 'colin tinney',
     contact: {
       name: 'Colin Tinney',
@@ -14,6 +15,7 @@ module.exports = {
     },
   },
   plugins: [
+    'gatsby-plugin-sitemap',
     'gatsby-plugin-eslint',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
