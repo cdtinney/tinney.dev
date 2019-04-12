@@ -10,6 +10,7 @@
 - [Content](#content)
   - [Blog](#blog)
     - [Format](#format)
+    - [Drafts](#drafts)
   - [Projects](#projects)
     - [Format](#format-1)
   - [About](#about)
@@ -67,6 +68,11 @@ Body content goes here (Markdown).
 ```
 
 Excerpts will be parsed from the end of the frontmatter section until `<!-- end -->`.
+
+#### Drafts
+
+Posts inside `posts/__drafts` will only be displayed in non-production environments
+(i.e. `NODE_ENV !== production`).
 
 ### Projects
 
