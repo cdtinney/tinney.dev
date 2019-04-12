@@ -1,7 +1,6 @@
 ---
 path: "/blog/gtd-notion"
 date: "2019-03-02"
-draft: false
 title: "Notion + GTD"
 ---
 

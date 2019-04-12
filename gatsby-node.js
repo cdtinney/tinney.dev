@@ -13,11 +13,6 @@ module.exports.createPages = function createPages({
         fileAbsolutePath: {
           regex: "\/posts/"
         }
-        frontmatter: {
-          draft: {
-            ne: true
-          }
-        }
       },
       sort: { order: DESC, fields: [frontmatter___date] }
       limit: 1000

@@ -10,11 +10,6 @@ export const pageQuery = graphql`
         fileAbsolutePath: {
           regex: "\/posts/"
         }
-        frontmatter: {
-          draft: {
-            ne: true
-          }
-        }
       },
       sort: { order: DESC, fields: [frontmatter___date] },
     ) {

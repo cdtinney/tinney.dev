@@ -1,7 +1,6 @@
 ---
 path: "/blog/vscode-extensions"
 date: "2019-01-01"
-draft: true
 title: "Some VS Code Extensions"
 ---
 
