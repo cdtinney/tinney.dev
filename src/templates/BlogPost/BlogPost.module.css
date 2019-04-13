@@ -28,3 +28,7 @@ code {
   padding: 0;
   font-size: 0.8rem;
 }
+
+blockquote {
+  margin-left: 0.5em;
+}
