@@ -38,7 +38,7 @@ module.exports.createPages = function createPages({
       }));
     return posts.forEach(({ title, postPath }, index) => {
       console.log(`Creating blog post (title = ${title}, path = ${postPath})`);
-      const prevPost = index > 1
+      const prevPost = index > 0
         ? posts[index - 1]
         : null;
       const nextPost = index < posts.length - 1
