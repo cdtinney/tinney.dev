@@ -25,7 +25,7 @@ export default function HTML(props) {
           name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" />
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.png" />
         {headComponents}
       </head>
