@@ -71,10 +71,20 @@ module.exports = {
             quality: 100,
             // Wrapper <div> styles.
             wrapperStyle:
-              'margin: 1rem;'
-              + 'box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);',
+              'margin: 1rem;',
           },
-        }],
+        }, {
+          // Adds support for custom Markdown blocks.
+          resolve: 'gatsby-remark-custom-blocks',
+          options: {
+            blocks: {
+              boxShadow: {
+                classes: 'box-shadow',
+              },
+            },
+          },
+        },
+        ],
       },
     }, {
       resolve: 'gatsby-plugin-google-analytics',

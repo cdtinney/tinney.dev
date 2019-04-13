@@ -39,11 +39,13 @@ You'll need to create an account and log-in to [Notion](https://www.notion.so/).
 	1. Name it `Tasks`
 	1. Select the `Database > Table` view
 	
-	![Image 1](./_images/2019-03-02-gtd-notion_1.jpg)
+    [[boxShadow]]
+    | ![Image 1](./_images/2019-03-02-gtd-notion_1.jpg)
 
 1. Modify the database properties by clicking `Properties`:
 	
-	![Image 2](./_images/2019-03-02-gtd-notion_2.jpg)
+    [[boxShadow]]
+    | ![Image 2](./_images/2019-03-02-gtd-notion_2.jpg)
 	
 	1. Delete default properties
 	1. Add the following properties:
@@ -54,16 +56,19 @@ You'll need to create an account and log-in to [Notion](https://www.notion.so/).
 		* Status - `Select` type
 		* Due - `Date` type
 	
-	![Image 3](./_images/2019-03-02-gtd-notion_3.jpg)
+    [[boxShadow]]
+    | ![Image 3](./_images/2019-03-02-gtd-notion_3.jpg)
 
 1. In the table headers, click `Status` to show the drop-down menu. Then, click `Configure Options` to add default statuses
    * Add `Up Next`, `In Progress`, and `Done`
-	
-	![Image 4](./_images/2019-03-02-gtd-notion_4.jpg)
+
+    [[boxShadow]]
+    | ![Image 4](./_images/2019-03-02-gtd-notion_4.jpg)
 
 Now that the primary database is created, you can begin adding tasks into the master task list.
 	
-![Image 5](./_images/2019-03-02-gtd-notion_5.jpg)
+[[boxShadow]]
+| ![Image 5](./_images/2019-03-02-gtd-notion_5.jpg)
 
 **Notes:**
 
@@ -81,15 +86,18 @@ To create an inbox view:
 1. Name it `Inbox`
 1. Select `Table`:
 	
-	![Image 6](./_images/2019-03-02-gtd-notion_6.jpg)
+    [[boxShadow]]
+    | ![Image 6](./_images/2019-03-02-gtd-notion_6.jpg)
 	
 1. Add a filter:
 	
-	![Image 7](./_images/2019-03-02-gtd-notion_7.jpg)
+    [[boxShadow]]
+    | ![Image 7](./_images/2019-03-02-gtd-notion_7.jpg)
 	
 1. Filter only tasks without a context and that are not done:
 	
-	![Image 8](./_images/2019-03-02-gtd-notion_8.jpg)
+    [[boxShadow]]
+    | ![Image 8](./_images/2019-03-02-gtd-notion_8.jpg)
 
 #### Contexts
 
@@ -99,8 +107,9 @@ To create a view for a context (e.g. `@Computer`, `#Someday`):
 1. Name it `Context - <CONTEXT_NAME>`
 1. Select `Table`
 1. Add a filter for only tasks matching the context that are not done:
-	
-	![Image 9](./_images/2019-03-02-gtd-notion_9.jpg)
+  
+    [[boxShadow]]
+    | ![Image 9](./_images/2019-03-02-gtd-notion_9.jpg)
 
 #### Projects
 
@@ -111,7 +120,8 @@ To create a view for a projects:
 1. Select `Table`
 1. Add a filter for only tasks matching the project that are not done:
 	
-	![Image 10](./_images/2019-03-02-gtd-notion_10.jpg)
+    [[boxShadow]]
+    | ![Image 10](./_images/2019-03-02-gtd-notion_10.jpg)
 
 #### Calendar
 
@@ -122,7 +132,8 @@ To create a calendar view:
 1. Select `Calendar`
 1. Add a filter for tasks that are not done:
 	
-	![Image 11](./_images/2019-03-02-gtd-notion_11.jpg)
+    [[boxShadow]]
+    | ![Image 11](./_images/2019-03-02-gtd-notion_11.jpg)
 
 #### Additional Views
 
