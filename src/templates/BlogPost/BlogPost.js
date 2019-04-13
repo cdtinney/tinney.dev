@@ -2,12 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
+import Link from 'gatsby-link';
 
 import BlogLayout from '../../layouts/BlogLayout';
 
 import classes from './BlogPost.module.css';
 
-export default function BlogPost({ data }) {
+export default function BlogPost({ data, pageContext }) {
   const {
     markdownRemark: post,
   } = data;
@@ -19,6 +20,11 @@ export default function BlogPost({ data }) {
     },
     excerpt,
   } = post;
+
+  const {
+    prevPost,
+    nextPost,
+  } = pageContext;
 
   const pageDescription = excerpt;
   const pageTitle = `blog - ${title}`;
@@ -42,6 +48,22 @@ export default function BlogPost({ data }) {
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
       </article>
+      <footer className={classes.footer}>
+        { prevPost
+          && (
+            <Link to={prevPost.postPath}>
+              {`← ${prevPost.title}`}
+            </Link>
+          )
+        }
+        { nextPost
+          && (
+            <Link to={nextPost.postPath}>
+              {`${nextPost.title} →`}
+            </Link>
+          )
+        }
+      </footer>
     </BlogLayout>
   );
 }
@@ -55,6 +77,16 @@ BlogPost.propTypes = {
       html: PropTypes.string.isRequired,
       excerpt: PropTypes.string.isRequired,
     }).isRequired,
+  }).isRequired,
+  pageContext: PropTypes.shape({
+    prevPost: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      postPath: PropTypes.string.isRequired,
+    }),
+    nextPost: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      postPath: PropTypes.string.isRequired,
+    }),
   }).isRequired,
 };
 

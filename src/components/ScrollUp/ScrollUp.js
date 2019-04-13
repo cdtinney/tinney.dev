@@ -11,7 +11,12 @@ export function ScrollUp({
   theme,
 }) {
   return (
-    <ScrollToTop showUnder={160}>
+    <ScrollToTop
+      showUnder={160}
+      style={{
+        bottom: '70px',
+      }}
+    >
       <div className={classNames(classes.container, theme.button)}>
         up ↑
       </div>

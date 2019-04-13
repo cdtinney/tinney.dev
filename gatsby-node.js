@@ -31,20 +31,27 @@ module.exports.createPages = function createPages({
       return Promise.reject(result.errors);
     }
 
-    return result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-      const {
-        frontmatter: {
-          path: postPath,
-          title,
-        },
-      } = node;
-
+    const posts = result.data.allMarkdownRemark.edges
+      .map(({ node }) => ({
+        title: node.frontmatter.title,
+        postPath: node.frontmatter.path,
+      }));
+    return posts.forEach(({ title, postPath }, index) => {
       console.log(`Creating blog post (title = ${title}, path = ${postPath})`);
+      const prevPost = index > 1
+        ? posts[index - 1]
+        : null;
+      const nextPost = index < posts.length - 1
+        ? posts[index + 1]
+        : null;
 
       actions.createPage({
         path: postPath,
         component: path.resolve('src/templates/BlogPost/BlogPost.js'),
-        context: {}, // Additional data can be passed via context
+        context: {
+          prevPost,
+          nextPost,
+        },
       });
     });
   });
