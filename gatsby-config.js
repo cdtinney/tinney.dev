@@ -69,6 +69,7 @@ module.exports = {
             // Quality level of generated images (1-100).
             // The default is 50.
             quality: 100,
+            backgroundColor: 'transparent',
             // Wrapper <div> styles.
             wrapperStyle:
               'margin: 1rem;',
