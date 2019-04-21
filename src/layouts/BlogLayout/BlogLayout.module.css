@@ -2,3 +2,9 @@
   padding: 0 1.25rem;
   min-width: 50vw;
 }
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0;
+  }
+}
