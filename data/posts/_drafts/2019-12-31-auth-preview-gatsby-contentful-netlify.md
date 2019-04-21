@@ -24,6 +24,8 @@ Setting up a server to host an instance of your Gatsby website that uses the Pre
 
 The solution I came up with is to run a preview instance from Netlify that uses [Netlify Identity](https://www.netlify.com/docs/identity/) for authentication and Netlify [Deploy Contexts](https://www.netlify.com/tags/deploy-contexts/) to ensure that the builds use the Preview API. instance of the website behind  authentication and use environment variables to ensure it uses the Preview API. [Contentful Webhooks](https://www.contentful.com/developers/docs/concepts/webhooks/) are used to trigger re-deploys on Netlify to ensure the preview website stays updated.
 
+TODO Add Login image
+
 To summarize the changes:
 
 * Wrap Gatsby's root element in a higher-order component that uses Netlify Identity to check if the user is logged in
@@ -225,7 +227,7 @@ With `gatsby-source-contentful`, there is a `host` option we can use. I moved pl
 
 **NOTE: You will need Preview and Delivery API tokens setup in your environment (both locally and on Netlify).**
 
-`contentful-options.js`
+`contentful-options.js`:
 ```javascript
 // We can use dotenv to read environment variables from a file (e.g. local environment)
 require('dotenv').config({
