@@ -1,6 +1,6 @@
 ---
 path: "/blog/auth-preview-gatsby-contentful-netlify"
-date: "2019-12-31"
+date: "2019-04-21"
 title: "Creating an authenticated preview site for Gatsby and Contentful using Netlify Identity"
 ---
 
