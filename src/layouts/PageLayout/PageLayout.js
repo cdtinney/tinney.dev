@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DefaultLayout from '../DefaultLayout';
-import Brand from '../../components/Brand';
-import Anchor from '../../components/Anchor';
+import PageHeader from '../../components/PageHeader';
 
 import classes from './PageLayout.module.css';
 
@@ -17,26 +16,10 @@ function PageLayout({
   return (
     <DefaultLayout pageTitle={pageTitle} pageDescription={pageDescription}>
       <div className={classes.container}>
-        <header className={classes.header}>
-          <span className={classes.brandContainer}>
-            <Brand underline={false} />
-          </span>
-          <span className={classes.titleContainer}>
-            <span className={classes.separator}>
-              {'/'}
-            </span>
-            <h3 className={classes.title}>
-              {titleHref
-                ? (
-                  <Anchor className={classes.titleLink} href={titleHref}>
-                    { title }
-                  </Anchor>
-                )
-                : title
-              }
-            </h3>
-          </span>
-        </header>
+        <PageHeader
+          title={title}
+          titleHref={titleHref}
+        />
         { children }
       </div>
     </DefaultLayout>

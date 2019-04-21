@@ -9,34 +9,3 @@
   height: 100%;
 }
 
-.header {
-  display: flex;
-  align-items: baseline;
-  border-bottom: 1px solid rgba(15, 15, 15, 0.4);
-}
-
-.brandContainer {
-  white-space: nowrap;
-}
-
-.titleContainer {
-  display: flex;
-  align-items: baseline;
-}
-
-.separator {
-  margin: 0 10px;
-}
-
-.title {
-  cursor: pointer;
-  word-break: break-word;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  line-height: 1.33em;
-}
-
-.titleLink {
-  color: #000;
-}
