@@ -5,7 +5,7 @@ title: "Creating an authenticated preview site for Gatsby and Contentful using N
 ---
 
 Figure out how to setup a preview instance of your Gatsby site using the Contentful Preview API
-and authenticate it using Netlify Identity.
+and authenticate it using Netlify Identity with Google OAuth.
 
 <!-- end -->
 
@@ -21,9 +21,9 @@ and authenticate it using Netlify Identity.
 
 Contentful provides a [Preview API](https://www.contentful.com/developers/docs/references/content-preview-api/) that returns unpublished content (e.g. draft blog posts) to allow users to preview this content on their website.
 
-Setting up a server to host an instance of your Gatsby website that uses the Preview API and is only accessible within a local/corporate network is relatively trivial. In my case, I am working with a remote content creator; we do not work on the same network all the time nor do I have dedicated systems available. Gatsby provides [information](https://www.gatsbyjs.org/docs/authentication-tutorial/) on authenticating certain routes but in this case I want the entire website to be authenticated without having to re-create routes.
+Setting up a server to host an instance of your Gatsby website that uses the Preview API and is accessible within a local/corporate network is relatively trivial. In my case, I am working with a remote content creator; we do not work on the same network nor do I have a dedicated local network available for VPN access. Gatsby provides [tutorials](https://www.gatsbyjs.org/docs/authentication-tutorial/) on authenticating routes but in this case I want the entire website to be authenticated without having to re-create page routes.
 
-The solution I came up with is to run a preview instance from Netlify that uses [Netlify Identity](https://www.netlify.com/docs/identity/) for authentication and Netlify [Deploy Contexts](https://www.netlify.com/tags/deploy-contexts/) to ensure that the builds use the Preview API. instance of the website behind  authentication and use environment variables to ensure it uses the Preview API. [Contentful Webhooks](https://www.contentful.com/developers/docs/concepts/webhooks/) are used to trigger re-deploys on Netlify to ensure the preview website stays updated.
+The solution I came up with is to run a preview instance on Netlify that uses [Netlify Identity](https://www.netlify.com/docs/identity/) for authentication and Netlify [Deploy Contexts](https://www.netlify.com/tags/deploy-contexts/) to ensure that the builds on a target branch use the Preview API and turn on authentication. [Contentful Webhooks](https://www.contentful.com/developers/docs/concepts/webhooks/) are used to trigger re-deploys on Netlify to ensure the preview website stays updated.
 
 ![Login screen](./_images/login.png)
 
@@ -51,12 +51,15 @@ There are plenty of good resources online ([1](https://www.contentful.com/r/know
 
 ### Gatsby
 
-First, we create a wrapper service for `netlify-identity-widget` that our application can use to both check if the user is authenticated and allow the user to login.
+We can create a wrapper service for `netlify-identity-widget` that our application can use to check if the user is authenticated and also allow the user to login.
+
+First, install it as a dependency via `npm i -S netlify-identity-widget`.
 
 `auth.js`:
 ```javascript
 import netlifyIdentity from 'netlify-identity-widget';
 
+// `window` won't be defined on SSR builds
 if (typeof window !== 'undefined') {
   netlifyIdentity.init();
   window.netlifyIdentity = netlifyIdentity;
@@ -150,7 +153,7 @@ export default function withAuth(PageComponent) {
 }
 ```
 
-Now, we can create the function to actually do the wrapping (based on an environment variable -- we'll cover that after).
+Now, we can create the function to do the wrapping (based on an environment variable -- we'll cover that after).
 
 `wrapRootElementWithAuth.js`:
 ```javascript
@@ -159,8 +162,7 @@ import PropTypes from 'prop-types';
 
 import withAuth from './withAuth';
 
-const useAuth = process.env.ENABLE_NETLIFY_AUTH
-  === 'true';
+const useAuth = process.env.ENABLE_NETLIFY_AUTH === 'true';
 
 const wrapRootElement = ({
   element,
@@ -202,10 +204,10 @@ import wrapRootElementWithAuth from './src/auth/wrapRootElementWithAuth';
 export const wrapRootElement = wrapRootElementWithAuth;
 ```
 
-Now, we need to add support for `USE_NETLIFY_AUTH`. Since we're using it on the client-side, we need to make it accessible to the builds somehow.
+Now, we need to add support for `ENABLE_NETLIFY_AUTH`. Since we're using it on the client-side, we need to make it accessible.
 This can be accomplished with [`gatsby-plugin-env-variables`](https://www.gatsbyjs.org/packages/gatsby-plugin-env-variables/).
 
-Add the following lines to your `gatsby-config.js` file:
+After installing it as a dependency (`npm i -S gatsby-plugin-env-variables`), add the following lines to your `gatsby-config.js` file:
 
 ```javascript
 ...
@@ -230,7 +232,10 @@ With `gatsby-source-contentful`, there is a `host` option we can use. I moved pl
 
 `contentful-options.js`:
 ```javascript
-// We can use dotenv to read environment variables from a file (e.g. local environment)
+// We can use dotenv to read environment variables from a file (e.g. local environment).
+// This is not required if you don't want to preview locally.
+// This does require you to install it as a dependency:
+//  `npm i -S dotenv`
 require('dotenv').config({
   path: '.env',
 });
