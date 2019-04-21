@@ -15,6 +15,7 @@ and authenticate it using Netlify Identity.
   - [Gatsby](#gatsby)
   - [Netlify](#netlify)
   - [Contentful](#contentful)
+- [Conclusion](#conclusion)
 
 ## Introduction
 
@@ -24,7 +25,7 @@ Setting up a server to host an instance of your Gatsby website that uses the Pre
 
 The solution I came up with is to run a preview instance from Netlify that uses [Netlify Identity](https://www.netlify.com/docs/identity/) for authentication and Netlify [Deploy Contexts](https://www.netlify.com/tags/deploy-contexts/) to ensure that the builds use the Preview API. instance of the website behind  authentication and use environment variables to ensure it uses the Preview API. [Contentful Webhooks](https://www.contentful.com/developers/docs/concepts/webhooks/) are used to trigger re-deploys on Netlify to ensure the preview website stays updated.
 
-TODO Add Login image
+![Login screen](./_images/login.png)
 
 To summarize the changes:
 
@@ -283,7 +284,9 @@ Now, we need to setup Netlify to support authenticated builds using the Preview 
 1. Add the following environment variables:
    * `CONTENTFUL_PREVIEW_TOKEN` - Contentful API token
 1. Add a deploy context (`Site settings > Build & deploy > Deploy Contexts`) for the target branch, e.g. `develop`.
-      TODO Image
+      
+    ![Deploy Contenxt](./_images/branch-deploys.png)
+
 1. Update your build settings via `netlify.toml` to use authentication and the preview API.
 
     `netlify.toml`:
@@ -299,7 +302,7 @@ Now, we need to setup Netlify to support authenticated builds using the Preview 
     * **This is pretty important.**
 1. Finally, add a build hook for the `develop` deploy context and copy it to your clipboard
 
-    TODO Image
+    ![Build hook](./_images/build-hook.png)
 
 ### Contentful
 
@@ -307,14 +310,21 @@ Finally, we need to setup Contentful to trigger re-deploys of `develop` when con
 
 This is easy --  open the Webhooks for your environment and add the copied build hook.
   
-TODO Image
+![Webhooks](./_images/webhooks.png)
 
-Lastly, we can add linking from content to the preview website:
+We can add linking from content to the preview website:
 
 1. Open `Content Preview` for your environment
 2. Select the content you want
 3. Use the full Netlify URL for the preview URLs:
-    * e.g. `https://develop--projectname.netlify.com/blog/{entry.fields.slug}
+    * e.g. `https://develop--projectname.netlify.com/blog/{entry.fields.slug}`
 
-    TODO Image
+    ![Content Preview URLs](./_images/content-preview-urls.png)
 
+Then, a preview button will show up for creators on the right-side pane when creating content such as blog posts.
+
+![Preview button](./_images/preview-button.png)
+
+## Conclusion
+
+Questions? E-mail me.
