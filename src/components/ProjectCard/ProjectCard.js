@@ -35,10 +35,10 @@ function ProjectCard({
       </p>
       <div className={classes.links}>
         <a className={classes.link} href={homepageUrl}>
-          {'Homepage'}
+          homepage
         </a>
         <a className={classes.link} href={gitHubUrl}>
-          {'Code'}
+          code
         </a>
       </div>
     </div>
