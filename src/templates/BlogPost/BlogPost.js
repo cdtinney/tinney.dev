@@ -51,14 +51,14 @@ export default function BlogPost({ data, pageContext }) {
       <footer className={classes.footer}>
         { prevPost
           && (
-            <Link to={prevPost.postPath}>
+            <Link to={prevPost.postPath} className={classes.footerPageLink}>
               {`← ${prevPost.title}`}
             </Link>
           )
         }
         { nextPost
           && (
-            <Link to={nextPost.postPath}>
+            <Link to={nextPost.postPath} className={classes.footerPageLink}>
               {`${nextPost.title} →`}
             </Link>
           )

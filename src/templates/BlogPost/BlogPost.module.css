@@ -35,8 +35,12 @@ blockquote {
 
 .footer {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   border-top: 1px solid rgba(15, 15, 15, 0.4);
   margin-top: 1.5em;
   padding: 1em 0.25em;
+}
+
+.footerPageLink {
+  max-width: 50%;
 }
