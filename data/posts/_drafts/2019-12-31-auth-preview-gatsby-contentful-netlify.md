@@ -13,10 +13,8 @@ and authenticate it using Netlify Identity.
 - [Prerequisites](#prerequisites)
 - [Setup](#setup)
   - [Gatsby](#gatsby)
-  - [Contentful](#contentful)
   - [Netlify](#netlify)
-- [Further Work](#further-work)
-- [Additional Resources](#additional-resources)
+  - [Contentful](#contentful)
 
 ## Introduction
 
@@ -276,19 +274,45 @@ plugins: [{
 ...
 ```
 
-### Contentful
-
-- Webhooks - trigger `develop` deploy
-- Content Preview - Add Netlify URL, e.g. `https://develop--thebuddhilife.netlify.com/blog/{entry.fields.slug}`
-
 ### Netlify
 
-- Deploy Contexts - Add `develop`
-- Build Hooks - use Contentful webhook for `develop
-- (optional) Domain Management - Add `develop` subdomain
-- Environment Variables
-- Identity - Invite only, Google
+Now, we need to setup Netlify to support authenticated builds using the Preview API.
 
-## Further Work
+1. Add the following environment variables:
+   * `CONTENTFUL_PREVIEW_TOKEN` - Contentful API token
+1. Add a deploy context (`Site settings > Build & deploy > Deploy Contexts`) for the target branch, e.g. `develop`.
+      TODO Image
+1. Update your build settings via `netlify.toml` to use authentication and the preview API.
 
-## Additional Resources
+    `netlify.toml`:
+    ```
+    # Settings for `develop` branch deploys.
+    # If your target branch is named something else,
+    # the context will be "context.<NAME>.environment".
+    [context.develop.environment]
+      CONTENTFUL_USE_PREVIEW = "true"
+      ENABLE_NETLIFY_AUTH = "true"
+    ```
+1. Enable Identity, add Google as a provider, and set it to invite-only
+    * **This is pretty important.**
+1. Finally, add a build hook for the `develop` deploy context and copy it to your clipboard
+
+    TODO Image
+
+### Contentful
+
+Finally, we need to setup Contentful to trigger re-deploys of `develop` when content changes
+
+This is easy --  open the Webhooks for your environment and add the copied build hook.
+  
+TODO Image
+
+Lastly, we can add linking from content to the preview website:
+
+1. Open `Content Preview` for your environment
+2. Select the content you want
+3. Use the full Netlify URL for the preview URLs:
+    * e.g. `https://develop--projectname.netlify.com/blog/{entry.fields.slug}
+
+    TODO Image
+
