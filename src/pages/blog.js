@@ -10,8 +10,15 @@ export const pageQuery = graphql`
         fileAbsolutePath: {
           regex: "\/posts/"
         }
+        frontmatter: {
+          archived: {
+            ne: true
+          }
+        }
       },
-      sort: { order: DESC, fields: [frontmatter___date] },
+      sort: {
+        order: DESC, fields: [frontmatter___date]
+      },
     ) {
       edges {
         node {
@@ -19,6 +26,7 @@ export const pageQuery = graphql`
           id
           frontmatter {
             title
+            archived
             date(formatString: "MMMM DD, YYYY")
             path
           }

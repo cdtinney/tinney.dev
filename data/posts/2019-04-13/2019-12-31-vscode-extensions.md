@@ -2,6 +2,7 @@
 path: "/blog/vscode-extensions"
 date: "2019-04-13"
 title: "Some VS Code Extensions"
+archived: true
 ---
 
 Yes, this is yet another blog post about some random internet users'
