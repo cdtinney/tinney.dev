@@ -3,9 +3,7 @@
   flex-direction: column;
   box-sizing: content-box;
   overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0.75rem;
-  margin: 1rem 0;
+  margin-top: 1rem;
 }
 
 .previewTitle {

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Anchor from '../../components/Anchor';
 import BlogLayout from '../../layouts/BlogLayout';
 
-import theme from '../../styles/theme.module.css';
 import classes from './Blog.module.css';
 
 function BlogPostPreview({
@@ -14,12 +13,7 @@ function BlogPostPreview({
   title,
 }) {
   return (
-    <div
-      className={`
-        ${classes.preview}
-        ${theme.button}
-      `}
-    >
+    <div className={classes.preview}>
       <h1 className={classes.previewTitle}>
         <Anchor
           href={path}

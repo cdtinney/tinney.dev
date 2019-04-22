@@ -1,6 +1,6 @@
 body {
   color: rgb(33, 32, 40);
-  background-color: rgb(250, 250, 250);
+  background-color: rgb(252, 250, 255);
 }
 
 .primary {
@@ -23,6 +23,6 @@ body {
 
 .button {
   border-radius: 3px;
-  background-color: rgba(250, 250, 255);
+  background-color: white;
   box-shadow: 0 2px 3px rgba(0,0,0,0.16), 0 2px 3px rgba(0,0,0,0.23);
 }
