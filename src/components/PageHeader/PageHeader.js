@@ -120,6 +120,12 @@ export default class PageHeader extends PureComponent {
               width={24}
               height={20}
               strokeWidth={1}
+              style={{
+                padding: '1px 0',
+              }}
+              containerStyle={{
+                padding: '1px 0',
+              }}
             />
           </Popover>
         </span>

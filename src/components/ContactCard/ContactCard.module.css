@@ -29,9 +29,10 @@
 }
 
 .container__social a, .container__email a {
-  color: rgba(66, 66, 66);
+  color: rgb(66, 66, 66);
 }
 
 .container__social a:hover, .container__email a:hover {
   color: rgba(66, 66, 66, 0.7);
+  color: rgb(88, 88, 88);
 }

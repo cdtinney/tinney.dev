@@ -10,11 +10,11 @@
 }
 
 .link {
-  color: rgba(33, 32, 40) !important;
+  color: rgb(33, 32, 40) !important;
 }
 
 .link:hover {
-  color: rgba(33, 32, 40, 0.7) !important;
+  color: rgb(96, 94, 110) !important;
 }
 
 @media (max-width: 576px) {

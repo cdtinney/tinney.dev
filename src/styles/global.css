@@ -58,7 +58,7 @@ strong {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 .custom-block.box-shadow {
