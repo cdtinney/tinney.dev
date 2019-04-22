@@ -4,7 +4,7 @@ date: "2019-04-21"
 title: "Creating an authenticated preview site for Gatsby and Contentful using Netlify Identity"
 ---
 
-Figure out how to setup a preview instance of your Gatsby site using the Contentful Preview API
+Learn how to setup a preview instance of your Gatsby site using the Contentful Preview API
 and authenticate it using Netlify Identity with Google OAuth.
 
 <!-- end -->
@@ -15,6 +15,7 @@ and authenticate it using Netlify Identity with Google OAuth.
   - [Gatsby](#gatsby)
   - [Netlify](#netlify)
   - [Contentful](#contentful)
+- [Testing](#testing)
 - [Conclusion](#conclusion)
 
 ## Introduction
@@ -51,7 +52,7 @@ There are plenty of good resources online ([1](https://www.contentful.com/r/know
 
 ### Gatsby
 
-We can create a wrapper service for `netlify-identity-widget` that our application can use to check if the user is authenticated and also allow the user to login.
+We can create a wrapper service for `netlify-identity-widget` that our application can use to check if the user is authenticated and allow the user to login.
 
 First, install it as a dependency via `npm i -S netlify-identity-widget`.
 
@@ -78,7 +79,7 @@ export default {
 };
 ```
 
-Next, we create a higher-order component that we can use to wrap all of our components.
+Next, we create a higher-order component that we can use to wrap page components.
 
 `withAuth.js`:
 ```javascript
@@ -204,8 +205,8 @@ import wrapRootElementWithAuth from './src/auth/wrapRootElementWithAuth';
 export const wrapRootElement = wrapRootElementWithAuth;
 ```
 
-Now, we need to add support for `ENABLE_NETLIFY_AUTH`. Since we're using it on the client-side, we need to make it accessible.
-This can be accomplished with [`gatsby-plugin-env-variables`](https://www.gatsbyjs.org/packages/gatsby-plugin-env-variables/).
+Now, we need to add support for `ENABLE_NETLIFY_AUTH`. Since we're using it on the client-side, we need to make it accessible to
+modules. This can be accomplished with [`gatsby-plugin-env-variables`](https://www.gatsbyjs.org/packages/gatsby-plugin-env-variables/).
 
 After installing it as a dependency (`npm i -S gatsby-plugin-env-variables`), add the following lines to your `gatsby-config.js` file:
 
@@ -224,11 +225,13 @@ plugins: [{
 ...
 ```
 
-Now, we must add environment variable support for using the Preview API. Let's name this variable `CONTENTFUL_USE_PREVIEW`.
+Now, we must add environment variable support to switch to the Contentful Preview API.
+
+Let's name this variable `CONTENTFUL_USE_PREVIEW`.
 
 With `gatsby-source-contentful`, there is a `host` option we can use. I moved plugin options to their own module for encapsulation.
 
-**NOTE: You will need Preview and Delivery API tokens setup in your environment (both locally and on Netlify).**
+**NOTE: You will need both Preview and Delivery API tokens setup in your build environment.**
 
 `contentful-options.js`:
 ```javascript
@@ -288,32 +291,32 @@ Now, we need to setup Netlify to support authenticated builds using the Preview 
 
 1. Add the following environment variables:
    * `CONTENTFUL_PREVIEW_TOKEN` - Contentful API token
-1. Add a deploy context (`Site settings > Build & deploy > Deploy Contexts`) for the target branch, e.g. `develop`.
+1. Add a deploy context (`Site settings > Build & deploy > Deploy Contexts`) for the target branch, e.g. `develop`
       
     ![Deploy Contenxt](./_images/branch-deploys.png)
 
-1. Update your build settings via `netlify.toml` to use authentication and the preview API.
+1. Update your build settings via `netlify.toml` to use authentication and the preview API
 
     `netlify.toml`:
-    ```
-    # Settings for `develop` branch deploys.
-    # If your target branch is named something else,
-    # the context will be "context.<NAME>.environment".
-    [context.develop.environment]
-      CONTENTFUL_USE_PREVIEW = "true"
-      ENABLE_NETLIFY_AUTH = "true"
-    ```
-1. Enable Identity, add Google as a provider, and set it to invite-only
-    * **This is pretty important.**
+      ```yaml
+      # Settings for `develop` branch deploys.
+      # If your target branch is named something else,
+      # the context will be "context.<NAME>.environment".
+      [context.develop.environment]
+        CONTENTFUL_USE_PREVIEW = "true"
+        ENABLE_NETLIFY_AUTH = "true"
+      ```
+
+1. Enable Identity, add Google as a provider, and **set it to invite-only**
 1. Finally, add a build hook for the `develop` deploy context and copy it to your clipboard
 
     ![Build hook](./_images/build-hook.png)
 
 ### Contentful
 
-Finally, we need to setup Contentful to trigger re-deploys of `develop` when content changes
+Finally, we need to setup Contentful to trigger re-deploys of `develop` when content changes.
 
-This is easy --  open the Webhooks for your environment and add the copied build hook.
+Open the Webhooks for your environment and add the copied build hook.
   
 ![Webhooks](./_images/webhooks.png)
 
@@ -321,7 +324,7 @@ We can add linking from content to the preview website:
 
 1. Open `Content Preview` for your environment
 2. Select the content you want
-3. Use the full Netlify URL for the preview URLs:
+3. Use the full Netlify URL for the preview URLs
     * e.g. `https://develop--projectname.netlify.com/blog/{entry.fields.slug}`
 
     ![Content Preview URLs](./_images/content-preview-urls.png)
@@ -329,6 +332,10 @@ We can add linking from content to the preview website:
 Then, a preview button will show up for creators on the right-side pane when creating content such as blog posts.
 
 ![Preview button](./_images/preview-button.png)
+
+## Testing
+
+To test the setup, push the changes to the `develop` branch after configuring Contentful and Netlify. Upon a successful deploy, you should be redirected to the login page when accessing the website.
 
 ## Conclusion
 
