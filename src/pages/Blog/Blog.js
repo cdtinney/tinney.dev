@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-regular-svg-icons';
 
 import Anchor from '../../components/Anchor';
 import BlogLayout from '../../layouts/BlogLayout';
@@ -21,12 +23,18 @@ function BlogPostPreview({
           {title}
         </Anchor>
       </h1>
-      <p className={classes.previewDate}>
-        {date}
-      </p>
-      <p className={classes.previewExcerpt}>
+      <div className={classes.previewDate}>
+        <FontAwesomeIcon
+          icon={faCalendar}
+          style={{
+            margin: '-1px 0.5em 0 0',
+          }}
+        />
+        <span>{date}</span>
+      </div>
+      <div className={classes.previewExcerpt}>
         {excerpt}
-      </p>
+      </div>
     </div>
   );
 }

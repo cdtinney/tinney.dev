@@ -12,8 +12,8 @@
 
 .previewDate {
   font-size: 0.75rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0;
+  margin-top: 0.5rem;
+  padding-left: 0.25rem;
 }
 
 .previewExcerpt {
@@ -21,5 +21,5 @@
   max-height: 140px;
   font-family: 'Merriweather', 'Georgia', serif;
   margin: 0;
-  padding: 1rem 0;
+  padding: 0.75rem 0;
 }
