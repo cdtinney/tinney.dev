@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import Popover from 'react-tiny-popover';
@@ -8,6 +9,30 @@ import Brand from '../Brand';
 import Anchor from '../Anchor';
 
 import classes from './PageHeader.module.css';
+
+const bodyElement = document.getElementsByTagName('body')[0];
+
+function BackgroundOverlay({
+  visible,
+}) {
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgb(75, 75, 75)',
+        opacity: visible ? 0.65 : 0,
+        transition: 'opacity 0.2s ease-in-out',
+        pointerEvents: 'none',
+      }}
+    />
+  );
+}
+
+BackgroundOverlay.propTypes = {
+  visible: PropTypes.bool.isRequired,
+};
 
 export default class PageHeader extends PureComponent {
   static propTypes = {
@@ -62,6 +87,12 @@ export default class PageHeader extends PureComponent {
 
     return (
       <header className={classes.header}>
+        {
+          ReactDOM.createPortal(
+            <BackgroundOverlay visible={popoverVisible} />,
+            bodyElement,
+          )
+        }
         <span className={classes.brandContainer}>
           <Brand underline={false} />
         </span>
