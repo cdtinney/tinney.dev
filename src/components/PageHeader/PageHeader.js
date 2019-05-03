@@ -10,7 +10,9 @@ import Anchor from '../Anchor';
 
 import classes from './PageHeader.module.css';
 
-const bodyElement = document.getElementsByTagName('body')[0];
+const portalElement = typeof document !== 'undefined'
+  ? document.getElementsByTagName('body')[0]
+  : null;
 
 function BackgroundOverlay({
   visible,
@@ -88,9 +90,10 @@ export default class PageHeader extends PureComponent {
     return (
       <header className={classes.header}>
         {
-          ReactDOM.createPortal(
+          portalElement
+          && ReactDOM.createPortal(
             <BackgroundOverlay visible={popoverVisible} />,
-            bodyElement,
+            portalElement,
           )
         }
         <span className={classes.brandContainer}>
