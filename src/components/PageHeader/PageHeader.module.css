@@ -32,9 +32,18 @@
   color: #000;
 }
 
-.menuIconContainer {
+.mobileMenu, .desktopMenu {
   margin-left: auto;
   padding: 1px 0;
+}
+
+.desktopMenuItem {
+  font-size: 1.1em;
+  margin: 0 0.5em;
+}
+
+.mobileMenu {
+  display: none;
 }
 
 .popoverMenu {
@@ -53,6 +62,14 @@
 }
 
 @media (max-width: 576px) {
+  .desktopMenu {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: initial;
+  }
+
   .header {
     padding: 0.25em 0;
   }

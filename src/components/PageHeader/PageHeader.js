@@ -137,7 +137,10 @@ export default class PageHeader extends PureComponent {
             }
           </h3>
         </span>
-        <span className={classes.menuIconContainer}>
+        <span className={classes.desktopMenu}>
+          {getMenuItems(classes.desktopMenuItem)}
+        </span>
+        <span className={classes.mobileMenu}>
           <Popover
             isOpen={popoverVisible}
             content={(

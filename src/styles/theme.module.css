@@ -9,16 +9,18 @@ body {
 
 .primary:hover {
   color: rgba(11, 90, 158, 0.65);
+  /** Fallback for browsers that don't support rgba */
   color: rgb(31, 110, 178);
 }
 
 .secondary, a {
-  color: rgb(168, 45, 28);
+  color: rgb(216, 95, 79);
 }
 
 .secondary:hover, a:hover {
-  color: rgba(168, 45, 28, 0.65);
-  color: rgba(188, 65, 48);
+  color: rgba(216, 95, 79, 0.65);
+  /** Fallback for browsers that don't support rgba */
+  color: rgb(233, 132, 119);
 }
 
 .button {
