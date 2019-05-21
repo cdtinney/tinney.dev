@@ -87,6 +87,29 @@ export default class PageHeader extends PureComponent {
       titleHref,
     } = this.props;
 
+    const getMenuItems = className => (
+      <React.Fragment>
+        <Link
+          to="/about"
+          className={className}
+        >
+          about
+        </Link>
+        <Link
+          to="/blog"
+          className={className}
+        >
+          blog
+        </Link>
+        <Link
+          to="/projects"
+          className={className}
+        >
+          projects
+        </Link>
+      </React.Fragment>
+    );
+
     return (
       <header className={classes.header}>
         {
@@ -119,24 +142,7 @@ export default class PageHeader extends PureComponent {
             isOpen={popoverVisible}
             content={(
               <div className={classes.popoverMenu}>
-                <Link
-                  to="/about"
-                  className={classes.popoverMenuItem}
-                >
-                  about
-                </Link>
-                <Link
-                  to="/blog"
-                  className={classes.popoverMenuItem}
-                >
-                  blog
-                </Link>
-                <Link
-                  to="/projects"
-                  className={classes.popoverMenuItem}
-                >
-                  projects
-                </Link>
+                {getMenuItems(classes.popoverMenuItem)}
               </div>
             )}
             onVisibleChange={this.handlePopoverVisibility}
