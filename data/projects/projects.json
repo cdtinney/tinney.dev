@@ -11,7 +11,7 @@
     "name": "fresh-tabula-js",
     "shortDescription": "PDF table extraction to CSV.",
     "techStack": [
-      "JavaScript"
+      "JavaScript", "Rollup"
     ],
     "homepageUrl": "https://www.npmjs.com/package/fresh-tabula-js",
     "gitHubUrl": "https://github.com/cdtinney/fresh-tabula-js"
