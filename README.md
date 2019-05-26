@@ -76,34 +76,38 @@ Posts inside `posts/__drafts` will only be displayed in non-production environme
 
 ### Projects
 
-Projects are added via JSON files in `data/projects` and made available to the application
+Projects are added via JSON in `data/projects/projects.json` and made available to the application
 via GraphQL queries.
 
 #### Format
 
 Project file format is as follows:
 
-`project.json`:
+`projects.json`:
 
 ```
 {
-  // Project name
- "name": "foo",
-  // Projects are displayed in ascending order
- "order": 1,
- // Short description of the project
- "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
- // List of technologies used
- "techStack": [
-    "React", "Redux", "Node.js/Express", "Jest", "Heroku", "MongoDB"
- ],
- // Homepage for the project
- "homepageUrl": "https://spune.tinney.dev",
- // Link to source code
- "gitHubUrl": "https://github.com/cdtinney/spune"
+  "projects": [
+    // ... existing projects ...
+    {
+      // Project name
+      "name": "foo",
+      // Projects are displayed in ascending order
+      "order": 1,
+      // Short description of the project
+      "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
+      // List of technologies used
+      "techStack": [
+          "React", "Redux", "Node.js/Express", "Jest", "Heroku", "MongoDB"
+      ],
+      // Homepage for the project
+      "homepageUrl": "https://spune.tinney.dev",
+      // Link to source code
+      "gitHubUrl": "https://github.com/cdtinney/spune"
+    }
+  ],
 }
 ```
-
 
 ### About
 

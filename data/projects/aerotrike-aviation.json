@@ -1,9 +1,0 @@
-{
-  "name": "Aerotrike Aviation",
-  "shortDescription": "Small business website.",
-  "techStack": [
-    "Gatsby (React)", "Bootstrap"
-  ],
-  "homepageUrl": "https://aerotrikeaviation.com",
-  "gitHubUrl": "https://github.com/cdtinney/aerotrike-aviation"
- }

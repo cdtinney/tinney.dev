@@ -1,9 +1,0 @@
-{
-  "name": "innerdroste",
-  "shortDescription": "Client-side Droste effect generator, inspired by Tame Impala.",
-  "techStack": [
-    "JavaScript", "HTML Canvas"
-  ],
-  "homepageUrl": "https://innerdroste.tinney.dev",
-  "gitHubUrl": "https://github.com/cdtinney/innerdroste"
- }

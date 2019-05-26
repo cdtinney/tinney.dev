@@ -8,7 +8,7 @@ import classes from './Projects.module.css';
 function Projects({ data = {} }) {
   const {
     allProjectsJson: {
-      edges: projects = [],
+      edges = [],
     } = {},
     site: {
       siteMetadata: {
@@ -16,6 +16,10 @@ function Projects({ data = {} }) {
       } = {},
     } = {},
   } = data;
+
+  const projects = edges.length === 1
+    ? edges[0].node.projects
+    : [];
 
   return (
     <PageLayout
@@ -25,7 +29,7 @@ function Projects({ data = {} }) {
       pageDescription="Personal projects."
     >
       <section className={classes.projects}>
-        {projects.map(({ node }) => <ProjectCard key={node.id} {...node} />)}
+        {projects.map(project => <ProjectCard key={project.name} {...project} />)}
       </section>
     </PageLayout>
   );
@@ -36,11 +40,13 @@ Projects.propTypes = {
     allProjectsJson: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         node: PropTypes.shape({
-          name: PropTypes.string.isRequired,
-          shortDescription: PropTypes.string.isRequired,
-          techStack: PropTypes.arrayOf(PropTypes.string).isRequired,
-          homepageUrl: PropTypes.string.isRequired,
-          gitHubUrl: PropTypes.string.isRequired,
+          projects: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            shortDescription: PropTypes.string.isRequired,
+            techStack: PropTypes.arrayOf(PropTypes.string).isRequired,
+            homepageUrl: PropTypes.string.isRequired,
+            gitHubUrl: PropTypes.string.isRequired,
+          })).isRequired,
         }).isRequired,
       })).isRequired,
     }).isRequired,

@@ -1,9 +1,0 @@
-{
-  "name": "tinney.dev",
-  "shortDescription": "Personal website.",
-  "techStack": [
-    "Gatsby (React)", "Travis CI", "Heroku", "GitHub Pages"
-  ],
-  "homepageUrl": "https://tinney.dev",
-  "gitHubUrl": "https://github.com/cdtinney/tinney.dev"
- }
