@@ -44,13 +44,14 @@
 
 .mobileMenu {
   display: none;
+  z-index: 100;
 }
 
 .popoverMenu {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  min-width: 200px;
+  width: 100vw;
   padding: 0.5em;
   font-size: 1.4rem;
   background-color: white;

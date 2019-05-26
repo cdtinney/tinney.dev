@@ -153,7 +153,11 @@ export default class PageHeader extends PureComponent {
               overflow: 'visible',
             }}
             position="bottom"
-            align="end"
+            windowBorderPadding={0}
+            contentLocation={{
+              top: 50,
+              left: 0,
+            }}
             transitionDuration={0.25}
             onClickOutside={this.hidePopover}
           >
@@ -169,6 +173,7 @@ export default class PageHeader extends PureComponent {
               containerStyle={{
                 padding: '1px 0',
               }}
+              color={popoverVisible ? 'white' : 'black'}
             />
           </Popover>
         </span>
