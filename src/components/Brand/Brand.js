@@ -8,6 +8,7 @@ import Anchor from '../Anchor';
 import classes from './Brand.module.css';
 
 function Brand({
+  className,
   underline,
   large,
 }) {
@@ -29,7 +30,7 @@ function Brand({
           className={classNames(classes.header, {
             [classes.headerUnderline]: underline,
             [classes.headerLarge]: large,
-          })}
+          }, className)}
         >
           <Anchor
             href="/"
@@ -44,11 +45,13 @@ function Brand({
 }
 
 Brand.propTypes = {
+  className: PropTypes.string,
   underline: PropTypes.bool,
   large: PropTypes.bool,
 };
 
 Brand.defaultProps = {
+  className: '',
   underline: true,
   large: false,
 };

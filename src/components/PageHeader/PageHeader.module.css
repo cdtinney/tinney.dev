@@ -6,13 +6,9 @@
   border-bottom: 1px solid rgba(15, 15, 15, 0.4);
 }
 
-.brandContainer {
+.brand {
   white-space: nowrap;
-}
-
-.titleContainer {
-  display: flex;
-  align-items: baseline;
+  margin: 0;
 }
 
 .separator {
@@ -25,7 +21,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  line-height: 1.33em;
 }
 
 .titleLink {
@@ -63,16 +58,24 @@
 }
 
 @media (max-width: 576px) {
+  .header {
+    padding: 0.4em 0;
+    min-height: 35px;
+    line-height: 35px;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 1em;
+    padding-top: 2px;
+  }
+
   .desktopMenu {
     display: none;
   }
 
   .mobileMenu {
     display: initial;
-  }
-
-  .header {
-    padding: 0.25em 0;
   }
 
   .menuIconContainer {

@@ -119,24 +119,20 @@ export default class PageHeader extends PureComponent {
             portalElement,
           )
         }
-        <span className={classes.brandContainer}>
-          <Brand underline={false} />
+        <Brand underline={false} className={classes.brand} />
+        <span className={classes.separator}>
+          {'/'}
         </span>
-        <span className={classes.titleContainer}>
-          <span className={classes.separator}>
-            {'/'}
-          </span>
-          <h3 className={classes.title}>
-            {titleHref
-              ? (
-                <Anchor className={classes.titleLink} href={titleHref}>
-                  { title }
-                </Anchor>
-              )
-              : title
-            }
-          </h3>
-        </span>
+        <h3 className={classes.title}>
+          {titleHref
+            ? (
+              <Anchor className={classes.titleLink} href={titleHref}>
+                { title }
+              </Anchor>
+            )
+            : title
+          }
+        </h3>
         <span className={classes.desktopMenu}>
           {getMenuItems(classes.desktopMenuItem)}
         </span>
