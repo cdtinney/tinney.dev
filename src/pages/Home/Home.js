@@ -39,7 +39,7 @@ export default function Home({
     >
       <div className={classes.container}>
         <header>
-          <Brand />
+          <Brand large />
           <PageLinks links={pageLinks} />
         </header>
         <main className={classes.contactCard}>

@@ -1,8 +1,13 @@
 .header {
   display: inline-block;
   padding: 0 4px;
-  line-height: 0.9em;
   cursor: default;
+}
+
+.headerLarge {
+  font-size: 2.35em;
+  /** Uses secondary colour. **/
+  text-shadow: 0.5px 0.5px 1px rgb(216, 95, 79);
 }
 
 .headerUnderline {
@@ -18,7 +23,7 @@
 }
 
 @media (max-width: 576px) {
-  .header {
+  .header:not(.headerLarge) {
     font-size: 1.2rem;
   }
 }

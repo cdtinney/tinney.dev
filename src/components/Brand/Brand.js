@@ -9,6 +9,7 @@ import classes from './Brand.module.css';
 
 function Brand({
   underline,
+  large,
 }) {
   return (
     <StaticQuery
@@ -27,6 +28,7 @@ function Brand({
         <h1
           className={classNames(classes.header, {
             [classes.headerUnderline]: underline,
+            [classes.headerLarge]: large,
           })}
         >
           <Anchor
@@ -43,10 +45,12 @@ function Brand({
 
 Brand.propTypes = {
   underline: PropTypes.bool,
+  large: PropTypes.bool,
 };
 
 Brand.defaultProps = {
   underline: true,
+  large: false,
 };
 
 export default Brand;
