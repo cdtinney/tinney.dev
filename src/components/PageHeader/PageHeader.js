@@ -24,7 +24,7 @@ function BackgroundOverlay({
         width: '100%',
         height: '100%',
         backgroundColor: 'rgb(75, 75, 75)',
-        opacity: visible ? 0.65 : 0,
+        opacity: visible ? 0.75 : 0,
         transition: 'opacity 0.2s ease-in-out',
         pointerEvents: 'none',
       }}
