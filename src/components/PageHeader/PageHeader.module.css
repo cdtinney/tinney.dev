@@ -11,6 +11,11 @@
   margin: 0;
 }
 
+.separator, .title {
+  padding-bottom: 2px;
+  align-self: flex-end;
+}
+
 .separator {
   margin: 0 10px;
 }
@@ -63,6 +68,10 @@
     min-height: 35px;
     line-height: 35px;
     align-items: center;
+  }
+
+  .separator {
+    margin: 0 4px;
   }
 
   .title {
