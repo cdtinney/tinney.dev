@@ -1,9 +1,15 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   width: 100%;
   padding: 1rem;
   margin: 0.5rem;
+  transition: top ease 1s;
+}
+
+.card:hover {
+  top: -1px;
 }
 
 @media all and (min-width: 400px) {
