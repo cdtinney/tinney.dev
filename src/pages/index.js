@@ -11,6 +11,15 @@ export default Home;
 
 export const pageQuery = graphql`
   query {
+    allMarkdownRemark(
+      filter: { fileAbsolutePath: { regex: "/about\/about.md/" } }
+    ) {
+      edges {
+        node {
+          html
+        }
+      }
+    }
     site {
       siteMetadata {
         title,

@@ -90,12 +90,6 @@ export default class PageHeader extends PureComponent {
     const getMenuItems = className => (
       <React.Fragment>
         <Link
-          to="/about"
-          className={className}
-        >
-          about
-        </Link>
-        <Link
           to="/blog"
           className={className}
         >

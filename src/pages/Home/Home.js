@@ -13,6 +13,9 @@ export default function Home({
   data = {},
 }) {
   const {
+    allMarkdownRemark: {
+      edges = [],
+    } = {},
     site: {
       siteMetadata: {
         title,
@@ -22,15 +25,13 @@ export default function Home({
 
   const pageDescription = 'A personal website';
   const pageLinks = [{
-    to: '/about',
-    name: 'about',
-  }, {
     to: '/blog',
     name: 'blog',
   }, {
     to: '/projects',
     name: 'projects',
   }];
+  const aboutHtml = edges.length ? edges[0].node.html : null;
 
   return (
     <DefaultLayout
@@ -39,7 +40,14 @@ export default function Home({
     >
       <div className={classes.container}>
         <header>
-          <Brand large />
+          <Brand
+            className={classes.brand}
+            large
+          />
+          <p
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: aboutHtml }}
+          />
           <PageLinks links={pageLinks} />
         </header>
         <main className={classes.contactCard}>
@@ -52,6 +60,13 @@ export default function Home({
 
 Home.propTypes = {
   data: PropTypes.shape({
+    allMarkdownRemark: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          html: PropTypes.string.isRequired,
+        }).isRequired,
+      })).isRequired,
+    }).isRequired,
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
         title: PropTypes.string.isRequired,
