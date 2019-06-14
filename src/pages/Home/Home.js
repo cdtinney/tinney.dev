@@ -44,7 +44,7 @@ export default function Home({
             className={classes.brand}
             large
           />
-          <p
+          <div
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: aboutHtml }}
           />
