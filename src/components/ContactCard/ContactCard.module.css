@@ -23,11 +23,6 @@
   margin-bottom: 1em;
 }
 
-.container__resume {
-  width: 80px;
-  padding: 6px;
-}
-
 .container__social a, .container__email a {
   color: rgb(66, 66, 66);
 }
