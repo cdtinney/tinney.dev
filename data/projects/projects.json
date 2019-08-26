@@ -33,7 +33,7 @@
     "gitHubUrl": "https://github.com/cdtinney/innerdroste"
   }, {
     "name": "react-double-marquee",
-    "shortDescription": "React marquee component, published to NPM.",
+    "shortDescription": "A marquee component.",
     "techStack": [
       "React", "Rollup"
     ],
