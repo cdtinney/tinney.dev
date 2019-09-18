@@ -6,7 +6,6 @@ import Popover from 'react-tiny-popover';
 import HamburgerMenu from 'react-hamburger-menu';
 
 import Brand from '../Brand';
-import Anchor from '../Anchor';
 
 import classes from './PageHeader.module.css';
 
@@ -120,9 +119,9 @@ export default class PageHeader extends PureComponent {
         <h3 className={classes.title}>
           {titleHref
             ? (
-              <Anchor className={classes.titleLink} href={titleHref}>
+              <div className={classes.titleLink}>
                 { title }
-              </Anchor>
+              </div>
             )
             : title
           }
