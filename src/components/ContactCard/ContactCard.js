@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faGithub,
   faLinkedin,
-  fa500px,
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 
@@ -58,18 +57,6 @@ function ContactCard({
             size="lg"
           />
         </Anchor>
-        <Anchor
-          title={`${social.fiveHundredPx} on 500px`}
-          href={`https://500px.com/${social.fiveHundredPx}`}
-          external
-          aria-label="500px profile"
-        >
-          <FontAwesomeIcon
-            icon={fa500px}
-            className={classes.icon}
-            size="lg"
-          />
-        </Anchor>
       </div>
       <div className={classes.container__email}>
         <Anchor
@@ -107,7 +94,6 @@ ContactCard.propTypes = {
         social: PropTypes.shape({
           github: PropTypes.string.isRequired,
           linkedin: PropTypes.string.isRequired,
-          fiveHundredPx: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired,
     }).isRequired,
@@ -133,7 +119,6 @@ export default function ContactCardWithData() {
                 social {
                   github,
                   linkedin,
-                  fiveHundredPx,
                 }
               }
             }
