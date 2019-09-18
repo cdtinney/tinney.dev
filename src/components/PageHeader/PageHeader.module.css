@@ -21,7 +21,6 @@
 }
 
 .title {
-  cursor: pointer;
   word-break: break-word;
   white-space: nowrap;
   text-overflow: ellipsis;
