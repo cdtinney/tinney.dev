@@ -1,12 +1,12 @@
 {
   "projects": [{
-    "name": "spune (WIP)",
-    "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
+    "name": "react-double-marquee",
+    "shortDescription": "A marquee component.",
     "techStack": [
-        "React", "Redux", "Node.js/Express", "Jest", "Heroku", "MongoDB"
+      "React", "Rollup"
     ],
-    "homepageUrl": "https://spune.tinney.dev",
-    "gitHubUrl": "https://github.com/cdtinney/spune"
+    "homepageUrl": "https://www.npmjs.com/package/react-double-marquee",
+    "gitHubUrl": "https://github.com/cdtinney/react-double-marquee"
   }, {
     "name": "fresh-tabula-js",
     "shortDescription": "PDF table extraction to CSV.",
@@ -23,22 +23,6 @@
     ],
     "homepageUrl": "https://aerotrikeaviation.com",
     "gitHubUrl": "https://github.com/cdtinney/aerotrike-aviation"
-  }, {
-    "name": "innerdroste",
-    "shortDescription": "Client-side Droste effect generator, inspired by Tame Impala.",
-    "techStack": [
-      "JavaScript", "HTML Canvas"
-    ],
-    "homepageUrl": "https://innerdroste.tinney.dev",
-    "gitHubUrl": "https://github.com/cdtinney/innerdroste"
-  }, {
-    "name": "react-double-marquee",
-    "shortDescription": "A marquee component.",
-    "techStack": [
-      "React", "Rollup"
-    ],
-    "homepageUrl": "https://www.npmjs.com/package/react-double-marquee",
-    "gitHubUrl": "https://github.com/cdtinney/react-double-marquee"
   }, {
     "name": "tinney.dev",
     "shortDescription": "Personal website.",
