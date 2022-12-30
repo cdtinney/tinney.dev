@@ -19,7 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "babel-eslint": "^10.0.1",
-    "gatsby": "^2.3.29",
+    "gatsby": "^2.32.13",
     "gatsby-link": "^2.0.16",
     "gatsby-plugin-catch-links": "^2.0.13",
     "gatsby-plugin-google-analytics": "^2.0.18",
