@@ -61,21 +61,6 @@ module.exports = {
         }, {
           resolve: 'gatsby-remark-prismjs',
         }, {
-          resolve: 'gatsby-remark-images',
-          options: {
-            // It's important to specify the maxWidth (in pixels) of
-            // the content container as this plugin uses this as the
-            // base for generating different widths of each image.
-            maxWidth: 590,
-            // Quality level of generated images (1-100).
-            // The default is 50.
-            quality: 100,
-            backgroundColor: 'transparent',
-            // Wrapper <div> styles.
-            wrapperStyle:
-              'margin: 1rem;',
-          },
-        }, {
           // Adds support for custom Markdown blocks.
           resolve: 'gatsby-remark-custom-blocks',
           options: {
