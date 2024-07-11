@@ -1,1 +1,2 @@
-Hi! I'm a full-stack software engineer passionate about high-quality engineering and positive user experiences. Currently working at [Square](https://squareup.com).
+Hi! I'm a full-stack software engineer passionate about clean code and positive user experiences.
+Currently working at [Block (formerly known as Square)](https://squareup.com).

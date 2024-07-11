@@ -5,3 +5,9 @@
   box-sizing: content-box;
   padding: 1rem 0;
 }
+
+.projectsNote {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}

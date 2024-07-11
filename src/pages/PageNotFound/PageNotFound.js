@@ -22,10 +22,10 @@ export default function PageNotFound() {
           {route}
         </h1>
         <h2>
-          {'This content is not available in your country.'}
+          This content is not available in your country.
         </h2>
         <div className={classes.truth}>
-          {'Just kidding. This page does not exist.'}
+          Just kidding. This page does not exist.
         </div>
       </div>
     </PageLayout>

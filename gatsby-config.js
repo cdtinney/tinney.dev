@@ -6,7 +6,7 @@ module.exports = {
       name: 'Colin Tinney',
       email: 'colintinney@gmail.com',
       displayedEmail: 'colintinney [at] gmail.com',
-      resumeUrl: 'https://drive.google.com/open?id=1pBYBPWx7LyOyUcabGnse4_ItVXkwoufG',
+      resumeUrl: 'https://drive.google.com/file/d/1TKfDYPRYclBrcLUoGJB5jMW-zvcR40_A/view?usp=sharing',
     },
     social: {
       github: 'cdtinney',
@@ -32,7 +32,9 @@ module.exports = {
       options: {
         path: `${__dirname}/data/posts`,
         name: 'posts',
-        ignore: process.env.NODE_ENV === 'production' && ['**/_drafts/**'],
+        ignore: [
+          process.env.NODE_ENV === 'production' && ['**/_drafts/**'],
+        ],
       },
     }, {
       resolve: 'gatsby-source-filesystem',

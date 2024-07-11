@@ -73,6 +73,7 @@ BlogPost.propTypes = {
     markdownRemark: PropTypes.shape({
       frontmatter: PropTypes.shape({
         title: PropTypes.string.isRequired,
+        date: PropTypes.string.isRequired,
       }).isRequired,
       html: PropTypes.string.isRequired,
       excerpt: PropTypes.string.isRequired,

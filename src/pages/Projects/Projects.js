@@ -28,6 +28,7 @@ function Projects({ data = {} }) {
       pageTitle={`${title} - projects`}
       pageDescription="Personal projects."
     >
+      <h2 className={classes.projectsNote}>NOTE: Last updated in 2021.</h2>
       <section className={classes.projects}>
         {projects.map(project => <ProjectCard key={project.name} {...project} />)}
       </section>

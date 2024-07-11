@@ -31,7 +31,7 @@
     "gatsby-remark-custom-blocks": "^2.0.7",
     "gatsby-remark-images": "^3.0.11",
     "gatsby-remark-prismjs": "^3.2.8",
-    "gatsby-source-filesystem": "^2.0.32",
+    "gatsby-source-filesystem": "2.0.32",
     "gatsby-transformer-json": "^2.1.11",
     "gatsby-transformer-remark": "^2.3.11",
     "path": "^0.12.7",

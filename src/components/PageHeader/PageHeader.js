@@ -114,7 +114,7 @@ export default class PageHeader extends PureComponent {
         }
         <Brand underline={false} className={classes.brand} />
         <span className={classes.separator}>
-          {'/'}
+          /
         </span>
         <h3 className={classes.title}>
           {titleHref
