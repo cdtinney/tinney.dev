@@ -1,0 +1,11 @@
+.scroll-up-container {
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(53, 180, 222, 0.8);
+  padding: 0.35rem;
+}
+
+.scroll-up-container:hover {
+  color: rgba(53, 180, 222);
+  top: -1px;
+}

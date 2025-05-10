@@ -1,0 +1,25 @@
+---
+import ScrollUp from "../../components/ScrollUp/ScrollUp";
+import { SiteMetadata } from "../../constants/site-metadata";
+---
+
+<>
+  <title>{SiteMetadata.pageTitles.home}</title>
+  <!-- TODO Meta props -->
+  <!-- <meta name="description" content={pageDescription} />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={pageDescription} /> -->
+  <main class="default-layout">
+    <slot />
+  </main>
+  <ScrollUp />
+
+  <style>
+    .default-layout {
+      height: 100%;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</>
