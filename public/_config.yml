@@ -1,0 +1,6 @@
+# Allows posts to be published that appear
+# to be in the future.
+# This is useful if you are serving the website
+# from a server set to UTC (e.g. GitHub Pages)
+# but are publishing with dates based on a timezone ahead of UTC.
+future: true

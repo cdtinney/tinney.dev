@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import classNames from "../../../../src/utils/classNames";
+import classNames from "../../utils/classNames";
 
 import "./Anchor.css";
 

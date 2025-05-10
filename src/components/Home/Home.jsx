@@ -1,6 +1,6 @@
 import Brand from "../../components/Brand/Brand";
 import ContactCard from "../../components/ContactCard/ContactCard";
-import { SiteMetadata } from "../../constants/site-metadata";
+import { SiteMetadata } from "../../data/site-metadata";
 import PageLinks from "../PageLinks/PageLinks";
 
 import "./Home.css";

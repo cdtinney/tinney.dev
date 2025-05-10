@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import classNames from "../../../../src/utils/classNames";
+import classNames from "../../utils/classNames";
 import Anchor from "../Anchor/Anchor";
-import { SiteMetadata } from "../../constants/site-metadata";
+import { SiteMetadata } from "../../data/site-metadata";
 import "./Brand.css";
 
 function Brand({ className, underline, large }) {

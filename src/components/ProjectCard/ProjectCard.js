@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import classNames from "../../../../src/utils/classNames";
+import classNames from "../../utils/classNames";
 
 import theme from "../../styles/theme.module.css";
 import classes from "./ProjectCard.module.css";

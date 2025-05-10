@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import Anchor from "../Anchor/Anchor";
-import classNames from "../../../../src/utils/classNames";
+import classNames from "../../utils/classNames";
 import "./AnchorButton.css";
 
 const colorEnum = {
