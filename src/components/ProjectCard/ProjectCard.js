@@ -12,6 +12,7 @@ function ProjectCard({
   techStack,
   homepageUrl,
   gitHubUrl,
+  lastCommitDate,
 }) {
   return (
     <div
@@ -33,6 +34,11 @@ function ProjectCard({
       <p className={classes.techStack}>
         {techStack.join(', ')}
       </p>
+      {lastCommitDate && (
+        <p className={classes.lastCommit}>
+          Last commit: {lastCommitDate}
+        </p>
+      )}
       <div className={classes.links}>
         <a className={classes.link} href={homepageUrl}>
           homepage
@@ -51,6 +57,7 @@ ProjectCard.propTypes = {
   techStack: PropTypes.arrayOf(PropTypes.string).isRequired,
   homepageUrl: PropTypes.string.isRequired,
   gitHubUrl: PropTypes.string.isRequired,
+  lastCommitDate: PropTypes.string,
 };
 
 export default ProjectCard;

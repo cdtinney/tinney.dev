@@ -1,18 +1,39 @@
-name: Gatsby Publish
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
       - develop
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 11
-      - uses: enriikke/gatsby-gh-pages-action@v2
+      - run: npm install
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
         with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

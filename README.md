@@ -1,37 +1,38 @@
+# THIS IS NOT ACTIVELY MAINTAINED.
+
 # tinney.dev
 > A personal website.
 
-[![Build Status](https://travis-ci.org/cdtinney/tinney.dev.svg?branch=develop)](https://travis-ci.org/cdtinney/tinney.dev)
-
 ## Contents
 
-- [Contents](#contents)
-- [Introduction](#introduction)
-- [Content](#content)
-  - [Blog](#blog)
-    - [Format](#format)
-    - [Drafts](#drafts)
-  - [Projects](#projects)
-    - [Format](#format-1)
-  - [About](#about)
-- [Usage](#usage)
-- [Developing](#developing)
-  - [Requirements](#requirements)
-  - [Installing](#installing)
-  - [Running](#running)
-  - [Building](#building)
-- [Deploying](#deploying)
-  - [Travis CI](#travis-ci)
-  - [Google Analytics](#google-analytics)
-- [License](#license)
+- [THIS IS NOT ACTIVELY MAINTAINED.](#this-is-not-actively-maintained)
+- [tinney.dev](#tinneydev)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Content](#content)
+    - [Blog](#blog)
+      - [Format](#format)
+      - [Drafts](#drafts)
+    - [Projects](#projects)
+      - [Format](#format-1)
+    - [About](#about)
+  - [Usage](#usage)
+  - [Developing](#developing)
+    - [Requirements](#requirements)
+    - [Installing](#installing)
+    - [Running](#running)
+    - [Building](#building)
+  - [Deploying](#deploying)
+    - [GitHub Actions](#github-actions)
+    - [Google Analytics](#google-analytics)
+  - [License](#license)
 
 ## Introduction
 
 This website is built with:
 
 * [GatsbyJS](https://gatsbyjs.org) - Static website generation using React
-* [Travis CI](https://travis-ci.org) - Continuous integration
-  and deployment to GitHub Pages
+* [GitHub Actions](https://github.com/features/actions) - CI/CD and deployment to GitHub Pages
 
 ## Content
 
@@ -88,26 +89,19 @@ Project file format is as follows:
 ```
 {
   "projects": [
-    // ... existing projects ...
     {
-      // Project name
       "name": "foo",
-      // Projects are displayed in ascending order
-      "order": 1,
-      // Short description of the project
-      "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
-      // List of technologies used
-      "techStack": [
-          "React", "Redux", "Node.js/Express", "Jest", "Heroku", "MongoDB"
-      ],
-      // Homepage for the project
-      "homepageUrl": "https://spune.tinney.dev",
-      // Link to source code
-      "gitHubUrl": "https://github.com/cdtinney/spune"
+      "shortDescription": "Short description of the project.",
+      "techStack": ["React", "Node.js"],
+      "homepageUrl": "https://example.com",
+      "gitHubUrl": "https://github.com/cdtinney/foo",
+      "lastCommitDate": "2025-01-01"
     }
-  ],
+  ]
 }
 ```
+
+Projects are sorted by `lastCommitDate` (newest first).
 
 ### About
 
@@ -131,9 +125,7 @@ Development is done on the `develop` branch.
   * **Development must be done on branches off `develop`, NOT `master`.**
   * This means that pull requests should set `develop` as the base.
 
-Deployment (i.e. build output) is found on `master`.
-  * This is because GitHub Pages User Pages must be deployed on `master`.
-  * **Travis CI is solely responsible for deploying builds to `master`.**
+Deployment is handled automatically by GitHub Actions when changes are pushed to `develop`.
 
 ### Requirements
 
@@ -169,19 +161,17 @@ Build output is located within the `public` folder.
 
 ## Deploying
 
-### Travis CI
+### GitHub Actions
 
-The website can be served via GitHub pages after being built by Travis CI.
+The website is built and deployed to GitHub Pages via GitHub Actions.
 
-The configuration file is found at `.travis.yml`; the `GITHUB_TOKEN` environment
-variable must be set.
+The workflow is defined in `.github/workflows/main.yml`.
 
 The flow is as follows:
 
-1) Code is pushed to a branch
-2) The branch is built via the config
-3) If the branch is `develop`, build output is pushed to `master`
-4) GitHub Pages serves `master`
+1) Code is pushed to `develop`
+2) GitHub Actions builds the site with `npm run build`
+3) Build output is deployed to GitHub Pages via `actions/deploy-pages`
 
 ### Google Analytics
 
