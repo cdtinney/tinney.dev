@@ -35,6 +35,12 @@
   font-style: italic;
 }
 
+.lastCommit {
+  font-size: 0.75rem;
+  color: rgb(120, 120, 130);
+  margin: 0.25rem 0;
+}
+
 .links {
   display: flex;
   justify-content: space-around;

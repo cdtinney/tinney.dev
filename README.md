@@ -1,3 +1,5 @@
+# THIS IS NOT ACTIVELY MAINTAINED.
+
 # tinney.dev
 > A personal website.
 
@@ -5,32 +7,34 @@
 
 ## Contents
 
-- [Contents](#contents)
-- [Introduction](#introduction)
-- [Content](#content)
-  - [Blog](#blog)
-    - [Format](#format)
-    - [Drafts](#drafts)
-  - [Projects](#projects)
-    - [Format](#format-1)
-  - [About](#about)
-- [Usage](#usage)
-- [Developing](#developing)
-  - [Requirements](#requirements)
-  - [Installing](#installing)
-  - [Running](#running)
-  - [Building](#building)
-- [Deploying](#deploying)
-  - [Travis CI](#travis-ci)
-  - [Google Analytics](#google-analytics)
-- [License](#license)
+- [THIS IS NOT ACTIVELY MAINTAINED.](#this-is-not-actively-maintained)
+- [tinney.dev](#tinneydev)
+  - [Contents](#contents)
+  - [Introduction](#introduction)
+  - [Content](#content)
+    - [Blog](#blog)
+      - [Format](#format)
+      - [Drafts](#drafts)
+    - [Projects](#projects)
+      - [Format](#format-1)
+    - [About](#about)
+  - [Usage](#usage)
+  - [Developing](#developing)
+    - [Requirements](#requirements)
+    - [Installing](#installing)
+    - [Running](#running)
+    - [Building](#building)
+  - [Deploying](#deploying)
+    - [Travis CI](#travis-ci)
+    - [Google Analytics](#google-analytics)
+  - [License](#license)
 
 ## Introduction
 
 This website is built with:
 
 * [GatsbyJS](https://gatsbyjs.org) - Static website generation using React
-* [Travis CI](https://travis-ci.org) - Continuous integration
+* [DEPRECATED - Travis CI](https://travis-ci.org) - Continuous integration
   and deployment to GitHub Pages
 
 ## Content

@@ -14,6 +14,7 @@ export const pageQuery = graphql`
             techStack
             homepageUrl
             gitHubUrl
+            lastCommitDate
           }
         }
       }

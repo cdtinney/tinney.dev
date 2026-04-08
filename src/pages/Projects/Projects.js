@@ -28,7 +28,12 @@ function Projects({ data = {} }) {
       pageTitle={`${title} - projects`}
       pageDescription="Personal projects."
     >
-      <h2 className={classes.projectsNote}>NOTE: Last updated in 2021.</h2>
+      <div className={classes.banner}>
+        <p className={classes.bannerText}>
+          None of these projects are actively maintained.
+          They are preserved here for reference.
+        </p>
+      </div>
       <section className={classes.projects}>
         {projects.map(project => <ProjectCard key={project.name} {...project} />)}
       </section>
@@ -47,6 +52,7 @@ Projects.propTypes = {
             techStack: PropTypes.arrayOf(PropTypes.string).isRequired,
             homepageUrl: PropTypes.string.isRequired,
             gitHubUrl: PropTypes.string.isRequired,
+            lastCommitDate: PropTypes.string.isRequired,
           })).isRequired,
         }).isRequired,
       })).isRequired,
