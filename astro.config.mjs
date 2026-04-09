@@ -5,6 +5,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 export default defineConfig({
   site: 'https://tinney.dev',
+  trailingSlash: 'never',
   integrations: [sitemap()],
   markdown: {
     shikiConfig: {
