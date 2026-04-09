@@ -58,19 +58,9 @@ const { title, siteTitle = 'colin tinney' } = Astro.props;
     display: flex;
     min-height: 50px;
     line-height: 50px;
-    align-items: baseline;
+    align-items: center;
     border-bottom: 1px solid rgba(15, 15, 15, 0.4);
     position: relative;
-  }
-
-  .brand {
-    white-space: nowrap;
-    margin: 0;
-  }
-
-  .separator, .title {
-    padding-bottom: 2px;
-    align-self: flex-end;
   }
 
   .separator {
@@ -78,6 +68,7 @@ const { title, siteTitle = 'colin tinney' } = Astro.props;
   }
 
   .title {
+    margin: 0;
     word-break: break-word;
     white-space: nowrap;
     text-overflow: ellipsis;

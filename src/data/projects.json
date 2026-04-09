@@ -3,34 +3,16 @@
     "name": "tinney.dev",
     "shortDescription": "Personal website.",
     "techStack": [
-      "Gatsby (React)", "GitHub Actions", "GitHub Pages"
+      "Astro", "GitHub Pages"
     ],
     "homepageUrl": "https://tinney.dev",
     "gitHubUrl": "https://github.com/cdtinney/tinney.dev",
     "lastCommitDate": "2026-04-08"
-  }, {
-    "name": "rock1",
-    "shortDescription": "Alt1 plugin for Vorago in RuneScape.",
-    "techStack": [
-      "JavaScript", "GitHub Pages"
-    ],
-    "homepageUrl": "https://cdtinney.github.io/rock1/",
-    "gitHubUrl": "https://github.com/cdtinney/rock1",
-    "lastCommitDate": "2025-02-25"
-  }, {
-    "name": "ahk_rs3",
-    "shortDescription": "Personal AutoHotkey 2 framework for RuneScape 3.",
-    "techStack": [
-      "AutoHotkey 2"
-    ],
-    "homepageUrl": "https://github.com/cdtinney/ahk_rs3",
-    "gitHubUrl": "https://github.com/cdtinney/ahk_rs3",
-    "lastCommitDate": "2025-02-11"
-  }, {
-    "name": "spune (WIP)",
+  },{
+    "name": "spune (broken)",
     "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
     "techStack": [
-        "React", "Redux", "Node.js/Express", "Jest", "Heroku", "MongoDB"
+        "React/Redux", "Node.js", "Jest", "Heroku", "MongoDB"
     ],
     "homepageUrl": "https://spune.tinney.dev",
     "gitHubUrl": "https://github.com/cdtinney/spune",
@@ -66,10 +48,28 @@
     "name": "Aerotrike Aviation",
     "shortDescription": "Small business website.",
     "techStack": [
-      "Gatsby (React)", "Bootstrap"
+      "Astro", "Bootstrap"
     ],
     "homepageUrl": "https://aerotrikeaviation.com",
     "gitHubUrl": "https://github.com/cdtinney/aerotrike-aviation",
     "lastCommitDate": "2019-04-01"
+  }, {
+    "name": "rock1",
+    "shortDescription": "Alt1 plugin for Vorago in RuneScape.",
+    "techStack": [
+      "JavaScript", "GitHub Pages"
+    ],
+    "homepageUrl": "https://cdtinney.github.io/rock1/",
+    "gitHubUrl": "https://github.com/cdtinney/rock1",
+    "lastCommitDate": "2025-02-25"
+  }, {
+    "name": "ahk_rs3",
+    "shortDescription": "Personal AutoHotkey 2 framework for RuneScape 3.",
+    "techStack": [
+      "AutoHotkey 2"
+    ],
+    "homepageUrl": "https://github.com/cdtinney/ahk_rs3",
+    "gitHubUrl": "https://github.com/cdtinney/ahk_rs3",
+    "lastCommitDate": "2025-02-11"
   }]
 }
