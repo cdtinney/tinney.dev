@@ -3,7 +3,7 @@
     "name": "tinney.dev",
     "shortDescription": "Personal website.",
     "techStack": [
-      "Gatsby (React)", "GitHub Actions", "GitHub Pages"
+      "Astro", "GitHub Actions", "GitHub Pages"
     ],
     "homepageUrl": "https://tinney.dev",
     "gitHubUrl": "https://github.com/cdtinney/tinney.dev",
@@ -66,7 +66,7 @@
     "name": "Aerotrike Aviation",
     "shortDescription": "Small business website.",
     "techStack": [
-      "Gatsby (React)", "Bootstrap"
+      "Astro", "Bootstrap"
     ],
     "homepageUrl": "https://aerotrikeaviation.com",
     "gitHubUrl": "https://github.com/cdtinney/aerotrike-aviation",
