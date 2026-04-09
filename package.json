@@ -25,6 +25,7 @@
     "gatsby-plugin-google-analytics": "2.0.18",
     "gatsby-plugin-react-helmet": "3.0.12",
     "gatsby-plugin-robots-txt": "1.7",
+    "generate-robotstxt": "7.1.0",
     "gatsby-plugin-sitemap": "2.0.12",
     "gatsby-remark-autolink-headers": "2.0.16",
     "gatsby-remark-custom-blocks": "2.0.7",
