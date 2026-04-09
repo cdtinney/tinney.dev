@@ -67,7 +67,7 @@ export default function Blog({
     .filter(post => post.node.frontmatter.title.length > 0);
 
   return (
-    <BlogLayout pageTitle={pageTitle} pageDescription={pageDescription}>
+    <BlogLayout pageTitle={pageTitle} pageDescription={pageDescription} siteTitle={siteTitle}>
       <div>
         {nonEmptyPosts
           .map(({ node: post }) => {

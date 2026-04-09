@@ -39,6 +39,7 @@ export default class PageHeader extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
     titleHref: PropTypes.string,
+    siteTitle: PropTypes.string.isRequired,
   };
 
   static defaultProps = {
@@ -84,6 +85,7 @@ export default class PageHeader extends PureComponent {
     const {
       title,
       titleHref,
+      siteTitle,
     } = this.props;
 
     const getMenuItems = className => (
@@ -112,7 +114,7 @@ export default class PageHeader extends PureComponent {
             portalElement,
           )
         }
-        <Brand underline={false} className={classes.brand} />
+        <Brand underline={false} className={classes.brand} title={siteTitle} />
         <span className={classes.separator}>
           /
         </span>

@@ -5,11 +5,12 @@ import PageLayout from '../PageLayout';
 
 import classes from './BlogLayout.module.css';
 
-function BlogLayout({ pageTitle, pageDescription, children }) {
+function BlogLayout({ pageTitle, pageDescription, siteTitle, children }) {
   return (
     <PageLayout
       pageTitle={pageTitle}
       pageDescription={pageDescription}
+      siteTitle={siteTitle}
       title="blog"
       titleHref="/blog"
     >
@@ -24,6 +25,7 @@ BlogLayout.propTypes = {
   children: PropTypes.node.isRequired,
   pageTitle: PropTypes.string.isRequired,
   pageDescription: PropTypes.string.isRequired,
+  siteTitle: PropTypes.string.isRequired,
 };
 
 export default BlogLayout;

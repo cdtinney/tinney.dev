@@ -15,6 +15,7 @@ export default function PageNotFound() {
     <PageLayout
       pageTitle={pageTitle}
       pageDescription={pageDescription}
+      siteTitle="colin tinney"
       title="404"
     >
       <div className={classes.container}>

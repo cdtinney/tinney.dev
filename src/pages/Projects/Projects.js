@@ -25,6 +25,7 @@ function Projects({ data = {} }) {
     <PageLayout
       title="projects"
       titleHref="/projects"
+      siteTitle={title}
       pageTitle={`${title} - projects`}
       pageDescription="Personal projects."
     >

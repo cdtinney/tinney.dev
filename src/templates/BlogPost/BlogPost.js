@@ -33,6 +33,7 @@ export default function BlogPost({ data, pageContext }) {
     <BlogLayout
       pageTitle={pageTitle}
       pageDescription={pageDescription}
+      siteTitle={data.site.siteMetadata.title}
     >
       <article>
         <header>
@@ -101,6 +102,11 @@ export const pageQuery = graphql`
         title
       }
       excerpt
+    }
+    site {
+      siteMetadata {
+        title
+      }
     }
   }
 `;

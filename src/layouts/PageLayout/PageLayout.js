@@ -9,6 +9,7 @@ import classes from './PageLayout.module.css';
 function PageLayout({
   pageTitle,
   pageDescription,
+  siteTitle,
   title,
   titleHref,
   children,
@@ -19,6 +20,7 @@ function PageLayout({
         <PageHeader
           title={title}
           titleHref={titleHref}
+          siteTitle={siteTitle}
         />
         { children }
       </div>
@@ -29,6 +31,7 @@ function PageLayout({
 PageLayout.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   pageDescription: PropTypes.string.isRequired,
+  siteTitle: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   titleHref: PropTypes.string,
   children: PropTypes.node.isRequired,

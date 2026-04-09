@@ -19,6 +19,8 @@ export default function Home({
     site: {
       siteMetadata: {
         title,
+        contact,
+        social,
       } = {},
     } = {},
   } = data;
@@ -43,6 +45,7 @@ export default function Home({
           <Brand
             className={classes.brand}
             large
+            title={title}
           />
           <div
             // eslint-disable-next-line react/no-danger
@@ -51,7 +54,7 @@ export default function Home({
           <PageLinks links={pageLinks} />
         </header>
         <main className={classes.contactCard}>
-          <ContactCard />
+          <ContactCard contact={contact} social={social} />
         </main>
       </div>
     </DefaultLayout>
@@ -70,6 +73,15 @@ Home.propTypes = {
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
         title: PropTypes.string.isRequired,
+        contact: PropTypes.shape({
+          email: PropTypes.string.isRequired,
+          displayedEmail: PropTypes.string.isRequired,
+          resumeUrl: PropTypes.string.isRequired,
+        }).isRequired,
+        social: PropTypes.shape({
+          github: PropTypes.string.isRequired,
+          linkedin: PropTypes.string.isRequired,
+        }).isRequired,
       }).isRequired,
     }).isRequired,
   }).isRequired,

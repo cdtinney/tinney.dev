@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(gh run:*)",
+      "Bash(for pr:*)",
+      "Bash(do echo:*)",
+      "Bash(done)",
+      "Bash(npm install:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm view:*)",
+      "Bash(grep -v '^@[^/]*/[^/]*$')",
+      "Bash(git rm:*)",
+      "Bash(git reset:*)"
+    ]
+  }
+}

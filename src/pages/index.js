@@ -23,6 +23,16 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title,
+        contact {
+          name,
+          email,
+          displayedEmail,
+          resumeUrl,
+        },
+        social {
+          github,
+          linkedin,
+        }
       }
     }
   }

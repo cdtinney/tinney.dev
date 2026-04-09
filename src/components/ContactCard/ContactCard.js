@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StaticQuery, graphql } from 'gatsby';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -19,17 +18,9 @@ import classes from './ContactCard.module.css';
 
 function ContactCard({
   theme,
-  data = {},
+  contact,
+  social,
 }) {
-  const {
-    site: {
-      siteMetadata: {
-        social = {},
-        contact = {},
-      } = {},
-    } = {},
-  } = data;
-
   return (
     <div className={classes.container}>
       <div className={classes.container__social}>
@@ -83,49 +74,15 @@ function ContactCard({
 
 ContactCard.propTypes = {
   theme: Theme.isRequired,
-  data: PropTypes.shape({
-    site: PropTypes.shape({
-      siteMetadata: PropTypes.shape({
-        contact: PropTypes.shape({
-          email: PropTypes.string.isRequired,
-          displayedEmail: PropTypes.string.isRequired,
-          resumeUrl: PropTypes.string.isRequired,
-        }).isRequired,
-        social: PropTypes.shape({
-          github: PropTypes.string.isRequired,
-          linkedin: PropTypes.string.isRequired,
-        }).isRequired,
-      }).isRequired,
-    }).isRequired,
+  contact: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    displayedEmail: PropTypes.string.isRequired,
+    resumeUrl: PropTypes.string.isRequired,
+  }).isRequired,
+  social: PropTypes.shape({
+    github: PropTypes.string.isRequired,
+    linkedin: PropTypes.string.isRequired,
   }).isRequired,
 };
 
-const ThemedContactCard = withTheme(ContactCard);
-
-export default function ContactCardWithData() {
-  return (
-    <StaticQuery
-      query={
-        graphql`
-          query {
-            site {
-              siteMetadata {
-                contact {
-                  name,
-                  email,
-                  displayedEmail,
-                  resumeUrl,
-                },
-                social {
-                  github,
-                  linkedin,
-                }
-              }
-            }
-          }
-        `
-      }
-      render={data => <ThemedContactCard data={data} />}
-    />
-  );
-}
+export default withTheme(ContactCard);
