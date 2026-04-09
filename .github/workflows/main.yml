@@ -1,7 +1,10 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy
 
 on:
   push:
+    branches:
+      - develop
+  pull_request:
     branches:
       - develop
 
@@ -11,7 +14,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -24,11 +27,13 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
+      - if: github.ref == 'refs/heads/develop'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
+    if: github.ref == 'refs/heads/develop'
     needs: build
     runs-on: ubuntu-latest
     environment:
