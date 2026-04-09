@@ -122,14 +122,14 @@ If you want to make this website your own:
 
 Development is done on the `develop` branch.
   * All commits to `develop` are automatically deployed.
-  * **Development must be done on branches off `develop`, NOT `master`.**
-  * This means that pull requests should set `develop` as the base.
+  * **Development must be done on branches off `develop`.**
+  * Pull requests should set `develop` as the base.
 
 Deployment is handled automatically by GitHub Actions when changes are pushed to `develop`.
 
 ### Requirements
 
-* Node.js - Latest LTS release
+* Node.js 14+
 
 ### Installing
 

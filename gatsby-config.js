@@ -32,9 +32,9 @@ module.exports = {
       options: {
         path: `${__dirname}/data/posts`,
         name: 'posts',
-        ignore: [
-          process.env.NODE_ENV === 'production' && ['**/_drafts/**'],
-        ],
+        ignore: process.env.NODE_ENV === 'production'
+          ? ['**/_drafts/**']
+          : [],
       },
     }, {
       resolve: 'gatsby-source-filesystem',
