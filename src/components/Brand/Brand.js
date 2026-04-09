@@ -33,13 +33,14 @@ Brand.propTypes = {
   className: PropTypes.string,
   underline: PropTypes.bool,
   large: PropTypes.bool,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
 };
 
 Brand.defaultProps = {
   className: '',
   underline: true,
   large: false,
+  title: '',
 };
 
 export default Brand;

@@ -39,7 +39,7 @@ export default class PageHeader extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
     titleHref: PropTypes.string,
-    siteTitle: PropTypes.string.isRequired,
+    siteTitle: PropTypes.string,
   };
 
   static defaultProps = {

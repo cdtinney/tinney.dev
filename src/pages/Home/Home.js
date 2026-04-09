@@ -18,12 +18,16 @@ export default function Home({
     } = {},
     site: {
       siteMetadata: {
-        title,
-        contact,
-        social,
+        title = '',
+        contact = {},
+        social = {},
       } = {},
     } = {},
   } = data;
+
+  if (!title) {
+    return null;
+  }
 
   const pageDescription = 'A personal website';
   const pageLinks = [{

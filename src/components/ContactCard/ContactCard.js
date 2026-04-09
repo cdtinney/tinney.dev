@@ -18,9 +18,13 @@ import classes from './ContactCard.module.css';
 
 function ContactCard({
   theme,
-  contact,
-  social,
+  contact = {},
+  social = {},
 }) {
+  if (!contact.email || !social.github) {
+    return null;
+  }
+
   return (
     <div className={classes.container}>
       <div className={classes.container__social}>
@@ -75,14 +79,14 @@ function ContactCard({
 ContactCard.propTypes = {
   theme: Theme.isRequired,
   contact: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-    displayedEmail: PropTypes.string.isRequired,
-    resumeUrl: PropTypes.string.isRequired,
-  }).isRequired,
+    email: PropTypes.string,
+    displayedEmail: PropTypes.string,
+    resumeUrl: PropTypes.string,
+  }),
   social: PropTypes.shape({
-    github: PropTypes.string.isRequired,
-    linkedin: PropTypes.string.isRequired,
-  }).isRequired,
+    github: PropTypes.string,
+    linkedin: PropTypes.string,
+  }),
 };
 
 export default withTheme(ContactCard);

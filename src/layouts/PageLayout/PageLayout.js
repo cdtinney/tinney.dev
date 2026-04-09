@@ -31,7 +31,7 @@ function PageLayout({
 PageLayout.propTypes = {
   pageTitle: PropTypes.string.isRequired,
   pageDescription: PropTypes.string.isRequired,
-  siteTitle: PropTypes.string.isRequired,
+  siteTitle: PropTypes.string,
   title: PropTypes.string.isRequired,
   titleHref: PropTypes.string,
   children: PropTypes.node.isRequired,
@@ -39,6 +39,7 @@ PageLayout.propTypes = {
 
 PageLayout.defaultProps = {
   titleHref: null,
+  siteTitle: '',
 };
 
 export default PageLayout;
