@@ -16,8 +16,8 @@ const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDat
     <h2 class="name">{name}</h2>
   </a>
   <p class="short-description">{shortDescription}</p>
-  <p class="tech-stack">{techStack.join(', ')}</p>
-  {lastCommitDate && <p class="last-commit">Last commit: {lastCommitDate}</p>}
+  <p class="detail">Tech: {techStack.join(', ')}</p>
+  {lastCommitDate && <p class="detail">Last commit: {lastCommitDate}</p>}
   <div class="links">
     <a class="link" href={homepageUrl}>homepage</a>
     <a class="link" href={gitHubUrl}>code</a>
@@ -68,13 +68,8 @@ const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDat
     height: 2rem;
   }
 
-  .tech-stack {
+  .detail {
     font-size: 0.8rem;
-    font-style: italic;
-  }
-
-  .last-commit {
-    font-size: 0.75rem;
     color: rgb(120, 120, 130);
     margin: 0.25rem 0;
   }
