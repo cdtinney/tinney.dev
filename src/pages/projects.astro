@@ -1,0 +1,47 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import projectsData from '../data/projects.json';
+
+const projects = projectsData.projects;
+---
+
+<PageLayout title="colin tinney - projects" description="Personal projects." headerTitle="projects">
+  <div class="banner">
+    <p class="banner-text">
+      None of these projects are actively maintained.
+      They are preserved here for reference.
+    </p>
+  </div>
+  <section class="projects">
+    {projects.map((project) => (
+      <ProjectCard {...project} />
+    ))}
+  </section>
+</PageLayout>
+
+<style>
+  .projects {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    box-sizing: content-box;
+    padding: 1rem 0;
+  }
+
+  .banner {
+    margin: 1rem auto;
+    max-width: 600px;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid rgb(216, 95, 79);
+    border-radius: 3px;
+    background-color: rgba(216, 95, 79, 0.08);
+    text-align: center;
+  }
+
+  .banner-text {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgb(33, 32, 40);
+  }
+</style>

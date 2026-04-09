@@ -1,0 +1,23 @@
+---
+import AnchorButton from './AnchorButton.astro';
+
+interface Props {
+  links: Array<{ to: string; name: string }>;
+}
+
+const { links } = Astro.props;
+---
+
+<div class="container">
+  {links.map(({ to, name }) => (
+    <AnchorButton href={to} color="primary" text={name} />
+  ))}
+</div>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+</style>

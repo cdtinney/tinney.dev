@@ -1,0 +1,30 @@
+---
+import PageLayout from './PageLayout.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<PageLayout title={title} description={description} headerTitle="blog">
+  <main class="blog-content">
+    <slot />
+  </main>
+</PageLayout>
+
+<style>
+  .blog-content {
+    padding: 0 1.25rem;
+    min-width: 40vw;
+    max-width: 100%;
+  }
+
+  @media (max-width: 576px) {
+    .blog-content {
+      padding: 0;
+    }
+  }
+</style>

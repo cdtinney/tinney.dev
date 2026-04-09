@@ -1,0 +1,45 @@
+---
+---
+
+<button class="scroll-to-top" aria-label="Scroll to top">up ↑</button>
+
+<script>
+  const btn = document.querySelector('.scroll-to-top');
+  window.addEventListener('scroll', () => {
+    btn?.classList.toggle('visible', window.scrollY > 160);
+  });
+  btn?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+<style>
+  .scroll-to-top {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(53, 180, 222, 0.8);
+    border-radius: 3px;
+    padding: 0.35rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, top 0.3s ease;
+    pointer-events: none;
+    z-index: 200;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    box-shadow: var(--shadow-button);
+  }
+
+  .scroll-to-top:hover {
+    color: rgba(53, 180, 222);
+    top: -1px;
+  }
+
+  .scroll-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>

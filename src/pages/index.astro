@@ -1,0 +1,51 @@
+---
+import DefaultLayout from '../layouts/DefaultLayout.astro';
+import Brand from '../components/Brand.astro';
+import ContactCard from '../components/ContactCard.astro';
+import PageLinks from '../components/PageLinks.astro';
+import { site } from '../data/site';
+
+const aboutRaw = await import('../data/about.md');
+const AboutContent = aboutRaw.Content;
+
+const pageLinks = [
+  { to: '/blog', name: 'blog' },
+  { to: '/projects', name: 'projects' },
+];
+---
+
+<DefaultLayout>
+  <div class="container">
+    <header>
+      <Brand class="brand" large title={site.title} />
+      <AboutContent />
+      <PageLinks links={pageLinks} />
+    </header>
+    <main class="contact-card">
+      <ContactCard contact={site.contact} social={site.social} />
+    </main>
+  </div>
+</DefaultLayout>
+
+<style>
+  .container {
+    width: 34em;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .brand {
+    margin-bottom: 0;
+  }
+
+  .contact-card {
+    padding-top: 1rem;
+    border-top: 1px solid rgba(15, 15, 15, 0.4);
+  }
+</style>

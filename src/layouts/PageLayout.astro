@@ -1,0 +1,37 @@
+---
+import DefaultLayout from './DefaultLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  headerTitle: string;
+  siteTitle?: string;
+}
+
+const { title, description, headerTitle, siteTitle = 'colin tinney' } = Astro.props;
+---
+
+<DefaultLayout title={title} description={description}>
+  <div class="container">
+    <PageHeader title={headerTitle} siteTitle={siteTitle} />
+    <slot />
+  </div>
+</DefaultLayout>
+
+<style>
+  .container {
+    margin: 0 auto;
+    max-width: 50rem;
+    padding: 0 1.3125rem 2.625rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  @media (max-width: 576px) {
+    .container {
+      padding: 0;
+    }
+  }
+</style>

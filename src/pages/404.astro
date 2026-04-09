@@ -1,0 +1,40 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout title="404" description="This page is missing." headerTitle="404">
+  <div class="container">
+    <h1 class="route" id="route-display"></h1>
+    <h2>This content is not available in your country.</h2>
+    <div class="truth">Just kidding. This page does not exist.</div>
+  </div>
+</PageLayout>
+
+<script>
+  const el = document.getElementById('route-display');
+  if (el) {
+    el.textContent = window.location.pathname.replace('/', '');
+  }
+</script>
+
+<style>
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .route {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .truth {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: rgb(120, 120, 130);
+  }
+</style>
