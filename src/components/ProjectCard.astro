@@ -16,8 +16,7 @@ const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDat
     <h2 class="name">{name}</h2>
   </a>
   <p class="short-description">{shortDescription}</p>
-  <p class="detail">Tech: {techStack.join(', ')}</p>
-  {lastCommitDate && <p class="detail">Last commit: {lastCommitDate}</p>}
+  <p class="detail">{techStack.join(', ')}</p>
   <div class="links">
     <a class="link" href={homepageUrl}>homepage</a>
     <a class="link" href={gitHubUrl}>code</a>
