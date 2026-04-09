@@ -1,0 +1,58 @@
+---
+interface Props {
+  href: string;
+  external?: boolean;
+  text: string;
+  color?: 'primary' | 'secondary';
+  class?: string;
+}
+
+const { href, external = false, text, color = 'primary', class: className = '' } = Astro.props;
+const colorClass = color === 'secondary' ? 'btn-secondary' : 'btn-primary';
+const classes = `anchor-button ${colorClass} ${className}`.trim();
+const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a href={href} class={classes} {...externalProps}>
+  {text}
+</a>
+
+<style>
+  .anchor-button {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    margin: 0 0.5rem;
+    padding: 6px;
+    text-align: center;
+    text-decoration: none;
+    transition: top ease 1s;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: var(--shadow-button);
+  }
+
+  .anchor-button:hover {
+    top: -1px;
+  }
+
+  .btn-primary {
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+  }
+
+  .btn-primary:hover {
+    color: var(--color-primary-hover);
+    border-color: rgba(11, 90, 158, 0.65);
+  }
+
+  .btn-secondary {
+    color: var(--color-secondary);
+    border: 1px solid rgb(168, 45, 28);
+  }
+
+  .btn-secondary:hover {
+    color: var(--color-secondary-hover);
+    border-color: rgba(168, 45, 28, 0.65);
+  }
+</style>

@@ -3,120 +3,39 @@
 # tinney.dev
 > A personal website.
 
-## Contents
-
-- [THIS IS NOT ACTIVELY MAINTAINED.](#this-is-not-actively-maintained)
-- [tinney.dev](#tinneydev)
-  - [Contents](#contents)
-  - [Introduction](#introduction)
-  - [Content](#content)
-    - [Blog](#blog)
-      - [Format](#format)
-      - [Drafts](#drafts)
-    - [Projects](#projects)
-      - [Format](#format-1)
-    - [About](#about)
-  - [Usage](#usage)
-  - [Developing](#developing)
-    - [Requirements](#requirements)
-    - [Installing](#installing)
-    - [Running](#running)
-    - [Building](#building)
-  - [Deploying](#deploying)
-    - [GitHub Actions](#github-actions)
-    - [Google Analytics](#google-analytics)
-  - [License](#license)
-
 ## Introduction
 
 This website is built with:
 
-* [GatsbyJS](https://gatsbyjs.org) - Static website generation using React
+* [Astro](https://astro.build) - Static site generation
 * [GitHub Actions](https://github.com/features/actions) - CI/CD and deployment to GitHub Pages
 
 ## Content
 
-The website provides three primary forms of content:
-
-* Blog posts
-* Project cards
-* 'About' information
-
 ### Blog
 
-Blogging is done via creation of Markdown files located within the `data/posts` folder.
+Blog posts are Astro content collections in `src/content/blog/`. Each post is a directory containing `index.md` and any co-located images.
 
-During builds, Gatsby creates pages for each post file.
-
-#### Format
-
-Post file format is as follows:
-
-`YYYY-MM-DD-title.md`:
+Frontmatter:
 
 ```
 ---
-path: "/foo-bar
+title: "Post Title"
 date: "YYYY-MM-DD"
-title: "Foo Bar"
+path: "/blog/slug"
+excerpt: "Short description for the listing page."
+draft: true    # optional, excluded from production
+archived: true # optional, excluded from listing
 ---
-
-Excerpt content goes here (raw text only).
-
-<!-- end -->
-
-Body content goes here (Markdown).
 ```
-
-Excerpts will be parsed from the end of the frontmatter section until `<!-- end -->`.
-
-#### Drafts
-
-Posts inside `posts/__drafts` will only be displayed in non-production environments
-(i.e. `NODE_ENV !== production`).
 
 ### Projects
 
-Projects are added via JSON in `data/projects/projects.json` and made available to the application
-via GraphQL queries.
-
-#### Format
-
-Project file format is as follows:
-
-`projects.json`:
-
-```
-{
-  "projects": [
-    {
-      "name": "foo",
-      "shortDescription": "Short description of the project.",
-      "techStack": ["React", "Node.js"],
-      "homepageUrl": "https://example.com",
-      "gitHubUrl": "https://github.com/cdtinney/foo",
-      "lastCommitDate": "2025-01-01"
-    }
-  ]
-}
-```
-
-Projects are sorted by `lastCommitDate` (newest first).
+Projects are defined in `src/data/projects.json`. Sorted by `lastCommitDate` (newest first).
 
 ### About
 
-Personal information must be written within `data/about/about.md`. This will
-be rendered onto the 'About' page.
-
-## Usage
-
-If you want to make this website your own:
-
-1) Fork the repository
-2) Update `siteMetadata` and the Google Analytics tracking ID in `gatsby-config.js`
-3) Update the page `<title>` in `html.js`
-4) Delete/update content in `data` and/or write your own,
-    using the [content](#content) section as a guide
+Personal information is in `src/data/about.md`.
 
 ## Developing
 
@@ -125,17 +44,11 @@ Development is done on the `develop` branch.
   * **Development must be done on branches off `develop`.**
   * Pull requests should set `develop` as the base.
 
-Deployment is handled automatically by GitHub Actions when changes are pushed to `develop`.
-
 ### Requirements
 
-* Node.js 14+
+* Node.js 22+
 
 ### Installing
-
-First, clone the repository.
-
-To install dependencies:
 
 ```
 $ npm install
@@ -143,41 +56,27 @@ $ npm install
 
 ### Running
 
-To run a development server with live-reload (and linting):
-
 ```
-$ npm run develop
+$ npm run dev
 ```
 
 ### Building
-
-To build the website for production:
 
 ```
 $ npm run build
 ```
 
-Build output is located within the `public` folder.
+Build output is in the `dist/` folder.
 
 ## Deploying
-
-### GitHub Actions
 
 The website is built and deployed to GitHub Pages via GitHub Actions.
 
 The workflow is defined in `.github/workflows/main.yml`.
 
-The flow is as follows:
-
 1) Code is pushed to `develop`
 2) GitHub Actions builds the site with `npm run build`
 3) Build output is deployed to GitHub Pages via `actions/deploy-pages`
-
-### Google Analytics
-
-Google Analytics support is built-in. Simply update the tracking ID
-found in `gatsby-config.js` under the options for the `gatsby-plugin-google-analytics`
-plugin.
 
 ## License
 

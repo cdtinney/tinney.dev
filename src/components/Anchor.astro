@@ -1,0 +1,41 @@
+---
+interface Props {
+  href: string;
+  external?: boolean;
+  title?: string;
+  ariaLabel?: string;
+  color?: 'primary' | 'secondary';
+  class?: string;
+}
+
+const { href, external = false, title, ariaLabel, color = 'primary', class: className = '' } = Astro.props;
+const colorClass = color === 'secondary' ? 'secondary' : 'primary';
+const classes = `anchor ${colorClass} ${className}`.trim();
+const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a href={href} class={classes} title={title} aria-label={ariaLabel} {...externalProps}>
+  <slot />
+</a>
+
+<style>
+  .anchor {
+    text-decoration: none;
+  }
+
+  .primary {
+    color: var(--color-primary);
+  }
+
+  .primary:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .secondary {
+    color: var(--color-secondary);
+  }
+
+  .secondary:hover {
+    color: var(--color-secondary-hover);
+  }
+</style>
