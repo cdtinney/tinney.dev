@@ -1,25 +1,86 @@
-const T = '[data-theme="underwater"]';
+import { createGlider, createDrifter, createGifPopup, createAnimationLoop, spawnAnimatedSprite } from '../utils/animation.js';
+
+const ID = 'underwater';
+const T = `[data-theme="${ID}"]`;
+const IMG = '/images/themes/underwater';
+
+const PALETTE = {
+  teal: '#00b894',
+  tealLight: '#00d6a8',
+  tealBorder: 'rgba(0, 184, 148, 0.3)',
+  tealFaint: 'rgba(0, 184, 148, 0.2)',
+  gold: '#f9ca24',
+  goldLight: '#fad961',
+  goldDark: '#d4a818',
+  deepBlue: '#0a2942',
+  midBlue: '#0e3654',
+  surfaceBlue: '#1a5276',
+  darkBlue: '#071e30',
+  abyssBlue: '#041420',
+  textLight: '#d4f1f9',
+  textMid: '#7ec8d9',
+  textMuted: '#a8dce6',
+};
+
+const MANTAS = [
+  { selector: '.underwater-manta-1', speed: 0.4, yAmp: 18, yFreq: 0.6, size: 120, dir: 1, yMin: 0.12, yMax: 0.28 },
+  { selector: '.underwater-manta-2', speed: 0.55, yAmp: 12, yFreq: 0.9, size: 90, dir: -1, yMin: 0.30, yMax: 0.45 },
+];
+
+const JELLYFISH = [
+  { selector: '.underwater-jellyfish-1', speed: 0.12, xAmp: 15, xFreq: 0.4, size: 56 },
+  { selector: '.underwater-jellyfish-2', speed: 0.15, xAmp: 12, xFreq: 0.55, size: 45 },
+  { selector: '.underwater-jellyfish-3', speed: 0.1, xAmp: 18, xFreq: 0.35, size: 39 },
+];
+
+const SHARKS = [
+  { selector: '.underwater-shark-1', speed: 0.6, yAmp: 10, yFreq: 0.5, size: 140, dir: -1, yMin: 0.50, yMax: 0.65 },
+  { selector: '.underwater-shark-2', speed: 0.75, yAmp: 8, yFreq: 0.6, size: 120, dir: 1, yMin: 0.68, yMax: 0.82 },
+];
+
+const JELLYFISH_IMGS = [`${IMG}/jellyfish1.png`, `${IMG}/jellyfish2.png`, `${IMG}/jellyfish3.png`];
+const SHARK_IMGS = [`${IMG}/shark1.png`, `${IMG}/shark2.png`];
 
 export default {
   name: 'Underwater',
-  swatches: ['#0a3d62', '#00b894'],
+  swatches: ['#0a3d62', PALETTE.teal],
   colors: {
-    '--color-text': '#d4f1f9',
-    '--color-text-secondary': '#7ec8d9',
-    '--color-text-muted': '#a8dce6',
-    '--color-text-muted-hover': '#00b894',
-    '--color-bg': '#0a2942',
-    '--color-bg-surface': '#0e3654',
-    '--color-primary': '#00b894',
-    '--color-primary-hover': '#00d6a8',
-    '--color-secondary': '#f9ca24',
-    '--color-secondary-hover': '#fad961',
-    '--color-secondary-border': '#d4a818',
-    '--color-accent': '#00b894',
-    '--color-border': 'rgba(0, 184, 148, 0.3)',
-    '--color-code-bg': '#071e30',
-    '--color-code-text': '#7ec8d9',
+    '--color-text': PALETTE.textLight,
+    '--color-text-secondary': PALETTE.textMid,
+    '--color-text-muted': PALETTE.textMuted,
+    '--color-text-muted-hover': PALETTE.teal,
+    '--color-bg': PALETTE.deepBlue,
+    '--color-bg-surface': PALETTE.midBlue,
+    '--color-primary': PALETTE.teal,
+    '--color-primary-hover': PALETTE.tealLight,
+    '--color-secondary': PALETTE.gold,
+    '--color-secondary-hover': PALETTE.goldLight,
+    '--color-secondary-border': PALETTE.goldDark,
+    '--color-accent': PALETTE.teal,
+    '--color-border': PALETTE.tealBorder,
+    '--color-code-bg': PALETTE.darkBlue,
+    '--color-code-text': PALETTE.textMid,
     '--shadow-button': '0 2px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 41, 66, 0.3)',
+    '--btn-border-width': '2px',
+    '--btn-primary-bg': '#00b894',
+    '--btn-primary-text': '#0a2942',
+    '--btn-primary-border': '#00b894',
+    '--btn-primary-bg-hover': '#0e3654',
+    '--btn-primary-text-hover': '#00b894',
+    '--btn-primary-border-hover': '#00b894',
+    '--btn-secondary-bg': '#0e3654',
+    '--btn-secondary-text': '#f9ca24',
+    '--btn-secondary-border': '#f9ca24',
+    '--btn-secondary-bg-hover': '#f9ca24',
+    '--btn-secondary-text-hover': '#0a2942',
+    '--btn-secondary-border-hover': '#f9ca24',
+    '--header-border': '2px solid transparent',
+    '--card-link-border': '1px solid rgba(0, 184, 148, 0.2)',
+    '--card-link-padding-top': '0.5rem',
+    '--card-link-margin-top': '0.75rem',
+    '--banner-border': '1px solid rgba(0, 184, 148, 0.4)',
+    '--banner-bg': 'rgba(0, 184, 148, 0.08)',
+    '--banner-radius': '8px',
   },
 
   html: `
@@ -36,39 +97,39 @@ export default {
     </div>
     <!-- Dive boat at the surface -->
     <div class="underwater-boat" data-underwater-boat aria-hidden="true">
-      <img src="/dive-boat.png" alt="" width="104" height="91" />
+      <img src="/images/themes/underwater/dive-boat.png" alt="" width="104" height="91" />
     </div>
     <!-- Sea bed at the bottom -->
     <div class="underwater-seabed" data-underwater-seabed aria-hidden="true">
-      <img src="/sea-floor.png" alt="" />
+      <img src="/images/themes/underwater/sea-floor.png" alt="" />
     </div>
     <!-- Manta rays -->
     <div class="underwater-manta underwater-manta-1" data-underwater-manta aria-hidden="true">
-      <img src="/manta-ray-1.png" alt="" width="120" height="80" />
+      <img src="/images/themes/underwater/manta-ray-1.png" alt="" width="120" height="80" />
     </div>
     <div class="underwater-manta underwater-manta-2" data-underwater-manta-2 aria-hidden="true">
-      <img src="/manta-ray-2.png" alt="" width="90" height="60" />
+      <img src="/images/themes/underwater/manta-ray-2.png" alt="" width="90" height="60" />
     </div>
     <!-- Jellyfish -->
     <div class="underwater-jellyfish underwater-jellyfish-1" data-underwater-jellyfish aria-hidden="true">
-      <img src="/jellyfish1.png" alt="" width="38" height="56" />
+      <img src="/images/themes/underwater/jellyfish1.png" alt="" width="38" height="56" />
     </div>
     <div class="underwater-jellyfish underwater-jellyfish-2" data-underwater-jellyfish aria-hidden="true">
-      <img src="/jellyfish2.png" alt="" width="30" height="45" />
+      <img src="/images/themes/underwater/jellyfish2.png" alt="" width="30" height="45" />
     </div>
     <div class="underwater-jellyfish underwater-jellyfish-3" data-underwater-jellyfish aria-hidden="true">
-      <img src="/jellyfish3.png" alt="" width="26" height="39" />
+      <img src="/images/themes/underwater/jellyfish3.png" alt="" width="26" height="39" />
     </div>
     <!-- Sharks -->
     <div class="underwater-shark underwater-shark-1" data-underwater-shark aria-hidden="true">
-      <img src="/shark1.png" alt="" width="140" height="90" />
+      <img src="/images/themes/underwater/shark1.png" alt="" width="140" height="90" />
     </div>
     <div class="underwater-shark underwater-shark-2" data-underwater-shark aria-hidden="true">
-      <img src="/shark2.png" alt="" width="120" height="80" />
+      <img src="/images/themes/underwater/shark2.png" alt="" width="120" height="80" />
     </div>
     <!-- Manta ray wave easter egg -->
     <div class="underwater-wave-gif" aria-hidden="true">
-      <img src="/manta-ray-wave.gif" alt="" />
+      <img src="/images/themes/underwater/manta-ray-wave.gif" alt="" />
     </div>
     <!-- Rising bubbles -->
     <div class="underwater-bubbles" data-underwater-bubbles aria-hidden="true">
@@ -149,207 +210,94 @@ export default {
     }
     .underwater-bg {
       position: fixed; inset: 0; z-index: -1;
-      background: linear-gradient(
-        180deg,
-        #1a5276 0%,
-        #0e3654 25%,
-        #0a2942 50%,
-        #071e30 75%,
-        #041420 100%
+      background: linear-gradient(180deg,
+        ${PALETTE.surfaceBlue} 0%,
+        ${PALETTE.midBlue} 25%,
+        ${PALETTE.deepBlue} 50%,
+        ${PALETTE.darkBlue} 75%,
+        ${PALETTE.abyssBlue} 100%
       );
     }
   `,
 
 
-  _waveTimer: null,
+  _wavePopup: null,
 
   cleanup() {
-    if (this._waveTimer) clearTimeout(this._waveTimer);
-    this._waveTimer = null;
-    document.querySelector('.underwater-wave-gif')?.classList.remove('is-visible');
+    this._wavePopup?.cleanup();
   },
 
   init() {
-    const self = this;
-    const waveGif = document.querySelector('.underwater-wave-gif');
+    const wavePopup = createGifPopup('.underwater-wave-gif');
+    this._wavePopup = wavePopup;
 
-    // Animate manta rays (gentle horizontal glide with vertical sine drift)
-    // dir: 1 = left-to-right, -1 = right-to-left
-    function animateManta(selector, speed, yAmp, yFreq, size, dir, yMinPct, yMaxPct) {
-      const el = document.querySelector(selector);
-      if (!el) return;
-      let x = dir === 1 ? -size : window.innerWidth + size;
-      const getBaseY = () => Math.random() * (window.innerHeight * (yMaxPct - yMinPct)) + window.innerHeight * yMinPct;
-      let baseY = getBaseY();
+    MANTAS.forEach(cfg => {
+      const el = createGlider(cfg.selector, { theme: ID, ...cfg });
+      el?.addEventListener('click', () => wavePopup.show());
+    });
+
+    JELLYFISH.forEach(cfg => createDrifter(cfg.selector, { theme: ID, ...cfg }));
+
+    SHARKS.forEach(cfg => createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 }));
+
+    function spawnJellyfish() {
+      const w = 30 + Math.random() * 10;
+      const spd = 0.1 + Math.random() * 0.1;
+      const xAmp = 12 + Math.random() * 10;
+      const xFreq = 0.3 + Math.random() * 0.3;
+      const minY = 40;
+      let y = minY + Math.random() * (window.innerHeight * 0.5 - minY);
+      let dy = spd * (Math.random() < 0.5 ? 1 : -1);
+      let baseX = Math.random() * (window.innerWidth - 50);
       let t = Math.random() * Math.PI * 2;
 
-      function tick() {
-        if (document.documentElement.getAttribute('data-theme') !== 'underwater') {
-          requestAnimationFrame(tick);
-          return;
-        }
-        x += speed * dir;
-        t += 0.015;
-        const y = baseY + Math.sin(t * yFreq) * yAmp;
-        if (dir === 1 && x > window.innerWidth + size) { x = -size; baseY = getBaseY(); }
-        if (dir === -1 && x < -size) { x = window.innerWidth + size; baseY = getBaseY(); }
-        el.style.transform = `translate(${x}px, ${y}px)`;
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-
-      // Click easter egg
-      el.addEventListener('click', () => {
-        if (!waveGif) return;
-        waveGif.classList.add('is-visible');
-        const img = waveGif.querySelector('img');
-        if (img) { const s = img.src; img.src = ''; img.src = s; }
-        if (self._waveTimer) clearTimeout(self._waveTimer);
-        self._waveTimer = setTimeout(() => waveGif.classList.remove('is-visible'), 3000);
+      spawnAnimatedSprite({
+        src: JELLYFISH_IMGS[Math.floor(Math.random() * JELLYFISH_IMGS.length)],
+        width: w, height: w * 1.5, opacity: 0.5,
+        animate(div, id) {
+          createAnimationLoop(ID, () => {
+            if (!document.getElementById(id)) return;
+            y += dy; t += 0.008;
+            if (y <= minY) { y = minY; dy = Math.abs(dy); }
+            const maxY = window.innerHeight * 0.5;
+            if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
+            div.style.transform = `translate(${baseX + Math.sin(t * xFreq) * xAmp}px, ${y}px)`;
+          });
+        },
+        onClick: () => spawnShark(),
       });
     }
 
-    animateManta('.underwater-manta-1', 0.4, 18, 0.6, 120, 1, 0.12, 0.28);   // upper band
-    animateManta('.underwater-manta-2', 0.55, 12, 0.9, 90, -1, 0.30, 0.45);  // lower band
-
-    // Animate jellyfish (bounce between surface and 50% depth)
-    function animateJellyfish(selector, speed, xAmp, xFreq, size) {
-      const el = document.querySelector(selector);
-      if (!el) return;
-      const minY = 40; // near surface
-      const maxY = () => window.innerHeight * 0.5;
-      let y = minY + Math.random() * (maxY() - minY);
-      let dy = speed;
-      let baseX = Math.random() * (window.innerWidth - size);
+    function spawnShark() {
+      const dir = Math.random() < 0.5 ? 1 : -1;
+      const w = 100 + Math.random() * 40;
+      const spd = 0.5 + Math.random() * 0.3;
+      let x = dir === 1 ? -w : window.innerWidth + w;
+      let baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
       let t = Math.random() * Math.PI * 2;
 
-      function tick() {
-        if (document.documentElement.getAttribute('data-theme') !== 'underwater') {
-          requestAnimationFrame(tick);
-          return;
-        }
-        y += dy;
-        t += 0.008;
-        const x = baseX + Math.sin(t * xFreq) * xAmp;
-        // Bounce off surface and 50% depth
-        if (y <= minY) { y = minY; dy = Math.abs(dy); }
-        if (y >= maxY()) { y = maxY(); dy = -Math.abs(dy); }
-        el.style.transform = `translate(${x}px, ${y}px)`;
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-
-    animateJellyfish('.underwater-jellyfish-1', 0.12, 15, 0.4, 56);
-    animateJellyfish('.underwater-jellyfish-2', 0.15, 12, 0.55, 45);
-    animateJellyfish('.underwater-jellyfish-3', 0.1, 18, 0.35, 39);
-
-    // Animate sharks (horizontal glide, mid-to-deep water: 50-85%)
-    function animateShark(selector, speed, yAmp, yFreq, size, dir, yMinPct, yMaxPct) {
-      const el = document.querySelector(selector);
-      if (!el) return;
-      let x = dir === 1 ? -size : window.innerWidth + size;
-      const getBaseY = () => Math.random() * (window.innerHeight * (yMaxPct - yMinPct)) + window.innerHeight * yMinPct;
-      let baseY = getBaseY();
-      let t = Math.random() * Math.PI * 2;
-
-      function tick() {
-        if (document.documentElement.getAttribute('data-theme') !== 'underwater') {
-          requestAnimationFrame(tick);
-          return;
-        }
-        x += speed * dir;
-        t += 0.012;
-        const y = baseY + Math.sin(t * yFreq) * yAmp;
-        if (dir === 1 && x > window.innerWidth + size) { x = -size; baseY = getBaseY(); }
-        if (dir === -1 && x < -size) { x = window.innerWidth + size; baseY = getBaseY(); }
-        el.style.transform = `translate(${x}px, ${y}px)`;
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    }
-
-    animateShark('.underwater-shark-1', 0.6, 10, 0.5, 140, -1, 0.50, 0.65);   // upper-deep band
-    animateShark('.underwater-shark-2', 0.75, 8, 0.6, 120, 1, 0.68, 0.82);   // lower-deep band
-
-    // Easter egg: click shark → spawn jellyfish, click jellyfish → spawn shark
-    const jellyImgs = ['/jellyfish1.png', '/jellyfish2.png', '/jellyfish3.png'];
-    const sharkImgs = ['/shark1.png', '/shark2.png'];
-    let spawnCount = 0;
-
-    function spawnCreature(type) {
-      spawnCount++;
-      const id = `spawned-${spawnCount}`;
-      const div = document.createElement('div');
-      div.id = id;
-      div.style.cssText = 'position:fixed;top:0;left:0;z-index:1;pointer-events:auto;cursor:pointer;';
-      const img = document.createElement('img');
-
-      if (type === 'jellyfish') {
-        const src = jellyImgs[Math.floor(Math.random() * jellyImgs.length)];
-        img.src = src;
-        img.width = 30 + Math.random() * 10;
-        img.height = img.width * 1.5;
-        div.style.opacity = '0.5';
-        div.appendChild(img);
-        document.body.appendChild(div);
-        // Animate as jellyfish
-        const speed = 0.1 + Math.random() * 0.1;
-        const xAmp = 12 + Math.random() * 10;
-        const xFreq = 0.3 + Math.random() * 0.3;
-        const minY = 40;
-        let y = minY + Math.random() * (window.innerHeight * 0.5 - minY);
-        let dy = speed * (Math.random() < 0.5 ? 1 : -1);
-        let baseX = Math.random() * (window.innerWidth - 50);
-        let t = Math.random() * Math.PI * 2;
-        function tick() {
-          if (document.documentElement.getAttribute('data-theme') !== 'underwater' || !document.getElementById(id)) return;
-          y += dy; t += 0.008;
-          if (y <= minY) { y = minY; dy = Math.abs(dy); }
-          const maxY = window.innerHeight * 0.5;
-          if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
-          div.style.transform = `translate(${baseX + Math.sin(t * xFreq) * xAmp}px, ${y}px)`;
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      } else {
-        const dir = Math.random() < 0.5 ? 1 : -1;
-        const src = dir === 1 ? sharkImgs[1] : sharkImgs[0];
-        img.src = src;
-        img.width = 100 + Math.random() * 40;
-        img.height = img.width * 0.65;
-        div.style.opacity = '0.35';
-        div.appendChild(img);
-        document.body.appendChild(div);
-        // Animate as shark
-        const speed = 0.5 + Math.random() * 0.3;
-        let x = dir === 1 ? -img.width : window.innerWidth + img.width;
-        let baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
-        let t = Math.random() * Math.PI * 2;
-        function tick() {
-          if (document.documentElement.getAttribute('data-theme') !== 'underwater' || !document.getElementById(id)) return;
-          x += speed * dir; t += 0.012;
-          const y = baseY + Math.sin(t * 0.5) * 8;
-          if (dir === 1 && x > window.innerWidth + img.width) { x = -img.width; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
-          if (dir === -1 && x < -img.width) { x = window.innerWidth + img.width; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
-          div.style.transform = `translate(${x}px, ${y}px)`;
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      }
-
-      // Spawned creatures can also spawn more
-      div.addEventListener('click', () => {
-        spawnCreature(type === 'jellyfish' ? 'shark' : 'jellyfish');
+      spawnAnimatedSprite({
+        src: dir === 1 ? SHARK_IMGS[1] : SHARK_IMGS[0],
+        width: w, height: w * 0.65, opacity: 0.35,
+        animate(div, id) {
+          createAnimationLoop(ID, () => {
+            if (!document.getElementById(id)) return;
+            x += spd * dir; t += 0.012;
+            const y = baseY + Math.sin(t * 0.5) * 8;
+            if (dir === 1 && x > window.innerWidth + w) { x = -w; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
+            if (dir === -1 && x < -w) { x = window.innerWidth + w; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
+            div.style.transform = `translate(${x}px, ${y}px)`;
+          });
+        },
+        onClick: () => spawnJellyfish(),
       });
     }
 
-    // Attach click handlers to existing sharks and jellyfish
     document.querySelectorAll('[data-underwater-shark]').forEach(el => {
-      el.addEventListener('click', () => spawnCreature('jellyfish'));
+      el.addEventListener('click', () => spawnJellyfish());
     });
     document.querySelectorAll('[data-underwater-jellyfish]').forEach(el => {
-      el.addEventListener('click', () => spawnCreature('shark'));
+      el.addEventListener('click', () => spawnShark());
     });
   },
 
@@ -460,7 +408,7 @@ export default {
       width: 100%;
       height: 120px;
       z-index: 2;
-      background: url("/sea-floor.png") repeat-x bottom / auto 100%;
+      background: url("/images/themes/underwater/sea-floor.png") repeat-x bottom / auto 100%;
     }
     ${T} [data-underwater-seabed] img {
       display: none;
@@ -557,18 +505,9 @@ export default {
     ${T} a, ${T} button {
       cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='12' rx='10' ry='7' fill='none' stroke='%2300b894' stroke-width='2'/%3E%3Cellipse cx='8' cy='11' rx='4' ry='4' fill='rgba(10,61,98,0.5)' stroke='%2300b894' stroke-width='1'/%3E%3Cellipse cx='16' cy='11' rx='4' ry='4' fill='rgba(10,61,98,0.5)' stroke='%2300b894' stroke-width='1'/%3E%3Cline x1='12' y1='9' x2='12' y2='13' stroke='%2300b894' stroke-width='1'/%3E%3C/svg%3E") 12 12, pointer;
     }
-    ${T} [data-theme-ui] button { cursor: pointer; }
 
-    /* Buttons */
-    ${T} [data-anchor-btn] { border-width: 2px; border-style: solid; }
-    ${T} [data-btn="primary"] { background-color: #00b894 !important; color: #0a2942 !important; border-color: #00b894 !important; }
-    ${T} [data-btn="primary"]:hover { background-color: #0e3654 !important; color: #00b894 !important; border-color: #00b894 !important; }
-    ${T} [data-btn="secondary"] { background-color: #0e3654 !important; color: #f9ca24 !important; border-color: #f9ca24 !important; }
-    ${T} [data-btn="secondary"]:hover { background-color: #f9ca24 !important; color: #0a2942 !important; border-color: #f9ca24 !important; }
-
-    /* Header — water surface line */
+    /* Header — water surface gradient */
     ${T} [data-header] {
-      border-bottom: 2px solid;
       border-image: linear-gradient(to right, transparent, rgba(0,184,148,0.5) 30%, rgba(249,202,36,0.3) 70%, transparent) 1;
     }
 
@@ -595,14 +534,7 @@ export default {
       border-radius: 12px 12px 0 0;
     }
     ${T} [data-card-detail] { color: #7ec8d9; font-size: 0.75rem; }
-    ${T} [data-card-links] { border-top: 1px solid rgba(0, 184, 148, 0.2); padding-top: 0.5rem; margin-top: 0.75rem; }
 
-    /* Banner — sonar/radar style */
-    ${T} [data-banner] {
-      border: 1px solid rgba(0, 184, 148, 0.4) !important;
-      background: rgba(0, 184, 148, 0.08) !important;
-      border-radius: 8px;
-    }
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-underwater] { display: block !important; }
   `,

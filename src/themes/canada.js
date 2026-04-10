@@ -1,25 +1,84 @@
-const T = '[data-theme="canada"]';
+import { createFallingItems } from '../utils/animation.js';
+
+const ID = 'canada';
+const T = `[data-theme="${ID}"]`;
+const IMG = '/images/themes/canada';
+
+const PALETTE = {
+  red: '#FF0000',
+  darkRed: '#cc0000',
+  white: '#ffffff',
+  whiteHalf: 'rgba(255, 255, 255, 0.5)',
+  whiteFaint: 'rgba(255, 255, 255, 0.4)',
+  whiteMuted: 'rgba(255, 255, 255, 0.25)',
+  whiteTint: 'rgba(255, 255, 255, 0.2)',
+  whiteGhost: 'rgba(255, 255, 255, 0.15)',
+  whiteBg: 'rgba(255, 255, 255, 0.12)',
+  snowColor: 'rgba(255, 255, 255, 0.6)',
+};
+
+const LOONIE = { count: 10, size: 48 };
+
+const SNOW = {
+  slowDuration: '16s',
+  fastDuration: '8s',
+  tileSize: '100% 33.33%',
+  offset: '-33.33%',
+};
+
+const FLAKES = [
+  { cls: 'f1', left: '8%',  size: '14px', dur: '22s', delay: '0s' },
+  { cls: 'f2', left: '25%', size: '10px', dur: '18s', delay: '4s' },
+  { cls: 'f3', left: '42%', size: '16px', dur: '25s', delay: '8s' },
+  { cls: 'f4', left: '60%', size: '11px', dur: '20s', delay: '2s' },
+  { cls: 'f5', left: '78%', size: '13px', dur: '28s', delay: '10s' },
+  { cls: 'f6', left: '92%', size: '9px',  dur: '17s', delay: '6s' },
+];
+
+const flakeRules = FLAKES.map(f =>
+  `${T} [data-canada-snowflakes] .${f.cls} { left: ${f.left}; font-size: ${f.size}; animation-duration: ${f.dur}; animation-delay: ${f.delay}; }`
+).join('\n    ');
 
 export default {
   name: 'Canada',
-  swatches: ['#FFFFFF', '#FF0000'],
+  swatches: [PALETTE.white, PALETTE.red],
   colors: {
-    '--color-text': '#ffffff',
+    '--color-text': PALETTE.white,
     '--color-text-secondary': '#ffcccc',
     '--color-text-muted': '#ffd4d4',
-    '--color-text-muted-hover': '#ffffff',
-    '--color-bg': '#FF0000',
-    '--color-bg-surface': '#cc0000',
-    '--color-primary': '#ffffff',
+    '--color-text-muted-hover': PALETTE.white,
+    '--color-bg': PALETTE.red,
+    '--color-bg-surface': PALETTE.darkRed,
+    '--color-primary': PALETTE.white,
     '--color-primary-hover': '#ffe0e0',
-    '--color-secondary': '#ffffff',
+    '--color-secondary': PALETTE.white,
     '--color-secondary-hover': '#ffe0e0',
-    '--color-secondary-border': '#ffffff',
-    '--color-accent': '#ffffff',
-    '--color-border': 'rgba(255, 255, 255, 0.4)',
+    '--color-secondary-border': PALETTE.white,
+    '--color-accent': PALETTE.white,
+    '--color-border': PALETTE.whiteFaint,
     '--color-code-bg': '#b30000',
     '--color-code-text': '#ffe0e0',
     '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
+    '--btn-border-width': '2px',
+    '--btn-primary-bg': PALETTE.white,
+    '--btn-primary-text': PALETTE.red,
+    '--btn-primary-border': PALETTE.white,
+    '--btn-primary-bg-hover': PALETTE.darkRed,
+    '--btn-primary-text-hover': PALETTE.white,
+    '--btn-primary-border-hover': PALETTE.white,
+    '--btn-secondary-bg': PALETTE.darkRed,
+    '--btn-secondary-text': PALETTE.white,
+    '--btn-secondary-border': PALETTE.white,
+    '--btn-secondary-bg-hover': PALETTE.white,
+    '--btn-secondary-text-hover': PALETTE.red,
+    '--btn-secondary-border-hover': PALETTE.white,
+    '--header-border': `2px solid ${PALETTE.whiteHalf}`,
+    '--card-link-border': `1px dashed ${PALETTE.whiteTint + '8'}`,
+    '--card-link-padding-top': '0.5rem',
+    '--card-link-margin-top': '0.75rem',
+    '--banner-border': `2px solid ${PALETTE.whiteHalf}`,
+    '--banner-bg': PALETTE.whiteGhost,
+    '--banner-radius': '6px',
   },
 
   html: `
@@ -38,7 +97,7 @@ export default {
     .canada-bg, .canada-snowflakes { display: none; pointer-events: none; }
     .canada-bg {
       position: fixed; inset: 0; z-index: -1;
-      background-image: url("/maple-leaf.svg"), url("/maple-leaf.svg");
+      background-image: url("${IMG}/maple-leaf.svg"), url("${IMG}/maple-leaf.svg");
       background-size: 300px 300px, 250px 250px;
       background-position: 0 0, 170px 130px;
       background-repeat: repeat;
@@ -47,74 +106,21 @@ export default {
 
   init() {
     document.addEventListener('click', (e) => {
-      if (document.documentElement.getAttribute('data-theme') !== 'canada') return;
-      // Don't trigger on interactive elements
+      if (document.documentElement.getAttribute('data-theme') !== ID) return;
       if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
-      for (let i = 0; i < 10; i++) {
-        const loonie = document.createElement('img');
-        loonie.src = '/loonie.png';
-        loonie.style.cssText = `
-          position: fixed;
-          top: -60px;
-          left: ${Math.random() * (window.innerWidth - 48)}px;
-          width: 48px;
-          height: 48px;
-          object-fit: cover;
-          border-radius: 50%;
-          z-index: 400;
-          pointer-events: none;
-          opacity: 0.9;
-        `;
-        document.body.appendChild(loonie);
-
-        const speed = 2 + Math.random() * 3;
-        const wobbleAmp = 15 + Math.random() * 20;
-        const wobbleFreq = 0.02 + Math.random() * 0.02;
-        const spinSpeed = 2 + Math.random() * 4;
-        const delay = i * 80;
-        let y = -60;
-        let t = Math.random() * Math.PI * 2;
-        let startX = parseFloat(loonie.style.left);
-        let started = false;
-
-        function fall() {
-          if (!started) {
-            if (delay > 0) { requestAnimationFrame(fall); started = false; delay; return; }
-          }
-          y += speed;
-          t += wobbleFreq;
-          const x = startX + Math.sin(t) * wobbleAmp;
-          loonie.style.transform = `translate(${x - startX}px, ${y + 60}px) rotate(${t * spinSpeed * 30}deg)`;
-          if (y > window.innerHeight + 60) {
-            loonie.remove();
-            return;
-          }
-          requestAnimationFrame(fall);
-        }
-
-        setTimeout(() => {
-          started = true;
-          requestAnimationFrame(fall);
-        }, delay);
-      }
+      createFallingItems({ src: `${IMG}/loonie.png`, ...LOONIE, borderRadius: '50%' });
     });
   },
 
   css: `
-    /* Easter egg elements */
     ${T} [data-canada-bg] { display: block !important; }
     ${T} [data-canada-bg]::before,
     ${T} [data-canada-bg]::after {
       content: '';
-      position: fixed;
-      top: -100%;
-      left: 0;
-      width: 100%;
-      height: 300%;
-      pointer-events: none;
-      z-index: 1;
+      position: fixed; top: -100%; left: 0;
+      width: 100%; height: 300%;
+      pointer-events: none; z-index: 1;
     }
-    /* Snow layer 1: large slow flakes */
     ${T} [data-canada-bg]::before {
       background-image:
         radial-gradient(3px 3px at 2% 6%, rgba(255,255,255,0.9), transparent),
@@ -140,10 +146,9 @@ export default {
         radial-gradient(2.5px 2.5px at 89% 40%, rgba(255,255,255,0.9), transparent),
         radial-gradient(3px 3px at 93% 65%, rgba(255,255,255,0.8), transparent),
         radial-gradient(3px 3px at 97% 88%, rgba(255,255,255,0.85), transparent);
-      background-size: 100% 33.33%;
-      animation: canada-snow-slow 16s linear infinite;
+      background-size: ${SNOW.tileSize};
+      animation: canada-snow-slow ${SNOW.slowDuration} linear infinite;
     }
-    /* Snow layer 2: small fast flakes */
     ${T} [data-canada-bg]::after {
       background-image:
         radial-gradient(1.5px 1.5px at 1% 5%, rgba(255,255,255,0.7), transparent),
@@ -172,38 +177,28 @@ export default {
         radial-gradient(1px 1px at 91% 35%, rgba(255,255,255,0.65), transparent),
         radial-gradient(1.5px 1.5px at 95% 58%, rgba(255,255,255,0.7), transparent),
         radial-gradient(1px 1px at 99% 80%, rgba(255,255,255,0.6), transparent);
-      background-size: 100% 33.33%;
-      animation: canada-snow-fast 8s linear infinite;
+      background-size: ${SNOW.tileSize};
+      animation: canada-snow-fast ${SNOW.fastDuration} linear infinite;
     }
     @keyframes canada-snow-slow {
-      0% { transform: translateY(-33.33%); }
+      0% { transform: translateY(${SNOW.offset}); }
       100% { transform: translateY(0%); }
     }
     @keyframes canada-snow-fast {
-      0% { transform: translateY(-33.33%); }
+      0% { transform: translateY(${SNOW.offset}); }
       100% { transform: translateY(0%); }
     }
 
-    /* Snowflake characters */
     ${T} [data-canada-snowflakes] {
       display: block !important;
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      overflow: hidden;
+      position: fixed; inset: 0; z-index: 1; overflow: hidden;
     }
     ${T} [data-canada-snowflakes] .flake {
-      position: absolute;
-      top: -20px;
-      color: rgba(255, 255, 255, 0.6);
+      position: absolute; top: -20px;
+      color: ${PALETTE.snowColor};
       animation: canada-flake-fall linear infinite;
     }
-    ${T} [data-canada-snowflakes] .f1 { left: 8%; font-size: 14px; animation-duration: 22s; animation-delay: 0s; }
-    ${T} [data-canada-snowflakes] .f2 { left: 25%; font-size: 10px; animation-duration: 18s; animation-delay: 4s; }
-    ${T} [data-canada-snowflakes] .f3 { left: 42%; font-size: 16px; animation-duration: 25s; animation-delay: 8s; }
-    ${T} [data-canada-snowflakes] .f4 { left: 60%; font-size: 11px; animation-duration: 20s; animation-delay: 2s; }
-    ${T} [data-canada-snowflakes] .f5 { left: 78%; font-size: 13px; animation-duration: 28s; animation-delay: 10s; }
-    ${T} [data-canada-snowflakes] .f6 { left: 92%; font-size: 9px; animation-duration: 17s; animation-delay: 6s; }
+    ${flakeRules}
     @keyframes canada-flake-fall {
       0% { top: -20px; transform: rotate(0deg) translateX(0); opacity: 0; }
       5% { opacity: 0.6; }
@@ -212,27 +207,14 @@ export default {
       100% { top: calc(100vh + 20px); transform: rotate(360deg) translateX(-20px); opacity: 0; }
     }
 
-    /* Cursor */
     ${T} a, ${T} button {
       cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='-2015%20-2000%204030%204030'%3E%3Cpath%20fill='%23d52b1e'%20d='m-90%202030%2045-863a95%2095%200%200%200-111-98l-859%20151%20116-320a65%2065%200%200%200-20-73l-941-762%20212-99a65%2065%200%200%200%2034-79l-186-572%20542%20115a65%2065%200%200%200%2073-38l105-247%20423%20454a65%2065%200%200%200%20111-57l-204-1052%20327%20189a65%2065%200%200%200%2091-27l332-652%20332%20652a65%2065%200%200%200%2091%2027l327-189-204%201052a65%2065%200%200%200%20111%2057l423-454%20105%20247a65%2065%200%200%200%2073%2038l542-115-186%20572a65%2065%200%200%200%2034%2079l212%2099-941%20762a65%2065%200%200%200-20%2073l116%20320-859-151a95%2095%200%200%200-111%2098l45%20863z'/%3E%3C/svg%3E") 12 12, pointer;
     }
-    ${T} [data-theme-ui] button { cursor: pointer; }
 
-    /* Buttons */
-    ${T} [data-anchor-btn] { border-width: 2px; border-style: solid; }
-    ${T} [data-btn="primary"] { background-color: #ffffff !important; color: #FF0000 !important; border-color: #ffffff !important; }
-    ${T} [data-btn="primary"]:hover { background-color: #cc0000 !important; color: #ffffff !important; border-color: #ffffff !important; }
-    ${T} [data-btn="secondary"] { background-color: #cc0000 !important; color: #ffffff !important; border-color: #ffffff !important; }
-    ${T} [data-btn="secondary"]:hover { background-color: #ffffff !important; color: #FF0000 !important; border-color: #ffffff !important; }
-
-    /* Header */
-    ${T} [data-header] { border-bottom: 2px solid rgba(255, 255, 255, 0.5); }
-
-    /* Project cards: postcards */
     ${T} [data-card] {
-      border: 2px solid rgba(255,255,255,0.4) !important;
+      border: 2px solid ${PALETTE.whiteFaint} !important;
       border-radius: 2px;
-      background: rgba(255,255,255,0.12) !important;
+      background: ${PALETTE.whiteBg} !important;
       position: relative;
       padding: 1.25rem 1rem 1rem;
       animation: canada-card-fall-in 0.5s ease-out both;
@@ -244,33 +226,25 @@ export default {
     }
     ${T} [data-card]::after {
       content: '';
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
+      position: absolute; top: 0; right: 0; bottom: 0;
       width: 4px;
-      background: repeating-linear-gradient(to bottom, transparent, transparent 3px, rgba(255,255,255,0.2) 3px, rgba(255,255,255,0.2) 6px);
+      background: repeating-linear-gradient(to bottom, transparent, transparent 3px, ${PALETTE.whiteTint} 3px, ${PALETTE.whiteTint} 6px);
     }
     ${T} [data-postmark] {
       display: flex !important;
-      position: absolute;
-      top: 6px; right: 8px;
-      font-size: 0.55rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
-      border: 1px solid rgba(255,255,255,0.2);
+      position: absolute; top: 6px; right: 8px;
+      font-size: 0.55rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: ${PALETTE.whiteMuted};
+      border: 1px solid ${PALETTE.whiteTint};
       border-radius: 50%;
       width: 38px; height: 38px;
-      align-items: center;
-      justify-content: center;
+      align-items: center; justify-content: center;
       transform: rotate(-15deg);
     }
     ${T} [data-card-detail] { font-style: italic; }
     ${T} [data-card-detail]::before { content: 'Ingredients: '; font-style: normal; font-weight: bold; font-size: 0.75rem; }
-    ${T} [data-card-links] { border-top: 1px dashed rgba(255,255,255,0.3); padding-top: 0.5rem; margin-top: 0.75rem; }
 
-    /* Banner */
-    ${T} [data-banner] { border: 2px solid rgba(255,255,255,0.5) !important; background-color: rgba(255,255,255,0.15) !important; border-radius: 6px; }
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-canada] { display: block !important; }
   `,

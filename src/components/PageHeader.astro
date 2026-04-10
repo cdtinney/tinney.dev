@@ -59,7 +59,8 @@ const { title, siteTitle = 'colin tinney' } = Astro.props;
     min-height: 50px;
     line-height: 50px;
     align-items: center;
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: var(--header-border);
+    transition: border-bottom 0.3s ease;
     position: relative;
   }
 

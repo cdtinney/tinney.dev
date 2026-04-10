@@ -26,8 +26,10 @@ const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' 
     padding: 6px;
     text-align: center;
     text-decoration: none;
-    transition: top ease 1s;
+    transition: top ease 1s, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     border-radius: 3px;
+    border-width: var(--btn-border-width);
+    border-style: solid;
     background-color: var(--color-bg-surface);
     box-shadow: var(--shadow-button);
   }
@@ -37,22 +39,26 @@ const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' 
   }
 
   .btn-primary {
-    color: var(--color-primary);
-    border: 1px solid var(--color-primary);
+    color: var(--btn-primary-text);
+    background-color: var(--btn-primary-bg);
+    border-color: var(--btn-primary-border);
   }
 
   .btn-primary:hover {
-    color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
+    color: var(--btn-primary-text-hover);
+    background-color: var(--btn-primary-bg-hover);
+    border-color: var(--btn-primary-border-hover);
   }
 
   .btn-secondary {
-    color: var(--color-secondary);
-    border: 1px solid var(--color-secondary-border);
+    color: var(--btn-secondary-text);
+    background-color: var(--btn-secondary-bg);
+    border-color: var(--btn-secondary-border);
   }
 
   .btn-secondary:hover {
-    color: var(--color-secondary-hover);
-    border-color: var(--color-secondary-hover);
+    color: var(--btn-secondary-text-hover);
+    background-color: var(--btn-secondary-bg-hover);
+    border-color: var(--btn-secondary-border-hover);
   }
 </style>

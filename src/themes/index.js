@@ -1,3 +1,4 @@
+import { getCookie, setCookie } from '../utils/cookies.js';
 import defaultTheme from './default.js';
 import sharks from './sharks.js';
 import canada from './canada.js';
@@ -13,12 +14,7 @@ export const themes = {
 const COOKIE_NAME = 'theme';
 
 export function getStoredThemeId() {
-  try {
-    const match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
-    return match ? match[1] : null;
-  } catch {
-    return null;
-  }
+  return getCookie(COOKIE_NAME);
 }
 
 const initialized = new Set();
@@ -46,12 +42,7 @@ export function applyTheme(themeId) {
     root.style.setProperty(property, value);
   }
 
-  // Persist in cookie (365 days, same-site)
-  try {
-    document.cookie = `${COOKIE_NAME}=${themeId}; max-age=31536000; path=/; SameSite=Lax`;
-  } catch {
-    // cookie unavailable
-  }
+  setCookie(COOKIE_NAME, themeId);
 }
 
 export function initTheme() {

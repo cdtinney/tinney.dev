@@ -45,10 +45,11 @@ const projects = projectsData.projects;
     margin: 1rem auto;
     max-width: 600px;
     padding: 0.75rem 1.25rem;
-    border: 1px solid var(--color-secondary);
-    border-radius: 3px;
-    background-color: var(--color-bg);
+    border: var(--banner-border);
+    border-radius: var(--banner-radius);
+    background-color: var(--banner-bg);
     text-align: center;
+    transition: border 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
   }
 
   .banner-text {
