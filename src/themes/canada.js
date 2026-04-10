@@ -248,5 +248,7 @@ export default {
 
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-canada] { display: block !important; }
+    ${T} [data-404-default] { display: none !important; }
+    ${T} [data-404-canada] { display: block !important; }
   `,
 };

@@ -596,5 +596,7 @@ export default {
 
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-underwater] { display: block !important; }
+    ${T} [data-404-default] { display: none !important; }
+    ${T} [data-404-underwater] { display: block !important; }
   `,
 };

@@ -188,5 +188,7 @@ export default {
     ${T} [data-banner] { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-sharks] { display: block !important; }
+    ${T} [data-404-default] { display: none !important; }
+    ${T} [data-404-sharks] { display: block !important; }
   `,
 };
