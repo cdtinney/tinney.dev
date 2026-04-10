@@ -44,10 +44,3 @@ export function applyTheme(themeId) {
 
   setCookie(COOKIE_NAME, themeId);
 }
-
-export function initTheme() {
-  const stored = getStoredThemeId();
-  if (stored && themes[stored]) {
-    applyTheme(stored);
-  }
-}
