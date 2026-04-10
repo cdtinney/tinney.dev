@@ -7,15 +7,23 @@ const projects = projectsData.projects;
 ---
 
 <PageLayout title="colin tinney - projects" description="Personal projects." headerTitle="projects">
-  <div class="banner">
-    <p class="banner-text">
+  <div class="banner" data-banner>
+    <p class="banner-text" data-banner-default>
       None of these projects are actively maintained.
       They are preserved here for reference.
     </p>
+    <p class="banner-text" data-banner-sharks>
+      These players have been sent to the press box.
+      No longer on the active roster.
+    </p>
+    <p class="banner-text" data-banner-canada>
+      Sorry, none of these projects are actively maintained, eh.
+      They're preserved here for reference.
+    </p>
   </div>
   <section class="projects">
-    {projects.map((project) => (
-      <ProjectCard {...project} />
+    {projects.map((project, i) => (
+      <ProjectCard {...project} index={i} />
     ))}
   </section>
 </PageLayout>
@@ -33,15 +41,24 @@ const projects = projectsData.projects;
     margin: 1rem auto;
     max-width: 600px;
     padding: 0.75rem 1.25rem;
-    border: 1px solid rgb(216, 95, 79);
+    border: 1px solid var(--color-secondary);
     border-radius: 3px;
-    background-color: rgba(216, 95, 79, 0.08);
+    background-color: var(--color-bg);
     text-align: center;
   }
 
   .banner-text {
     margin: 0;
     font-size: 0.9rem;
-    color: rgb(33, 32, 40);
+    color: var(--color-text);
+  }
+
+</style>
+
+<style is:global>
+  /* Theme-specific banner text — hidden by default, shown by theme CSS */
+  [data-banner-sharks],
+  [data-banner-canada] {
+    display: none;
   }
 </style>

@@ -6,18 +6,22 @@ interface Props {
   homepageUrl: string;
   gitHubUrl: string;
   lastCommitDate?: string;
+  index?: number;
 }
 
-const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDate } = Astro.props;
+const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDate, index = 0 } = Astro.props;
+const jerseyNumber = String(index + 1).padStart(2, '0');
 ---
 
-<div class="card">
+<div class="card" data-card style={`--card-index: ${index}`}>
+  <span class="jersey-number" data-jersey>{jerseyNumber}</span>
+  <span class="postmark" data-postmark>PROJECT</span>
   <a href={homepageUrl}>
-    <h2 class="name">{name}</h2>
+    <h2 class="name" data-card-name>{name}</h2>
   </a>
   <p class="short-description">{shortDescription}</p>
-  <p class="detail">{techStack.join(', ')}</p>
-  <div class="links">
+  <p class="detail" data-card-detail>{techStack.join(', ')}</p>
+  <div class="links" data-card-links>
     <a class="link" href={homepageUrl}>homepage</a>
     <a class="link" href={gitHubUrl}>code</a>
   </div>
@@ -33,7 +37,7 @@ const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDat
     margin: 0.5rem;
     transition: top ease 1s;
     border-radius: 3px;
-    background-color: white;
+    background-color: var(--color-bg-surface);
     box-shadow: var(--shadow-button);
   }
 
@@ -69,7 +73,7 @@ const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDat
 
   .detail {
     font-size: 0.8rem;
-    color: rgb(120, 120, 130);
+    color: var(--color-text-secondary);
     margin: 0.25rem 0;
   }
 
@@ -81,5 +85,14 @@ const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDat
 
   .link {
     margin: 0 0.5rem;
+  }
+
+</style>
+
+<style is:global>
+  /* Hidden by default — shown by theme CSS targeting data attributes */
+  [data-jersey],
+  [data-postmark] {
+    display: none;
   }
 </style>

@@ -1,6 +1,8 @@
 ---
 import ScrollToTop from '../components/ScrollToTop.astro';
+import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 import '../styles/global.css';
+import { themes } from '../themes/index.js';
 
 interface Props {
   title?: string;
@@ -9,6 +11,21 @@ interface Props {
 
 const { title = 'colin tinney', description = 'A personal website' } = Astro.props;
 const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
+
+// Build-time: collect theme CSS, base CSS, and HTML from all themes
+const themeEntries = Object.entries(themes);
+const themeCssBlocks = themeEntries
+  .filter(([_, t]) => t.css)
+  .map(([_, t]) => t.css)
+  .join('\n');
+const themeBaseCss = themeEntries
+  .filter(([_, t]) => t.baseCss)
+  .map(([_, t]) => t.baseCss)
+  .join('\n');
+const themeHtml = themeEntries
+  .filter(([_, t]) => t.html)
+  .map(([_, t]) => t.html)
+  .join('\n');
 ---
 
 <!doctype html>
@@ -22,12 +39,79 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     <meta property="og:description" content={description} />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- Theme CSS rendered at build time — activated by data-theme attribute -->
+    <style set:html={themeCssBlocks}></style>
+    <script is:inline>
+      // Apply saved theme before first paint to prevent flash
+      (function() {
+        try {
+          var match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
+          var themeId = match && match[1];
+          if (!themeId || themeId === 'default') return;
+          var themes = {
+            sharks: {
+              '--color-text': '#e8e8e8',
+              '--color-text-secondary': '#a0b4b6',
+              '--color-text-muted': '#c0cfd0',
+              '--color-text-muted-hover': '#EA7200',
+              '--color-bg': '#004a50',
+              '--color-bg-surface': '#005a62',
+              '--color-primary': '#EA7200',
+              '--color-primary-hover': '#ff9224',
+              '--color-secondary': '#ff9224',
+              '--color-secondary-hover': '#ffb366',
+              '--color-secondary-border': '#EA7200',
+              '--color-accent': '#EA7200',
+              '--color-border': 'rgba(234, 114, 0, 0.4)',
+              '--color-code-bg': '#003a3f',
+              '--color-code-text': '#e0c8a8',
+              '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
+            },
+            canada: {
+              '--color-text': '#ffffff',
+              '--color-text-secondary': '#ffcccc',
+              '--color-text-muted': '#ffd4d4',
+              '--color-text-muted-hover': '#ffffff',
+              '--color-bg': '#FF0000',
+              '--color-bg-surface': '#cc0000',
+              '--color-primary': '#ffffff',
+              '--color-primary-hover': '#ffe0e0',
+              '--color-secondary': '#ffffff',
+              '--color-secondary-hover': '#ffe0e0',
+              '--color-secondary-border': '#ffffff',
+              '--color-accent': '#ffffff',
+              '--color-border': 'rgba(255, 255, 255, 0.4)',
+              '--color-code-bg': '#b30000',
+              '--color-code-text': '#ffe0e0',
+              '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
+            },
+          };
+          var colors = themes[themeId];
+          if (!colors) return;
+          var root = document.documentElement;
+          root.setAttribute('data-theme', themeId);
+          for (var prop in colors) {
+            root.style.setProperty(prop, colors[prop]);
+          }
+        } catch(e) {}
+      })();
+    </script>
   </head>
   <body>
     <main class="content">
       <slot />
     </main>
     <ScrollToTop />
+    <ThemeSwitcher />
+
+    <!-- Theme elements rendered at build time -->
+    <Fragment set:html={themeHtml} />
+
+    <!-- Initialize active theme's client-side logic -->
+    <script>
+      import { applyTheme, getStoredThemeId } from '../themes/index.js';
+      applyTheme(getStoredThemeId() || 'default');
+    </script>
   </body>
 </html>
 
@@ -37,4 +121,8 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     flex-direction: column;
     flex: 1;
   }
+
 </style>
+
+<!-- Theme base CSS (structural styles for hidden elements) rendered at build time -->
+<style is:global set:html={themeBaseCss}></style>

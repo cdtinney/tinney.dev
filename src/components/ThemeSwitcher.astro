@@ -1,0 +1,144 @@
+---
+---
+
+<div class="theme-switcher" data-theme-ui>
+  <button class="theme-btn" aria-label="Change theme" aria-expanded="false">
+    <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor">
+      <path d="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3H344c-26.5 0-48 21.5-48 48c0 8.8 2.4 17.4 6.7 25.1l2.4 4.4c15.5 28 2.1 63.5-28.3 73.6C254 478 228.1 484 200.7 484C106.5 484 28 409.7 28 320C28 165.3 144.7 44 296.3 44c81 0 153.2 38.2 200.5 97.5c6.2 7.8 15.2 22.5 15.2 40.5v74zM152 256c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm-8-128c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm168-24c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm120 112c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40z"/>
+    </svg>
+  </button>
+  <div class="theme-dropdown">
+    <!-- populated by script -->
+  </div>
+</div>
+
+<script>
+  import { themes, applyTheme, getStoredThemeId } from '../themes/index.js';
+
+  const switcher = document.querySelector('.theme-switcher');
+  const btn = document.querySelector('.theme-btn');
+  const dropdown = document.querySelector('.theme-dropdown');
+
+  // Build dropdown items styled with theme colors
+  Object.entries(themes).forEach(([id, theme]) => {
+    const item = document.createElement('button');
+    item.className = 'theme-option';
+    item.dataset.themeId = id;
+    item.textContent = theme.name;
+
+    const [primary, secondary] = theme.swatches || [];
+    if (primary) item.style.color = primary;
+    if (secondary) item.style.backgroundColor = secondary;
+
+    item.addEventListener('click', () => {
+      applyTheme(id);
+      updateActive(id);
+      closeDropdown();
+    });
+    dropdown?.appendChild(item);
+  });
+
+  function updateActive(activeId) {
+    dropdown?.querySelectorAll('.theme-option').forEach((el) => {
+      el.classList.toggle('active', el.dataset.themeId === activeId);
+    });
+  }
+
+  function closeDropdown() {
+    switcher?.classList.remove('is-open');
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+
+  // Toggle on click (needed for mobile, also works on desktop)
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = switcher?.classList.toggle('is-open');
+    btn?.setAttribute('aria-expanded', String(!!isOpen));
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element)?.closest?.('.theme-switcher')) {
+      closeDropdown();
+    }
+  });
+
+  // Apply stored theme (injects CSS) and set active state
+  const initialTheme = getStoredThemeId() || 'default';
+  applyTheme(initialTheme);
+  updateActive(initialTheme);
+</script>
+
+<style>
+  .theme-switcher {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 200;
+  }
+
+  .theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    box-shadow: var(--shadow-button);
+    transition: transform 0.2s ease;
+  }
+
+  .theme-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .theme-dropdown {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 0;
+    min-width: 120px;
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    box-shadow: var(--shadow-button);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Open via hover (desktop) or via JS toggle (mobile + desktop) */
+  .theme-switcher:hover .theme-dropdown,
+  .theme-switcher.is-open .theme-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .theme-option {
+    padding: 8px 12px;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: opacity 0.15s ease, padding-left 0.15s ease;
+  }
+
+  .theme-option:hover {
+    padding-left: 16px;
+    opacity: 0.85;
+  }
+
+  .theme-option.active {
+    padding-left: 16px;
+  }
+</style>
