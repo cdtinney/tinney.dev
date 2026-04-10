@@ -3,10 +3,10 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - develop
+      - main
   pull_request:
     branches:
-      - develop
+      - main
 
 permissions:
   contents: read
@@ -27,13 +27,13 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
-      - if: github.ref == 'refs/heads/develop'
+      - if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:
