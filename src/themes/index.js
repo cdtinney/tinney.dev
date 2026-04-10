@@ -19,6 +19,8 @@ export function getStoredThemeId() {
   }
 }
 
+const initialized = new Set();
+
 export function applyTheme(themeId) {
   const theme = themes[themeId];
   if (!theme) return;
@@ -30,6 +32,12 @@ export function applyTheme(themeId) {
 
   const root = document.documentElement;
   root.setAttribute('data-theme', themeId);
+
+  // Initialize theme's client-side logic on first activation
+  if (theme.init && !initialized.has(themeId)) {
+    initialized.add(themeId);
+    theme.init();
+  }
 
   // Apply CSS custom properties
   for (const [property, value] of Object.entries(theme.colors)) {
