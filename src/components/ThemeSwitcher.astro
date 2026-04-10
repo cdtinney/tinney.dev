@@ -26,7 +26,6 @@
     item.dataset.themeId = id;
     item.textContent = theme.name;
 
-    // Style with the theme's own colors
     const [primary, secondary] = theme.swatches || [];
     if (primary) item.style.color = primary;
     if (secondary) item.style.backgroundColor = secondary;
@@ -34,6 +33,7 @@
     item.addEventListener('click', () => {
       applyTheme(id);
       updateActive(id);
+      closeDropdown();
     });
     dropdown?.appendChild(item);
   });
@@ -43,6 +43,25 @@
       el.classList.toggle('active', el.dataset.themeId === activeId);
     });
   }
+
+  function closeDropdown() {
+    switcher?.classList.remove('is-open');
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+
+  // Toggle on click (needed for mobile, also works on desktop)
+  btn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = switcher?.classList.toggle('is-open');
+    btn?.setAttribute('aria-expanded', String(!!isOpen));
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element)?.closest?.('.theme-switcher')) {
+      closeDropdown();
+    }
+  });
 
   // Set initial active state
   updateActive(getStoredThemeId() || 'default');
@@ -93,8 +112,9 @@
     flex-direction: column;
   }
 
+  /* Open via hover (desktop) or via JS toggle (mobile + desktop) */
   .theme-switcher:hover .theme-dropdown,
-  .theme-dropdown:hover {
+  .theme-switcher.is-open .theme-dropdown {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

@@ -33,6 +33,22 @@ archived: true # optional, excluded from listing
 
 Projects are defined in `src/data/projects.json`. Sorted by `lastCommitDate` (newest first).
 
+### Themes
+
+The site supports multiple visual themes, toggled via a dropdown in the bottom-left corner. Themes are defined in `src/themes/` as JS files exporting CSS custom property values.
+
+* **Default** - Clean blue/coral palette
+* **Sharks** - San Jose Sharks teal/orange palette with hockey easter eggs (bouncing puck, rink-style header, hockey stick cursor, trading card project cards, goal counter)
+* **Canada** - Canadian flag red/white palette with maple leaf background, falling snow/snowflakes, maple leaf cursor, and postcard-style project cards
+
+Theme selection is persisted in `localStorage`. A blocking inline script in `<head>` applies the saved theme before first paint to prevent flash.
+
+To add a new theme:
+1. Create `src/themes/<name>.js` exporting `name`, `swatches`, and `colors`
+2. Import and register it in `src/themes/index.js`
+3. Add the theme's colors to the inline flash-prevention script in `src/layouts/DefaultLayout.astro`
+4. Optionally add theme-specific easter eggs/styles using `:global([data-theme="<name>"])` selectors
+
 ### About
 
 Personal information is in `src/data/about.md`.
