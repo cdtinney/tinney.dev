@@ -21,6 +21,30 @@ export default {
     '--color-code-text': '#ffe0e0',
     '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
   },
+
+  html: `
+    <div class="canada-bg" data-canada-bg aria-hidden="true"></div>
+    <div class="canada-snowflakes" data-canada-snowflakes aria-hidden="true">
+      <span class="flake f1">&#10052;</span>
+      <span class="flake f2">&#10053;</span>
+      <span class="flake f3">&#10052;</span>
+      <span class="flake f4">&#10053;</span>
+      <span class="flake f5">&#10052;</span>
+      <span class="flake f6">&#10053;</span>
+    </div>
+  `,
+
+  baseCss: `
+    .canada-bg, .canada-snowflakes { display: none; pointer-events: none; }
+    .canada-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background-image: url("/maple-leaf.svg"), url("/maple-leaf.svg");
+      background-size: 300px 300px, 250px 250px;
+      background-position: 0 0, 170px 130px;
+      background-repeat: repeat;
+    }
+  `,
+
   css: `
     /* Easter egg elements */
     ${T} [data-canada-bg] { display: block !important; }

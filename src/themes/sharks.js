@@ -21,6 +21,113 @@ export default {
     '--color-code-text': '#e0c8a8',
     '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
   },
+
+  html: `
+    <div class="sharks-bg" data-sharks-bg aria-hidden="true"></div>
+    <div class="sharks-center-logo" data-sharks-center aria-hidden="true">
+      <img src="/sharks-logo-full.svg" alt="" />
+    </div>
+    <div class="sharks-fin" data-sharks-fin aria-hidden="true">
+      <img src="/sharks-puck.png" alt="" width="62" height="62" />
+    </div>
+    <div class="sharks-goal" aria-hidden="true">
+      <img src="/goal.gif" alt="" />
+      <div class="goal-counter">
+        <span class="goal-count"></span>
+        <span class="goal-high"></span>
+      </div>
+    </div>
+  `,
+
+  baseCss: `
+    .sharks-bg, .sharks-center-logo, .sharks-fin { display: none; pointer-events: none; }
+    .sharks-bg {
+      position: fixed; inset: 0; z-index: -1;
+      background-image: url("/sharks-bg-tile.svg");
+      background-size: 600px 500px;
+      background-repeat: repeat;
+    }
+    .sharks-goal {
+      display: none; position: fixed; top: 10px; right: 10px; z-index: 300; pointer-events: none;
+    }
+    .sharks-goal.is-visible { display: block; }
+    .sharks-goal img { width: 140px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    .goal-counter { display: flex; flex-direction: column; align-items: flex-end; margin-top: 6px; font-family: 'Lato', sans-serif; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+    .goal-count { font-size: 1rem; color: #EA7200; }
+    .goal-high { font-size: 0.75rem; color: #a0b4b6; }
+  `,
+
+  _goalTimer: null,
+
+  cleanup() {
+    if (this._goalTimer) clearTimeout(this._goalTimer);
+    this._goalTimer = null;
+    document.querySelector('.sharks-goal')?.classList.remove('is-visible');
+  },
+
+  init() {
+    const self = this;
+    const fin = document.querySelector('.sharks-fin');
+    const goal = document.querySelector('.sharks-goal');
+    if (!fin) return;
+
+    const SIZE = 62;
+    const SPEED = 1.5;
+    let x = Math.random() * (window.innerWidth - SIZE);
+    let y = Math.random() * (window.innerHeight - SIZE);
+    let angle = (Math.random() * 0.8 + 0.2) * Math.PI / 2 * (Math.random() < 0.5 ? 1 : -1);
+    if (Math.random() < 0.5) angle += Math.PI;
+    let dx = Math.cos(angle) * SPEED;
+    let dy = Math.sin(angle) * SPEED;
+
+    function tick() {
+      if (document.documentElement.getAttribute('data-theme') !== 'sharks') {
+        requestAnimationFrame(tick);
+        return;
+      }
+      x += dx;
+      y += dy;
+      if (x <= 0) { x = 0; dx = Math.abs(dx); }
+      if (x >= window.innerWidth - SIZE) { x = window.innerWidth - SIZE; dx = -Math.abs(dx); }
+      if (y <= 0) { y = 0; dy = Math.abs(dy); }
+      if (y >= window.innerHeight - SIZE) { y = window.innerHeight - SIZE; dy = -Math.abs(dy); }
+      fin.style.transform = `translate(${x}px, ${y}px)`;
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    // Goal tracking
+    let goals = 0;
+    let highScore = 0;
+    try { highScore = parseInt(localStorage.getItem('sharks-high-score') || '0', 10) || 0; } catch {}
+    const countEl = document.querySelector('.goal-count');
+    const highEl = document.querySelector('.goal-high');
+
+    function updateGoalDisplay() {
+      if (countEl) countEl.textContent = `Goals: ${goals}`;
+      if (highEl) highEl.textContent = `Best: ${highScore}`;
+    }
+
+    fin.addEventListener('click', () => {
+      if (!goal) return;
+      goals++;
+      if (goals > highScore) {
+        highScore = goals;
+        try { localStorage.setItem('sharks-high-score', String(highScore)); } catch {}
+      }
+      updateGoalDisplay();
+      goal.classList.add('is-visible');
+      const img = goal.querySelector('img');
+      if (img) {
+        const src = img.src;
+        img.src = '';
+        img.src = src;
+      }
+      if (self._goalTimer) clearTimeout(self._goalTimer);
+      self._goalTimer = setTimeout(() => goal.classList.remove('is-visible'), 3000);
+    });
+  },
+
   css: `
     /* Easter egg elements */
     ${T} [data-sharks-bg] {
@@ -36,16 +143,11 @@ export default {
       inset: 0;
       z-index: -1;
     }
-    ${T} [data-sharks-center] img {
-      width: 500px;
-      max-width: 80vw;
-      height: auto;
-    }
+    ${T} [data-sharks-center] img { width: 500px; max-width: 80vw; height: auto; }
     ${T} [data-sharks-fin] {
       display: block !important;
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       z-index: 100;
       opacity: 0.4;
       cursor: pointer;
@@ -99,8 +201,7 @@ export default {
     ${T} [data-jersey] {
       display: block !important;
       position: absolute;
-      top: 8px;
-      right: 10px;
+      top: 8px; right: 10px;
       font-size: 1.8rem;
       font-weight: 900;
       color: rgba(234, 114, 0, 0.15);

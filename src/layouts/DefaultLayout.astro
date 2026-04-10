@@ -12,10 +12,19 @@ interface Props {
 const { title = 'colin tinney', description = 'A personal website' } = Astro.props;
 const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
 
-// Theme CSS is rendered at build time — each theme's css property is already self-scoped
-const themeCssBlocks = Object.entries(themes)
-  .filter(([_, theme]) => theme.css)
-  .map(([_, theme]) => theme.css)
+// Build-time: collect theme CSS, base CSS, and HTML from all themes
+const themeEntries = Object.entries(themes);
+const themeCssBlocks = themeEntries
+  .filter(([_, t]) => t.css)
+  .map(([_, t]) => t.css)
+  .join('\n');
+const themeBaseCss = themeEntries
+  .filter(([_, t]) => t.baseCss)
+  .map(([_, t]) => t.baseCss)
+  .join('\n');
+const themeHtml = themeEntries
+  .filter(([_, t]) => t.html)
+  .map(([_, t]) => t.html)
   .join('\n');
 ---
 
@@ -95,107 +104,16 @@ const themeCssBlocks = Object.entries(themes)
     <ScrollToTop />
     <ThemeSwitcher />
 
+    <!-- Theme elements rendered at build time -->
+    <Fragment set:html={themeHtml} />
+
+    <!-- Initialize active theme's client-side logic -->
     <script>
-      // DVD-style bouncing sharks fin
-      const fin = document.querySelector('.sharks-fin') as HTMLElement | null;
-      const goal = document.querySelector('.sharks-goal') as HTMLElement | null;
-      if (fin) {
-        const SIZE = 62;
-        const SPEED = 1.5; // pixels per frame
-        let x = Math.random() * (window.innerWidth - SIZE);
-        let y = Math.random() * (window.innerHeight - SIZE);
-        // Random initial angle (avoid near-horizontal/vertical)
-        let angle = (Math.random() * 0.8 + 0.2) * Math.PI / 2 * (Math.random() < 0.5 ? 1 : -1);
-        if (Math.random() < 0.5) angle += Math.PI;
-        let dx = Math.cos(angle) * SPEED;
-        let dy = Math.sin(angle) * SPEED;
-
-        function tick() {
-          // Only animate when sharks theme is active
-          if (document.documentElement.getAttribute('data-theme') !== 'sharks') {
-            requestAnimationFrame(tick);
-            return;
-          }
-
-          x += dx;
-          y += dy;
-
-          // Bounce off edges
-          if (x <= 0) { x = 0; dx = Math.abs(dx); }
-          if (x >= window.innerWidth - SIZE) { x = window.innerWidth - SIZE; dx = -Math.abs(dx); }
-          if (y <= 0) { y = 0; dy = Math.abs(dy); }
-          if (y >= window.innerHeight - SIZE) { y = window.innerHeight - SIZE; dy = -Math.abs(dy); }
-
-          fin.style.transform = `translate(${x}px, ${y}px)`;
-          requestAnimationFrame(tick);
-        }
-
-        requestAnimationFrame(tick);
-
-        // Goal tracking
-        let goals = 0;
-        let highScore = 0;
-        try { highScore = parseInt(localStorage.getItem('sharks-high-score') || '0', 10) || 0; } catch {}
-        const countEl = fin.closest('body')?.querySelector('.goal-count');
-        const highEl = fin.closest('body')?.querySelector('.goal-high');
-
-        function updateGoalDisplay() {
-          if (countEl) countEl.textContent = `Goals: ${goals}`;
-          if (highEl) highEl.textContent = `Best: ${highScore}`;
-        }
-
-        // Click to show goal GIF + update counter
-        let goalTimer: ReturnType<typeof setTimeout> | null = null;
-        fin.addEventListener('click', () => {
-          if (!goal) return;
-          goals++;
-          if (goals > highScore) {
-            highScore = goals;
-            try { localStorage.setItem('sharks-high-score', String(highScore)); } catch {}
-          }
-          updateGoalDisplay();
-          goal.classList.add('is-visible');
-          // Force GIF restart by re-setting src
-          const img = goal.querySelector('img');
-          if (img) {
-            const src = img.src;
-            img.src = '';
-            img.src = src;
-          }
-          if (goalTimer) clearTimeout(goalTimer);
-          goalTimer = setTimeout(() => goal.classList.remove('is-visible'), 3000);
-        });
-      }
+      import { themes, getStoredThemeId } from '../themes/index.js';
+      const activeId = getStoredThemeId() || 'default';
+      const active = themes[activeId];
+      if (active?.init) active.init();
     </script>
-
-    <!-- Sharks easter eggs (hidden by default, shown via data-theme) -->
-    <div class="sharks-bg" data-sharks-bg aria-hidden="true"></div>
-    <div class="sharks-center-logo" data-sharks-center aria-hidden="true">
-      <img src="/sharks-logo-full.svg" alt="" />
-    </div>
-
-    <!-- Shark fin bouncing around the page (DVD screensaver style) -->
-    <div class="sharks-fin" data-sharks-fin aria-hidden="true">
-      <img src="/sharks-puck.png" alt="" width="62" height="62" />
-    </div>
-    <div class="sharks-goal" aria-hidden="true">
-      <img src="/goal.gif" alt="" />
-      <div class="goal-counter">
-        <span class="goal-count"></span>
-        <span class="goal-high"></span>
-      </div>
-    </div>
-
-    <!-- Canada easter egg: maple leaf background overlay + snowflakes -->
-    <div class="canada-bg" data-canada-bg aria-hidden="true"></div>
-    <div class="canada-snowflakes" data-canada-snowflakes aria-hidden="true">
-      <span class="flake f1">&#10052;</span>
-      <span class="flake f2">&#10053;</span>
-      <span class="flake f3">&#10052;</span>
-      <span class="flake f4">&#10053;</span>
-      <span class="flake f5">&#10052;</span>
-      <span class="flake f6">&#10053;</span>
-    </div>
   </body>
 </html>
 
@@ -206,50 +124,7 @@ const themeCssBlocks = Object.entries(themes)
     flex: 1;
   }
 
-  /* Easter egg elements — hidden by default, shown by injected theme CSS */
-  .sharks-bg,
-  .sharks-center-logo,
-  .sharks-fin,
-  .canada-bg,
-  .canada-snowflakes {
-    display: none;
-    pointer-events: none;
-  }
-
-  /* Sharks background tile (structural — always present, display toggled by theme) */
-  .sharks-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-image: url("/sharks-bg-tile.svg");
-    background-size: 600px 500px;
-    background-repeat: repeat;
-  }
-
-  /* Canada background tile (structural) */
-  .canada-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    background-image: url("/maple-leaf.svg"), url("/maple-leaf.svg");
-    background-size: 300px 300px, 250px 250px;
-    background-position: 0 0, 170px 130px;
-    background-repeat: repeat;
-  }
-
-  /* Goal overlay (theme-independent structure) */
-  .sharks-goal {
-    display: none;
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 300;
-    pointer-events: none;
-  }
-
-  .sharks-goal.is-visible { display: block; }
-  .sharks-goal img { width: 140px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
-  .goal-counter { display: flex; flex-direction: column; align-items: flex-end; margin-top: 6px; font-family: 'Lato', sans-serif; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-  .goal-count { font-size: 1rem; color: #EA7200; }
-  .goal-high { font-size: 0.75rem; color: #a0b4b6; }
 </style>
+
+<!-- Theme base CSS (structural styles for hidden elements) rendered at build time -->
+<style is:global set:html={themeBaseCss}></style>

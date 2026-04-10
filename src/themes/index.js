@@ -23,6 +23,11 @@ export function applyTheme(themeId) {
   const theme = themes[themeId];
   if (!theme) return;
 
+  // Clean up all themes before switching
+  for (const t of Object.values(themes)) {
+    if (t.cleanup) t.cleanup();
+  }
+
   const root = document.documentElement;
   root.setAttribute('data-theme', themeId);
 
