@@ -63,57 +63,49 @@ A theme file can export:
 Example theme file (`src/themes/example.js`):
 
 ```js
-const T = '[data-theme="example"]';
+const ID = 'example';
+const T = `[data-theme="${ID}"]`;
+const IMG = '/images/themes/example';
+
+const PALETTE = {
+  orange: '#ff6600',
+  orangeLight: '#ff8533',
+  dark: '#1a1a2e',
+  surface: '#252545',
+};
 
 export default {
   name: 'Example',
-  swatches: ['#ff6600', '#1a1a2e'],
+  swatches: [PALETTE.orange, PALETTE.dark],
 
   colors: {
     '--color-text': '#e0e0e0',
-    '--color-bg': '#1a1a2e',
-    '--color-bg-surface': '#252545',
-    '--color-primary': '#ff6600',
-    '--color-primary-hover': '#ff8533',
-    '--color-secondary': '#ff6600',
-    '--color-secondary-hover': '#ff8533',
-    '--color-secondary-border': '#cc5200',
-    '--color-accent': '#ff6600',
-    '--color-border': 'rgba(255, 102, 0, 0.3)',
-    '--color-text-secondary': '#8888aa',
-    '--color-text-muted': '#aaaacc',
-    '--color-text-muted-hover': '#ff6600',
-    '--color-code-bg': '#151530',
-    '--color-code-text': '#ffcc99',
-    '--shadow-button': '0 2px 6px rgba(0,0,0,0.3)',
+    '--color-bg': PALETTE.dark,
+    '--color-bg-surface': PALETTE.surface,
+    '--color-primary': PALETTE.orange,
+    '--color-primary-hover': PALETTE.orangeLight,
+    // ... remaining color tokens
   },
 
-  // Easter egg HTML (rendered at build time, hidden by default)
   html: `
     <div class="example-bg" data-example-bg aria-hidden="true"></div>
   `,
 
-  // Structural CSS for hidden elements (global, unscoped)
   baseCss: `
     .example-bg { display: none; pointer-events: none; position: fixed; inset: 0; z-index: -1; }
   `,
 
-  // Theme-specific CSS (scoped by data-theme, rendered at build time)
   css: `
-    ${T} [data-example-bg] { display: block !important; background: radial-gradient(circle, #252545 0%, #1a1a2e 100%); }
-    ${T} [data-header] { border-bottom: 2px solid #ff6600; }
-    ${T} [data-anchor-btn] { border-width: 2px; border-style: solid; }
-    ${T} [data-btn="primary"] { background-color: #ff6600 !important; color: #fff !important; border-color: #ff6600 !important; }
-    ${T} [data-btn="primary"]:hover { background-color: #1a1a2e !important; color: #ff6600 !important; border-color: #ff6600 !important; }
-    ${T} [data-card] { border: 1px solid rgba(255,102,0,0.3) !important; background: #252545 !important; }
+    ${T} [data-example-bg] { display: block !important; background: radial-gradient(circle, ${PALETTE.surface} 0%, ${PALETTE.dark} 100%); }
+    ${T} [data-card] { border: 1px solid rgba(255,102,0,0.3) !important; background: ${PALETTE.surface} !important; }
+    ${T} [data-banner-default] { display: none !important; }
+    ${T} [data-banner-example] { display: block !important; }
   `,
 
-  // Client-side logic (called once on first activation)
   init() {
     console.log('Example theme activated!');
   },
 
-  // Teardown (called on every theme switch)
   cleanup() {
     console.log('Example theme deactivated');
   },
@@ -122,9 +114,10 @@ export default {
 
 To add a new theme:
 
-1. Create `src/themes/<name>.js` following the structure above
-2. Import and register it in `src/themes/index.js`
-3. Add the theme's color map to the inline flash-prevention script in `src/layouts/DefaultLayout.astro`
+1. Create `src/themes/<name>.js` following the structure above (use `ID`, `T`, `IMG`, `PALETTE` constants)
+2. Place theme images in `public/images/themes/<name>/`
+3. Import and register it in `src/themes/index.js`
+4. Add the theme's color map to the inline flash-prevention script in `src/layouts/DefaultLayout.astro`
 
 ## Developing
 
@@ -150,6 +143,21 @@ $ npm install
 $ npm run dev
 ```
 
+### Linting & Formatting
+
+ESLint and Prettier are configured with Astro plugins. Code is automatically linted and formatted:
+
+- **On save** — VS Code formats via Prettier (`.vscode/settings.json`)
+- **On commit** — Husky pre-commit hook runs `lint-staged` (ESLint `--fix` + Prettier `--write`)
+- **In CI** — GitHub Actions runs `npm run lint` and `npm run format:check` before build
+
+```
+$ npm run lint          # check for lint errors
+$ npm run lint:fix      # auto-fix lint errors
+$ npm run format        # format all files
+$ npm run format:check  # check formatting without writing
+```
+
 ### Building
 
 ```
@@ -165,7 +173,7 @@ The website is built and deployed to GitHub Pages via GitHub Actions.
 The workflow is defined in `.github/workflows/main.yml`.
 
 1. Code is pushed to `main`
-2. GitHub Actions builds the site with `npm run build`
+2. GitHub Actions runs lint, format check, and `npm run build`
 3. Build output is deployed to GitHub Pages via `actions/deploy-pages`
 
 ## License
