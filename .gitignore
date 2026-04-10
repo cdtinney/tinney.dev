@@ -32,9 +32,10 @@ dist/
 # Editor
 *.code-workspace
 
-# npm
+# Package managers
 .npm
 *.tgz
+package-lock.json
 
 # Optional caches
 .eslintcache

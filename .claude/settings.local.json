@@ -25,7 +25,13 @@
       "Bash(npx prettier:*)",
       "Bash(sed -i '' \"s|from ''../ScoreCounter.js''|from ''../ScoreCounter''|\" src/utils/__tests__/ScoreCounter.test.ts)",
       "Bash(sed -i '' \"s|from ''../cookies.js''|from ''../cookies''|\" src/utils/__tests__/cookies.test.ts)",
-      "Bash(for f:*)"
+      "Bash(for f:*)",
+      "Bash(pnpm --version)",
+      "Bash(pnpm import:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm run:*)",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(pnpm add:*)"
     ]
   }
 }
