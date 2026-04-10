@@ -22,8 +22,8 @@ const jerseyNumber = String(index + 1).padStart(2, '0');
   <p class="short-description">{shortDescription}</p>
   <p class="detail" data-card-detail>{techStack.join(', ')}</p>
   <div class="links" data-card-links>
-    <a class="link" href={homepageUrl}>homepage</a>
-    <a class="link" href={gitHubUrl}>code</a>
+    <a class="link" href={homepageUrl} aria-label={`${name} homepage`}>homepage</a>
+    <a class="link" href={gitHubUrl} aria-label={`${name} source code`}>code</a>
   </div>
 </div>
 

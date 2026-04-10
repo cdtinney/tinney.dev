@@ -1,12 +1,18 @@
 /**
  * Theme-aware animation loop. Pauses when the given theme is not active.
+ * Returns a cancel function to stop the loop permanently.
  */
 export function createAnimationLoop(theme, tick) {
+  let running = true;
   function frame() {
+    if (!running) return;
     if (document.documentElement.getAttribute('data-theme') === theme) tick();
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
+  return () => {
+    running = false;
+  };
 }
 
 /**

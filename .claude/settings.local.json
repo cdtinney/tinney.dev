@@ -20,7 +20,9 @@
       "Bash(git reset:*)",
       "Bash(gh repo:*)",
       "Bash(python3 -c \":*)",
-      "Bash(npx husky:*)"
+      "Bash(npx husky:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx prettier:*)"
     ]
   }
 }

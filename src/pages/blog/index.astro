@@ -1,13 +1,10 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { getCollection } from 'astro:content';
+import { formatDate } from '../../utils/formatDate.js';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.archived && !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-
-function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit' });
-}
 ---
 
 <BlogLayout title="colin tinney - blog" description="A personal blog">
@@ -20,6 +17,7 @@ function formatDate(date: Date): string {
           </h1>
           <div class="preview-date">
             <svg
+              aria-hidden="true"
               viewBox="0 0 448 512"
               width="14"
               height="14"
