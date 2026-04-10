@@ -1,14 +1,15 @@
 # tinney.dev
+
 > A personal website.
- 
+
 > [![Build and Deploy](https://github.com/cdtinney/tinney.dev/actions/workflows/main.yml/badge.svg)](https://github.com/cdtinney/tinney.dev/actions/workflows/main.yml)
 
 ## Introduction
 
 This website is built with:
 
-* [Astro](https://astro.build) - Static site generation
-* [GitHub Actions](https://github.com/features/actions) - CI/CD and deployment to GitHub Pages
+- [Astro](https://astro.build) - Static site generation
+- [GitHub Actions](https://github.com/features/actions) - CI/CD and deployment to GitHub Pages
 
 ## Content
 
@@ -37,10 +38,10 @@ Projects are defined in `src/data/projects.json`. Sorted by `lastCommitDate` (ne
 
 The site supports multiple visual themes, toggled via a dropdown in the bottom-left corner. Themes are defined in `src/themes/` as JS files exporting CSS custom property values.
 
-* **Default** - Clean blue/coral palette
-* **Sharks** - San Jose Sharks teal/orange palette with hockey easter eggs (bouncing puck, rink-style header, hockey stick cursor, trading card project cards, goal counter)
-* **Canada** - Canadian flag red/white palette with maple leaf background, falling snow/snowflakes, maple leaf cursor, and postcard-style project cards
-* **Underwater** - Deep ocean gradient with animated waves, seabed with coral and seaweed, rising bubbles, manta rays, diving mask cursor, and porthole-style project cards
+- **Default** - Clean blue/coral palette
+- **Sharks** - San Jose Sharks teal/orange palette with hockey easter eggs (bouncing puck, rink-style header, hockey stick cursor, trading card project cards, goal counter)
+- **Canada** - Canadian flag red/white palette with maple leaf background, falling snow/snowflakes, maple leaf cursor, and postcard-style project cards
+- **Underwater** - Deep ocean gradient with animated waves, seabed with coral and seaweed, rising bubbles, manta rays, diving mask cursor, and porthole-style project cards
 
 Theme selection is persisted in a cookie. All theme CSS is rendered at build time into static `<style>` tags scoped by `[data-theme="id"]` selectors, so switching is instant with no layout flash. A blocking inline script in `<head>` reads the cookie and sets the `data-theme` attribute + CSS custom properties before first paint.
 
@@ -48,16 +49,16 @@ Each theme JS file is fully declarative. Components expose `data-*` attributes (
 
 A theme file can export:
 
-| Export | Type | Required | Description |
-|---|---|---|---|
-| `name` | `string` | Yes | Display name in theme dropdown |
-| `swatches` | `string[]` | Yes | Primary colors shown in dropdown |
-| `colors` | `object` | Yes | CSS custom property overrides |
-| `css` | `string` | No | Scoped CSS rendered at build time (use `[data-theme="id"]` selectors) |
-| `baseCss` | `string` | No | Structural CSS for hidden elements (global, unscoped) |
-| `html` | `string` | No | Easter egg DOM elements rendered at build time |
-| `init()` | `function` | No | Client-side logic, called once on first theme activation |
-| `cleanup()` | `function` | No | Teardown, called on every theme switch before the new theme activates |
+| Export      | Type       | Required | Description                                                           |
+| ----------- | ---------- | -------- | --------------------------------------------------------------------- |
+| `name`      | `string`   | Yes      | Display name in theme dropdown                                        |
+| `swatches`  | `string[]` | Yes      | Primary colors shown in dropdown                                      |
+| `colors`    | `object`   | Yes      | CSS custom property overrides                                         |
+| `css`       | `string`   | No       | Scoped CSS rendered at build time (use `[data-theme="id"]` selectors) |
+| `baseCss`   | `string`   | No       | Structural CSS for hidden elements (global, unscoped)                 |
+| `html`      | `string`   | No       | Easter egg DOM elements rendered at build time                        |
+| `init()`    | `function` | No       | Client-side logic, called once on first theme activation              |
+| `cleanup()` | `function` | No       | Teardown, called on every theme switch before the new theme activates |
 
 Example theme file (`src/themes/example.js`):
 
@@ -120,6 +121,7 @@ export default {
 ```
 
 To add a new theme:
+
 1. Create `src/themes/<name>.js` following the structure above
 2. Import and register it in `src/themes/index.js`
 3. Add the theme's color map to the inline flash-prevention script in `src/layouts/DefaultLayout.astro`
@@ -127,13 +129,14 @@ To add a new theme:
 ## Developing
 
 Development is done on the `main` branch.
-  * All commits to `main` are automatically deployed.
-  * **Development must be done on branches off `main`.**
-  * Pull requests should set `main` as the base.
+
+- All commits to `main` are automatically deployed.
+- **Development must be done on branches off `main`.**
+- Pull requests should set `main` as the base.
 
 ### Requirements
 
-* Node.js 22+
+- Node.js 22+
 
 ### Installing
 
@@ -161,9 +164,9 @@ The website is built and deployed to GitHub Pages via GitHub Actions.
 
 The workflow is defined in `.github/workflows/main.yml`.
 
-1) Code is pushed to `main`
-2) GitHub Actions builds the site with `npm run build`
-3) Build output is deployed to GitHub Pages via `actions/deploy-pages`
+1. Code is pushed to `main`
+2. GitHub Actions builds the site with `npm run build`
+3. Build output is deployed to GitHub Pages via `actions/deploy-pages`
 
 ## License
 

@@ -9,7 +9,7 @@ interface Props {
   index?: number;
 }
 
-const { name, shortDescription, techStack, homepageUrl, gitHubUrl, lastCommitDate, index = 0 } = Astro.props;
+const { name, shortDescription, techStack, homepageUrl, gitHubUrl, index = 0 } = Astro.props;
 const jerseyNumber = String(index + 1).padStart(2, '0');
 ---
 
@@ -89,7 +89,6 @@ const jerseyNumber = String(index + 1).padStart(2, '0');
   .link {
     margin: 0 0.5rem;
   }
-
 </style>
 
 <style is:global>

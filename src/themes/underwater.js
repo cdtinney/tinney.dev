@@ -1,4 +1,10 @@
-import { createGlider, createDrifter, createGifPopup, createAnimationLoop, spawnAnimatedSprite } from '../utils/animation.js';
+import {
+  createGlider,
+  createDrifter,
+  createGifPopup,
+  createAnimationLoop,
+  spawnAnimatedSprite,
+} from '../utils/animation.js';
 
 const ID = 'underwater';
 const T = `[data-theme="${ID}"]`;
@@ -23,8 +29,26 @@ const PALETTE = {
 };
 
 const MANTAS = [
-  { selector: '.underwater-manta-1', speed: 0.4, yAmp: 18, yFreq: 0.6, size: 120, dir: 1, yMin: 0.12, yMax: 0.28 },
-  { selector: '.underwater-manta-2', speed: 0.55, yAmp: 12, yFreq: 0.9, size: 90, dir: -1, yMin: 0.30, yMax: 0.45 },
+  {
+    selector: '.underwater-manta-1',
+    speed: 0.4,
+    yAmp: 18,
+    yFreq: 0.6,
+    size: 120,
+    dir: 1,
+    yMin: 0.12,
+    yMax: 0.28,
+  },
+  {
+    selector: '.underwater-manta-2',
+    speed: 0.55,
+    yAmp: 12,
+    yFreq: 0.9,
+    size: 90,
+    dir: -1,
+    yMin: 0.3,
+    yMax: 0.45,
+  },
 ];
 
 const JELLYFISH = [
@@ -34,8 +58,26 @@ const JELLYFISH = [
 ];
 
 const SHARKS = [
-  { selector: '.underwater-shark-1', speed: 0.6, yAmp: 10, yFreq: 0.5, size: 140, dir: -1, yMin: 0.50, yMax: 0.65 },
-  { selector: '.underwater-shark-2', speed: 0.75, yAmp: 8, yFreq: 0.6, size: 120, dir: 1, yMin: 0.68, yMax: 0.82 },
+  {
+    selector: '.underwater-shark-1',
+    speed: 0.6,
+    yAmp: 10,
+    yFreq: 0.5,
+    size: 140,
+    dir: -1,
+    yMin: 0.5,
+    yMax: 0.65,
+  },
+  {
+    selector: '.underwater-shark-2',
+    speed: 0.75,
+    yAmp: 8,
+    yFreq: 0.6,
+    size: 120,
+    dir: 1,
+    yMin: 0.68,
+    yMax: 0.82,
+  },
 ];
 
 const JELLYFISH_IMGS = [`${IMG}/jellyfish1.png`, `${IMG}/jellyfish2.png`, `${IMG}/jellyfish3.png`];
@@ -220,7 +262,6 @@ export default {
     }
   `,
 
-
   _wavePopup: null,
 
   cleanup() {
@@ -231,14 +272,14 @@ export default {
     const wavePopup = createGifPopup('.underwater-wave-gif');
     this._wavePopup = wavePopup;
 
-    MANTAS.forEach(cfg => {
+    MANTAS.forEach((cfg) => {
       const el = createGlider(cfg.selector, { theme: ID, ...cfg });
       el?.addEventListener('click', () => wavePopup.show());
     });
 
-    JELLYFISH.forEach(cfg => createDrifter(cfg.selector, { theme: ID, ...cfg }));
+    JELLYFISH.forEach((cfg) => createDrifter(cfg.selector, { theme: ID, ...cfg }));
 
-    SHARKS.forEach(cfg => createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 }));
+    SHARKS.forEach((cfg) => createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 }));
 
     function spawnJellyfish() {
       const w = 30 + Math.random() * 10;
@@ -253,14 +294,23 @@ export default {
 
       spawnAnimatedSprite({
         src: JELLYFISH_IMGS[Math.floor(Math.random() * JELLYFISH_IMGS.length)],
-        width: w, height: w * 1.5, opacity: 0.5,
+        width: w,
+        height: w * 1.5,
+        opacity: 0.5,
         animate(div, id) {
           createAnimationLoop(ID, () => {
             if (!document.getElementById(id)) return;
-            y += dy; t += 0.008;
-            if (y <= minY) { y = minY; dy = Math.abs(dy); }
+            y += dy;
+            t += 0.008;
+            if (y <= minY) {
+              y = minY;
+              dy = Math.abs(dy);
+            }
             const maxY = window.innerHeight * 0.5;
-            if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
+            if (y >= maxY) {
+              y = maxY;
+              dy = -Math.abs(dy);
+            }
             div.style.transform = `translate(${baseX + Math.sin(t * xFreq) * xAmp}px, ${y}px)`;
           });
         },
@@ -278,14 +328,23 @@ export default {
 
       spawnAnimatedSprite({
         src: dir === 1 ? SHARK_IMGS[1] : SHARK_IMGS[0],
-        width: w, height: w * 0.65, opacity: 0.35,
+        width: w,
+        height: w * 0.65,
+        opacity: 0.35,
         animate(div, id) {
           createAnimationLoop(ID, () => {
             if (!document.getElementById(id)) return;
-            x += spd * dir; t += 0.012;
+            x += spd * dir;
+            t += 0.012;
             const y = baseY + Math.sin(t * 0.5) * 8;
-            if (dir === 1 && x > window.innerWidth + w) { x = -w; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
-            if (dir === -1 && x < -w) { x = window.innerWidth + w; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
+            if (dir === 1 && x > window.innerWidth + w) {
+              x = -w;
+              baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
+            }
+            if (dir === -1 && x < -w) {
+              x = window.innerWidth + w;
+              baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
+            }
             div.style.transform = `translate(${x}px, ${y}px)`;
           });
         },
@@ -293,10 +352,10 @@ export default {
       });
     }
 
-    document.querySelectorAll('[data-underwater-shark]').forEach(el => {
+    document.querySelectorAll('[data-underwater-shark]').forEach((el) => {
       el.addEventListener('click', () => spawnJellyfish());
     });
-    document.querySelectorAll('[data-underwater-jellyfish]').forEach(el => {
+    document.querySelectorAll('[data-underwater-jellyfish]').forEach((el) => {
       el.addEventListener('click', () => spawnShark());
     });
   },

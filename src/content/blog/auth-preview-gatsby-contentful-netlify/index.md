@@ -1,8 +1,8 @@
 ---
-title: "Creating an authenticated preview site for Gatsby and Contentful using Netlify Identity"
-date: "2019-04-21"
-path: "/blog/auth-preview-gatsby-contentful-netlify"
-excerpt: "Learn how to setup a preview instance of your Gatsby site using the Contentful Preview API and authenticate it using Netlify Identity with Google OAuth."
+title: 'Creating an authenticated preview site for Gatsby and Contentful using Netlify Identity'
+date: '2019-04-21'
+path: '/blog/auth-preview-gatsby-contentful-netlify'
+excerpt: 'Learn how to setup a preview instance of your Gatsby site using the Contentful Preview API and authenticate it using Netlify Identity with Google OAuth.'
 ---
 
 Learn how to setup a preview instance of your Gatsby site using the Contentful Preview API
@@ -29,11 +29,11 @@ The solution I came up with is to run a preview instance on Netlify that uses [N
 
 To summarize the changes:
 
-* Wrap Gatsby's root element in a higher-order component that uses Netlify Identity to check if the user is logged in
-  * If the user isn't logged in, redirect to a login screen
-* Add support for environment variables to force builds to use the Contentful Preview API
-* Create a deploy context on Netlify for the target branch (e.g. `develop` or `preview`) that sets environment variables
-* Add a webhook to Contentful to trigger re-deploys for the target branch deploy context
+- Wrap Gatsby's root element in a higher-order component that uses Netlify Identity to check if the user is logged in
+  - If the user isn't logged in, redirect to a login screen
+- Add support for environment variables to force builds to use the Contentful Preview API
+- Create a deploy context on Netlify for the target branch (e.g. `develop` or `preview`) that sets environment variables
+- Add a webhook to Contentful to trigger re-deploys for the target branch deploy context
 
 ## Prerequisites
 
@@ -41,9 +41,9 @@ This post will not cover how to set this up from scratch.
 
 There are some prerequisites:
 
-* [Gatsby](https://gatsbyjs.org) + [Contentful](https://contentful.com) project
-  * I recommend using [the starter](https://github.com/contentful-userland/gatsby-contentful-starter)
-* [Netlify](https://netlify.com) site linked to the project
+- [Gatsby](https://gatsbyjs.org) + [Contentful](https://contentful.com) project
+  - I recommend using [the starter](https://github.com/contentful-userland/gatsby-contentful-starter)
+- [Netlify](https://netlify.com) site linked to the project
 
 There are plenty of good resources online ([1](https://www.contentful.com/r/knowledgebase/gatsbyjs-and-contentful-in-five-minutes/), [2](https://itnext.io/jamstack-basics-how-to-create-a-gatsby-starter-with-contentful-and-deploy-to-netlify-846354cc74bc)) you can use to learn how to set this up.
 
@@ -56,6 +56,7 @@ We can create a wrapper service for `netlify-identity-widget` that our applicati
 First, install it as a dependency via `npm i -S netlify-identity-widget`.
 
 `auth.js`:
+
 ```javascript
 import netlifyIdentity from 'netlify-identity-widget';
 
@@ -70,7 +71,7 @@ export default {
   authenticate(callback) {
     this.isAuthenticated = true;
     netlifyIdentity.open();
-    netlifyIdentity.on('login', user => callback(user));
+    netlifyIdentity.on('login', (user) => callback(user));
   },
   currentUser() {
     return netlifyIdentity.currentUser();
@@ -81,14 +82,14 @@ export default {
 Next, we create a higher-order component that we can use to wrap page components.
 
 `withAuth.js`:
+
 ```javascript
 import React, { PureComponent } from 'react';
 
 import auth from './auth';
 
 // We can check this before the component is rendered.
-const alreadyLoggedIn = auth.isAuthenticated
-|| auth.currentUser() !== null;
+const alreadyLoggedIn = auth.isAuthenticated || auth.currentUser() !== null;
 
 export default function withAuth(PageComponent) {
   return class WithAuthPageComponent extends PureComponent {
@@ -102,25 +103,21 @@ export default function withAuth(PageComponent) {
       // This allows us to redirect to it after the user has logged in.
       const path = window.location.pathname;
       this.setState({
-        redirectPath: !alreadyLoggedIn && path !== '/'
-          ? path
-          : null,
+        redirectPath: !alreadyLoggedIn && path !== '/' ? path : null,
       });
     }
 
-    login = () => auth.authenticate((user) => {
-      if (user) {
-        this.setState({
-          isLoggedIn: true,
-        });
-      }
-    });
+    login = () =>
+      auth.authenticate((user) => {
+        if (user) {
+          this.setState({
+            isLoggedIn: true,
+          });
+        }
+      });
 
     render() {
-      const {
-        isLoggedIn,
-        redirectPath,
-      } = this.state;
+      const { isLoggedIn, redirectPath } = this.state;
 
       if (!isLoggedIn && !alreadyLoggedIn) {
         return (
@@ -145,9 +142,7 @@ export default function withAuth(PageComponent) {
         return null;
       }
 
-      return (
-        <PageComponent {...this.props} />
-      );
+      return <PageComponent {...this.props} />;
     }
   };
 }
@@ -156,6 +151,7 @@ export default function withAuth(PageComponent) {
 Now, we can create the function to do the wrapping (based on an environment variable -- we'll cover that after).
 
 `wrapRootElementWithAuth.js`:
+
 ```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -164,14 +160,8 @@ import withAuth from './withAuth';
 
 const useAuth = process.env.ENABLE_NETLIFY_AUTH === 'true';
 
-const wrapRootElement = ({
-  element,
-}) => {
-  const RootElement = () => (
-    <React.Fragment>
-      {element}
-    </React.Fragment>
-  );
+const wrapRootElement = ({ element }) => {
+  const RootElement = () => <React.Fragment>{element}</React.Fragment>;
 
   if (!useAuth) {
     return <RootElement />;
@@ -191,6 +181,7 @@ export default wrapRootElement;
 Now, we need to do the element wrapping via Gatsby's [Browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) and [Node APIs](https://www.gatsbyjs.org/docs/node-apis/). We can use `wrapRootElement` specifically.
 
 `gatsby-browser.js`:
+
 ```javascript
 import wrapRootElementWithAuth from './src/auth/wrapRootElementWithAuth';
 
@@ -198,6 +189,7 @@ export const wrapRootElement = wrapRootElementWithAuth;
 ```
 
 `gatsby-node.js`:
+
 ```javascript
 import wrapRootElementWithAuth from './src/auth/wrapRootElementWithAuth';
 
@@ -233,6 +225,7 @@ With `gatsby-source-contentful`, there is a `host` option we can use. I moved pl
 **NOTE: You will need both Preview and Delivery API tokens setup in your build environment.**
 
 `contentful-options.js`:
+
 ```javascript
 // We can use dotenv to read environment variables from a file (e.g. local environment).
 // This is not required if you don't want to preview locally.
@@ -242,25 +235,20 @@ require('dotenv').config({
   path: '.env',
 });
 
-const {
-  CONTENTFUL_SPACE_ID: spaceId,
-  CONTENTFUL_USE_PREVIEW,
-} = process.env;
+const { CONTENTFUL_SPACE_ID: spaceId, CONTENTFUL_USE_PREVIEW } = process.env;
 const usePreview = CONTENTFUL_USE_PREVIEW === 'true';
 
 const host = usePreview
   ? 'preview.contentful.com'
-  // If `null`, defaults to the Delivery API
-  : null;
+  : // If `null`, defaults to the Delivery API
+    null;
 const accessToken = usePreview
-  // The Preview API uses a different token than the Delivery API
-  ? process.env.CONTENTFUL_PREVIEW_TOKEN
+  ? // The Preview API uses a different token than the Delivery API
+    process.env.CONTENTFUL_PREVIEW_TOKEN
   : process.env.CONTENTFUL_DELIVERY_TOKEN;
 
 if (!spaceId || !accessToken) {
-  throw new Error(
-    'Contentful spaceId and access token need to be provided',
-  );
+  throw new Error('Contentful spaceId and access token need to be provided');
 }
 
 module.exports = {
@@ -273,6 +261,7 @@ module.exports = {
 Then, pass them to the plugin as options:
 
 `gatsby-config.js`:
+
 ```javascript
 const contentfulOptions = require('./contentful-options');
 
@@ -289,27 +278,28 @@ plugins: [{
 Now, we need to setup Netlify to support authenticated builds using the Preview API.
 
 1. Add the following environment variables:
-   * `CONTENTFUL_PREVIEW_TOKEN` - Contentful API token
+   - `CONTENTFUL_PREVIEW_TOKEN` - Contentful API token
 1. Add a deploy context (`Site settings > Build & deploy > Deploy Contexts`) for the target branch, e.g. `develop`
 
-    ![Deploy Context](./_images/branch-deploys.png)
+   ![Deploy Context](./_images/branch-deploys.png)
 
 1. Update your build settings via `netlify.toml` to use authentication and the preview API
 
-    `netlify.toml`:
-      ```yaml
-      # Settings for `develop` branch deploys.
-      # If your target branch is named something else,
-      # the context will be "context.<NAME>.environment".
-      [context.develop.environment]
-        CONTENTFUL_USE_PREVIEW = "true"
-        ENABLE_NETLIFY_AUTH = "true"
-      ```
+   `netlify.toml`:
+
+   ```yaml
+   # Settings for `develop` branch deploys.
+   # If your target branch is named something else,
+   # the context will be "context.<NAME>.environment".
+   [context.develop.environment]
+     CONTENTFUL_USE_PREVIEW = "true"
+     ENABLE_NETLIFY_AUTH = "true"
+   ```
 
 1. Enable Identity, add Google as a provider, and **set it to invite-only**
 1. Finally, add a build hook for the `develop` deploy context and copy it to your clipboard
 
-    ![Build hook](./_images/build-hook.png)
+   ![Build hook](./_images/build-hook.png)
 
 ### Contentful
 
@@ -324,9 +314,9 @@ We can add linking from content to the preview website:
 1. Open `Content Preview` for your environment
 2. Select the content you want
 3. Use the full Netlify URL for the preview URLs
-    * e.g. `https://develop--projectname.netlify.com/blog/{entry.fields.slug}`
+   - e.g. `https://develop--projectname.netlify.com/blog/{entry.fields.slug}`
 
-    ![Content Preview URLs](./_images/content-preview-urls.png)
+   ![Content Preview URLs](./_images/content-preview-urls.png)
 
 Then, a preview button will show up for creators on the right-side pane when creating content such as blog posts.
 

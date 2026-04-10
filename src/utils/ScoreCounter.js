@@ -13,7 +13,7 @@ export class ScoreCounter {
     try {
       this.highScore = parseInt(localStorage.getItem(storageKey) || '0', 10) || 0;
     } catch {
-      // localStorage unavailable
+      console.debug('Unable to load high score');
     }
   }
 
@@ -25,7 +25,7 @@ export class ScoreCounter {
       try {
         localStorage.setItem(this.storageKey, String(this.highScore));
       } catch {
-        // localStorage unavailable
+        console.debug('Unable to save high score');
       }
     }
     return this.score;

@@ -8,7 +8,14 @@ interface Props {
   class?: string;
 }
 
-const { href, external = false, title, ariaLabel, color = 'primary', class: className = '' } = Astro.props;
+const {
+  href,
+  external = false,
+  title,
+  ariaLabel,
+  color = 'primary',
+  class: className = '',
+} = Astro.props;
 const colorClass = color === 'secondary' ? 'secondary' : 'primary';
 const classes = `anchor ${colorClass} ${className}`.trim();
 const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};

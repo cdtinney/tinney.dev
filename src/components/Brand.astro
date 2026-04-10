@@ -6,13 +6,20 @@ interface Props {
   class?: string;
 }
 
-const { title = 'colin tinney', large = false, underline = true, class: className = '' } = Astro.props;
+const {
+  title = 'colin tinney',
+  large = false,
+  underline = true,
+  class: className = '',
+} = Astro.props;
 const headerClass = [
   'header',
   large ? 'header-large' : '',
   underline ? 'header-underline' : '',
   className,
-].filter(Boolean).join(' ');
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <h1 class={headerClass}>

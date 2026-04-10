@@ -1,8 +1,4 @@
 /**
- * Simple cookie utilities.
- */
-
-/**
  * Get a cookie value by name.
  * @param {string} name
  * @returns {string | null}

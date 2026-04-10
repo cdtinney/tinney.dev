@@ -1,8 +1,8 @@
 ---
-title: "Questions to ask technical interviewers"
-date: "2019-12-31"
-path: "/blog/questions-to-ask-technical-interviewer"
-excerpt: "A curated list of questions to ask during technical interviews."
+title: 'Questions to ask technical interviewers'
+date: '2019-12-31'
+path: '/blog/questions-to-ask-technical-interviewer'
+excerpt: 'A curated list of questions to ask during technical interviews.'
 draft: true
 ---
 
@@ -22,7 +22,7 @@ I scoured the internet for lists and wrote down a lot. In the end, I kept asking
 Q: Tell me about a project you're particularly proud of.
 
 > Why? Gauge the scope of an individuals contributions, and learn about something they consider a success. Hopefully
-it's aligned with your expectations for your responsibilities.
+> it's aligned with your expectations for your responsibilities.
 
 **To technical/engineering managers:**
 

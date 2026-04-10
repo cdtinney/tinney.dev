@@ -1,10 +1,13 @@
 ---
+
 ---
 
 <div class="theme-switcher" data-theme-ui>
   <button class="theme-btn" aria-label="Change theme" aria-expanded="false">
     <svg width="16" height="16" viewBox="0 0 512 512" fill="currentColor">
-      <path d="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3H344c-26.5 0-48 21.5-48 48c0 8.8 2.4 17.4 6.7 25.1l2.4 4.4c15.5 28 2.1 63.5-28.3 73.6C254 478 228.1 484 200.7 484C106.5 484 28 409.7 28 320C28 165.3 144.7 44 296.3 44c81 0 153.2 38.2 200.5 97.5c6.2 7.8 15.2 22.5 15.2 40.5v74zM152 256c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm-8-128c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm168-24c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm120 112c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40z"/>
+      <path
+        d="M512 256c0 .9 0 1.8 0 2.7c-.4 36.5-33.6 61.3-70.1 61.3H344c-26.5 0-48 21.5-48 48c0 8.8 2.4 17.4 6.7 25.1l2.4 4.4c15.5 28 2.1 63.5-28.3 73.6C254 478 228.1 484 200.7 484C106.5 484 28 409.7 28 320C28 165.3 144.7 44 296.3 44c81 0 153.2 38.2 200.5 97.5c6.2 7.8 15.2 22.5 15.2 40.5v74zM152 256c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm-8-128c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm168-24c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40zm120 112c-22.1 0-40 17.9-40 40s17.9 40 40 40s40-17.9 40-40s-17.9-40-40-40z"
+      ></path>
     </svg>
   </button>
   <div class="theme-dropdown">
@@ -109,7 +112,10 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(4px);
-    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease,
+      visibility 0.15s ease;
     display: flex;
     flex-direction: column;
   }
@@ -130,7 +136,9 @@
     font-family: inherit;
     font-size: 0.85rem;
     font-weight: 600;
-    transition: opacity 0.15s ease, padding-left 0.15s ease;
+    transition:
+      opacity 0.15s ease,
+      padding-left 0.15s ease;
   }
 
   .theme-option:hover {

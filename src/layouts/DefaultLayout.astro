@@ -42,8 +42,9 @@ const themeHtml = themeEntries
     <!-- Theme CSS rendered at build time — activated by data-theme attribute -->
     <style set:html={themeCssBlocks}></style>
     <script is:inline>
+      /* eslint-disable no-var, no-empty */
       // Apply saved theme before first paint to prevent flash
-      (function() {
+      (function () {
         try {
           var match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
           var themeId = match && match[1];
@@ -111,7 +112,7 @@ const themeHtml = themeEntries
           for (var prop in colors) {
             root.style.setProperty(prop, colors[prop]);
           }
-        } catch(e) {}
+        } catch (_) {}
       })();
     </script>
   </head>
@@ -139,7 +140,6 @@ const themeHtml = themeEntries
     flex-direction: column;
     flex: 1;
   }
-
 </style>
 
 <!-- Theme base CSS (structural styles for hidden elements) rendered at build time -->

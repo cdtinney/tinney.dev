@@ -9,26 +9,21 @@ const projects = projectsData.projects;
 <PageLayout title="colin tinney - projects" description="Personal projects." headerTitle="projects">
   <div class="banner" data-banner>
     <p class="banner-text" data-banner-default>
-      None of these projects are actively maintained.
-      They are preserved here for reference.
+      None of these projects are actively maintained. They are preserved here for reference.
     </p>
     <p class="banner-text" data-banner-sharks>
-      These players have been sent to the press box.
-      No longer on the active roster.
+      These players have been sent to the press box. No longer on the active roster.
     </p>
     <p class="banner-text" data-banner-canada>
-      Sorry, none of these projects are actively maintained, eh.
-      They're preserved here for reference.
+      Sorry, none of these projects are actively maintained, eh. They're preserved here for
+      reference.
     </p>
     <p class="banner-text" data-banner-underwater>
-      These vessels have been scuttled.
-      They rest on the ocean floor for exploration.
+      These vessels have been scuttled. They rest on the ocean floor for exploration.
     </p>
   </div>
   <section class="projects">
-    {projects.map((project, i) => (
-      <ProjectCard {...project} index={i} />
-    ))}
+    {projects.map((project, i) => <ProjectCard {...project} index={i} />)}
   </section>
 </PageLayout>
 
@@ -49,7 +44,10 @@ const projects = projectsData.projects;
     border-radius: var(--banner-radius);
     background-color: var(--banner-bg);
     text-align: center;
-    transition: border 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+    transition:
+      border 0.3s ease,
+      background-color 0.3s ease,
+      border-radius 0.3s ease;
   }
 
   .banner-text {
@@ -57,7 +55,6 @@ const projects = projectsData.projects;
     font-size: 0.9rem;
     color: var(--color-text);
   }
-
 </style>
 
 <style is:global>

@@ -35,16 +35,20 @@ function formatDate(date: Date): string {
     </div>
   </article>
   <footer class="footer">
-    {prevPost && (
-      <a href={prevPost.data.path} class="footer-link">
-        {`\u2190 ${prevPost.data.title}`}
-      </a>
-    )}
-    {nextPost && (
-      <a href={nextPost.data.path} class="footer-link">
-        {`${nextPost.data.title} \u2192`}
-      </a>
-    )}
+    {
+      prevPost && (
+        <a href={prevPost.data.path} class="footer-link">
+          {`\u2190 ${prevPost.data.title}`}
+        </a>
+      )
+    }
+    {
+      nextPost && (
+        <a href={nextPost.data.path} class="footer-link">
+          {`${nextPost.data.title} \u2192`}
+        </a>
+      )
+    }
   </footer>
 </BlogLayout>
 

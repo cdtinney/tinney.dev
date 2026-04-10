@@ -9,9 +9,7 @@ const { links } = Astro.props;
 ---
 
 <div class="container">
-  {links.map(({ to, name }) => (
-    <AnchorButton href={to} color="primary" text={name} />
-  ))}
+  {links.map(({ to, name }) => <AnchorButton href={to} color="primary" text={name} />)}
 </div>
 
 <style>

@@ -27,16 +27,17 @@ const SNOW = {
 };
 
 const FLAKES = [
-  { cls: 'f1', left: '8%',  size: '14px', dur: '22s', delay: '0s' },
+  { cls: 'f1', left: '8%', size: '14px', dur: '22s', delay: '0s' },
   { cls: 'f2', left: '25%', size: '10px', dur: '18s', delay: '4s' },
   { cls: 'f3', left: '42%', size: '16px', dur: '25s', delay: '8s' },
   { cls: 'f4', left: '60%', size: '11px', dur: '20s', delay: '2s' },
   { cls: 'f5', left: '78%', size: '13px', dur: '28s', delay: '10s' },
-  { cls: 'f6', left: '92%', size: '9px',  dur: '17s', delay: '6s' },
+  { cls: 'f6', left: '92%', size: '9px', dur: '17s', delay: '6s' },
 ];
 
-const flakeRules = FLAKES.map(f =>
-  `${T} [data-canada-snowflakes] .${f.cls} { left: ${f.left}; font-size: ${f.size}; animation-duration: ${f.dur}; animation-delay: ${f.delay}; }`
+const flakeRules = FLAKES.map(
+  (f) =>
+    `${T} [data-canada-snowflakes] .${f.cls} { left: ${f.left}; font-size: ${f.size}; animation-duration: ${f.dur}; animation-delay: ${f.delay}; }`,
 ).join('\n    ');
 
 export default {
