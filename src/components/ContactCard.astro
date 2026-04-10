@@ -47,15 +47,15 @@ const { contact, social } = Astro.props;
   }
 
   .social, .email {
-    color: #424242 !important;
+    color: var(--color-text-muted) !important;
     margin-bottom: 1em;
   }
 
   .social a, .email a {
-    color: rgb(66, 66, 66);
+    color: var(--color-text-muted);
   }
 
   .social a:hover, .email a:hover {
-    color: rgb(88, 88, 88);
+    color: var(--color-text-muted-hover);
   }
 </style>

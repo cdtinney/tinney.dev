@@ -1,0 +1,22 @@
+export default {
+  name: 'Sharks',
+  swatches: ['#006D75', '#EA7200'],
+  colors: {
+    '--color-text': '#e8e8e8',
+    '--color-text-secondary': '#a0b4b6',
+    '--color-text-muted': '#c0cfd0',
+    '--color-text-muted-hover': '#EA7200',
+    '--color-bg': '#004a50',
+    '--color-bg-surface': '#005a62',
+    '--color-primary': '#EA7200',
+    '--color-primary-hover': '#ff9224',
+    '--color-secondary': '#ff9224',
+    '--color-secondary-hover': '#ffb366',
+    '--color-secondary-border': '#EA7200',
+    '--color-accent': '#EA7200',
+    '--color-border': 'rgba(234, 114, 0, 0.4)',
+    '--color-code-bg': '#003a3f',
+    '--color-code-text': '#e0c8a8',
+    '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
+  },
+};

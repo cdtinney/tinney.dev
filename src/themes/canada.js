@@ -1,0 +1,22 @@
+export default {
+  name: 'Canada',
+  swatches: ['#FFFFFF', '#FF0000'],
+  colors: {
+    '--color-text': '#ffffff',
+    '--color-text-secondary': '#ffcccc',
+    '--color-text-muted': '#ffd4d4',
+    '--color-text-muted-hover': '#ffffff',
+    '--color-bg': '#FF0000',
+    '--color-bg-surface': '#cc0000',
+    '--color-primary': '#ffffff',
+    '--color-primary-hover': '#ffe0e0',
+    '--color-secondary': '#ffffff',
+    '--color-secondary-hover': '#ffe0e0',
+    '--color-secondary-border': '#ffffff',
+    '--color-accent': '#ffffff',
+    '--color-border': 'rgba(255, 255, 255, 0.4)',
+    '--color-code-bg': '#b30000',
+    '--color-code-text': '#ffe0e0',
+    '--shadow-button': '0 2px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)',
+  },
+};
