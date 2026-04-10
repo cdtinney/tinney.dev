@@ -580,9 +580,9 @@ export default {
     }
     ${THEME_SELECTOR} [data-underwater-shark] img { display: block; }
 
-    /* Cursor — diving mask */
+    /* Cursor — snorkel mask */
     ${THEME_SELECTOR} a, ${THEME_SELECTOR} button {
-      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='12' rx='10' ry='7' fill='none' stroke='%2300b894' stroke-width='2'/%3E%3Cellipse cx='8' cy='11' rx='4' ry='4' fill='rgba(10,61,98,0.5)' stroke='%2300b894' stroke-width='1'/%3E%3Cellipse cx='16' cy='11' rx='4' ry='4' fill='rgba(10,61,98,0.5)' stroke='%2300b894' stroke-width='1'/%3E%3Cline x1='12' y1='9' x2='12' y2='13' stroke='%2300b894' stroke-width='1'/%3E%3C/svg%3E") 12 12, pointer;
+      cursor: url("${IMAGE_PATH}/mask-snorkel-cursor.png") 12 16, pointer;
     }
 
     /* Header — water surface gradient */
