@@ -80,6 +80,7 @@ body {
   line-height: 1;
   color: var(--color-text);
   background-color: var(--color-bg);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 h1, h2 {
@@ -120,6 +121,7 @@ strong {
 a {
   text-decoration: none !important;
   color: var(--color-secondary);
+  transition: color 0.3s ease;
 }
 
 a:hover {
@@ -133,6 +135,7 @@ a:hover {
 code {
   background-color: var(--color-code-bg) !important;
   color: var(--color-code-text) !important;
+  transition: background-color 0.5s ease, color 0.5s ease;
   padding: 2px 4px;
   border-radius: 3px;
   font-size: 0.85em;

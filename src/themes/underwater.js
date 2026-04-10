@@ -106,8 +106,8 @@ export default {
 
   baseCss: `
     .underwater-bg, .underwater-bubbles, .underwater-waves, .underwater-seabed, .underwater-manta {
-      display: none;
-      pointer-events: none;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
     }
     .underwater-wave-gif {
       display: none;
@@ -236,11 +236,11 @@ export default {
 
   css: `
     /* Underwater background */
-    ${T} [data-underwater-bg] { display: block !important; }
+    ${T} [data-underwater-bg] { opacity: 1 !important; visibility: visible !important; }
 
     /* Waves at the surface */
     ${T} [data-underwater-waves] {
-      display: block !important;
+      opacity: 1 !important; visibility: visible !important;
       position: fixed;
       top: 0;
       left: 0;
@@ -271,7 +271,7 @@ export default {
 
     /* Bubbles */
     ${T} [data-underwater-bubbles] {
-      display: block !important;
+      opacity: 1 !important; visibility: visible !important;
       position: fixed;
       inset: 0;
       z-index: 1;
@@ -310,7 +310,7 @@ export default {
 
     /* Seabed */
     ${T} [data-underwater-seabed] {
-      display: block !important;
+      opacity: 1 !important; visibility: visible !important;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -350,7 +350,7 @@ export default {
     /* Manta rays */
     ${T} [data-underwater-manta],
     ${T} [data-underwater-manta-2] {
-      display: block !important;
+      opacity: 0.7 !important; visibility: visible !important;
       position: fixed;
       top: 0;
       left: 0;
@@ -365,18 +365,39 @@ export default {
     ${T} [data-underwater-manta] img,
     ${T} [data-underwater-manta-2] img { display: block; }
 
-    /* Water texture — subtle noise overlay */
+    /* Water texture — backdrop blur + animated caustic gradients */
     ${T} [data-underwater-bg]::before {
       content: '';
       position: fixed;
       inset: 0;
-      z-index: -1;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      animation: underwater-texture-drift 20s linear infinite;
+      z-index: 0;
+      backdrop-filter: blur(0.5px);
+      -webkit-backdrop-filter: blur(0.5px);
+      background:
+        radial-gradient(ellipse 40% 30% at 25% 35%, rgba(0, 184, 148, 0.07), transparent),
+        radial-gradient(ellipse 35% 40% at 70% 55%, rgba(249, 202, 36, 0.05), transparent),
+        radial-gradient(ellipse 45% 25% at 50% 20%, rgba(0, 140, 200, 0.06), transparent),
+        radial-gradient(ellipse 30% 35% at 80% 25%, rgba(0, 184, 148, 0.04), transparent);
+      animation: underwater-caustic-drift 12s ease-in-out infinite alternate;
     }
-    @keyframes underwater-texture-drift {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(-50px, -30px); }
+    ${T} [data-underwater-bg]::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 50% 35% at 60% 45%, rgba(0, 184, 148, 0.05), transparent),
+        radial-gradient(ellipse 30% 45% at 30% 70%, rgba(249, 202, 36, 0.04), transparent),
+        radial-gradient(ellipse 40% 30% at 75% 75%, rgba(0, 100, 180, 0.06), transparent);
+      animation: underwater-caustic-drift-2 16s ease-in-out infinite alternate;
+    }
+    @keyframes underwater-caustic-drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -20px) scale(1.05); }
+    }
+    @keyframes underwater-caustic-drift-2 {
+      0% { transform: translate(0, 0) scale(1.05); }
+      100% { transform: translate(-25px, 15px) scale(1); }
     }
 
     /* Cursor — diving mask */
