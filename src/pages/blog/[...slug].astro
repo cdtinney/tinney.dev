@@ -21,7 +21,7 @@ const { post, prevPost, nextPost } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogLayout title={post.data.title} description={post.data.excerpt}>
+<BlogLayout title={post.data.title} description={post.data.excerpt} ogType="article">
   <article>
     <header>
       <h1 class="title">{post.data.title}</h1>

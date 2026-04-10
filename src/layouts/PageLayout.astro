@@ -7,12 +7,13 @@ interface Props {
   description?: string;
   headerTitle: string;
   siteTitle?: string;
+  ogType?: string;
 }
 
-const { title, description, headerTitle, siteTitle = 'colin tinney' } = Astro.props;
+const { title, description, headerTitle, siteTitle = 'colin tinney', ogType } = Astro.props;
 ---
 
-<DefaultLayout title={title} description={description}>
+<DefaultLayout title={title} description={description} ogType={ogType}>
   <div class="container">
     <PageHeader title={headerTitle} siteTitle={siteTitle} />
     <slot />

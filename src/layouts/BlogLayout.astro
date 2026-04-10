@@ -4,12 +4,13 @@ import PageLayout from './PageLayout.astro';
 interface Props {
   title?: string;
   description?: string;
+  ogType?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, ogType } = Astro.props;
 ---
 
-<PageLayout title={title} description={description} headerTitle="blog">
+<PageLayout title={title} description={description} headerTitle="blog" ogType={ogType}>
   <div class="blog-content">
     <slot />
   </div>
