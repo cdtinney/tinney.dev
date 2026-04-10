@@ -1,3 +1,8 @@
+@import '@fontsource/lato/400.css';
+@import '@fontsource/lato/700.css';
+@import '@fontsource/open-sans/400.css';
+@import '@fontsource/open-sans/700.css';
+
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -227,7 +232,8 @@ strong {
 }
 
 a {
-  text-decoration: none !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
   color: var(--color-secondary);
   transition: color 0.3s ease;
 }

@@ -25,9 +25,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
+      - run: npm ci
       - run: npm run lint
       - run: npm run format:check
+      - run: npm run test
       - run: npm run build
       - if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3

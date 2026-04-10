@@ -10,9 +10,9 @@ const { title, description } = Astro.props;
 ---
 
 <PageLayout title={title} description={description} headerTitle="blog">
-  <main class="blog-content">
+  <div class="blog-content">
     <slot />
-  </main>
+  </div>
 </PageLayout>
 
 <style>

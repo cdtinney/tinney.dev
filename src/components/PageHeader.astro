@@ -19,7 +19,7 @@ const { title, siteTitle = 'colin tinney' } = Astro.props;
     <a href="/projects" class="desktop-menu-item">projects</a>
   </nav>
   <span class="mobile-menu">
-    <button class="hamburger-btn" aria-label="Toggle menu">
+    <button class="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
@@ -40,12 +40,14 @@ const { title, siteTitle = 'colin tinney' } = Astro.props;
     menu?.classList.remove('is-open');
     overlay?.classList.remove('is-visible');
     btn?.classList.remove('is-open');
+    btn?.setAttribute('aria-expanded', 'false');
   }
 
   btn?.addEventListener('click', () => {
     const open = menu?.classList.toggle('is-open');
     overlay?.classList.toggle('is-visible', open);
     btn?.classList.toggle('is-open', open);
+    btn?.setAttribute('aria-expanded', String(!!open));
   });
 
   overlay?.addEventListener('click', closeMenu);
