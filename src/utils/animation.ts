@@ -1,51 +1,90 @@
+/** Options for the DVD screensaver-style bouncing animation. */
 export interface BouncerOptions {
+  /** Theme ID — animation only runs when this theme is active. */
   theme: string;
+  /** Element size in pixels (used for boundary calculations). */
   size: number;
+  /** Movement speed in pixels per frame. */
   speed: number;
 }
 
+/** Options for horizontal gliding with vertical sine-wave drift. */
 export interface GliderOptions {
+  /** Theme ID — animation only runs when this theme is active. */
   theme: string;
+  /** Horizontal speed in pixels per frame. */
   speed: number;
+  /** Direction: 1 = left-to-right, -1 = right-to-left. */
   dir: 1 | -1;
+  /** Element width in pixels (used for wrap calculations). */
   size: number;
+  /** Vertical sine-wave amplitude in pixels. */
   yAmp: number;
+  /** Vertical sine-wave frequency multiplier. */
   yFreq: number;
+  /** Minimum Y position as a fraction of viewport height (0-1). */
   yMin: number;
+  /** Maximum Y position as a fraction of viewport height (0-1). */
   yMax: number;
+  /** Phase increment per frame (default: 0.015). */
   tStep?: number;
 }
 
+/** Options for vertical bouncing with horizontal sine-wave wobble. */
 export interface DrifterOptions {
+  /** Theme ID — animation only runs when this theme is active. */
   theme: string;
+  /** Vertical speed in pixels per frame. */
   speed: number;
+  /** Horizontal sine-wave amplitude in pixels. */
   xAmp: number;
+  /** Horizontal sine-wave frequency multiplier. */
   xFreq: number;
+  /** Element height in pixels. */
   size: number;
+  /** Minimum Y position in pixels (default: 40). */
   yMin?: number;
+  /** Maximum Y position as a fraction of viewport height (default: 0.5). */
   yMaxPct?: number;
+  /** Phase increment per frame (default: 0.008). */
   tStep?: number;
 }
 
+/** Options for creating falling items (e.g. loonies, confetti). */
 export interface FallingItemsOptions {
+  /** Image source URL. */
   src: string;
+  /** Number of items to drop. */
   count: number;
+  /** Item size in pixels (width and height). */
   size: number;
+  /** CSS border-radius (default: '0'). */
   borderRadius?: string;
+  /** Delay between each item in milliseconds (default: 80). */
   stagger?: number;
 }
 
+/** Options for spawning an animated image element. */
 export interface SpawnSpriteOptions {
+  /** Image source URL. */
   src: string;
+  /** Image width in pixels. */
   width: number;
+  /** Image height in pixels. */
   height: number;
+  /** Element opacity (default: 0.5). */
   opacity?: number;
-  animate: (el: HTMLElement, id: string) => void;
-  onClick?: ((el: HTMLElement) => void) | null;
+  /** Callback to set up the animation loop on the spawned element. */
+  animate: (element: HTMLElement, elementId: string) => void;
+  /** Optional click handler for the spawned element. */
+  onClick?: ((element: HTMLElement) => void) | null;
 }
 
+/** A GIF popup that can be shown with a timer and cleaned up on theme switch. */
 export interface GifPopup {
+  /** Show the popup, restart the GIF, and auto-hide after the configured duration. */
   show: () => void;
+  /** Hide the popup and clear any pending timer. */
   cleanup: () => void;
 }
 

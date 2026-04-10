@@ -34,7 +34,8 @@
       "Bash(pnpm add:*)",
       "Bash(sips -z 32 23 public/images/themes/underwater/mask-snorkel.png --out public/images/themes/underwater/mask-snorkel-cursor.png)",
       "Bash(npx tsc:*)",
-      "Bash(echo \"LINT: $?\")"
+      "Bash(echo \"LINT: $?\")",
+      "Bash(ln -s CONTRIBUTING.md CLAUDE.md)"
     ]
   }
 }
