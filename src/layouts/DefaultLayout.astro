@@ -2,6 +2,7 @@
 import ScrollToTop from '../components/ScrollToTop.astro';
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 import '../styles/global.css';
+import { themes } from '../themes/index.js';
 
 interface Props {
   title?: string;
@@ -10,6 +11,12 @@ interface Props {
 
 const { title = 'colin tinney', description = 'A personal website' } = Astro.props;
 const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
+
+// Theme CSS is rendered at build time — each theme's css property is already self-scoped
+const themeCssBlocks = Object.entries(themes)
+  .filter(([_, theme]) => theme.css)
+  .map(([_, theme]) => theme.css)
+  .join('\n');
 ---
 
 <!doctype html>
@@ -23,12 +30,15 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     <meta property="og:description" content={description} />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato|Open+Sans" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <!-- Theme CSS rendered at build time — activated by data-theme attribute -->
+    <style set:html={themeCssBlocks}></style>
     <script is:inline>
       // Apply saved theme before first paint to prevent flash
       (function() {
         try {
-          var themeId = localStorage.getItem('theme');
-          if (!themeId) return;
+          var match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
+          var themeId = match && match[1];
+          if (!themeId || themeId === 'default') return;
           var themes = {
             sharks: {
               '--color-text': '#e8e8e8',
@@ -159,13 +169,13 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     </script>
 
     <!-- Sharks easter eggs (hidden by default, shown via data-theme) -->
-    <div class="sharks-bg" aria-hidden="true"></div>
-    <div class="sharks-center-logo" aria-hidden="true">
+    <div class="sharks-bg" data-sharks-bg aria-hidden="true"></div>
+    <div class="sharks-center-logo" data-sharks-center aria-hidden="true">
       <img src="/sharks-logo-full.svg" alt="" />
     </div>
 
     <!-- Shark fin bouncing around the page (DVD screensaver style) -->
-    <div class="sharks-fin" aria-hidden="true">
+    <div class="sharks-fin" data-sharks-fin aria-hidden="true">
       <img src="/sharks-puck.png" alt="" width="62" height="62" />
     </div>
     <div class="sharks-goal" aria-hidden="true">
@@ -177,8 +187,8 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     </div>
 
     <!-- Canada easter egg: maple leaf background overlay + snowflakes -->
-    <div class="canada-bg" aria-hidden="true"></div>
-    <div class="canada-snowflakes" aria-hidden="true">
+    <div class="canada-bg" data-canada-bg aria-hidden="true"></div>
+    <div class="canada-snowflakes" data-canada-snowflakes aria-hidden="true">
       <span class="flake f1">&#10052;</span>
       <span class="flake f2">&#10053;</span>
       <span class="flake f3">&#10052;</span>
@@ -196,10 +206,18 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     flex: 1;
   }
 
-  /* Sharks easter eggs - hidden by default */
-  .sharks-bg {
+  /* Easter egg elements — hidden by default, shown by injected theme CSS */
+  .sharks-bg,
+  .sharks-center-logo,
+  .sharks-fin,
+  .canada-bg,
+  .canada-snowflakes {
     display: none;
     pointer-events: none;
+  }
+
+  /* Sharks background tile (structural — always present, display toggled by theme) */
+  .sharks-bg {
     position: fixed;
     inset: 0;
     z-index: -1;
@@ -208,54 +226,18 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     background-repeat: repeat;
   }
 
-  :global([data-theme="sharks"]) .sharks-bg {
-    display: block;
-    -webkit-mask-image: radial-gradient(ellipse 280px 240px at center, transparent 0%, transparent 100%, black 100%);
-    mask-image: radial-gradient(ellipse 280px 240px at center, transparent 0%, transparent 100%, black 100%);
-  }
-
-  .sharks-center-logo,
-  .sharks-fin {
-    display: none;
-    pointer-events: none;
-  }
-
-  :global([data-theme="sharks"]) .sharks-center-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Canada background tile (structural) */
+  .canada-bg {
     position: fixed;
     inset: 0;
     z-index: -1;
-    pointer-events: none;
+    background-image: url("/maple-leaf.svg"), url("/maple-leaf.svg");
+    background-size: 300px 300px, 250px 250px;
+    background-position: 0 0, 170px 130px;
+    background-repeat: repeat;
   }
 
-  :global([data-theme="sharks"]) .sharks-center-logo img {
-    width: 500px;
-    max-width: 80vw;
-    height: auto;
-  }
-
-  :global([data-theme="sharks"]) .sharks-fin {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    opacity: 0.4;
-    cursor: pointer;
-    pointer-events: auto;
-    transition: opacity 0.15s ease;
-  }
-
-  :global([data-theme="sharks"]) .sharks-fin:hover {
-    opacity: 0.7;
-  }
-
-  :global([data-theme="sharks"]) .sharks-fin img {
-    display: block;
-  }
-
+  /* Goal overlay (theme-independent structure) */
   .sharks-goal {
     display: none;
     position: fixed;
@@ -265,268 +247,9 @@ const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
     pointer-events: none;
   }
 
-  .sharks-goal.is-visible {
-    display: block;
-  }
-
-  .sharks-goal img {
-    width: 140px;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  }
-
-  .goal-counter {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 6px;
-    font-family: 'Lato', sans-serif;
-    font-weight: bold;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  }
-
-  .goal-count {
-    font-size: 1rem;
-    color: #EA7200;
-  }
-
-  .goal-high {
-    font-size: 0.75rem;
-    color: #a0b4b6;
-  }
-
-  /* Hockey stick cursor for Sharks theme */
-  :global([data-theme="sharks"]) :global(a),
-  :global([data-theme="sharks"]) :global(button) {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M4 1 L6 1 L8 16 L8.5 17 Q10 20 13 20.5 L14 21 L14 23 L13 23 Q8.5 22.5 6.5 18.5 L6 17 L4 1Z' fill='%23222' stroke='%23555' stroke-width='0.5'/%3E%3C/svg%3E") 5 1, pointer;
-  }
-  :global([data-theme="sharks"]) :global([data-theme-ui]) :global(button) {
-    cursor: pointer;
-  }
-
-  /* Ice-style button borders for Sharks theme */
-  :global([data-theme="sharks"]) :global(.anchor-button) {
-    border-width: 2px;
-    border-style: solid;
-  }
-
-  :global([data-theme="sharks"]) :global(.btn-primary) {
-    background-color: #006D75 !important;
-    color: #fff !important;
-    border-color: #EA7200 !important;
-  }
-
-  :global([data-theme="sharks"]) :global(.btn-primary:hover) {
-    background-color: #EA7200 !important;
-    color: #fff !important;
-    border-color: #fff !important;
-  }
-
-  :global([data-theme="sharks"]) :global(.btn-secondary) {
-    background-color: #EA7200 !important;
-    color: #fff !important;
-    border-color: #006D75 !important;
-  }
-
-  :global([data-theme="sharks"]) :global(.btn-secondary:hover) {
-    background-color: #006D75 !important;
-    color: #fff !important;
-    border-color: #EA7200 !important;
-  }
-
-  /* Hockey rink line accent on header */
-  :global([data-theme="sharks"]) :global(.header) {
-    border-bottom: 3px solid;
-    border-image: linear-gradient(to right, #c8102e, transparent 15%, transparent 42%, #0033a0 46%, #0033a0 54%, transparent 58%, transparent 85%, #c8102e) 1;
-  }
-
-  /* Canada easter eggs - hidden by default */
-  .canada-bg {
-    display: none;
-    pointer-events: none;
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    /* Scattered maple leaves using official Canadian maple leaf SVG — multiple offset layers */
-    background-image:
-      url("/maple-leaf.svg"),
-      url("/maple-leaf.svg");
-    background-size:
-      300px 300px,
-      250px 250px;
-    background-position:
-      0 0,
-      170px 130px;
-    background-repeat: repeat;
-  }
-
-  :global([data-theme="canada"]) .canada-bg {
-    display: block;
-  }
-
-  /* Buttons */
-  :global([data-theme="canada"]) :global(.anchor-button) {
-    border-width: 2px;
-    border-style: solid;
-  }
-
-  :global([data-theme="canada"]) :global(.btn-primary) {
-    background-color: #ffffff !important;
-    color: #FF0000 !important;
-    border-color: #ffffff !important;
-  }
-
-  :global([data-theme="canada"]) :global(.btn-primary:hover) {
-    background-color: #cc0000 !important;
-    color: #ffffff !important;
-    border-color: #ffffff !important;
-  }
-
-  :global([data-theme="canada"]) :global(.btn-secondary) {
-    background-color: #cc0000 !important;
-    color: #ffffff !important;
-    border-color: #ffffff !important;
-  }
-
-  :global([data-theme="canada"]) :global(.btn-secondary:hover) {
-    background-color: #ffffff !important;
-    color: #FF0000 !important;
-    border-color: #ffffff !important;
-  }
-
-  /* Maple leaf cursor for Canada theme */
-  :global([data-theme="canada"]) :global(a),
-  :global([data-theme="canada"]) :global(button) {
-    cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='-2015%20-2000%204030%204030'%3E%3Cpath%20fill='%23d52b1e'%20d='m-90%202030%2045-863a95%2095%200%200%200-111-98l-859%20151%20116-320a65%2065%200%200%200-20-73l-941-762%20212-99a65%2065%200%200%200%2034-79l-186-572%20542%20115a65%2065%200%200%200%2073-38l105-247%20423%20454a65%2065%200%200%200%20111-57l-204-1052%20327%20189a65%2065%200%200%200%2091-27l332-652%20332%20652a65%2065%200%200%200%2091%2027l327-189-204%201052a65%2065%200%200%200%20111%2057l423-454%20105%20247a65%2065%200%200%200%2073%2038l542-115-186%20572a65%2065%200%200%200%2034%2079l212%2099-941%20762a65%2065%200%200%200-20%2073l116%20320-859-151a95%2095%200%200%200-111%2098l45%20863z'/%3E%3C/svg%3E") 12 12, pointer;
-  }
-  :global([data-theme="canada"]) :global([data-theme-ui]) :global(button) {
-    cursor: pointer;
-  }
-
-  /* White header border */
-  :global([data-theme="canada"]) :global(.header) {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-  }
-
-  /* Falling snow — 3 layers at different speeds and sizes */
-  :global([data-theme="canada"]) .canada-bg::before,
-  :global([data-theme="canada"]) .canada-bg::after {
-    content: '';
-    position: fixed;
-    top: -100%;
-    left: 0;
-    width: 100%;
-    height: 300%;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* Layer 1: large slow flakes */
-  :global([data-theme="canada"]) .canada-bg::before {
-    background-image:
-      radial-gradient(3px 3px at 2% 6%, rgba(255,255,255,0.9), transparent),
-      radial-gradient(3.5px 3.5px at 5% 28%, rgba(255,255,255,0.8), transparent),
-      radial-gradient(2.5px 2.5px at 9% 52%, rgba(255,255,255,0.85), transparent),
-      radial-gradient(3px 3px at 13% 78%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(3px 3px at 17% 15%, rgba(255,255,255,0.9), transparent),
-      radial-gradient(2.5px 2.5px at 22% 42%, rgba(255,255,255,0.8), transparent),
-      radial-gradient(3.5px 3.5px at 26% 68%, rgba(255,255,255,0.85), transparent),
-      radial-gradient(3px 3px at 31% 92%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(2.5px 2.5px at 35% 8%, rgba(255,255,255,0.9), transparent),
-      radial-gradient(3px 3px at 39% 35%, rgba(255,255,255,0.8), transparent),
-      radial-gradient(3px 3px at 44% 60%, rgba(255,255,255,0.85), transparent),
-      radial-gradient(3.5px 3.5px at 48% 82%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(2.5px 2.5px at 53% 18%, rgba(255,255,255,0.9), transparent),
-      radial-gradient(3px 3px at 57% 45%, rgba(255,255,255,0.8), transparent),
-      radial-gradient(3px 3px at 62% 72%, rgba(255,255,255,0.85), transparent),
-      radial-gradient(3.5px 3.5px at 66% 3%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(2.5px 2.5px at 71% 30%, rgba(255,255,255,0.9), transparent),
-      radial-gradient(3px 3px at 75% 55%, rgba(255,255,255,0.8), transparent),
-      radial-gradient(3px 3px at 80% 85%, rgba(255,255,255,0.85), transparent),
-      radial-gradient(3.5px 3.5px at 84% 12%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(2.5px 2.5px at 89% 40%, rgba(255,255,255,0.9), transparent),
-      radial-gradient(3px 3px at 93% 65%, rgba(255,255,255,0.8), transparent),
-      radial-gradient(3px 3px at 97% 88%, rgba(255,255,255,0.85), transparent);
-    background-size: 100% 33.33%;
-    animation: snow-slow 16s linear infinite;
-  }
-
-  /* Layer 2: small fast flakes */
-  :global([data-theme="canada"]) .canada-bg::after {
-    background-image:
-      radial-gradient(1.5px 1.5px at 1% 5%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 4% 22%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 8% 45%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1px 1px at 11% 68%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.5px 1.5px at 15% 90%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1px 1px at 19% 12%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1.5px 1.5px at 23% 38%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 27% 62%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 31% 85%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1px 1px at 35% 8%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.5px 1.5px at 39% 32%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1px 1px at 43% 55%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1.5px 1.5px at 47% 78%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 51% 2%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 55% 25%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1px 1px at 59% 48%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.5px 1.5px at 63% 72%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1px 1px at 67% 95%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1.5px 1.5px at 71% 15%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 75% 42%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1.5px 1.5px at 79% 65%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1px 1px at 83% 88%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1.5px 1.5px at 87% 10%, rgba(255,255,255,0.6), transparent),
-      radial-gradient(1px 1px at 91% 35%, rgba(255,255,255,0.65), transparent),
-      radial-gradient(1.5px 1.5px at 95% 58%, rgba(255,255,255,0.7), transparent),
-      radial-gradient(1px 1px at 99% 80%, rgba(255,255,255,0.6), transparent);
-    background-size: 100% 33.33%;
-    animation: snow-fast 8s linear infinite;
-  }
-
-  /* Layer 3: unicode snowflake characters */
-  .canada-snowflakes {
-    display: none;
-    pointer-events: none;
-  }
-
-  :global([data-theme="canada"]) .canada-snowflakes {
-    display: block;
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    overflow: hidden;
-  }
-
-  .flake {
-    position: absolute;
-    top: -20px;
-    color: rgba(255, 255, 255, 0.6);
-    animation: flake-fall linear infinite;
-  }
-
-  .f1 { left: 8%; font-size: 14px; animation-duration: 22s; animation-delay: 0s; }
-  .f2 { left: 25%; font-size: 10px; animation-duration: 18s; animation-delay: 4s; }
-  .f3 { left: 42%; font-size: 16px; animation-duration: 25s; animation-delay: 8s; }
-  .f4 { left: 60%; font-size: 11px; animation-duration: 20s; animation-delay: 2s; }
-  .f5 { left: 78%; font-size: 13px; animation-duration: 28s; animation-delay: 10s; }
-  .f6 { left: 92%; font-size: 9px; animation-duration: 17s; animation-delay: 6s; }
-
-  @keyframes flake-fall {
-    0% { top: -20px; transform: rotate(0deg) translateX(0); opacity: 0; }
-    5% { opacity: 0.6; }
-    50% { transform: rotate(180deg) translateX(30px); }
-    95% { opacity: 0.6; }
-    100% { top: calc(100vh + 20px); transform: rotate(360deg) translateX(-20px); opacity: 0; }
-  }
-
-  @keyframes snow-slow {
-    0% { transform: translateY(-33.33%); }
-    100% { transform: translateY(0%); }
-  }
-
-  @keyframes snow-fast {
-    0% { transform: translateY(-33.33%); }
-    100% { transform: translateY(0%); }
-  }
+  .sharks-goal.is-visible { display: block; }
+  .sharks-goal img { width: 140px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+  .goal-counter { display: flex; flex-direction: column; align-items: flex-end; margin-top: 6px; font-family: 'Lato', sans-serif; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+  .goal-count { font-size: 1rem; color: #EA7200; }
+  .goal-high { font-size: 0.75rem; color: #a0b4b6; }
 </style>

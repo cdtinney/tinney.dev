@@ -8,11 +8,12 @@ export const themes = {
   canada,
 };
 
-const STORAGE_KEY = 'theme';
+const COOKIE_NAME = 'theme';
 
 export function getStoredThemeId() {
   try {
-    return localStorage.getItem(STORAGE_KEY);
+    const match = document.cookie.match(/(?:^|; )theme=([^;]+)/);
+    return match ? match[1] : null;
   } catch {
     return null;
   }
@@ -24,14 +25,17 @@ export function applyTheme(themeId) {
 
   const root = document.documentElement;
   root.setAttribute('data-theme', themeId);
+
+  // Apply CSS custom properties
   for (const [property, value] of Object.entries(theme.colors)) {
     root.style.setProperty(property, value);
   }
 
+  // Persist in cookie (365 days, same-site)
   try {
-    localStorage.setItem(STORAGE_KEY, themeId);
+    document.cookie = `${COOKIE_NAME}=${themeId}; max-age=31536000; path=/; SameSite=Lax`;
   } catch {
-    // localStorage unavailable
+    // cookie unavailable
   }
 }
 

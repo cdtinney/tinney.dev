@@ -9,7 +9,7 @@ interface Props {
 const { title, siteTitle = 'colin tinney' } = Astro.props;
 ---
 
-<header class="header">
+<header class="header" data-header>
   <div class="bg-overlay"></div>
   <Brand underline={false} class="brand" title={siteTitle} />
   <span class="separator">/</span>

@@ -13,7 +13,7 @@ const classes = `anchor-button ${colorClass} ${className}`.trim();
 const externalProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 ---
 
-<a href={href} class={classes} {...externalProps}>
+<a href={href} class={classes} data-anchor-btn data-btn={color} {...externalProps}>
   {text}
 </a>
 

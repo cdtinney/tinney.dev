@@ -7,16 +7,16 @@ const projects = projectsData.projects;
 ---
 
 <PageLayout title="colin tinney - projects" description="Personal projects." headerTitle="projects">
-  <div class="banner">
-    <p class="banner-text default-banner">
+  <div class="banner" data-banner>
+    <p class="banner-text" data-banner-default>
       None of these projects are actively maintained.
       They are preserved here for reference.
     </p>
-    <p class="banner-text sharks-banner">
+    <p class="banner-text" data-banner-sharks>
       These players have been sent to the press box.
       No longer on the active roster.
     </p>
-    <p class="banner-text canada-banner">
+    <p class="banner-text" data-banner-canada>
       Sorry, none of these projects are actively maintained, eh.
       They're preserved here for reference.
     </p>
@@ -53,30 +53,12 @@ const projects = projectsData.projects;
     color: var(--color-text);
   }
 
-  /* Theme-specific banner text visibility */
-  .sharks-banner,
-  .canada-banner {
+</style>
+
+<style is:global>
+  /* Theme-specific banner text — hidden by default, shown by theme CSS */
+  [data-banner-sharks],
+  [data-banner-canada] {
     display: none;
-  }
-
-  :global([data-theme="sharks"]) .default-banner { display: none; }
-  :global([data-theme="sharks"]) .sharks-banner { display: block; }
-  :global([data-theme="canada"]) .default-banner { display: none; }
-  :global([data-theme="canada"]) .canada-banner { display: block; }
-
-  /* Sharks: scoreboard-style banner */
-  :global([data-theme="sharks"]) .banner {
-    border: 2px solid #EA7200 !important;
-    background: linear-gradient(180deg, #003d42 0%, #005a62 100%) !important;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 0.85rem;
-  }
-
-  /* Canada: friendly postcard banner */
-  :global([data-theme="canada"]) .banner {
-    border: 2px solid rgba(255,255,255,0.5) !important;
-    background-color: rgba(255,255,255,0.15) !important;
-    border-radius: 6px;
   }
 </style>

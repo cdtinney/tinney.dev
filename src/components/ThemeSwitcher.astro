@@ -63,8 +63,10 @@
     }
   });
 
-  // Set initial active state
-  updateActive(getStoredThemeId() || 'default');
+  // Apply stored theme (injects CSS) and set active state
+  const initialTheme = getStoredThemeId() || 'default';
+  applyTheme(initialTheme);
+  updateActive(initialTheme);
 </script>
 
 <style>
