@@ -45,6 +45,61 @@ export default {
     }
   `,
 
+  init() {
+    document.addEventListener('click', (e) => {
+      if (document.documentElement.getAttribute('data-theme') !== 'canada') return;
+      // Don't trigger on interactive elements
+      if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
+      for (let i = 0; i < 10; i++) {
+        const loonie = document.createElement('img');
+        loonie.src = '/loonie.png';
+        loonie.style.cssText = `
+          position: fixed;
+          top: -60px;
+          left: ${Math.random() * (window.innerWidth - 48)}px;
+          width: 48px;
+          height: 48px;
+          object-fit: cover;
+          border-radius: 50%;
+          z-index: 400;
+          pointer-events: none;
+          opacity: 0.9;
+        `;
+        document.body.appendChild(loonie);
+
+        const speed = 2 + Math.random() * 3;
+        const wobbleAmp = 15 + Math.random() * 20;
+        const wobbleFreq = 0.02 + Math.random() * 0.02;
+        const spinSpeed = 2 + Math.random() * 4;
+        const delay = i * 80;
+        let y = -60;
+        let t = Math.random() * Math.PI * 2;
+        let startX = parseFloat(loonie.style.left);
+        let started = false;
+
+        function fall() {
+          if (!started) {
+            if (delay > 0) { requestAnimationFrame(fall); started = false; delay; return; }
+          }
+          y += speed;
+          t += wobbleFreq;
+          const x = startX + Math.sin(t) * wobbleAmp;
+          loonie.style.transform = `translate(${x - startX}px, ${y + 60}px) rotate(${t * spinSpeed * 30}deg)`;
+          if (y > window.innerHeight + 60) {
+            loonie.remove();
+            return;
+          }
+          requestAnimationFrame(fall);
+        }
+
+        setTimeout(() => {
+          started = true;
+          requestAnimationFrame(fall);
+        }, delay);
+      }
+    });
+  },
+
   css: `
     /* Easter egg elements */
     ${T} [data-canada-bg] { display: block !important; }
