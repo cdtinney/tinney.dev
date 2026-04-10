@@ -119,11 +119,11 @@ const themeHtml = themeEntries
           var colors = themes[themeId];
           if (!colors) return;
           var root = document.documentElement;
-          root.setAttribute('data-theme', themeId);
+          root.dataset.theme = themeId;
           for (var prop in colors) {
             root.style.setProperty(prop, colors[prop]);
           }
-        } catch (_) {}
+        } catch {}
       })();
     </script>
   </head>

@@ -6,12 +6,10 @@ export class ScoreCounter {
    * @param {string} storageKey - localStorage key for persisting the high score
    */
   constructor(storageKey) {
-    this.score = 0;
-    this.highScore = 0;
     this.storageKey = storageKey;
 
     try {
-      this.highScore = parseInt(localStorage.getItem(storageKey) || '0', 10) || 0;
+      this.highScore = Number.parseInt(localStorage.getItem(storageKey) || '0', 10) || 0;
     } catch {
       console.debug('Unable to load high score');
     }
@@ -35,4 +33,6 @@ export class ScoreCounter {
   reset() {
     this.score = 0;
   }
+  score = 0;
+  highScore = 0;
 }

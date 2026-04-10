@@ -18,7 +18,7 @@ export function getCookie(name) {
  * @param {string} value
  * @param {number} [maxAge=31536000] - Max age in seconds (default: 1 year)
  */
-export function setCookie(name, value, maxAge = 31536000) {
+export function setCookie(name, value, maxAge = 31_536_000) {
   try {
     document.cookie = `${name}=${value}; max-age=${maxAge}; path=/; SameSite=Lax`;
   } catch {

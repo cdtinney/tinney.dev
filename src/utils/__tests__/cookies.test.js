@@ -3,10 +3,10 @@ import { getCookie, setCookie } from '../cookies.js';
 
 describe('cookies', () => {
   beforeEach(() => {
-    document.cookie.split(';').forEach((c) => {
+    for (const c of document.cookie.split(';')) {
       const name = c.split('=')[0].trim();
       if (name) document.cookie = `${name}=; max-age=0; path=/`;
-    });
+    }
   });
 
   describe('setCookie', () => {

@@ -80,6 +80,14 @@ const SHARKS = [
   },
 ];
 
+function randomInRange([min, max]) {
+  return min + Math.random() * (max - min);
+}
+
+function randomPhase() {
+  return Math.random() * Math.PI * 2;
+}
+
 const JELLYFISH_IMGS = [`${IMG}/jellyfish1.png`, `${IMG}/jellyfish2.png`, `${IMG}/jellyfish3.png`];
 const SHARK_IMGS = [`${IMG}/shark1.png`, `${IMG}/shark2.png`];
 
@@ -277,14 +285,14 @@ export default {
     const wavePopup = createGifPopup('.underwater-wave-gif');
     this._wavePopup = wavePopup;
 
-    MANTAS.forEach((cfg) => {
+    for (const cfg of MANTAS) {
       const el = createGlider(cfg.selector, { theme: ID, ...cfg });
       el?.addEventListener('click', () => wavePopup.show());
-    });
+    }
 
-    JELLYFISH.forEach((cfg) => createDrifter(cfg.selector, { theme: ID, ...cfg }));
+    for (const cfg of JELLYFISH) createDrifter(cfg.selector, { theme: ID, ...cfg });
 
-    SHARKS.forEach((cfg) => createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 }));
+    for (const cfg of SHARKS) createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 });
 
     // Spawn config for dynamically created creatures
     const SPAWN_JELLYFISH = {
@@ -311,14 +319,6 @@ export default {
       yBandPct: 0.35,
     };
 
-    function randomInRange([min, max]) {
-      return min + Math.random() * (max - min);
-    }
-
-    function randomPhase() {
-      return Math.random() * Math.PI * 2;
-    }
-
     function spawnJellyfish() {
       const width = randomInRange(SPAWN_JELLYFISH.widthRange);
       const speed = randomInRange(SPAWN_JELLYFISH.speedRange);
@@ -338,7 +338,7 @@ export default {
         opacity: SPAWN_JELLYFISH.opacity,
         animate(el, elId) {
           createAnimationLoop(ID, () => {
-            if (!document.getElementById(elId)) return;
+            if (!document.querySelector(`#${elId}`)) return;
             posY += velocityY;
             phase += phaseStep;
             if (posY <= yMin) {
@@ -374,7 +374,7 @@ export default {
         opacity: SPAWN_SHARK.opacity,
         animate(el, elId) {
           createAnimationLoop(ID, () => {
-            if (!document.getElementById(elId)) return;
+            if (!document.querySelector(`#${elId}`)) return;
             posX += speed * direction;
             phase += phaseStep;
             const posY = baseY + Math.sin(phase * yFreq) * yAmp;
@@ -393,12 +393,12 @@ export default {
       });
     }
 
-    document.querySelectorAll('[data-underwater-shark]').forEach((el) => {
+    for (const el of document.querySelectorAll('[data-underwater-shark]')) {
       el.addEventListener('click', () => spawnJellyfish());
-    });
-    document.querySelectorAll('[data-underwater-jellyfish]').forEach((el) => {
+    }
+    for (const el of document.querySelectorAll('[data-underwater-jellyfish]')) {
       el.addEventListener('click', () => spawnShark());
-    });
+    }
   },
 
   css: `

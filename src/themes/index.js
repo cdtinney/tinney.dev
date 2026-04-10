@@ -29,7 +29,7 @@ export function applyTheme(themeId) {
   }
 
   const root = document.documentElement;
-  root.setAttribute('data-theme', themeId);
+  root.dataset.theme = themeId;
 
   // Initialize theme's client-side logic on first activation
   if (theme.init && !initialized.has(themeId)) {

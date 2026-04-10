@@ -112,7 +112,7 @@ export default {
 
   init() {
     document.addEventListener('click', (e) => {
-      if (document.documentElement.getAttribute('data-theme') !== ID) return;
+      if (document.documentElement.dataset.theme !== ID) return;
       if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
       createFallingItems({ src: `${IMG}/loonie.png`, ...LOONIE, borderRadius: '50%' });
     });

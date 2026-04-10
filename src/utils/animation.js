@@ -6,7 +6,7 @@ export function createAnimationLoop(theme, tick) {
   let running = true;
   function frame() {
     if (!running) return;
-    if (document.documentElement.getAttribute('data-theme') === theme) tick();
+    if (document.documentElement.dataset.theme === theme) tick();
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
@@ -175,7 +175,7 @@ export function createFallingItems({ src, count, size, borderRadius = '0', stagg
       pointerEvents: 'none',
       opacity: '0.9',
     });
-    document.body.appendChild(el);
+    document.body.append(el);
 
     const spd = 2 + Math.random() * 3;
     const wobbleAmp = 15 + Math.random() * 20;
@@ -230,8 +230,8 @@ export function spawnAnimatedSprite({
   img.src = src;
   img.width = width;
   img.height = height;
-  div.appendChild(img);
-  document.body.appendChild(div);
+  div.append(img);
+  document.body.append(div);
 
   animate(div, id);
   if (onClick) div.addEventListener('click', () => onClick(div));
