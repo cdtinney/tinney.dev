@@ -27,51 +27,20 @@ export default {
     <div class="underwater-bg" data-underwater-bg aria-hidden="true"></div>
     <!-- Waves at the surface -->
     <div class="underwater-waves" data-underwater-waves aria-hidden="true">
-      <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-        <path class="wave wave-1" d="M0 30 Q180 0, 360 30 Q540 60, 720 30 Q900 0, 1080 30 Q1260 60, 1440 30 L1440 0 L0 0 Z"/>
-        <path class="wave wave-2" d="M0 35 Q180 10, 360 35 Q540 60, 720 35 Q900 10, 1080 35 Q1260 60, 1440 35 L1440 0 L0 0 Z"/>
+      <svg class="wave-layer wave-layer-1" viewBox="0 0 2880 80" preserveAspectRatio="none">
+        <path d="M0 40 C120 20, 240 10, 360 35 C480 60, 600 55, 720 30 C840 5, 960 15, 1080 40 C1200 65, 1320 50, 1440 28 C1560 6, 1680 18, 1800 42 C1920 66, 2040 52, 2160 30 C2280 8, 2400 20, 2520 40 C2640 60, 2760 48, 2880 30 L2880 0 L0 0 Z" fill="rgba(26, 82, 118, 0.7)"/>
       </svg>
+      <svg class="wave-layer wave-layer-2" viewBox="0 0 2880 80" preserveAspectRatio="none">
+        <path d="M0 45 C150 25, 280 15, 420 40 C560 65, 680 50, 840 28 C1000 6, 1120 22, 1260 48 C1400 70, 1520 45, 1680 25 C1840 5, 1960 30, 2100 50 C2240 70, 2380 42, 2520 22 C2660 2, 2780 28, 2880 45 L2880 0 L0 0 Z" fill="rgba(14, 54, 84, 0.5)"/>
+      </svg>
+    </div>
+    <!-- Dive boat at the surface -->
+    <div class="underwater-boat" data-underwater-boat aria-hidden="true">
+      <img src="/dive-boat.png" alt="" width="104" height="91" />
     </div>
     <!-- Sea bed at the bottom -->
     <div class="underwater-seabed" data-underwater-seabed aria-hidden="true">
-      <svg class="seabed-svg" viewBox="0 0 1440 120" preserveAspectRatio="none">
-        <!-- Sandy floor -->
-        <path d="M0 60 Q80 35, 180 50 Q300 70, 420 40 Q520 20, 660 45 Q800 68, 950 35 Q1080 15, 1200 42 Q1340 65, 1440 38 L1440 120 L0 120 Z" fill="#1a3a20"/>
-        <path d="M0 75 Q120 50, 260 65 Q400 82, 530 55 Q650 35, 790 58 Q920 78, 1060 48 Q1180 30, 1300 55 Q1400 70, 1440 52 L1440 120 L0 120 Z" fill="#142e18" opacity="0.8"/>
-        <!-- Rocks -->
-        <ellipse cx="180" cy="62" rx="30" ry="15" fill="#1e3d24" opacity="0.7"/>
-        <ellipse cx="200" cy="58" rx="20" ry="12" fill="#253f2a"/>
-        <ellipse cx="750" cy="55" rx="35" ry="18" fill="#1e3d24" opacity="0.6"/>
-        <ellipse cx="780" cy="52" rx="22" ry="13" fill="#253f2a"/>
-        <ellipse cx="1200" cy="50" rx="25" ry="14" fill="#1e3d24" opacity="0.7"/>
-        <!-- Coral: branching shapes -->
-        <g transform="translate(350, 42)" opacity="0.6">
-          <path d="M0 30 L0 15 L-5 5 M0 15 L5 3 M0 20 L-8 12 M0 20 L7 10" stroke="#c0392b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </g>
-        <g transform="translate(600, 48)" opacity="0.5">
-          <path d="M0 25 L0 10 L-4 0 M0 10 L4 -2 M0 16 L-6 8 M0 16 L6 6" stroke="#e74c3c" stroke-width="2" fill="none" stroke-linecap="round"/>
-        </g>
-        <g transform="translate(1000, 38)" opacity="0.55">
-          <path d="M0 30 L0 12 L-6 2 M0 12 L6 0 M0 20 L-8 10 M0 20 L9 8 M0 25 L-5 18" stroke="#c0392b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </g>
-        <!-- Fan coral -->
-        <g transform="translate(480, 50)" opacity="0.4">
-          <path d="M0 22 Q-8 10, -12 0 M0 22 Q-4 8, -2 0 M0 22 Q4 8, 2 0 M0 22 Q8 10, 12 0" stroke="#e67e22" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        </g>
-        <g transform="translate(900, 45)" opacity="0.35">
-          <path d="M0 18 Q-6 8, -10 0 M0 18 Q-2 6, 0 0 M0 18 Q4 6, 6 0 M0 18 Q8 8, 10 0" stroke="#e67e22" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-        </g>
-      </svg>
-      <!-- Swaying seaweed -->
-      <div class="seabed-plants">
-        <svg class="plant p1" viewBox="0 0 14 50" width="12" height="45"><path d="M7 50 Q4 35, 7 25 Q10 15, 6 2" stroke="#0d5c2e" stroke-width="2.5" fill="none" opacity="0.5"/><path d="M7 30 Q3 22, 5 14" stroke="#0d5c2e" stroke-width="1.5" fill="none" opacity="0.35"/></svg>
-        <svg class="plant p2" viewBox="0 0 14 50" width="9" height="35"><path d="M7 50 Q10 38, 7 28 Q4 18, 8 5" stroke="#0a4a24" stroke-width="2" fill="none" opacity="0.45"/></svg>
-        <svg class="plant p3" viewBox="0 0 14 50" width="14" height="48"><path d="M7 50 Q3 32, 7 22 Q11 12, 6 0" stroke="#0d5c2e" stroke-width="2.5" fill="none" opacity="0.55"/><path d="M7 35 Q11 28, 9 20" stroke="#0d5c2e" stroke-width="1.5" fill="none" opacity="0.35"/></svg>
-        <svg class="plant p4" viewBox="0 0 14 50" width="10" height="38"><path d="M7 50 Q10 40, 6 30 Q3 20, 8 8" stroke="#0a4a24" stroke-width="2" fill="none" opacity="0.4"/></svg>
-        <svg class="plant p5" viewBox="0 0 14 50" width="13" height="42"><path d="M7 50 Q4 36, 8 26 Q11 16, 6 4" stroke="#0d5c2e" stroke-width="2.5" fill="none" opacity="0.5"/></svg>
-        <svg class="plant p6" viewBox="0 0 14 50" width="8" height="30"><path d="M7 50 Q9 42, 6 34 Q4 26, 8 16" stroke="#0a4a24" stroke-width="2" fill="none" opacity="0.35"/></svg>
-        <svg class="plant p7" viewBox="0 0 14 50" width="11" height="40"><path d="M7 50 Q3 34, 7 24 Q11 14, 5 2" stroke="#0d5c2e" stroke-width="2" fill="none" opacity="0.45"/></svg>
-      </div>
+      <img src="/sea-floor.png" alt="" />
     </div>
     <!-- Manta rays -->
     <div class="underwater-manta underwater-manta-1" data-underwater-manta aria-hidden="true">
@@ -79,6 +48,23 @@ export default {
     </div>
     <div class="underwater-manta underwater-manta-2" data-underwater-manta-2 aria-hidden="true">
       <img src="/manta-ray-2.png" alt="" width="90" height="60" />
+    </div>
+    <!-- Jellyfish -->
+    <div class="underwater-jellyfish underwater-jellyfish-1" data-underwater-jellyfish aria-hidden="true">
+      <img src="/jellyfish1.png" alt="" width="38" height="56" />
+    </div>
+    <div class="underwater-jellyfish underwater-jellyfish-2" data-underwater-jellyfish aria-hidden="true">
+      <img src="/jellyfish2.png" alt="" width="30" height="45" />
+    </div>
+    <div class="underwater-jellyfish underwater-jellyfish-3" data-underwater-jellyfish aria-hidden="true">
+      <img src="/jellyfish3.png" alt="" width="26" height="39" />
+    </div>
+    <!-- Sharks -->
+    <div class="underwater-shark underwater-shark-1" data-underwater-shark aria-hidden="true">
+      <img src="/shark1.png" alt="" width="140" height="90" />
+    </div>
+    <div class="underwater-shark underwater-shark-2" data-underwater-shark aria-hidden="true">
+      <img src="/shark2.png" alt="" width="120" height="80" />
     </div>
     <!-- Manta ray wave easter egg -->
     <div class="underwater-wave-gif" aria-hidden="true">
@@ -105,7 +91,7 @@ export default {
   `,
 
   baseCss: `
-    .underwater-bg, .underwater-bubbles, .underwater-waves, .underwater-seabed, .underwater-manta {
+    .underwater-bg, .underwater-bubbles, .underwater-waves, .underwater-seabed, .underwater-manta, .underwater-jellyfish, .underwater-shark, .underwater-boat {
       display: none; pointer-events: none;
     }
     .underwater-wave-gif {
@@ -189,11 +175,12 @@ export default {
 
     // Animate manta rays (gentle horizontal glide with vertical sine drift)
     // dir: 1 = left-to-right, -1 = right-to-left
-    function animateManta(selector, speed, yAmp, yFreq, size, dir) {
+    function animateManta(selector, speed, yAmp, yFreq, size, dir, yMinPct, yMaxPct) {
       const el = document.querySelector(selector);
       if (!el) return;
       let x = dir === 1 ? -size : window.innerWidth + size;
-      let baseY = Math.random() * (window.innerHeight * 0.6) + 40;
+      const getBaseY = () => Math.random() * (window.innerHeight * (yMaxPct - yMinPct)) + window.innerHeight * yMinPct;
+      let baseY = getBaseY();
       let t = Math.random() * Math.PI * 2;
 
       function tick() {
@@ -204,15 +191,8 @@ export default {
         x += speed * dir;
         t += 0.015;
         const y = baseY + Math.sin(t * yFreq) * yAmp;
-        // Wrap to start when off-screen
-        if (dir === 1 && x > window.innerWidth + size) {
-          x = -size;
-          baseY = Math.random() * (window.innerHeight * 0.6) + 40;
-        }
-        if (dir === -1 && x < -size) {
-          x = window.innerWidth + size;
-          baseY = Math.random() * (window.innerHeight * 0.6) + 40;
-        }
+        if (dir === 1 && x > window.innerWidth + size) { x = -size; baseY = getBaseY(); }
+        if (dir === -1 && x < -size) { x = window.innerWidth + size; baseY = getBaseY(); }
         el.style.transform = `translate(${x}px, ${y}px)`;
         requestAnimationFrame(tick);
       }
@@ -229,8 +209,148 @@ export default {
       });
     }
 
-    animateManta('.underwater-manta-1', 0.4, 18, 0.6, 120, 1);   // left to right
-    animateManta('.underwater-manta-2', 0.55, 12, 0.9, 90, -1);  // right to left
+    animateManta('.underwater-manta-1', 0.4, 18, 0.6, 120, 1, 0.12, 0.28);   // upper band
+    animateManta('.underwater-manta-2', 0.55, 12, 0.9, 90, -1, 0.30, 0.45);  // lower band
+
+    // Animate jellyfish (bounce between surface and 50% depth)
+    function animateJellyfish(selector, speed, xAmp, xFreq, size) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      const minY = 40; // near surface
+      const maxY = () => window.innerHeight * 0.5;
+      let y = minY + Math.random() * (maxY() - minY);
+      let dy = speed;
+      let baseX = Math.random() * (window.innerWidth - size);
+      let t = Math.random() * Math.PI * 2;
+
+      function tick() {
+        if (document.documentElement.getAttribute('data-theme') !== 'underwater') {
+          requestAnimationFrame(tick);
+          return;
+        }
+        y += dy;
+        t += 0.008;
+        const x = baseX + Math.sin(t * xFreq) * xAmp;
+        // Bounce off surface and 50% depth
+        if (y <= minY) { y = minY; dy = Math.abs(dy); }
+        if (y >= maxY()) { y = maxY(); dy = -Math.abs(dy); }
+        el.style.transform = `translate(${x}px, ${y}px)`;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    animateJellyfish('.underwater-jellyfish-1', 0.12, 15, 0.4, 56);
+    animateJellyfish('.underwater-jellyfish-2', 0.15, 12, 0.55, 45);
+    animateJellyfish('.underwater-jellyfish-3', 0.1, 18, 0.35, 39);
+
+    // Animate sharks (horizontal glide, mid-to-deep water: 50-85%)
+    function animateShark(selector, speed, yAmp, yFreq, size, dir, yMinPct, yMaxPct) {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      let x = dir === 1 ? -size : window.innerWidth + size;
+      const getBaseY = () => Math.random() * (window.innerHeight * (yMaxPct - yMinPct)) + window.innerHeight * yMinPct;
+      let baseY = getBaseY();
+      let t = Math.random() * Math.PI * 2;
+
+      function tick() {
+        if (document.documentElement.getAttribute('data-theme') !== 'underwater') {
+          requestAnimationFrame(tick);
+          return;
+        }
+        x += speed * dir;
+        t += 0.012;
+        const y = baseY + Math.sin(t * yFreq) * yAmp;
+        if (dir === 1 && x > window.innerWidth + size) { x = -size; baseY = getBaseY(); }
+        if (dir === -1 && x < -size) { x = window.innerWidth + size; baseY = getBaseY(); }
+        el.style.transform = `translate(${x}px, ${y}px)`;
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    animateShark('.underwater-shark-1', 0.6, 10, 0.5, 140, -1, 0.50, 0.65);   // upper-deep band
+    animateShark('.underwater-shark-2', 0.75, 8, 0.6, 120, 1, 0.68, 0.82);   // lower-deep band
+
+    // Easter egg: click shark → spawn jellyfish, click jellyfish → spawn shark
+    const jellyImgs = ['/jellyfish1.png', '/jellyfish2.png', '/jellyfish3.png'];
+    const sharkImgs = ['/shark1.png', '/shark2.png'];
+    let spawnCount = 0;
+
+    function spawnCreature(type) {
+      spawnCount++;
+      const id = `spawned-${spawnCount}`;
+      const div = document.createElement('div');
+      div.id = id;
+      div.style.cssText = 'position:fixed;top:0;left:0;z-index:1;pointer-events:auto;cursor:pointer;';
+      const img = document.createElement('img');
+
+      if (type === 'jellyfish') {
+        const src = jellyImgs[Math.floor(Math.random() * jellyImgs.length)];
+        img.src = src;
+        img.width = 30 + Math.random() * 10;
+        img.height = img.width * 1.5;
+        div.style.opacity = '0.5';
+        div.appendChild(img);
+        document.body.appendChild(div);
+        // Animate as jellyfish
+        const speed = 0.1 + Math.random() * 0.1;
+        const xAmp = 12 + Math.random() * 10;
+        const xFreq = 0.3 + Math.random() * 0.3;
+        const minY = 40;
+        let y = minY + Math.random() * (window.innerHeight * 0.5 - minY);
+        let dy = speed * (Math.random() < 0.5 ? 1 : -1);
+        let baseX = Math.random() * (window.innerWidth - 50);
+        let t = Math.random() * Math.PI * 2;
+        function tick() {
+          if (document.documentElement.getAttribute('data-theme') !== 'underwater' || !document.getElementById(id)) return;
+          y += dy; t += 0.008;
+          if (y <= minY) { y = minY; dy = Math.abs(dy); }
+          const maxY = window.innerHeight * 0.5;
+          if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
+          div.style.transform = `translate(${baseX + Math.sin(t * xFreq) * xAmp}px, ${y}px)`;
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      } else {
+        const dir = Math.random() < 0.5 ? 1 : -1;
+        const src = dir === 1 ? sharkImgs[1] : sharkImgs[0];
+        img.src = src;
+        img.width = 100 + Math.random() * 40;
+        img.height = img.width * 0.65;
+        div.style.opacity = '0.35';
+        div.appendChild(img);
+        document.body.appendChild(div);
+        // Animate as shark
+        const speed = 0.5 + Math.random() * 0.3;
+        let x = dir === 1 ? -img.width : window.innerWidth + img.width;
+        let baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
+        let t = Math.random() * Math.PI * 2;
+        function tick() {
+          if (document.documentElement.getAttribute('data-theme') !== 'underwater' || !document.getElementById(id)) return;
+          x += speed * dir; t += 0.012;
+          const y = baseY + Math.sin(t * 0.5) * 8;
+          if (dir === 1 && x > window.innerWidth + img.width) { x = -img.width; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
+          if (dir === -1 && x < -img.width) { x = window.innerWidth + img.width; baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5; }
+          div.style.transform = `translate(${x}px, ${y}px)`;
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      // Spawned creatures can also spawn more
+      div.addEventListener('click', () => {
+        spawnCreature(type === 'jellyfish' ? 'shark' : 'jellyfish');
+      });
+    }
+
+    // Attach click handlers to existing sharks and jellyfish
+    document.querySelectorAll('[data-underwater-shark]').forEach(el => {
+      el.addEventListener('click', () => spawnCreature('jellyfish'));
+    });
+    document.querySelectorAll('[data-underwater-jellyfish]').forEach(el => {
+      el.addEventListener('click', () => spawnCreature('shark'));
+    });
   },
 
   css: `
@@ -244,28 +364,32 @@ export default {
       top: 0;
       left: 0;
       width: 100%;
+      height: 50px;
       z-index: 2;
+      overflow: hidden;
+      background: linear-gradient(180deg, #1a5276 0%, rgba(26, 82, 118, 0) 100%);
     }
-    ${T} [data-underwater-waves] svg {
+    ${T} .wave-layer {
       display: block;
-      width: 100%;
-      height: 40px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 50px;
     }
-    ${T} .wave-1 {
-      fill: rgba(26, 82, 118, 0.6);
-      animation: underwater-wave-1 6s ease-in-out infinite;
+    ${T} .wave-layer-1 {
+      animation: underwater-wave-slide-1 8s linear infinite;
     }
-    ${T} .wave-2 {
-      fill: rgba(10, 41, 66, 0.4);
-      animation: underwater-wave-2 8s ease-in-out infinite;
+    ${T} .wave-layer-2 {
+      animation: underwater-wave-slide-2 12s linear infinite;
     }
-    @keyframes underwater-wave-1 {
-      0%, 100% { d: path("M0 30 Q180 0, 360 30 Q540 60, 720 30 Q900 0, 1080 30 Q1260 60, 1440 30 L1440 0 L0 0 Z"); }
-      50% { d: path("M0 25 Q180 50, 360 25 Q540 0, 720 25 Q900 50, 1080 25 Q1260 0, 1440 25 L1440 0 L0 0 Z"); }
+    @keyframes underwater-wave-slide-1 {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
-    @keyframes underwater-wave-2 {
-      0%, 100% { d: path("M0 35 Q180 10, 360 35 Q540 60, 720 35 Q900 10, 1080 35 Q1260 60, 1440 35 L1440 0 L0 0 Z"); }
-      50% { d: path("M0 30 Q180 55, 360 30 Q540 5, 720 30 Q900 55, 1080 30 Q1260 5, 1440 30 L1440 0 L0 0 Z"); }
+    @keyframes underwater-wave-slide-2 {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
     }
 
     /* Bubbles */
@@ -307,6 +431,26 @@ export default {
       100% { bottom: calc(100vh + 20px); opacity: 0; transform: translateX(-10px); }
     }
 
+    /* Dive boat */
+    ${T} [data-underwater-boat] {
+      display: block !important;
+      position: fixed;
+      top: -10px;
+      left: 5%;
+      z-index: 3;
+      animation: underwater-boat-drift 30s ease-in-out infinite alternate, underwater-boat-bob 3s ease-in-out infinite;
+    }
+    ${T} [data-underwater-boat] img { display: block; filter: brightness(0.8); mix-blend-mode: multiply; }
+    @keyframes underwater-boat-drift {
+      0% { left: 5%; }
+      100% { left: calc(95% - 80px); }
+    }
+    @keyframes underwater-boat-bob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(1deg); }
+      75% { transform: translateY(2px) rotate(-1deg); }
+    }
+
     /* Seabed */
     ${T} [data-underwater-seabed] {
       display: block !important;
@@ -314,36 +458,12 @@ export default {
       bottom: 0;
       left: 0;
       width: 100%;
-      z-index: 0;
+      height: 120px;
+      z-index: 2;
+      background: url("/sea-floor.png") repeat-x bottom / auto 100%;
     }
-    ${T} .seabed-svg {
-      display: block;
-      width: 100%;
-      height: 80px;
-    }
-    ${T} .seabed-plants {
-      position: absolute;
-      bottom: 25px;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      padding: 0 3%;
-    }
-    ${T} .plant {
-      animation: underwater-sway 4s ease-in-out infinite;
-      transform-origin: bottom center;
-    }
-    ${T} .p1 { animation-delay: 0s; }
-    ${T} .p2 { animation-delay: 0.8s; animation-duration: 3.5s; }
-    ${T} .p3 { animation-delay: 1.5s; animation-duration: 4.5s; }
-    ${T} .p4 { animation-delay: 0.3s; animation-duration: 3.8s; }
-    ${T} .p5 { animation-delay: 2s; animation-duration: 5s; }
-    ${T} .p6 { animation-delay: 1.2s; animation-duration: 3.2s; }
-    ${T} .p7 { animation-delay: 0.6s; animation-duration: 4.2s; }
-    @keyframes underwater-sway {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
+    ${T} [data-underwater-seabed] img {
+      display: none;
     }
 
     /* Manta rays */
@@ -398,6 +518,40 @@ export default {
       0% { transform: translate(0, 0) scale(1.05); }
       100% { transform: translate(-25px, 15px) scale(1); }
     }
+
+    /* Jellyfish */
+    ${T} [data-underwater-jellyfish] {
+      display: block !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      opacity: 0.5;
+      cursor: pointer;
+      pointer-events: auto !important;
+    }
+    ${T} [data-underwater-jellyfish] img {
+      display: block;
+      animation: underwater-jellyfish-pulse 3s ease-in-out infinite;
+    }
+    @keyframes underwater-jellyfish-pulse {
+      0%, 100% { transform: scaleY(1) scaleX(1); }
+      40% { transform: scaleY(0.9) scaleX(1.05); }
+      60% { transform: scaleY(1.05) scaleX(0.95); }
+    }
+
+    /* Sharks */
+    ${T} [data-underwater-shark] {
+      display: block !important;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      opacity: 0.35;
+      cursor: pointer;
+      pointer-events: auto !important;
+    }
+    ${T} [data-underwater-shark] img { display: block; }
 
     /* Cursor — diving mask */
     ${T} a, ${T} button {
