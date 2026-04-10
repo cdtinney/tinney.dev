@@ -9,10 +9,10 @@ const themeEntries = Object.entries(themes);
   <div class="container">
     {
       themeEntries.map(([id, theme]) =>
-        theme.notFound ? (
+        theme.pageContent?.notFoundPage ? (
           <div data-404={id} class={id === 'default' ? '' : 'hidden'}>
-            <h1>{theme.notFound.heading}</h1>
-            <p class="truth">{theme.notFound.message}</p>
+            <h1>{theme.pageContent.notFoundPage.heading}</h1>
+            <p class="truth">{theme.pageContent.notFoundPage.message}</p>
           </div>
         ) : null,
       )

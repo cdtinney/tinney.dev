@@ -68,9 +68,11 @@ export default {
     '--banner-radius': '3px',
   },
 
-  notFound: {
-    heading: 'Offside!',
-    message: 'This page has been sent to the penalty box.',
+  pageContent: {
+    notFoundPage: {
+      heading: 'Offside!',
+      message: 'This page has been sent to the penalty box.',
+    },
   },
 
   html: `

@@ -82,9 +82,11 @@ export default {
     '--banner-radius': '6px',
   },
 
-  notFound: {
-    heading: "Sorry, this page doesn't exist.",
-    message: 'We looked everywhere. Double-double sorry.',
+  pageContent: {
+    notFoundPage: {
+      heading: "Sorry, this page doesn't exist.",
+      message: 'We looked everywhere. Double-double sorry.',
+    },
   },
 
   html: `

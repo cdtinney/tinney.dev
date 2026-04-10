@@ -235,9 +235,11 @@ export default {
     '--banner-radius': '8px',
   },
 
-  notFound: {
-    heading: 'Lost at sea.',
-    message: 'This page sank beyond our maximum dive depth.',
+  pageContent: {
+    notFoundPage: {
+      heading: 'Lost at sea.',
+      message: 'This page sank beyond our maximum dive depth.',
+    },
   },
 
   html: `
