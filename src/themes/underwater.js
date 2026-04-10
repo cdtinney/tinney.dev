@@ -6,9 +6,9 @@ import {
   spawnAnimatedSprite,
 } from '../utils/animation.js';
 
-const ID = 'underwater';
-const T = `[data-theme="${ID}"]`;
-const IMG = '/images/themes/underwater';
+const THEME_ID = 'underwater';
+const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
+const IMAGE_PATH = '/images/themes/underwater';
 
 const PALETTE = {
   teal: '#00b894',
@@ -28,7 +28,7 @@ const PALETTE = {
   textMuted: '#a8dce6',
 };
 
-const MANTAS = [
+const MANTA_RAY_CONFIG = [
   {
     selector: '.underwater-manta-1',
     speed: 0.4,
@@ -51,13 +51,13 @@ const MANTAS = [
   },
 ];
 
-const JELLYFISH = [
+const JELLYFISH_CONFIG = [
   { selector: '.underwater-jellyfish-1', speed: 0.12, xAmp: 15, xFreq: 0.4, size: 56 },
   { selector: '.underwater-jellyfish-2', speed: 0.15, xAmp: 12, xFreq: 0.55, size: 45 },
   { selector: '.underwater-jellyfish-3', speed: 0.1, xAmp: 18, xFreq: 0.35, size: 39 },
 ];
 
-const SHARKS = [
+const SHARK_CONFIG = [
   {
     selector: '.underwater-shark-1',
     speed: 0.6,
@@ -88,8 +88,110 @@ function randomPhase() {
   return Math.random() * Math.PI * 2;
 }
 
-const JELLYFISH_IMGS = [`${IMG}/jellyfish1.png`, `${IMG}/jellyfish2.png`, `${IMG}/jellyfish3.png`];
-const SHARK_IMGS = [`${IMG}/shark1.png`, `${IMG}/shark2.png`];
+const JELLYFISH_IMAGES = [
+  `${IMAGE_PATH}/jellyfish1.png`,
+  `${IMAGE_PATH}/jellyfish2.png`,
+  `${IMAGE_PATH}/jellyfish3.png`,
+];
+const SHARK_IMAGES = [`${IMAGE_PATH}/shark1.png`, `${IMAGE_PATH}/shark2.png`];
+
+const SPAWNED_JELLYFISH_CONFIG = {
+  widthRange: [30, 40],
+  heightRatio: 1.5,
+  opacity: 0.5,
+  speedRange: [0.1, 0.2],
+  wobbleAmpRange: [12, 22],
+  wobbleFreqRange: [0.3, 0.6],
+  phaseStep: 0.008,
+  yMin: 40,
+  yMaxPct: 0.5,
+};
+
+const SPAWNED_SHARK_CONFIG = {
+  widthRange: [100, 140],
+  heightRatio: 0.65,
+  opacity: 0.35,
+  speedRange: [0.5, 0.8],
+  phaseStep: 0.012,
+  yAmp: 8,
+  yFreq: 0.5,
+  yMinPct: 0.5,
+  yBandPct: 0.35,
+};
+
+function spawnJellyfish() {
+  const width = randomInRange(SPAWNED_JELLYFISH_CONFIG.widthRange);
+  const speed = randomInRange(SPAWNED_JELLYFISH_CONFIG.speedRange);
+  const wobbleAmp = randomInRange(SPAWNED_JELLYFISH_CONFIG.wobbleAmpRange);
+  const wobbleFreq = randomInRange(SPAWNED_JELLYFISH_CONFIG.wobbleFreqRange);
+  const { yMin, yMaxPct, phaseStep } = SPAWNED_JELLYFISH_CONFIG;
+  const maxY = () => window.innerHeight * yMaxPct;
+  let posY = yMin + Math.random() * (maxY() - yMin);
+  let velocityY = speed * (Math.random() < 0.5 ? 1 : -1);
+  const baseX = Math.random() * (window.innerWidth - width);
+  let phase = randomPhase();
+
+  spawnAnimatedSprite({
+    src: JELLYFISH_IMAGES[Math.floor(Math.random() * JELLYFISH_IMAGES.length)],
+    width,
+    height: width * SPAWNED_JELLYFISH_CONFIG.heightRatio,
+    opacity: SPAWNED_JELLYFISH_CONFIG.opacity,
+    animate(el, elId) {
+      createAnimationLoop(THEME_ID, () => {
+        if (!document.querySelector(`#${elId}`)) return;
+        posY += velocityY;
+        phase += phaseStep;
+        if (posY <= yMin) {
+          posY = yMin;
+          velocityY = Math.abs(velocityY);
+        }
+        if (posY >= maxY()) {
+          posY = maxY();
+          velocityY = -Math.abs(velocityY);
+        }
+        el.style.transform = `translate(${baseX + Math.sin(phase * wobbleFreq) * wobbleAmp}px, ${posY}px)`;
+      });
+    },
+    onClick: () => spawnShark(),
+  });
+}
+
+function spawnShark() {
+  const direction = Math.random() < 0.5 ? 1 : -1;
+  const width = randomInRange(SPAWNED_SHARK_CONFIG.widthRange);
+  const speed = randomInRange(SPAWNED_SHARK_CONFIG.speedRange);
+  const { yAmp, yFreq, yMinPct, yBandPct, phaseStep } = SPAWNED_SHARK_CONFIG;
+  const randomBaseY = () =>
+    Math.random() * (window.innerHeight * yBandPct) + window.innerHeight * yMinPct;
+  let posX = direction === 1 ? -width : window.innerWidth + width;
+  let baseY = randomBaseY();
+  let phase = randomPhase();
+
+  spawnAnimatedSprite({
+    src: direction === 1 ? SHARK_IMAGES[1] : SHARK_IMAGES[0],
+    width,
+    height: width * SPAWNED_SHARK_CONFIG.heightRatio,
+    opacity: SPAWNED_SHARK_CONFIG.opacity,
+    animate(el, elId) {
+      createAnimationLoop(THEME_ID, () => {
+        if (!document.querySelector(`#${elId}`)) return;
+        posX += speed * direction;
+        phase += phaseStep;
+        const posY = baseY + Math.sin(phase * yFreq) * yAmp;
+        if (direction === 1 && posX > window.innerWidth + width) {
+          posX = -width;
+          baseY = randomBaseY();
+        }
+        if (direction === -1 && posX < -width) {
+          posX = window.innerWidth + width;
+          baseY = randomBaseY();
+        }
+        el.style.transform = `translate(${posX}px, ${posY}px)`;
+      });
+    },
+    onClick: () => spawnJellyfish(),
+  });
+}
 
 export default {
   name: 'Underwater',
@@ -285,113 +387,15 @@ export default {
     const wavePopup = createGifPopup('.underwater-wave-gif');
     this._wavePopup = wavePopup;
 
-    for (const cfg of MANTAS) {
-      const el = createGlider(cfg.selector, { theme: ID, ...cfg });
+    for (const cfg of MANTA_RAY_CONFIG) {
+      const el = createGlider(cfg.selector, { theme: THEME_ID, ...cfg });
       el?.addEventListener('click', () => wavePopup.show());
     }
 
-    for (const cfg of JELLYFISH) createDrifter(cfg.selector, { theme: ID, ...cfg });
+    for (const cfg of JELLYFISH_CONFIG) createDrifter(cfg.selector, { theme: THEME_ID, ...cfg });
 
-    for (const cfg of SHARKS) createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 });
-
-    // Spawn config for dynamically created creatures
-    const SPAWN_JELLYFISH = {
-      widthRange: [30, 40],
-      heightRatio: 1.5,
-      opacity: 0.5,
-      speedRange: [0.1, 0.2],
-      wobbleAmpRange: [12, 22],
-      wobbleFreqRange: [0.3, 0.6],
-      phaseStep: 0.008,
-      yMin: 40,
-      yMaxPct: 0.5,
-    };
-
-    const SPAWN_SHARK = {
-      widthRange: [100, 140],
-      heightRatio: 0.65,
-      opacity: 0.35,
-      speedRange: [0.5, 0.8],
-      phaseStep: 0.012,
-      yAmp: 8,
-      yFreq: 0.5,
-      yMinPct: 0.5,
-      yBandPct: 0.35,
-    };
-
-    function spawnJellyfish() {
-      const width = randomInRange(SPAWN_JELLYFISH.widthRange);
-      const speed = randomInRange(SPAWN_JELLYFISH.speedRange);
-      const wobbleAmp = randomInRange(SPAWN_JELLYFISH.wobbleAmpRange);
-      const wobbleFreq = randomInRange(SPAWN_JELLYFISH.wobbleFreqRange);
-      const { yMin, yMaxPct, phaseStep } = SPAWN_JELLYFISH;
-      const maxY = () => window.innerHeight * yMaxPct;
-      let posY = yMin + Math.random() * (maxY() - yMin);
-      let velocityY = speed * (Math.random() < 0.5 ? 1 : -1);
-      const baseX = Math.random() * (window.innerWidth - width);
-      let phase = randomPhase();
-
-      spawnAnimatedSprite({
-        src: JELLYFISH_IMGS[Math.floor(Math.random() * JELLYFISH_IMGS.length)],
-        width,
-        height: width * SPAWN_JELLYFISH.heightRatio,
-        opacity: SPAWN_JELLYFISH.opacity,
-        animate(el, elId) {
-          createAnimationLoop(ID, () => {
-            if (!document.querySelector(`#${elId}`)) return;
-            posY += velocityY;
-            phase += phaseStep;
-            if (posY <= yMin) {
-              posY = yMin;
-              velocityY = Math.abs(velocityY);
-            }
-            if (posY >= maxY()) {
-              posY = maxY();
-              velocityY = -Math.abs(velocityY);
-            }
-            el.style.transform = `translate(${baseX + Math.sin(phase * wobbleFreq) * wobbleAmp}px, ${posY}px)`;
-          });
-        },
-        onClick: () => spawnShark(),
-      });
-    }
-
-    function spawnShark() {
-      const direction = Math.random() < 0.5 ? 1 : -1;
-      const width = randomInRange(SPAWN_SHARK.widthRange);
-      const speed = randomInRange(SPAWN_SHARK.speedRange);
-      const { yAmp, yFreq, yMinPct, yBandPct, phaseStep } = SPAWN_SHARK;
-      const randomBaseY = () =>
-        Math.random() * (window.innerHeight * yBandPct) + window.innerHeight * yMinPct;
-      let posX = direction === 1 ? -width : window.innerWidth + width;
-      let baseY = randomBaseY();
-      let phase = randomPhase();
-
-      spawnAnimatedSprite({
-        src: direction === 1 ? SHARK_IMGS[1] : SHARK_IMGS[0],
-        width,
-        height: width * SPAWN_SHARK.heightRatio,
-        opacity: SPAWN_SHARK.opacity,
-        animate(el, elId) {
-          createAnimationLoop(ID, () => {
-            if (!document.querySelector(`#${elId}`)) return;
-            posX += speed * direction;
-            phase += phaseStep;
-            const posY = baseY + Math.sin(phase * yFreq) * yAmp;
-            if (direction === 1 && posX > window.innerWidth + width) {
-              posX = -width;
-              baseY = randomBaseY();
-            }
-            if (direction === -1 && posX < -width) {
-              posX = window.innerWidth + width;
-              baseY = randomBaseY();
-            }
-            el.style.transform = `translate(${posX}px, ${posY}px)`;
-          });
-        },
-        onClick: () => spawnJellyfish(),
-      });
-    }
+    for (const cfg of SHARK_CONFIG)
+      createGlider(cfg.selector, { theme: THEME_ID, ...cfg, tStep: 0.012 });
 
     for (const el of document.querySelectorAll('[data-underwater-shark]')) {
       el.addEventListener('click', () => spawnJellyfish());
@@ -403,10 +407,10 @@ export default {
 
   css: `
     /* Underwater background */
-    ${T} [data-underwater-bg] { display: block !important; }
+    ${THEME_SELECTOR} [data-underwater-bg] { display: block !important; }
 
     /* Waves at the surface */
-    ${T} [data-underwater-waves] {
+    ${THEME_SELECTOR} [data-underwater-waves] {
       display: block !important;
       position: fixed;
       top: 0;
@@ -417,7 +421,7 @@ export default {
       overflow: hidden;
       background: linear-gradient(180deg, #1a5276 0%, rgba(26, 82, 118, 0) 100%);
     }
-    ${T} .wave-layer {
+    ${THEME_SELECTOR} .wave-layer {
       display: block;
       position: absolute;
       top: 0;
@@ -425,10 +429,10 @@ export default {
       width: 200%;
       height: 50px;
     }
-    ${T} .wave-layer-1 {
+    ${THEME_SELECTOR} .wave-layer-1 {
       animation: underwater-wave-slide-1 8s linear infinite;
     }
-    ${T} .wave-layer-2 {
+    ${THEME_SELECTOR} .wave-layer-2 {
       animation: underwater-wave-slide-2 12s linear infinite;
     }
     @keyframes underwater-wave-slide-1 {
@@ -441,14 +445,14 @@ export default {
     }
 
     /* Bubbles */
-    ${T} [data-underwater-bubbles] {
+    ${THEME_SELECTOR} [data-underwater-bubbles] {
       display: block !important;
       position: fixed;
       inset: 0;
       z-index: 1;
       overflow: hidden;
     }
-    ${T} .bubble {
+    ${THEME_SELECTOR} .bubble {
       position: absolute;
       bottom: -20px;
       border-radius: 50%;
@@ -456,21 +460,21 @@ export default {
       border: 1px solid rgba(255, 255, 255, 0.12);
       animation: underwater-bubble-rise linear infinite;
     }
-    ${T} .b1  { left: 5%;  width: 8px;  height: 8px;  animation-duration: 18s; animation-delay: 0s; }
-    ${T} .b2  { left: 15%; width: 5px;  height: 5px;  animation-duration: 22s; animation-delay: 3s; }
-    ${T} .b3  { left: 28%; width: 10px; height: 10px; animation-duration: 16s; animation-delay: 6s; }
-    ${T} .b4  { left: 38%; width: 6px;  height: 6px;  animation-duration: 24s; animation-delay: 1s; }
-    ${T} .b5  { left: 50%; width: 7px;  height: 7px;  animation-duration: 20s; animation-delay: 8s; }
-    ${T} .b6  { left: 62%; width: 4px;  height: 4px;  animation-duration: 26s; animation-delay: 4s; }
-    ${T} .b7  { left: 72%; width: 9px;  height: 9px;  animation-duration: 17s; animation-delay: 10s; }
-    ${T} .b8  { left: 82%; width: 5px;  height: 5px;  animation-duration: 21s; animation-delay: 2s; }
-    ${T} .b9  { left: 90%; width: 7px;  height: 7px;  animation-duration: 19s; animation-delay: 7s; }
-    ${T} .b10 { left: 45%; width: 3px;  height: 3px;  animation-duration: 28s; animation-delay: 5s; }
-    ${T} .b11 { left: 20%; width: 6px;  height: 6px;  animation-duration: 23s; animation-delay: 9s; }
-    ${T} .b12 { left: 55%; width: 4px;  height: 4px;  animation-duration: 15s; animation-delay: 11s; }
-    ${T} .b13 { left: 75%; width: 8px;  height: 8px;  animation-duration: 25s; animation-delay: 3s; }
-    ${T} .b14 { left: 33%; width: 5px;  height: 5px;  animation-duration: 20s; animation-delay: 13s; }
-    ${T} .b15 { left: 88%; width: 6px;  height: 6px;  animation-duration: 19s; animation-delay: 7s; }
+    ${THEME_SELECTOR} .b1  { left: 5%;  width: 8px;  height: 8px;  animation-duration: 18s; animation-delay: 0s; }
+    ${THEME_SELECTOR} .b2  { left: 15%; width: 5px;  height: 5px;  animation-duration: 22s; animation-delay: 3s; }
+    ${THEME_SELECTOR} .b3  { left: 28%; width: 10px; height: 10px; animation-duration: 16s; animation-delay: 6s; }
+    ${THEME_SELECTOR} .b4  { left: 38%; width: 6px;  height: 6px;  animation-duration: 24s; animation-delay: 1s; }
+    ${THEME_SELECTOR} .b5  { left: 50%; width: 7px;  height: 7px;  animation-duration: 20s; animation-delay: 8s; }
+    ${THEME_SELECTOR} .b6  { left: 62%; width: 4px;  height: 4px;  animation-duration: 26s; animation-delay: 4s; }
+    ${THEME_SELECTOR} .b7  { left: 72%; width: 9px;  height: 9px;  animation-duration: 17s; animation-delay: 10s; }
+    ${THEME_SELECTOR} .b8  { left: 82%; width: 5px;  height: 5px;  animation-duration: 21s; animation-delay: 2s; }
+    ${THEME_SELECTOR} .b9  { left: 90%; width: 7px;  height: 7px;  animation-duration: 19s; animation-delay: 7s; }
+    ${THEME_SELECTOR} .b10 { left: 45%; width: 3px;  height: 3px;  animation-duration: 28s; animation-delay: 5s; }
+    ${THEME_SELECTOR} .b11 { left: 20%; width: 6px;  height: 6px;  animation-duration: 23s; animation-delay: 9s; }
+    ${THEME_SELECTOR} .b12 { left: 55%; width: 4px;  height: 4px;  animation-duration: 15s; animation-delay: 11s; }
+    ${THEME_SELECTOR} .b13 { left: 75%; width: 8px;  height: 8px;  animation-duration: 25s; animation-delay: 3s; }
+    ${THEME_SELECTOR} .b14 { left: 33%; width: 5px;  height: 5px;  animation-duration: 20s; animation-delay: 13s; }
+    ${THEME_SELECTOR} .b15 { left: 88%; width: 6px;  height: 6px;  animation-duration: 19s; animation-delay: 7s; }
     @keyframes underwater-bubble-rise {
       0% { bottom: -20px; opacity: 0; transform: translateX(0); }
       5% { opacity: 0.7; }
@@ -480,7 +484,7 @@ export default {
     }
 
     /* Dive boat */
-    ${T} [data-underwater-boat] {
+    ${THEME_SELECTOR} [data-underwater-boat] {
       display: block !important;
       position: fixed;
       top: -10px;
@@ -488,7 +492,7 @@ export default {
       z-index: 3;
       animation: underwater-boat-drift 30s ease-in-out infinite alternate, underwater-boat-bob 3s ease-in-out infinite;
     }
-    ${T} [data-underwater-boat] img { display: block; filter: brightness(0.8); mix-blend-mode: multiply; }
+    ${THEME_SELECTOR} [data-underwater-boat] img { display: block; filter: brightness(0.8); mix-blend-mode: multiply; }
     @keyframes underwater-boat-drift {
       0% { left: 5%; }
       100% { left: calc(95% - 80px); }
@@ -500,7 +504,7 @@ export default {
     }
 
     /* Seabed */
-    ${T} [data-underwater-seabed] {
+    ${THEME_SELECTOR} [data-underwater-seabed] {
       display: block !important;
       position: fixed;
       bottom: 0;
@@ -510,13 +514,13 @@ export default {
       z-index: 2;
       background: url("/images/themes/underwater/sea-floor.png") repeat-x bottom / auto 100%;
     }
-    ${T} [data-underwater-seabed] img {
+    ${THEME_SELECTOR} [data-underwater-seabed] img {
       display: none;
     }
 
     /* Manta rays */
-    ${T} [data-underwater-manta],
-    ${T} [data-underwater-manta-2] {
+    ${THEME_SELECTOR} [data-underwater-manta],
+    ${THEME_SELECTOR} [data-underwater-manta-2] {
       display: block !important;
       position: fixed;
       top: 0;
@@ -527,13 +531,13 @@ export default {
       opacity: 0.7;
       transition: opacity 0.2s ease;
     }
-    ${T} [data-underwater-manta]:hover,
-    ${T} [data-underwater-manta-2]:hover { opacity: 1; }
-    ${T} [data-underwater-manta] img,
-    ${T} [data-underwater-manta-2] img { display: block; }
+    ${THEME_SELECTOR} [data-underwater-manta]:hover,
+    ${THEME_SELECTOR} [data-underwater-manta-2]:hover { opacity: 1; }
+    ${THEME_SELECTOR} [data-underwater-manta] img,
+    ${THEME_SELECTOR} [data-underwater-manta-2] img { display: block; }
 
     /* Water texture — backdrop blur + animated caustic gradients */
-    ${T} [data-underwater-bg]::before {
+    ${THEME_SELECTOR} [data-underwater-bg]::before {
       content: '';
       position: fixed;
       inset: 0;
@@ -547,7 +551,7 @@ export default {
         radial-gradient(ellipse 30% 35% at 80% 25%, rgba(0, 184, 148, 0.04), transparent);
       animation: underwater-caustic-drift 12s ease-in-out infinite alternate;
     }
-    ${T} [data-underwater-bg]::after {
+    ${THEME_SELECTOR} [data-underwater-bg]::after {
       content: '';
       position: fixed;
       inset: 0;
@@ -568,7 +572,7 @@ export default {
     }
 
     /* Jellyfish */
-    ${T} [data-underwater-jellyfish] {
+    ${THEME_SELECTOR} [data-underwater-jellyfish] {
       display: block !important;
       position: fixed;
       top: 0;
@@ -578,7 +582,7 @@ export default {
       cursor: pointer;
       pointer-events: auto !important;
     }
-    ${T} [data-underwater-jellyfish] img {
+    ${THEME_SELECTOR} [data-underwater-jellyfish] img {
       display: block;
       animation: underwater-jellyfish-pulse 3s ease-in-out infinite;
     }
@@ -589,7 +593,7 @@ export default {
     }
 
     /* Sharks */
-    ${T} [data-underwater-shark] {
+    ${THEME_SELECTOR} [data-underwater-shark] {
       display: block !important;
       position: fixed;
       top: 0;
@@ -599,20 +603,20 @@ export default {
       cursor: pointer;
       pointer-events: auto !important;
     }
-    ${T} [data-underwater-shark] img { display: block; }
+    ${THEME_SELECTOR} [data-underwater-shark] img { display: block; }
 
     /* Cursor — diving mask */
-    ${T} a, ${T} button {
+    ${THEME_SELECTOR} a, ${THEME_SELECTOR} button {
       cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='12' rx='10' ry='7' fill='none' stroke='%2300b894' stroke-width='2'/%3E%3Cellipse cx='8' cy='11' rx='4' ry='4' fill='rgba(10,61,98,0.5)' stroke='%2300b894' stroke-width='1'/%3E%3Cellipse cx='16' cy='11' rx='4' ry='4' fill='rgba(10,61,98,0.5)' stroke='%2300b894' stroke-width='1'/%3E%3Cline x1='12' y1='9' x2='12' y2='13' stroke='%2300b894' stroke-width='1'/%3E%3C/svg%3E") 12 12, pointer;
     }
 
     /* Header — water surface gradient */
-    ${T} [data-header] {
+    ${THEME_SELECTOR} [data-header] {
       border-image: linear-gradient(to right, transparent, rgba(0,184,148,0.5) 30%, rgba(249,202,36,0.3) 70%, transparent) 1;
     }
 
     /* Project cards — porthole style */
-    ${T} [data-card] {
+    ${THEME_SELECTOR} [data-card] {
       border: 2px solid rgba(0, 184, 148, 0.3) !important;
       border-radius: 12px;
       background: linear-gradient(170deg, #0e3654 0%, #0a2942 100%) !important;
@@ -625,7 +629,7 @@ export default {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    ${T} [data-card]::before {
+    ${THEME_SELECTOR} [data-card]::before {
       content: '';
       position: absolute;
       top: -1px; left: -1px; right: -1px;
@@ -633,11 +637,11 @@ export default {
       background: linear-gradient(to right, #00b894, #f9ca24, #00b894);
       border-radius: 12px 12px 0 0;
     }
-    ${T} [data-card-detail] { color: #7ec8d9; font-size: 0.75rem; }
+    ${THEME_SELECTOR} [data-card-detail] { color: #7ec8d9; font-size: 0.75rem; }
 
-    ${T} [data-banner-default] { display: none !important; }
-    ${T} [data-banner-underwater] { display: block !important; }
-    ${T} [data-404] { display: none !important; }
-    ${T} [data-404="${ID}"] { display: block !important; }
+    ${THEME_SELECTOR} [data-banner-default] { display: none !important; }
+    ${THEME_SELECTOR} [data-banner-underwater] { display: block !important; }
+    ${THEME_SELECTOR} [data-404] { display: none !important; }
+    ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
 };
