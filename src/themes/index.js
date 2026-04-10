@@ -1,11 +1,13 @@
 import defaultTheme from './default.js';
 import sharks from './sharks.js';
 import canada from './canada.js';
+import underwater from './underwater.js';
 
 export const themes = {
   default: defaultTheme,
   sharks,
   canada,
+  underwater,
 };
 
 const COOKIE_NAME = 'theme';

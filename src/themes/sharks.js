@@ -52,6 +52,7 @@ export default {
     }
     .sharks-goal.is-visible { display: block; }
     .sharks-goal img { width: 140px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+    @media (max-width: 576px) { .sharks-goal img { width: 70px; } }
     .goal-counter { display: flex; flex-direction: column; align-items: flex-end; margin-top: 6px; font-family: 'Lato', sans-serif; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
     .goal-count { font-size: 1rem; color: #EA7200; }
     .goal-high { font-size: 0.75rem; color: #a0b4b6; }

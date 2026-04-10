@@ -20,6 +20,10 @@ const projects = projectsData.projects;
       Sorry, none of these projects are actively maintained, eh.
       They're preserved here for reference.
     </p>
+    <p class="banner-text" data-banner-underwater>
+      These vessels have been scuttled.
+      They rest on the ocean floor for exploration.
+    </p>
   </div>
   <section class="projects">
     {projects.map((project, i) => (
@@ -58,7 +62,8 @@ const projects = projectsData.projects;
 <style is:global>
   /* Theme-specific banner text — hidden by default, shown by theme CSS */
   [data-banner-sharks],
-  [data-banner-canada] {
+  [data-banner-canada],
+  [data-banner-underwater] {
     display: none;
   }
 </style>
