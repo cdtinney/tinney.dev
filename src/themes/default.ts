@@ -1,3 +1,5 @@
+import type { Theme } from './types';
+
 export default {
   name: 'Default',
   swatches: ['rgb(11, 90, 158)', 'rgb(216, 95, 79)'],
@@ -25,4 +27,4 @@ export default {
       message: 'Just kidding. This page does not exist.',
     },
   },
-};
+} satisfies Theme;

@@ -1,7 +1,7 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { getCollection, render } from 'astro:content';
-import { formatDate } from '../../utils/formatDate.js';
+import { formatDate } from '../../utils/formatDate';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog', ({ data }) => !data.archived && !data.draft);

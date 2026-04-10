@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { ScoreCounter } from '../ScoreCounter.js';
+import { ScoreCounter } from '../ScoreCounter';
 
 describe('ScoreCounter', () => {
   beforeEach(() => {

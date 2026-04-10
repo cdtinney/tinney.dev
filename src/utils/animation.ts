@@ -1,8 +1,55 @@
-/**
- * Theme-aware animation loop. Pauses when the given theme is not active.
- * Returns a cancel function to stop the loop permanently.
- */
-export function createAnimationLoop(theme, tick) {
+export interface BouncerOptions {
+  theme: string;
+  size: number;
+  speed: number;
+}
+
+export interface GliderOptions {
+  theme: string;
+  speed: number;
+  dir: 1 | -1;
+  size: number;
+  yAmp: number;
+  yFreq: number;
+  yMin: number;
+  yMax: number;
+  tStep?: number;
+}
+
+export interface DrifterOptions {
+  theme: string;
+  speed: number;
+  xAmp: number;
+  xFreq: number;
+  size: number;
+  yMin?: number;
+  yMaxPct?: number;
+  tStep?: number;
+}
+
+export interface FallingItemsOptions {
+  src: string;
+  count: number;
+  size: number;
+  borderRadius?: string;
+  stagger?: number;
+}
+
+export interface SpawnSpriteOptions {
+  src: string;
+  width: number;
+  height: number;
+  opacity?: number;
+  animate: (el: HTMLElement, id: string) => void;
+  onClick?: ((el: HTMLElement) => void) | null;
+}
+
+export interface GifPopup {
+  show: () => void;
+  cleanup: () => void;
+}
+
+export function createAnimationLoop(theme: string, tick: () => void): () => void {
   let running = true;
   function frame() {
     if (!running) return;
@@ -15,12 +62,11 @@ export function createAnimationLoop(theme, tick) {
   };
 }
 
-/**
- * DVD screensaver-style bounce off all four viewport edges.
- * Returns the element (or null if not found).
- */
-export function createBouncer(selector, { theme, size, speed }) {
-  const el = document.querySelector(selector);
+export function createBouncer(
+  selector: string,
+  { theme, size, speed }: BouncerOptions,
+): HTMLElement | null {
+  const el = document.querySelector<HTMLElement>(selector);
   if (!el) return null;
 
   let x = Math.random() * (window.innerWidth - size);
@@ -56,15 +102,11 @@ export function createBouncer(selector, { theme, size, speed }) {
   return el;
 }
 
-/**
- * Horizontal glide with vertical sine-wave drift. Wraps when off-screen.
- * yMin/yMax are fractions of viewport height (0-1).
- */
 export function createGlider(
-  selector,
-  { theme, speed, dir, size, yAmp, yFreq, yMin, yMax, tStep = 0.015 },
-) {
-  const el = document.querySelector(selector);
+  selector: string,
+  { theme, speed, dir, size, yAmp, yFreq, yMin, yMax, tStep = 0.015 }: GliderOptions,
+): HTMLElement | null {
+  const el = document.querySelector<HTMLElement>(selector);
   if (!el) return null;
 
   let x = dir === 1 ? -size : window.innerWidth + size;
@@ -90,15 +132,11 @@ export function createGlider(
   return el;
 }
 
-/**
- * Vertical bounce with horizontal sine-wave wobble.
- * Bounces between yMin (px) and yMaxPct (fraction of viewport height).
- */
 export function createDrifter(
-  selector,
-  { theme, speed, xAmp, xFreq, size, yMin = 40, yMaxPct = 0.5, tStep = 0.008 },
-) {
-  const el = document.querySelector(selector);
+  selector: string,
+  { theme, speed, xAmp, xFreq, size, yMin = 40, yMaxPct = 0.5, tStep = 0.008 }: DrifterOptions,
+): HTMLElement | null {
+  const el = document.querySelector<HTMLElement>(selector);
   if (!el) return null;
 
   const maxY = () => window.innerHeight * yMaxPct;
@@ -124,12 +162,9 @@ export function createDrifter(
   return el;
 }
 
-/**
- * GIF popup with auto-hide timer. Restarts the GIF on each show().
- */
-export function createGifPopup(selector, duration = 3000) {
-  let timer = null;
-  const el = document.querySelector(selector);
+export function createGifPopup(selector: string, duration = 3000): GifPopup {
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  const el = document.querySelector<HTMLElement>(selector);
 
   function restartGif() {
     const img = el?.querySelector('img');
@@ -156,10 +191,13 @@ export function createGifPopup(selector, duration = 3000) {
   };
 }
 
-/**
- * Drops falling images from the top of the screen with wobble and spin.
- */
-export function createFallingItems({ src, count, size, borderRadius = '0', stagger = 80 }) {
+export function createFallingItems({
+  src,
+  count,
+  size,
+  borderRadius = '0',
+  stagger = 80,
+}: FallingItemsOptions): void {
   for (let i = 0; i < count; i++) {
     const el = document.createElement('img');
     el.src = src;
@@ -201,10 +239,6 @@ export function createFallingItems({ src, count, size, borderRadius = '0', stagg
 
 let _spawnId = 0;
 
-/**
- * Spawns a positioned image and runs an animation callback on it.
- * Returns the container div.
- */
 export function spawnAnimatedSprite({
   src,
   width,
@@ -212,7 +246,7 @@ export function spawnAnimatedSprite({
   opacity = 0.5,
   animate,
   onClick = null,
-}) {
+}: SpawnSpriteOptions): HTMLElement {
   const id = `spawned-${++_spawnId}`;
   const div = document.createElement('div');
   div.id = id;

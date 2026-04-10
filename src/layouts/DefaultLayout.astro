@@ -2,7 +2,7 @@
 import ScrollToTop from '../components/ScrollToTop.astro';
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 import '../styles/global.css';
-import { themes } from '../themes/index.js';
+import { themes } from '../themes/index';
 
 interface Props {
   title?: string;
@@ -139,7 +139,7 @@ const themeHtml = themeEntries
 
     <!-- Initialize active theme's client-side logic -->
     <script>
-      import { applyTheme, getStoredThemeId } from '../themes/index.js';
+      import { applyTheme, getStoredThemeId } from '../themes/index';
       applyTheme(getStoredThemeId() || 'default');
     </script>
   </body>

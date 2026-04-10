@@ -1,19 +1,17 @@
 import { visit } from 'unist-util-visit';
+import type { Element, Root } from 'hast';
 
-function addLazyAttributes(node) {
+function addLazyAttributes(node: Element) {
   if (node.tagName === 'img') {
     node.properties.loading = node.properties.loading || 'lazy';
     node.properties.decoding = node.properties.decoding || 'async';
   }
 }
 
-function transform(tree) {
+function transform(tree: Root) {
   visit(tree, 'element', addLazyAttributes);
 }
 
-/**
- * Rehype plugin that adds loading="lazy" and decoding="async" to all <img> elements.
- */
 export function rehypeLazyImages() {
   return transform;
 }

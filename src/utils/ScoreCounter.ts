@@ -1,13 +1,10 @@
-/**
- * Tracks a session score and a persistent high score in localStorage.
- */
 export class ScoreCounter {
-  /**
-   * @param {string} storageKey - localStorage key for persisting the high score
-   */
-  constructor(storageKey) {
-    this.storageKey = storageKey;
+  score = 0;
+  highScore = 0;
+  private storageKey: string;
 
+  constructor(storageKey: string) {
+    this.storageKey = storageKey;
     try {
       this.highScore = Number.parseInt(localStorage.getItem(storageKey) || '0', 10) || 0;
     } catch {
@@ -15,8 +12,7 @@ export class ScoreCounter {
     }
   }
 
-  /** Increment the score by 1. Updates high score if exceeded. Returns the new score. */
-  increment() {
+  increment(): number {
     this.score++;
     if (this.score > this.highScore) {
       this.highScore = this.score;
@@ -29,10 +25,7 @@ export class ScoreCounter {
     return this.score;
   }
 
-  /** Reset the session score to 0. High score is preserved. */
-  reset() {
+  reset(): void {
     this.score = 0;
   }
-  score = 0;
-  highScore = 0;
 }

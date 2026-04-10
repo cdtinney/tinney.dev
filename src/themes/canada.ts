@@ -1,4 +1,5 @@
-import { createFallingItems } from '../utils/animation.js';
+import type { Theme } from './types';
+import { createFallingItems } from '../utils/animation';
 
 const THEME_ID = 'canada';
 const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
@@ -111,18 +112,6 @@ export default {
       background-repeat: repeat;
     }
   `,
-
-  init() {
-    document.addEventListener('click', (e) => {
-      if (document.documentElement.dataset.theme !== THEME_ID) return;
-      if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
-      createFallingItems({
-        src: `${IMAGE_PATH}/loonie.png`,
-        ...LOONIE_DROP_CONFIG,
-        borderRadius: '50%',
-      });
-    });
-  },
 
   css: `
     ${THEME_SELECTOR} [data-canada-bg] { display: block !important; }
@@ -262,4 +251,16 @@ export default {
     ${THEME_SELECTOR} [data-404] { display: none !important; }
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
-};
+
+  init() {
+    document.addEventListener('click', (e) => {
+      if (document.documentElement.dataset.theme !== THEME_ID) return;
+      if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
+      createFallingItems({
+        src: `${IMAGE_PATH}/loonie.png`,
+        ...LOONIE_DROP_CONFIG,
+        borderRadius: '50%',
+      });
+    });
+  },
+} satisfies Theme;

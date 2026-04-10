@@ -1,5 +1,6 @@
-import { createBouncer, createGifPopup } from '../utils/animation.js';
-import { ScoreCounter } from '../utils/ScoreCounter.js';
+import type { Theme } from './types';
+import { createBouncer, createGifPopup } from '../utils/animation';
+import { ScoreCounter } from '../utils/ScoreCounter';
 
 const THEME_ID = 'sharks';
 const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
@@ -111,29 +112,6 @@ export default {
     .goal-high { font-size: 0.75rem; color: ${PALETTE.textLight}; }
   `,
 
-  _goalPopup: null,
-
-  cleanup() {
-    this._goalPopup?.cleanup();
-  },
-
-  init() {
-    const goalPopup = createGifPopup('.sharks-goal');
-    this._goalPopup = goalPopup;
-
-    const counter = new ScoreCounter(`${THEME_ID}-high-score`);
-    const countEl = document.querySelector('.goal-count');
-    const highEl = document.querySelector('.goal-high');
-
-    const fin = createBouncer('.sharks-fin', { theme: THEME_ID, ...BOUNCING_PUCK_CONFIG });
-    fin?.addEventListener('click', () => {
-      counter.increment();
-      if (countEl) countEl.textContent = `Goals: ${counter.score}`;
-      if (highEl) highEl.textContent = `Best: ${counter.highScore}`;
-      goalPopup.show();
-    });
-  },
-
   css: `
     ${THEME_SELECTOR} [data-sharks-bg] {
       display: block !important;
@@ -198,4 +176,27 @@ export default {
     ${THEME_SELECTOR} [data-404] { display: none !important; }
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
-};
+
+  _goalPopup: null,
+
+  cleanup() {
+    this._goalPopup?.cleanup();
+  },
+
+  init() {
+    const goalPopup = createGifPopup('.sharks-goal');
+    this._goalPopup = goalPopup;
+
+    const counter = new ScoreCounter(`${THEME_ID}-high-score`);
+    const countEl = document.querySelector('.goal-count');
+    const highEl = document.querySelector('.goal-high');
+
+    const fin = createBouncer('.sharks-fin', { theme: THEME_ID, ...BOUNCING_PUCK_CONFIG });
+    fin?.addEventListener('click', () => {
+      counter.increment();
+      if (countEl) countEl.textContent = `Goals: ${counter.score}`;
+      if (highEl) highEl.textContent = `Best: ${counter.highScore}`;
+      goalPopup.show();
+    });
+  },
+} satisfies Theme;

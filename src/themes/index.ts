@@ -1,10 +1,12 @@
-import { getCookie, setCookie } from '../utils/cookies.js';
-import defaultTheme from './default.js';
-import sharks from './sharks.js';
-import canada from './canada.js';
-import underwater from './underwater.js';
+export type { Theme } from './types';
+import { getCookie, setCookie } from '../utils/cookies';
+import type { Theme } from './types';
+import defaultTheme from './default';
+import sharks from './sharks';
+import canada from './canada';
+import underwater from './underwater';
 
-export const themes = {
+export const themes: Record<string, Theme> = {
   default: defaultTheme,
   sharks,
   canada,
@@ -13,17 +15,16 @@ export const themes = {
 
 const COOKIE_NAME = 'theme';
 
-export function getStoredThemeId() {
+export function getStoredThemeId(): string | null {
   return getCookie(COOKIE_NAME);
 }
 
-const initialized = new Set();
+const initialized = new Set<string>();
 
-export function applyTheme(themeId) {
+export function applyTheme(themeId: string): void {
   const theme = themes[themeId];
   if (!theme) return;
 
-  // Clean up all themes before switching
   for (const t of Object.values(themes)) {
     if (t.cleanup) t.cleanup();
   }
@@ -31,13 +32,11 @@ export function applyTheme(themeId) {
   const root = document.documentElement;
   root.dataset.theme = themeId;
 
-  // Initialize theme's client-side logic on first activation
   if (theme.init && !initialized.has(themeId)) {
     initialized.add(themeId);
     theme.init();
   }
 
-  // Apply CSS custom properties
   for (const [property, value] of Object.entries(theme.colors)) {
     root.style.setProperty(property, value);
   }

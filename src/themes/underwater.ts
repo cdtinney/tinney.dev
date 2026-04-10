@@ -1,10 +1,11 @@
+import type { Theme } from './types';
 import {
   createGlider,
   createDrifter,
   createGifPopup,
   createAnimationLoop,
   spawnAnimatedSprite,
-} from '../utils/animation.js';
+} from '../utils/animation';
 
 const THEME_ID = 'underwater';
 const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
@@ -379,34 +380,6 @@ export default {
     }
   `,
 
-  _wavePopup: null,
-
-  cleanup() {
-    this._wavePopup?.cleanup();
-  },
-
-  init() {
-    const wavePopup = createGifPopup('.underwater-wave-gif');
-    this._wavePopup = wavePopup;
-
-    for (const cfg of MANTA_RAY_CONFIG) {
-      const el = createGlider(cfg.selector, { theme: THEME_ID, ...cfg });
-      el?.addEventListener('click', () => wavePopup.show());
-    }
-
-    for (const cfg of JELLYFISH_CONFIG) createDrifter(cfg.selector, { theme: THEME_ID, ...cfg });
-
-    for (const cfg of SHARK_CONFIG)
-      createGlider(cfg.selector, { theme: THEME_ID, ...cfg, tStep: 0.012 });
-
-    for (const el of document.querySelectorAll('[data-underwater-shark]')) {
-      el.addEventListener('click', () => spawnJellyfish());
-    }
-    for (const el of document.querySelectorAll('[data-underwater-jellyfish]')) {
-      el.addEventListener('click', () => spawnShark());
-    }
-  },
-
   css: `
     /* Underwater background */
     ${THEME_SELECTOR} [data-underwater-bg] { display: block !important; }
@@ -646,4 +619,32 @@ export default {
     ${THEME_SELECTOR} [data-404] { display: none !important; }
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
-};
+
+  _wavePopup: null,
+
+  cleanup() {
+    this._wavePopup?.cleanup();
+  },
+
+  init() {
+    const wavePopup = createGifPopup('.underwater-wave-gif');
+    this._wavePopup = wavePopup;
+
+    for (const cfg of MANTA_RAY_CONFIG) {
+      const el = createGlider(cfg.selector, { theme: THEME_ID, ...cfg });
+      el?.addEventListener('click', () => wavePopup.show());
+    }
+
+    for (const cfg of JELLYFISH_CONFIG) createDrifter(cfg.selector, { theme: THEME_ID, ...cfg });
+
+    for (const cfg of SHARK_CONFIG)
+      createGlider(cfg.selector, { theme: THEME_ID, ...cfg, tStep: 0.012 });
+
+    for (const el of document.querySelectorAll('[data-underwater-shark]')) {
+      el.addEventListener('click', () => spawnJellyfish());
+    }
+    for (const el of document.querySelectorAll('[data-underwater-jellyfish]')) {
+      el.addEventListener('click', () => spawnShark());
+    }
+  },
+} satisfies Theme;
