@@ -4,8 +4,6 @@ import PageLayout from '../layouts/PageLayout.astro';
 
 <PageLayout title="404" description="This page is missing." headerTitle="404">
   <div class="container">
-    <p class="route" id="route-display"></p>
-
     <div data-404-default>
       <h1>This content is not available in your country.</h1>
       <p class="truth">Just kidding. This page does not exist.</p>
@@ -25,17 +23,8 @@ import PageLayout from '../layouts/PageLayout.astro';
       <h1>Lost at sea.</h1>
       <p class="truth">This page sank beyond our maximum dive depth.</p>
     </div>
-
-    <a href="/" class="home-link">Go home</a>
   </div>
 </PageLayout>
-
-<script>
-  const el = document.getElementById('route-display');
-  if (el) {
-    el.textContent = window.location.pathname.replace('/', '');
-  }
-</script>
 
 <style>
   .container {
@@ -45,11 +34,6 @@ import PageLayout from '../layouts/PageLayout.astro';
     justify-content: center;
     padding: 2rem;
     text-align: center;
-  }
-
-  .route {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
   }
 
   .truth {
