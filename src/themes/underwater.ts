@@ -1,4 +1,5 @@
 import type { Theme } from './types';
+import type { GifPopup } from '../utils/animation';
 import {
   createGlider,
   createDrifter,
@@ -36,7 +37,7 @@ const MANTA_RAY_CONFIG = [
     yAmp: 18,
     yFreq: 0.6,
     size: 120,
-    dir: 1,
+    dir: 1 as const,
     yMin: 0.12,
     yMax: 0.28,
   },
@@ -46,7 +47,7 @@ const MANTA_RAY_CONFIG = [
     yAmp: 12,
     yFreq: 0.9,
     size: 90,
-    dir: -1,
+    dir: -1 as const,
     yMin: 0.3,
     yMax: 0.45,
   },
@@ -65,7 +66,7 @@ const SHARK_CONFIG = [
     yAmp: 10,
     yFreq: 0.5,
     size: 140,
-    dir: -1,
+    dir: -1 as const,
     yMin: 0.5,
     yMax: 0.65,
   },
@@ -75,13 +76,13 @@ const SHARK_CONFIG = [
     yAmp: 8,
     yFreq: 0.6,
     size: 120,
-    dir: 1,
+    dir: 1 as const,
     yMin: 0.68,
     yMax: 0.82,
   },
 ];
 
-function randomInRange([min, max]) {
+function randomInRange([min, max]: [number, number]) {
   return min + Math.random() * (max - min);
 }
 
@@ -97,22 +98,22 @@ const JELLYFISH_IMAGES = [
 const SHARK_IMAGES = [`${IMAGE_PATH}/shark1.png`, `${IMAGE_PATH}/shark2.png`];
 
 const SPAWNED_JELLYFISH_CONFIG = {
-  widthRange: [30, 40],
+  widthRange: [30, 40] as [number, number],
   heightRatio: 1.5,
   opacity: 0.5,
-  speedRange: [0.1, 0.2],
-  wobbleAmpRange: [12, 22],
-  wobbleFreqRange: [0.3, 0.6],
+  speedRange: [0.1, 0.2] as [number, number],
+  wobbleAmpRange: [12, 22] as [number, number],
+  wobbleFreqRange: [0.3, 0.6] as [number, number],
   phaseStep: 0.008,
   yMin: 40,
   yMaxPct: 0.5,
 };
 
 const SPAWNED_SHARK_CONFIG = {
-  widthRange: [100, 140],
+  widthRange: [100, 140] as [number, number],
   heightRatio: 0.65,
   opacity: 0.35,
-  speedRange: [0.5, 0.8],
+  speedRange: [0.5, 0.8] as [number, number],
   phaseStep: 0.012,
   yAmp: 8,
   yFreq: 0.5,
@@ -620,7 +621,7 @@ export default {
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
 
-  _wavePopup: null,
+  _wavePopup: null as GifPopup | null,
 
   cleanup() {
     this._wavePopup?.cleanup();

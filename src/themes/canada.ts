@@ -255,7 +255,7 @@ export default {
   init() {
     document.addEventListener('click', (e) => {
       if (document.documentElement.dataset.theme !== THEME_ID) return;
-      if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
+      if ((e.target as Element)?.closest('a, button, [data-theme-ui], input, textarea')) return;
       createFallingItems({
         src: `${IMAGE_PATH}/loonie.png`,
         ...LOONIE_DROP_CONFIG,

@@ -56,6 +56,6 @@ export interface Theme {
   css?: string;
   init?: () => void;
   cleanup?: () => void;
-  // Allow themes to store arbitrary internal state
-  [key: `_${string}`]: unknown;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }

@@ -1,4 +1,5 @@
 import type { Theme } from './types';
+import type { GifPopup } from '../utils/animation';
 import { createBouncer, createGifPopup } from '../utils/animation';
 import { ScoreCounter } from '../utils/ScoreCounter';
 
@@ -177,7 +178,7 @@ export default {
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
 
-  _goalPopup: null,
+  _goalPopup: null as GifPopup | null,
 
   cleanup() {
     this._goalPopup?.cleanup();
