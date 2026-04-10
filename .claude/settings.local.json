@@ -17,7 +17,17 @@
       "Bash(npm view:*)",
       "Bash(grep -v '^@[^/]*/[^/]*$')",
       "Bash(git rm:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "WebFetch(domain:teamcolorcodes.com)",
+      "WebSearch",
+      "Bash(npm run:*)",
+      "Bash(python3:*)",
+      "WebFetch(domain:upload.wikimedia.org)",
+      "Bash(curl -sL -o /Users/ctinney/Development/_Personal/tinney.dev/public/sharks-fin.png \"https://content.sportslogos.net/logos/1/26/full/san_jose_sharks_logo_alternate_2023_sportslogosnet-6898.png\")",
+      "WebFetch(domain:www.svgrepo.com)",
+      "WebFetch(domain:uxwing.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:game-icons.net)"
     ]
   }
 }
