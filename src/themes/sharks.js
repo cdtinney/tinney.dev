@@ -68,6 +68,11 @@ export default {
     '--banner-radius': '3px',
   },
 
+  notFound: {
+    heading: 'Offside!',
+    message: 'This page has been sent to the penalty box.',
+  },
+
   html: `
     <div class="sharks-bg" data-sharks-bg aria-hidden="true"></div>
     <div class="sharks-center-logo" data-sharks-center aria-hidden="true">
@@ -188,7 +193,7 @@ export default {
     ${T} [data-banner] { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-sharks] { display: block !important; }
-    ${T} [data-404-default] { display: none !important; }
-    ${T} [data-404-sharks] { display: block !important; }
+    ${T} [data-404] { display: none !important; }
+    ${T} [data-404="${ID}"] { display: block !important; }
   `,
 };

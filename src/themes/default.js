@@ -19,4 +19,8 @@ export default {
     '--color-code-text': '#2d2d2d',
     '--shadow-button': '0 2px 3px rgba(0,0,0,0.16), 0 2px 3px rgba(0,0,0,0.23)',
   },
+  notFound: {
+    heading: 'This content is not available in your country.',
+    message: 'Just kidding. This page does not exist.',
+  },
 };

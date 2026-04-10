@@ -82,6 +82,11 @@ export default {
     '--banner-radius': '6px',
   },
 
+  notFound: {
+    heading: "Sorry, this page doesn't exist.",
+    message: 'We looked everywhere. Double-double sorry.',
+  },
+
   html: `
     <div class="canada-bg" data-canada-bg aria-hidden="true"></div>
     <div class="canada-snowflakes" data-canada-snowflakes aria-hidden="true">
@@ -248,7 +253,7 @@ export default {
 
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-canada] { display: block !important; }
-    ${T} [data-404-default] { display: none !important; }
-    ${T} [data-404-canada] { display: block !important; }
+    ${T} [data-404] { display: none !important; }
+    ${T} [data-404="${ID}"] { display: block !important; }
   `,
 };

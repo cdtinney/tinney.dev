@@ -125,6 +125,11 @@ export default {
     '--banner-radius': '8px',
   },
 
+  notFound: {
+    heading: 'Lost at sea.',
+    message: 'This page sank beyond our maximum dive depth.',
+  },
+
   html: `
     <!-- Underwater background: ocean gradient -->
     <div class="underwater-bg" data-underwater-bg aria-hidden="true"></div>
@@ -281,37 +286,70 @@ export default {
 
     SHARKS.forEach((cfg) => createGlider(cfg.selector, { theme: ID, ...cfg, tStep: 0.012 }));
 
+    // Spawn config for dynamically created creatures
+    const SPAWN_JELLYFISH = {
+      widthRange: [30, 40],
+      heightRatio: 1.5,
+      opacity: 0.5,
+      speedRange: [0.1, 0.2],
+      wobbleAmpRange: [12, 22],
+      wobbleFreqRange: [0.3, 0.6],
+      phaseStep: 0.008,
+      yMin: 40,
+      yMaxPct: 0.5,
+    };
+
+    const SPAWN_SHARK = {
+      widthRange: [100, 140],
+      heightRatio: 0.65,
+      opacity: 0.35,
+      speedRange: [0.5, 0.8],
+      phaseStep: 0.012,
+      yAmp: 8,
+      yFreq: 0.5,
+      yMinPct: 0.5,
+      yBandPct: 0.35,
+    };
+
+    function randomInRange([min, max]) {
+      return min + Math.random() * (max - min);
+    }
+
+    function randomPhase() {
+      return Math.random() * Math.PI * 2;
+    }
+
     function spawnJellyfish() {
-      const w = 30 + Math.random() * 10;
-      const spd = 0.1 + Math.random() * 0.1;
-      const xAmp = 12 + Math.random() * 10;
-      const xFreq = 0.3 + Math.random() * 0.3;
-      const minY = 40;
-      let y = minY + Math.random() * (window.innerHeight * 0.5 - minY);
-      let dy = spd * (Math.random() < 0.5 ? 1 : -1);
-      let baseX = Math.random() * (window.innerWidth - 50);
-      let t = Math.random() * Math.PI * 2;
+      const width = randomInRange(SPAWN_JELLYFISH.widthRange);
+      const speed = randomInRange(SPAWN_JELLYFISH.speedRange);
+      const wobbleAmp = randomInRange(SPAWN_JELLYFISH.wobbleAmpRange);
+      const wobbleFreq = randomInRange(SPAWN_JELLYFISH.wobbleFreqRange);
+      const { yMin, yMaxPct, phaseStep } = SPAWN_JELLYFISH;
+      const maxY = () => window.innerHeight * yMaxPct;
+      let posY = yMin + Math.random() * (maxY() - yMin);
+      let velocityY = speed * (Math.random() < 0.5 ? 1 : -1);
+      const baseX = Math.random() * (window.innerWidth - width);
+      let phase = randomPhase();
 
       spawnAnimatedSprite({
         src: JELLYFISH_IMGS[Math.floor(Math.random() * JELLYFISH_IMGS.length)],
-        width: w,
-        height: w * 1.5,
-        opacity: 0.5,
-        animate(div, id) {
+        width,
+        height: width * SPAWN_JELLYFISH.heightRatio,
+        opacity: SPAWN_JELLYFISH.opacity,
+        animate(el, elId) {
           createAnimationLoop(ID, () => {
-            if (!document.getElementById(id)) return;
-            y += dy;
-            t += 0.008;
-            if (y <= minY) {
-              y = minY;
-              dy = Math.abs(dy);
+            if (!document.getElementById(elId)) return;
+            posY += velocityY;
+            phase += phaseStep;
+            if (posY <= yMin) {
+              posY = yMin;
+              velocityY = Math.abs(velocityY);
             }
-            const maxY = window.innerHeight * 0.5;
-            if (y >= maxY) {
-              y = maxY;
-              dy = -Math.abs(dy);
+            if (posY >= maxY()) {
+              posY = maxY();
+              velocityY = -Math.abs(velocityY);
             }
-            div.style.transform = `translate(${baseX + Math.sin(t * xFreq) * xAmp}px, ${y}px)`;
+            el.style.transform = `translate(${baseX + Math.sin(phase * wobbleFreq) * wobbleAmp}px, ${posY}px)`;
           });
         },
         onClick: () => spawnShark(),
@@ -319,33 +357,36 @@ export default {
     }
 
     function spawnShark() {
-      const dir = Math.random() < 0.5 ? 1 : -1;
-      const w = 100 + Math.random() * 40;
-      const spd = 0.5 + Math.random() * 0.3;
-      let x = dir === 1 ? -w : window.innerWidth + w;
-      let baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
-      let t = Math.random() * Math.PI * 2;
+      const direction = Math.random() < 0.5 ? 1 : -1;
+      const width = randomInRange(SPAWN_SHARK.widthRange);
+      const speed = randomInRange(SPAWN_SHARK.speedRange);
+      const { yAmp, yFreq, yMinPct, yBandPct, phaseStep } = SPAWN_SHARK;
+      const randomBaseY = () =>
+        Math.random() * (window.innerHeight * yBandPct) + window.innerHeight * yMinPct;
+      let posX = direction === 1 ? -width : window.innerWidth + width;
+      let baseY = randomBaseY();
+      let phase = randomPhase();
 
       spawnAnimatedSprite({
-        src: dir === 1 ? SHARK_IMGS[1] : SHARK_IMGS[0],
-        width: w,
-        height: w * 0.65,
-        opacity: 0.35,
-        animate(div, id) {
+        src: direction === 1 ? SHARK_IMGS[1] : SHARK_IMGS[0],
+        width,
+        height: width * SPAWN_SHARK.heightRatio,
+        opacity: SPAWN_SHARK.opacity,
+        animate(el, elId) {
           createAnimationLoop(ID, () => {
-            if (!document.getElementById(id)) return;
-            x += spd * dir;
-            t += 0.012;
-            const y = baseY + Math.sin(t * 0.5) * 8;
-            if (dir === 1 && x > window.innerWidth + w) {
-              x = -w;
-              baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
+            if (!document.getElementById(elId)) return;
+            posX += speed * direction;
+            phase += phaseStep;
+            const posY = baseY + Math.sin(phase * yFreq) * yAmp;
+            if (direction === 1 && posX > window.innerWidth + width) {
+              posX = -width;
+              baseY = randomBaseY();
             }
-            if (dir === -1 && x < -w) {
-              x = window.innerWidth + w;
-              baseY = Math.random() * (window.innerHeight * 0.35) + window.innerHeight * 0.5;
+            if (direction === -1 && posX < -width) {
+              posX = window.innerWidth + width;
+              baseY = randomBaseY();
             }
-            div.style.transform = `translate(${x}px, ${y}px)`;
+            el.style.transform = `translate(${posX}px, ${posY}px)`;
           });
         },
         onClick: () => spawnJellyfish(),
@@ -596,7 +637,7 @@ export default {
 
     ${T} [data-banner-default] { display: none !important; }
     ${T} [data-banner-underwater] { display: block !important; }
-    ${T} [data-404-default] { display: none !important; }
-    ${T} [data-404-underwater] { display: block !important; }
+    ${T} [data-404] { display: none !important; }
+    ${T} [data-404="${ID}"] { display: block !important; }
   `,
 };
