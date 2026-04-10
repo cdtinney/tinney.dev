@@ -35,10 +35,7 @@ export default {
   `,
 
   baseCss: `
-    .canada-bg, .canada-snowflakes {
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
+    .canada-bg, .canada-snowflakes { display: none; pointer-events: none; }
     .canada-bg {
       position: fixed; inset: 0; z-index: -1;
       background-image: url("/maple-leaf.svg"), url("/maple-leaf.svg");
@@ -50,7 +47,7 @@ export default {
 
   css: `
     /* Easter egg elements */
-    ${T} [data-canada-bg] { opacity: 1 !important; visibility: visible !important; }
+    ${T} [data-canada-bg] { display: block !important; }
     ${T} [data-canada-bg]::before,
     ${T} [data-canada-bg]::after {
       content: '';
@@ -134,7 +131,7 @@ export default {
 
     /* Snowflake characters */
     ${T} [data-canada-snowflakes] {
-      opacity: 1 !important; visibility: visible !important;
+      display: block !important;
       position: fixed;
       inset: 0;
       z-index: 1;

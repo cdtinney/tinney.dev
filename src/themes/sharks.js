@@ -40,19 +40,12 @@ export default {
   `,
 
   baseCss: `
-    .sharks-bg, .sharks-center-logo, .sharks-fin {
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-    }
+    .sharks-bg, .sharks-center-logo, .sharks-fin { display: none; pointer-events: none; }
     .sharks-bg {
       position: fixed; inset: 0; z-index: -1;
       background-image: url("/sharks-bg-tile.svg");
       background-size: 600px 500px;
       background-repeat: repeat;
-    }
-    .sharks-center-logo {
-      display: flex; align-items: center; justify-content: center;
-      position: fixed; inset: 0; z-index: -1;
     }
     .sharks-goal {
       display: none; position: fixed; top: 10px; right: 10px; z-index: 300; pointer-events: none;
@@ -139,21 +132,28 @@ export default {
   css: `
     /* Easter egg elements */
     ${T} [data-sharks-bg] {
-      opacity: 1 !important; visibility: visible !important;
+      display: block !important;
       -webkit-mask-image: radial-gradient(ellipse 280px 240px at center, transparent 0%, transparent 100%, black 100%);
       mask-image: radial-gradient(ellipse 280px 240px at center, transparent 0%, transparent 100%, black 100%);
     }
     ${T} [data-sharks-center] {
-      opacity: 1 !important; visibility: visible !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      inset: 0;
+      z-index: -1;
     }
     ${T} [data-sharks-center] img { width: 500px; max-width: 80vw; height: auto; }
     ${T} [data-sharks-fin] {
-      opacity: 0.4 !important; visibility: visible !important;
+      display: block !important;
       position: fixed;
       top: 0; left: 0;
       z-index: 100;
+      opacity: 0.4;
       cursor: pointer;
       pointer-events: auto !important;
+      transition: opacity 0.15s ease;
     }
     ${T} [data-sharks-fin]:hover { opacity: 0.7; }
     ${T} [data-sharks-fin] img { display: block; }

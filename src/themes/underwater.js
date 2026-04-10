@@ -106,8 +106,7 @@ export default {
 
   baseCss: `
     .underwater-bg, .underwater-bubbles, .underwater-waves, .underwater-seabed, .underwater-manta {
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
+      display: none; pointer-events: none;
     }
     .underwater-wave-gif {
       display: none;
@@ -236,11 +235,11 @@ export default {
 
   css: `
     /* Underwater background */
-    ${T} [data-underwater-bg] { opacity: 1 !important; visibility: visible !important; }
+    ${T} [data-underwater-bg] { display: block !important; }
 
     /* Waves at the surface */
     ${T} [data-underwater-waves] {
-      opacity: 1 !important; visibility: visible !important;
+      display: block !important;
       position: fixed;
       top: 0;
       left: 0;
@@ -271,7 +270,7 @@ export default {
 
     /* Bubbles */
     ${T} [data-underwater-bubbles] {
-      opacity: 1 !important; visibility: visible !important;
+      display: block !important;
       position: fixed;
       inset: 0;
       z-index: 1;
@@ -310,7 +309,7 @@ export default {
 
     /* Seabed */
     ${T} [data-underwater-seabed] {
-      opacity: 1 !important; visibility: visible !important;
+      display: block !important;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -350,7 +349,7 @@ export default {
     /* Manta rays */
     ${T} [data-underwater-manta],
     ${T} [data-underwater-manta-2] {
-      opacity: 0.7 !important; visibility: visible !important;
+      display: block !important;
       position: fixed;
       top: 0;
       left: 0;
