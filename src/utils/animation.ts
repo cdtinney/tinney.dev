@@ -1,3 +1,5 @@
+// ─── Interfaces ──────────────────────────────────────────────
+
 /** Options for the DVD screensaver-style bouncing animation. */
 export interface BouncerOptions {
   /** Theme ID — animation only runs when this theme is active. */
@@ -88,6 +90,50 @@ export interface GifPopup {
   cleanup: () => void;
 }
 
+// ─── Math helpers ────────────────────────────────────────────
+
+function randomBetween(min: number, max: number): number {
+  return min + Math.random() * (max - min);
+}
+
+function randomStartPhase(): number {
+  return Math.random() * Math.PI * 2;
+}
+
+/** Returns a random diagonal angle, avoiding near-horizontal/vertical trajectories. */
+function randomDiagonalAngle(): number {
+  const steepness = randomBetween(0.2, 1);
+  const quarterTurn = (steepness * Math.PI) / 2;
+  const mirrored = Math.random() < 0.5 ? -quarterTurn : quarterTurn;
+  return Math.random() < 0.5 ? mirrored + Math.PI : mirrored;
+}
+
+function sineOffset(phase: number, frequency: number, amplitude: number): number {
+  return Math.sin(phase * frequency) * amplitude;
+}
+
+/** Clamps value to [min, max] and reverses velocity on contact. */
+function bounceAtBounds(
+  value: number,
+  velocity: number,
+  min: number,
+  max: number,
+): [number, number] {
+  if (value <= min) return [min, Math.abs(velocity)];
+  if (value >= max) return [max, -Math.abs(velocity)];
+  return [value, velocity];
+}
+
+function randomYInBand(minFraction: number, maxFraction: number): number {
+  return randomBetween(window.innerHeight * minFraction, window.innerHeight * maxFraction);
+}
+
+// ─── Animation loop ──────────────────────────────────────────
+
+/**
+ * Theme-aware requestAnimationFrame loop. The tick callback only fires
+ * when the given theme is active. Returns a cancel function.
+ */
 export function createAnimationLoop(theme: string, tick: () => void): () => void {
   let running = true;
   function frame() {
@@ -101,6 +147,8 @@ export function createAnimationLoop(theme: string, tick: () => void): () => void
   };
 }
 
+// ─── Bouncer (DVD screensaver) ───────────────────────────────
+
 export function createBouncer(
   selector: string,
   { theme, size, speed }: BouncerOptions,
@@ -108,38 +156,26 @@ export function createBouncer(
   const el = document.querySelector<HTMLElement>(selector);
   if (!el) return null;
 
-  let x = Math.random() * (window.innerWidth - size);
-  let y = Math.random() * (window.innerHeight - size);
-  const angle =
-    (((Math.random() * 0.8 + 0.2) * Math.PI) / 2) * (Math.random() < 0.5 ? 1 : -1) +
-    (Math.random() < 0.5 ? Math.PI : 0);
-  let dx = Math.cos(angle) * speed;
-  let dy = Math.sin(angle) * speed;
+  let posX = randomBetween(0, window.innerWidth - size);
+  let posY = randomBetween(0, window.innerHeight - size);
+  const angle = randomDiagonalAngle();
+  let velocityX = Math.cos(angle) * speed;
+  let velocityY = Math.sin(angle) * speed;
 
   createAnimationLoop(theme, () => {
-    x += dx;
-    y += dy;
-    if (x <= 0) {
-      x = 0;
-      dx = Math.abs(dx);
-    }
-    if (x >= window.innerWidth - size) {
-      x = window.innerWidth - size;
-      dx = -Math.abs(dx);
-    }
-    if (y <= 0) {
-      y = 0;
-      dy = Math.abs(dy);
-    }
-    if (y >= window.innerHeight - size) {
-      y = window.innerHeight - size;
-      dy = -Math.abs(dy);
-    }
-    el.style.transform = `translate(${x}px, ${y}px)`;
+    posX += velocityX;
+    posY += velocityY;
+
+    [posX, velocityX] = bounceAtBounds(posX, velocityX, 0, window.innerWidth - size);
+    [posY, velocityY] = bounceAtBounds(posY, velocityY, 0, window.innerHeight - size);
+
+    el.style.transform = `translate(${posX}px, ${posY}px)`;
   });
 
   return el;
 }
+
+// ─── Glider (horizontal + sine drift) ────────────────────────
 
 export function createGlider(
   selector: string,
@@ -148,28 +184,31 @@ export function createGlider(
   const el = document.querySelector<HTMLElement>(selector);
   if (!el) return null;
 
-  let x = dir === 1 ? -size : window.innerWidth + size;
-  const randomY = () =>
-    Math.random() * window.innerHeight * (yMax - yMin) + window.innerHeight * yMin;
-  let baseY = randomY();
-  let t = Math.random() * Math.PI * 2;
+  const offscreenLeft = -size;
+  const offscreenRight = window.innerWidth + size;
+  let posX = dir === 1 ? offscreenLeft : offscreenRight;
+  let baseY = randomYInBand(yMin, yMax);
+  let phase = randomStartPhase();
 
   createAnimationLoop(theme, () => {
-    x += speed * dir;
-    t += tStep;
-    if (dir === 1 && x > window.innerWidth + size) {
-      x = -size;
-      baseY = randomY();
+    posX += speed * dir;
+    phase += tStep;
+
+    const movedOffscreen =
+      (dir === 1 && posX > offscreenRight) || (dir === -1 && posX < offscreenLeft);
+    if (movedOffscreen) {
+      posX = dir === 1 ? offscreenLeft : offscreenRight;
+      baseY = randomYInBand(yMin, yMax);
     }
-    if (dir === -1 && x < -size) {
-      x = window.innerWidth + size;
-      baseY = randomY();
-    }
-    el.style.transform = `translate(${x}px, ${baseY + Math.sin(t * yFreq) * yAmp}px)`;
+
+    const driftY = sineOffset(phase, yFreq, yAmp);
+    el.style.transform = `translate(${posX}px, ${baseY + driftY}px)`;
   });
 
   return el;
 }
+
+// ─── Drifter (vertical bounce + sine wobble) ─────────────────
 
 export function createDrifter(
   selector: string,
@@ -179,56 +218,62 @@ export function createDrifter(
   if (!el) return null;
 
   const maxY = () => window.innerHeight * yMaxPct;
-  let y = yMin + Math.random() * (maxY() - yMin);
-  let dy = speed;
-  const baseX = Math.random() * (window.innerWidth - size);
-  let t = Math.random() * Math.PI * 2;
+  let posY = randomBetween(yMin, maxY());
+  let velocityY = speed;
+  const baseX = randomBetween(0, window.innerWidth - size);
+  let phase = randomStartPhase();
 
   createAnimationLoop(theme, () => {
-    y += dy;
-    t += tStep;
-    if (y <= yMin) {
-      y = yMin;
-      dy = Math.abs(dy);
-    }
-    if (y >= maxY()) {
-      y = maxY();
-      dy = -Math.abs(dy);
-    }
-    el.style.transform = `translate(${baseX + Math.sin(t * xFreq) * xAmp}px, ${y}px)`;
+    posY += velocityY;
+    phase += tStep;
+
+    [posY, velocityY] = bounceAtBounds(posY, velocityY, yMin, maxY());
+
+    const wobbleX = sineOffset(phase, xFreq, xAmp);
+    el.style.transform = `translate(${baseX + wobbleX}px, ${posY}px)`;
   });
 
   return el;
 }
 
-export function createGifPopup(selector: string, duration = 3000): GifPopup {
-  let timer: ReturnType<typeof setTimeout> | null = null;
-  const el = document.querySelector<HTMLElement>(selector);
+// ─── GIF popup ───────────────────────────────────────────────
 
-  function restartGif() {
-    const img = el?.querySelector('img');
+export function createGifPopup(selector: string, duration = 3000): GifPopup {
+  let hideTimer: ReturnType<typeof setTimeout> | null = null;
+  const popup = document.querySelector<HTMLElement>(selector);
+
+  function restartGifAnimation() {
+    const img = popup?.querySelector('img');
     if (img) {
-      const s = img.src;
+      const originalSrc = img.src;
       img.src = '';
-      img.src = s;
+      img.src = originalSrc;
     }
   }
 
   return {
     show() {
-      if (!el) return;
-      el.classList.add('is-visible');
-      restartGif();
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => el.classList.remove('is-visible'), duration);
+      if (!popup) return;
+      popup.classList.add('is-visible');
+      restartGifAnimation();
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => popup.classList.remove('is-visible'), duration);
     },
     cleanup() {
-      if (timer) clearTimeout(timer);
-      timer = null;
-      el?.classList.remove('is-visible');
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = null;
+      popup?.classList.remove('is-visible');
     },
   };
 }
+
+// ─── Falling items ───────────────────────────────────────────
+
+const FALLING_SPEED_RANGE: [number, number] = [2, 5];
+const FALLING_WOBBLE_AMP_RANGE: [number, number] = [15, 35];
+const FALLING_WOBBLE_FREQ_RANGE: [number, number] = [0.02, 0.04];
+const FALLING_SPIN_SPEED_RANGE: [number, number] = [2, 6];
+const FALLING_SPIN_MULTIPLIER = 30;
 
 export function createFallingItems({
   src,
@@ -237,13 +282,15 @@ export function createFallingItems({
   borderRadius = '0',
   stagger = 80,
 }: FallingItemsOptions): void {
+  const offscreenTop = -(size + 10);
+
   for (let i = 0; i < count; i++) {
-    const el = document.createElement('img');
-    el.src = src;
-    Object.assign(el.style, {
+    const itemElement = document.createElement('img');
+    itemElement.src = src;
+    Object.assign(itemElement.style, {
       position: 'fixed',
-      top: `${-(size + 10)}px`,
-      left: `${Math.random() * (window.innerWidth - size)}px`,
+      top: `${offscreenTop}px`,
+      left: `${randomBetween(0, window.innerWidth - size)}px`,
       width: `${size}px`,
       height: `${size}px`,
       objectFit: 'cover',
@@ -252,31 +299,39 @@ export function createFallingItems({
       pointerEvents: 'none',
       opacity: '0.9',
     });
-    document.body.append(el);
+    document.body.append(itemElement);
 
-    const spd = 2 + Math.random() * 3;
-    const wobbleAmp = 15 + Math.random() * 20;
-    const wobbleFreq = 0.02 + Math.random() * 0.02;
-    const spin = 2 + Math.random() * 4;
-    let y = -(size + 10);
-    let t = Math.random() * Math.PI * 2;
+    const fallSpeed = randomBetween(...FALLING_SPEED_RANGE);
+    const wobbleAmplitude = randomBetween(...FALLING_WOBBLE_AMP_RANGE);
+    const wobbleFrequency = randomBetween(...FALLING_WOBBLE_FREQ_RANGE);
+    const spinSpeed = randomBetween(...FALLING_SPIN_SPEED_RANGE);
+    let posY = offscreenTop;
+    let phase = randomStartPhase();
 
     setTimeout(() => {
-      (function fall() {
-        y += spd;
-        t += wobbleFreq;
-        el.style.transform = `translate(${Math.sin(t) * wobbleAmp}px, ${y + size + 10}px) rotate(${t * spin * 30}deg)`;
-        if (y > window.innerHeight + size) {
-          el.remove();
+      function animateFall() {
+        posY += fallSpeed;
+        phase += wobbleFrequency;
+
+        const wobbleX = Math.sin(phase) * wobbleAmplitude;
+        const translateY = posY - offscreenTop;
+        const rotation = phase * spinSpeed * FALLING_SPIN_MULTIPLIER;
+        itemElement.style.transform = `translate(${wobbleX}px, ${translateY}px) rotate(${rotation}deg)`;
+
+        if (posY > window.innerHeight + size) {
+          itemElement.remove();
           return;
         }
-        requestAnimationFrame(fall);
-      })();
+        requestAnimationFrame(animateFall);
+      }
+      requestAnimationFrame(animateFall);
     }, i * stagger);
   }
 }
 
-let _spawnId = 0;
+// ─── Spawn sprite ────────────────────────────────────────────
+
+let nextSpriteId = 0;
 
 export function spawnAnimatedSprite({
   src,
@@ -286,10 +341,10 @@ export function spawnAnimatedSprite({
   animate,
   onClick = null,
 }: SpawnSpriteOptions): HTMLElement {
-  const id = `spawned-${++_spawnId}`;
-  const div = document.createElement('div');
-  div.id = id;
-  Object.assign(div.style, {
+  const spriteId = `spawned-${++nextSpriteId}`;
+  const container = document.createElement('div');
+  container.id = spriteId;
+  Object.assign(container.style, {
     position: 'fixed',
     top: '0',
     left: '0',
@@ -299,15 +354,15 @@ export function spawnAnimatedSprite({
     opacity: String(opacity),
   });
 
-  const img = document.createElement('img');
-  img.src = src;
-  img.width = width;
-  img.height = height;
-  div.append(img);
-  document.body.append(div);
+  const imageElement = document.createElement('img');
+  imageElement.src = src;
+  imageElement.width = width;
+  imageElement.height = height;
+  container.append(imageElement);
+  document.body.append(container);
 
-  animate(div, id);
-  if (onClick) div.addEventListener('click', () => onClick(div));
+  animate(container, spriteId);
+  if (onClick) container.addEventListener('click', () => onClick(container));
 
-  return div;
+  return container;
 }
