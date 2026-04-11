@@ -11,6 +11,12 @@
 - `pnpm run typecheck` — TypeScript type check (tsc --noEmit)
 - `pnpm run test` — Run Vitest tests
 
+## Workflow
+
+- **Do not push directly to `main`.** All changes must go through a pull request.
+- Create a feature branch off `main`, make your changes, and open a PR.
+- PRs must pass CI (lint, format, typecheck, test, build) before merging.
+
 ## Architecture
 
 This is an Astro static site with a declarative theme system. The primary branch is `main`.
