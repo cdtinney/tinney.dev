@@ -37,6 +37,14 @@ export function applyTheme(themeId: string): void {
     theme.init();
   }
 
+  // Clear all CSS custom properties from previous theme before applying new ones.
+  // Without this, optional properties (e.g. --btn-primary-bg) set by a previous
+  // theme would persist when switching to a theme that doesn't define them.
+  const allPropertyKeys = new Set(Object.values(themes).flatMap((t) => Object.keys(t.colors)));
+  for (const property of allPropertyKeys) {
+    root.style.removeProperty(property);
+  }
+
   for (const [property, value] of Object.entries(theme.colors)) {
     root.style.setProperty(property, value);
   }
