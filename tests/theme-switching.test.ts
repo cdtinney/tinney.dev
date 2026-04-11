@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { applyTheme, themes } from '../../themes/index';
+import { applyTheme, themes } from '../src/themes/index';
 
 describe('theme switching', () => {
   beforeEach(() => {

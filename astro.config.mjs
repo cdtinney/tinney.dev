@@ -8,6 +8,9 @@ export default defineConfig({
   site: 'https://tinney.dev',
   trailingSlash: 'never',
   integrations: [sitemap()],
+  redirects: {
+    '/hands': 'http://useyourdamnhands.com/',
+  },
   markdown: {
     shikiConfig: {
       theme: 'one-dark-pro',
