@@ -41,7 +41,6 @@ export interface ThemeColors {
   '--header-border'?: string;
   '--card-link-border'?: string;
   '--card-link-padding-top'?: string;
-  '--card-link-margin-top'?: string;
   '--banner-border'?: string;
   '--banner-bg'?: string;
   '--banner-radius'?: string;

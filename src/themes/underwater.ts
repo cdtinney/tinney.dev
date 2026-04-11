@@ -226,7 +226,6 @@ export default {
     '--header-border': '2px solid transparent',
     '--card-link-border': '1px solid rgba(0, 184, 148, 0.2)',
     '--card-link-padding-top': '0.5rem',
-    '--card-link-margin-top': '0.75rem',
     '--banner-border': '1px solid rgba(0, 184, 148, 0.4)',
     '--banner-bg': 'rgba(0, 184, 148, 0.08)',
     '--banner-radius': '8px',

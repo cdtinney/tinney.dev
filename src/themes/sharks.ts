@@ -65,7 +65,6 @@ export default {
     '--header-border': '3px solid',
     '--card-link-border': `1px solid ${PALETTE.orangeBorder}`,
     '--card-link-padding-top': '0.5rem',
-    '--card-link-margin-top': '0.75rem',
     '--banner-border': `2px solid ${PALETTE.orange}`,
     '--banner-bg': `linear-gradient(180deg, ${PALETTE.scoreTeal} 0%, ${PALETTE.midTeal} 100%)`,
     '--banner-radius': '3px',

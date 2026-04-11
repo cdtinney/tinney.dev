@@ -77,7 +77,6 @@ export default {
     '--header-border': `2px solid ${PALETTE.whiteHalf}`,
     '--card-link-border': `1px dashed ${PALETTE.whiteTint + '8'}`,
     '--card-link-padding-top': '0.5rem',
-    '--card-link-margin-top': '0.75rem',
     '--banner-border': `2px solid ${PALETTE.whiteHalf}`,
     '--banner-bg': PALETTE.whiteGhost,
     '--banner-radius': '6px',
