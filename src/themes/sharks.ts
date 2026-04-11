@@ -1,7 +1,6 @@
 import type { Theme } from './types';
-import type { GifPopup } from '../utils/dom';
-import { createBouncer } from '../utils/animation';
-import { createGifPopup } from '../utils/dom';
+import type { GifPopup } from '../utils/animation';
+import { createBouncer, createGifPopup } from '../utils/animation';
 import { ScoreCounter } from '../utils/ScoreCounter';
 
 const THEME_ID = 'sharks';
