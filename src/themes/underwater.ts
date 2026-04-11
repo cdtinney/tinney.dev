@@ -1,12 +1,7 @@
 import type { Theme } from './types';
-import type { GifPopup } from '../utils/animation';
-import {
-  createGlider,
-  createDrifter,
-  createGifPopup,
-  createAnimationLoop,
-  spawnAnimatedSprite,
-} from '../utils/animation';
+import type { GifPopup } from '../utils/dom';
+import { createGlider, createDrifter, createAnimationLoop } from '../utils/animation';
+import { createGifPopup, spawnAnimatedSprite } from '../utils/dom';
 
 const THEME_ID = 'underwater';
 const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;

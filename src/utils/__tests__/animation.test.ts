@@ -1,10 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import {
-  createAnimationLoop,
-  createGifPopup,
-  createFallingItems,
-  spawnAnimatedSprite,
-} from '../animation';
+import { createAnimationLoop } from '../animation';
+import { createGifPopup, createFallingItems, spawnAnimatedSprite } from '../dom';
 
 describe('createAnimationLoop', () => {
   beforeEach(() => {

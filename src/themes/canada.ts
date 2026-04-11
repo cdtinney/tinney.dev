@@ -1,5 +1,5 @@
 import type { Theme } from './types';
-import { createFallingItems } from '../utils/animation';
+import { createFallingItems } from '../utils/dom';
 
 const THEME_ID = 'canada';
 const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
