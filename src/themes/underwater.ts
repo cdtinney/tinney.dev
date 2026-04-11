@@ -324,9 +324,11 @@ export default {
       z-index: 400;
       pointer-events: none;
     }
-    .underwater-wave-gif.is-visible { display: block; animation: manta-party-entrance 0.4s ease-out; }
+    .underwater-wave-gif.is-visible { display: block; animation: manta-party-entrance 0.4s ease-out forwards; }
     .underwater-wave-gif img {
       width: 200px;
+      height: auto;
+      aspect-ratio: auto;
       border-radius: 12px;
       border: 4px solid;
       animation: manta-rainbow-border 0.5s linear infinite, manta-wiggle 0.3s ease-in-out infinite alternate;
@@ -364,9 +366,9 @@ export default {
       100% { transform: rotate(2deg) scale(1.02); }
     }
     @keyframes manta-party-entrance {
-      0% { transform: translate(-50%, -50%) scale(0) rotate(-20deg); opacity: 0; }
-      60% { transform: translate(-50%, -50%) scale(1.15) rotate(5deg); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      70% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     }
     .underwater-bg {
       position: fixed; inset: 0; z-index: -1;
