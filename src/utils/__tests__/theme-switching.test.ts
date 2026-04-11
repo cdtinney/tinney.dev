@@ -12,49 +12,33 @@ describe('theme switching', () => {
     }
   });
 
-  it('sets data-theme attribute on the root element', () => {
-    applyTheme('sharks');
-    expect(document.documentElement.dataset.theme).toBe('sharks');
-  });
-
-  it('applies CSS custom properties from the theme', () => {
+  it('applies theme: sets data-theme, CSS properties, and cookie', () => {
     applyTheme('sharks');
     const root = document.documentElement;
+
+    expect(root.dataset.theme).toBe('sharks');
     expect(root.style.getPropertyValue('--color-bg')).toBe(themes.sharks.colors['--color-bg']);
+    expect(document.cookie).toContain('theme=sharks');
   });
 
-  it('clears previous theme button variables when switching to default', () => {
-    applyTheme('sharks');
-    const root = document.documentElement;
-
-    // Sharks sets --btn-primary-bg
-    expect(root.style.getPropertyValue('--btn-primary-bg')).toBe(
-      themes.sharks.colors['--btn-primary-bg']!,
-    );
-
-    // Switch to default, which does not define --btn-primary-bg
-    applyTheme('default');
-
-    // The sharks value should be cleared, not persisted
-    expect(root.style.getPropertyValue('--btn-primary-bg')).toBe('');
-  });
-
-  it('clears previous theme variables when switching between non-default themes', () => {
-    applyTheme('sharks');
-    const root = document.documentElement;
-    const sharksHeaderBorder = themes.sharks.colors['--header-border'];
-
-    expect(root.style.getPropertyValue('--header-border')).toBe(sharksHeaderBorder!);
-
-    applyTheme('canada');
-    const canadaHeaderBorder = themes.canada.colors['--header-border'];
-
-    // Should have Canada's value, not Sharks'
-    expect(root.style.getPropertyValue('--header-border')).toBe(canadaHeaderBorder!);
-  });
-
-  it('persists theme selection in a cookie', () => {
-    applyTheme('underwater');
-    expect(document.cookie).toContain('theme=underwater');
+  it.each([
+    {
+      label: 'to default',
+      from: 'sharks',
+      to: 'default',
+      property: '--btn-primary-bg',
+      expected: '',
+    },
+    {
+      label: 'between non-default themes',
+      from: 'sharks',
+      to: 'canada',
+      property: '--header-border',
+      expected: themes.canada.colors['--header-border']!,
+    },
+  ])('clears stale CSS variables when switching $label', ({ from, to, property, expected }) => {
+    applyTheme(from);
+    applyTheme(to);
+    expect(document.documentElement.style.getPropertyValue(property)).toBe(expected);
   });
 });

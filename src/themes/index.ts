@@ -21,6 +21,9 @@ export function getStoredThemeId(): string | null {
 
 const initialized = new Set<string>();
 
+// Computed once — the union of all CSS property keys across all themes
+const allCssPropertyKeys = new Set(Object.values(themes).flatMap((t) => Object.keys(t.colors)));
+
 export function applyTheme(themeId: string): void {
   const theme = themes[themeId];
   if (!theme) return;
@@ -37,11 +40,8 @@ export function applyTheme(themeId: string): void {
     theme.init();
   }
 
-  // Clear all CSS custom properties from previous theme before applying new ones.
-  // Without this, optional properties (e.g. --btn-primary-bg) set by a previous
-  // theme would persist when switching to a theme that doesn't define them.
-  const allPropertyKeys = new Set(Object.values(themes).flatMap((t) => Object.keys(t.colors)));
-  for (const property of allPropertyKeys) {
+  // Prevents optional properties (e.g. --btn-primary-bg) from persisting across theme switches
+  for (const property of allCssPropertyKeys) {
     root.style.removeProperty(property);
   }
 
