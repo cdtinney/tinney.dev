@@ -36,7 +36,8 @@
       "Bash(npx tsc:*)",
       "Bash(echo \"LINT: $?\")",
       "Bash(ln -s CONTRIBUTING.md CLAUDE.md)",
-      "Bash(echo \"TC: $?\")"
+      "Bash(echo \"TC: $?\")",
+      "Bash(pnpm exec:*)"
     ]
   }
 }

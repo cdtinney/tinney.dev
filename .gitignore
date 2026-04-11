@@ -40,3 +40,7 @@ package-lock.json
 # Optional caches
 .eslintcache
 .cache/
+
+# Playwright
+test-results/
+playwright-report/

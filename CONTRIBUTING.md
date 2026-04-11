@@ -17,6 +17,22 @@
 - Create a feature branch off `main`, make your changes, and open a PR.
 - PRs must pass CI (lint, format, typecheck, test, build) before merging.
 
+## Commit Messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/). Commit messages are validated by commitlint on the `commit-msg` hook.
+
+Format: `type(scope): description`
+
+Common types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `style`
+
+Examples:
+
+- `feat: add underwater theme`
+- `fix: clear stale CSS variables on theme switch`
+- `refactor: extract math helpers from animation.ts`
+- `docs: update CONTRIBUTING.md`
+- `test: add e2e tests for theme switching`
+
 ## Architecture
 
 This is an Astro static site with a declarative theme system. The primary branch is `main`.
