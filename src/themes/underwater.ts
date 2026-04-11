@@ -318,9 +318,10 @@ export default {
     .underwater-wave-gif {
       display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      inset: 0;
+      margin: auto;
+      width: fit-content;
+      height: fit-content;
       z-index: 400;
       pointer-events: none;
     }
@@ -366,9 +367,9 @@ export default {
       100% { transform: rotate(2deg) scale(1.02); }
     }
     @keyframes manta-party-entrance {
-      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-      70% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      0% { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.05); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
     }
     .underwater-bg {
       position: fixed; inset: 0; z-index: -1;
