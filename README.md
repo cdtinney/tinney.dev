@@ -56,22 +56,22 @@ Themes are defined in `src/themes/` as TypeScript files satisfying the `Theme` i
 
 ```
 $ pnpm install
-$ pnpm run dev
+$ pnpm dev
 ```
 
 ### Commands
 
-| Command                 | Description                |
-| ----------------------- | -------------------------- |
-| `pnpm run dev`          | Start dev server           |
-| `pnpm run build`        | Production build           |
-| `pnpm run lint`         | ESLint check               |
-| `pnpm run lint:fix`     | ESLint auto-fix            |
-| `pnpm run format`       | Prettier format all files  |
-| `pnpm run format:check` | Prettier check             |
-| `pnpm run typecheck`    | TypeScript type check      |
-| `pnpm run test`         | Run unit tests (Vitest)    |
-| `pnpm run test:e2e`     | Run e2e tests (Playwright) |
+| Command             | Description                |
+| ------------------- | -------------------------- |
+| `pnpm dev`          | Start dev server           |
+| `pnpm build`        | Production build           |
+| `pnpm lint`         | ESLint check               |
+| `pnpm lint:fix`     | ESLint auto-fix            |
+| `pnpm format`       | Prettier format all files  |
+| `pnpm format:check` | Prettier check             |
+| `pnpm typecheck`    | TypeScript type check      |
+| `pnpm test`         | Run unit tests (Vitest)    |
+| `pnpm test:e2e`     | Run e2e tests (Playwright) |
 
 ### Linting & Formatting
 

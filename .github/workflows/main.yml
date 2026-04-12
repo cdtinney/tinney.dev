@@ -111,7 +111,11 @@ jobs:
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
-      - run: pnpm run lighthouse
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-dist
+          path: dist
+          retention-days: 1
       - if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
@@ -123,9 +127,29 @@ jobs:
           path: dist
           retention-days: 7
 
+  lighthouse:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: build-dist
+          path: dist
+      - run: pnpm run lighthouse
+
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, lighthouse]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
