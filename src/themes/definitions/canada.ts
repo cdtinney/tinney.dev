@@ -256,7 +256,7 @@ export default {
       if (document.documentElement.dataset.theme !== THEME_ID) return;
       if ((e.target as Element)?.closest('a, button, [data-theme-ui], input, textarea')) return;
       createFallingItems({
-        src: `${IMAGE_PATH}/loonie.png`,
+        src: `${IMAGE_PATH}/loonie.webp`,
         ...LOONIE_DROP_CONFIG,
         borderRadius: '50%',
       });

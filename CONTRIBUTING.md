@@ -2,15 +2,15 @@
 
 ## Commands
 
-- `pnpm run dev` — Start dev server
-- `pnpm run build` — Production build
-- `pnpm run lint` — ESLint check
-- `pnpm run lint:fix` — ESLint auto-fix
-- `pnpm run format` — Prettier format all files
-- `pnpm run format:check` — Prettier check
-- `pnpm run typecheck` — TypeScript type check (`astro check`)
-- `pnpm run test` — Run unit tests (Vitest)
-- `pnpm run test:e2e` — Run e2e tests (Playwright)
+- `pnpm dev` — Start dev server
+- `pnpm build` — Production build
+- `pnpm lint` — ESLint check
+- `pnpm lint:fix` — ESLint auto-fix
+- `pnpm format` — Prettier format all files
+- `pnpm format:check` — Prettier check
+- `pnpm typecheck` — TypeScript type check (`astro check`)
+- `pnpm test` — Run unit tests (Vitest)
+- `pnpm test:e2e` — Run e2e tests (Playwright)
 
 ## Workflow
 
@@ -92,6 +92,10 @@ Themes are defined in `src/themes/` as TypeScript files. Each theme exports an o
 ### Images
 
 Theme images go in `public/images/themes/<theme-name>/`. Reference them via `IMAGE_PATH` constant in the theme file.
+
+- Use **WebP** for all raster images (except cursor PNGs, which need broad format support). Convert with `cwebp -q 80 input.png -o output.webp`.
+- Add `loading="lazy"` to all `<img>` tags in theme `html` — these elements are hidden by default and should not block initial page load.
+- Set `width` and `height` attributes that match the image's actual aspect ratio to prevent layout shift.
 
 ## Code Style
 

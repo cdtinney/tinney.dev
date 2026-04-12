@@ -79,13 +79,13 @@ export default {
   html: `
     <div class="sharks-bg" data-sharks-bg aria-hidden="true"></div>
     <div class="sharks-center-logo" data-sharks-center aria-hidden="true">
-      <img src="${IMAGE_PATH}/sharks-logo-full.svg" alt="" />
+      <img src="${IMAGE_PATH}/sharks-logo-full.svg" alt="" loading="lazy" />
     </div>
     <div class="sharks-fin" data-sharks-fin aria-hidden="true">
-      <img src="${IMAGE_PATH}/sharks-puck.png" alt="" width="${BOUNCING_PUCK_CONFIG.size}" height="${BOUNCING_PUCK_CONFIG.size}" />
+      <img src="${IMAGE_PATH}/sharks-puck.webp" alt="" width="${BOUNCING_PUCK_CONFIG.size}" height="${BOUNCING_PUCK_CONFIG.size}" loading="lazy" />
     </div>
     <div class="sharks-goal" aria-hidden="true">
-      <img src="${IMAGE_PATH}/goal.gif" alt="" />
+      <img src="${IMAGE_PATH}/goal.gif" alt="" loading="lazy" />
       <div class="goal-counter">
         <span class="goal-count"></span>
         <span class="goal-high"></span>
