@@ -61,7 +61,7 @@ jobs:
           path: dist
           retention-days: 7
 
-  lighthouse:
+  performance-audit:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -80,7 +80,7 @@ jobs:
 
   deploy:
     if: github.ref == 'refs/heads/main'
-    needs: [build, lighthouse]
+    needs: [build, performance-audit]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
