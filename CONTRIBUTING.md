@@ -93,6 +93,10 @@ Themes are defined in `src/themes/` as TypeScript files. Each theme exports an o
 
 Theme images go in `public/images/themes/<theme-name>/`. Reference them via `IMAGE_PATH` constant in the theme file.
 
+- Use **WebP** for all raster images (except cursor PNGs, which need broad format support). Convert with `cwebp -q 80 input.png -o output.webp`.
+- Add `loading="lazy"` to all `<img>` tags in theme `html` — these elements are hidden by default and should not block initial page load.
+- Set `width` and `height` attributes that match the image's actual aspect ratio to prevent layout shift.
+
 ## Code Style
 
 ### Naming

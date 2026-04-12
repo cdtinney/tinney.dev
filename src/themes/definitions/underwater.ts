@@ -91,11 +91,11 @@ function randomPhase() {
 }
 
 const JELLYFISH_IMAGES = [
-  `${IMAGE_PATH}/jellyfish1.png`,
-  `${IMAGE_PATH}/jellyfish2.png`,
-  `${IMAGE_PATH}/jellyfish3.png`,
+  `${IMAGE_PATH}/jellyfish1.webp`,
+  `${IMAGE_PATH}/jellyfish2.webp`,
+  `${IMAGE_PATH}/jellyfish3.webp`,
 ];
-const SHARK_IMAGES = [`${IMAGE_PATH}/shark1.png`, `${IMAGE_PATH}/shark2.png`];
+const SHARK_IMAGES = [`${IMAGE_PATH}/shark1.webp`, `${IMAGE_PATH}/shark2.webp`];
 
 const SPAWNED_JELLYFISH_CONFIG = {
   widthRange: [30, 40] as [number, number],
@@ -257,39 +257,39 @@ export default {
     </div>
     <!-- Dive boat at the surface -->
     <div class="underwater-boat" data-underwater-boat aria-hidden="true">
-      <img src="/images/themes/underwater/dive-boat.png" alt="" width="104" height="91" />
+      <img src="/images/themes/underwater/dive-boat.webp" alt="" width="104" height="91" loading="lazy" />
     </div>
     <!-- Sea bed at the bottom -->
     <div class="underwater-seabed" data-underwater-seabed aria-hidden="true">
-      <img src="/images/themes/underwater/sea-floor.png" alt="" />
+      <img src="/images/themes/underwater/sea-floor.webp" alt="" loading="lazy" />
     </div>
     <!-- Manta rays -->
     <div class="underwater-manta underwater-manta-1" data-underwater-manta aria-hidden="true">
-      <img src="/images/themes/underwater/manta-ray-1.png" alt="" width="120" height="80" />
+      <img src="/images/themes/underwater/manta-ray-1.webp" alt="" width="120" height="80" loading="lazy" />
     </div>
     <div class="underwater-manta underwater-manta-2" data-underwater-manta-2 aria-hidden="true">
-      <img src="/images/themes/underwater/manta-ray-2.png" alt="" width="90" height="60" />
+      <img src="/images/themes/underwater/manta-ray-2.webp" alt="" width="80" height="89" loading="lazy" />
     </div>
     <!-- Jellyfish -->
     <div class="underwater-jellyfish underwater-jellyfish-1" data-underwater-jellyfish aria-hidden="true">
-      <img src="/images/themes/underwater/jellyfish1.png" alt="" width="38" height="56" />
+      <img src="/images/themes/underwater/jellyfish1.webp" alt="" width="38" height="56" loading="lazy" />
     </div>
     <div class="underwater-jellyfish underwater-jellyfish-2" data-underwater-jellyfish aria-hidden="true">
-      <img src="/images/themes/underwater/jellyfish2.png" alt="" width="30" height="45" />
+      <img src="/images/themes/underwater/jellyfish2.webp" alt="" width="30" height="45" loading="lazy" />
     </div>
     <div class="underwater-jellyfish underwater-jellyfish-3" data-underwater-jellyfish aria-hidden="true">
-      <img src="/images/themes/underwater/jellyfish3.png" alt="" width="26" height="39" />
+      <img src="/images/themes/underwater/jellyfish3.webp" alt="" width="39" height="39" loading="lazy" />
     </div>
     <!-- Sharks -->
     <div class="underwater-shark underwater-shark-1" data-underwater-shark aria-hidden="true">
-      <img src="/images/themes/underwater/shark1.png" alt="" width="140" height="90" />
+      <img src="/images/themes/underwater/shark1.webp" alt="" width="140" height="93" loading="lazy" />
     </div>
     <div class="underwater-shark underwater-shark-2" data-underwater-shark aria-hidden="true">
-      <img src="/images/themes/underwater/shark2.png" alt="" width="120" height="80" />
+      <img src="/images/themes/underwater/shark2.webp" alt="" width="120" height="68" loading="lazy" />
     </div>
     <!-- Manta ray wave easter egg -->
     <div class="underwater-wave-gif" aria-hidden="true">
-      <img src="/images/themes/underwater/manta-ray-wave.gif" alt="" />
+      <img src="/images/themes/underwater/manta-ray-wave.gif" alt="" loading="lazy" />
     </div>
     <!-- Rising bubbles -->
     <div class="underwater-bubbles" data-underwater-bubbles aria-hidden="true">
@@ -490,7 +490,7 @@ export default {
       width: 100%;
       height: 120px;
       z-index: 2;
-      background: url("/images/themes/underwater/sea-floor.png") repeat-x bottom / auto 100%;
+      background: url("/images/themes/underwater/sea-floor.webp") repeat-x bottom / auto 100%;
     }
     ${THEME_SELECTOR} [data-underwater-seabed] img {
       display: none;
