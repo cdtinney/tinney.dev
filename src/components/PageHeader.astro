@@ -1,12 +1,13 @@
 ---
 import Brand from './Brand.astro';
+import { site } from '../data/site';
 
 interface Props {
   title: string;
   siteTitle?: string;
 }
 
-const { title, siteTitle = 'colin tinney' } = Astro.props;
+const { title, siteTitle = site.title } = Astro.props;
 ---
 
 <header class="header" data-header>

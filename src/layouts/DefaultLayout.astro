@@ -2,7 +2,8 @@
 import ScrollToTop from '../components/ScrollToTop.astro';
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 import '../styles/global.css';
-import { themes } from '../themes/index';
+import { themes } from '../themes/registry';
+import { site } from '../data/site';
 
 interface Props {
   title?: string;
@@ -10,14 +11,11 @@ interface Props {
   ogType?: string;
 }
 
-const {
-  title = 'colin tinney',
-  description = 'A personal website',
-  ogType = 'website',
-} = Astro.props;
-const pageTitle = title === 'colin tinney' ? title : `${title} | colin tinney`;
-const canonicalUrl = new URL(Astro.url.pathname, 'https://tinney.dev').href;
-const ogImageUrl = new URL('/og-image.png', 'https://tinney.dev').href;
+const { title = site.title, description = site.description, ogType = 'website' } = Astro.props;
+const pageTitle = title === site.title ? title : `${title} | ${site.title}`;
+const siteUrl = Astro.site ?? new URL('http://localhost:4321');
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = new URL('/og-image.png', siteUrl).href;
 
 // Build-time: collect theme CSS, base CSS, and HTML from all themes
 const themeEntries = Object.entries(themes);
@@ -46,7 +44,7 @@ const themeHtml = themeEntries
     <meta property="og:description" content={description} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:site_name" content="colin tinney" />
+    <meta property="og:site_name" content={site.title} />
     <meta property="og:image" content={ogImageUrl} />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/png" href="/favicon.png" />
@@ -139,7 +137,7 @@ const themeHtml = themeEntries
 
     <!-- Initialize active theme's client-side logic -->
     <script>
-      import { applyTheme, getStoredThemeId } from '../themes/index';
+      import { applyTheme, getStoredThemeId } from '../themes/registry';
       applyTheme(getStoredThemeId() || 'default');
     </script>
   </body>

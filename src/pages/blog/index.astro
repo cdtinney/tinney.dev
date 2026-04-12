@@ -2,12 +2,13 @@
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { getCollection } from 'astro:content';
 import { formatDate } from '../../utils/formatDate';
+import { site } from '../../data/site';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.archived && !data.draft);
 const posts = allPosts.toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
-<BlogLayout title="colin tinney - blog" description="A personal blog">
+<BlogLayout title={`${site.title} - blog`} description="A personal blog">
   <div>
     {
       posts.map((post) => (

@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { applyTheme, themes } from '../src/themes/index';
+import { applyTheme, themes } from '../../src/themes/registry';
 
-describe('theme switching', () => {
+describe('applyTheme()', () => {
   beforeEach(() => {
     document.documentElement.removeAttribute('style');
     delete document.documentElement.dataset.theme;
