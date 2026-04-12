@@ -37,7 +37,20 @@
       "Bash(echo \"LINT: $?\")",
       "Bash(ln -s CONTRIBUTING.md CLAUDE.md)",
       "Bash(echo \"TC: $?\")",
-      "Bash(pnpm exec:*)"
+      "Bash(pnpm exec:*)",
+      "Bash(find /Users/ctinney/Development/_Personal/tinney.dev -maxdepth 1 -type f \\\\\\(-name *.md -o -name *.json -o -name *.yml -o -name *.yaml -o -name .* \\\\\\))",
+      "Bash(find /Users/ctinney/Development/_Personal/tinney.dev -maxdepth 2 -type f \\\\\\(-name vitest.config.* -o -name playwright.config.* -o -name eslint.config.* -o -name .npmrc -o -name .nvmrc -o -name .editorconfig -o -name .gitignore -o -name Makefile -o -name .dockerignore \\\\\\))",
+      "Bash(find /Users/ctinney/Development/_Personal/tinney.dev -maxdepth 3 -name *.md -type f)",
+      "Bash(ls /Users/ctinney/Development/_Personal/tinney.dev/src/pages/robots*)",
+      "Bash(ls /Users/ctinney/Development/_Personal/tinney.dev/public/robots*)",
+      "Bash(node -e \"const a = require\\(''''eslint-plugin-astro''''\\); console.log\\(JSON.stringify\\(a.configs.recommended.map\\(c => \\({files: c.files, parser: c.languageOptions?.parser?.meta?.name}\\)\\), null, 2\\)\\)\")",
+      "Bash(node -e \"import\\(''''eslint-plugin-astro''''\\).then\\(a => console.log\\(JSON.stringify\\(a.configs.recommended.map\\(c => \\({files: c.files, parserName: c.languageOptions?.parser?.meta?.name, parserOptions: c.languageOptions?.parserOptions}\\)\\), null, 2\\)\\)\\)\")",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(find /Users/ctinney/Development/_Personal/tinney.dev/public/images/themes -type f \\\\\\( -name '*.png' -o -name '*.gif' \\\\\\) -exec ls -lhS {} +)",
+      "Bash(brew list:*)",
+      "Bash(find . -name '*.png' ! -name '*cursor*' -exec rm {} +)",
+      "Bash(pnpm typecheck:*)"
     ]
   }
 }

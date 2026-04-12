@@ -16,6 +16,7 @@
 
 - **Do not push directly to `main`.** All changes must go through a pull request.
 - Create a feature branch off `main`, make your changes, and open a PR.
+- PRs must use the template in `.github/pull_request_template.md` (Description + Testing sections).
 - PRs must pass CI (lint, format, typecheck, test, build) before merging.
 
 ## Commit Messages

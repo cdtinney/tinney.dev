@@ -10,5 +10,6 @@ export const site = {
   social: {
     github: 'cdtinney',
     linkedin: 'cdtinney',
+    letterboxd: 'https://letterboxd.com/cdmt/',
   },
 };
