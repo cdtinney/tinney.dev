@@ -41,10 +41,10 @@
     dropdown?.append(item);
   }
 
-  function updateActive(activeId) {
+  function updateActive(activeId: string) {
     if (!dropdown) return;
     for (const el of dropdown.querySelectorAll('.theme-option')) {
-      el.classList.toggle('active', el.dataset.themeId === activeId);
+      el.classList.toggle('active', (el as HTMLElement).dataset.themeId === activeId);
     }
   }
 
