@@ -18,99 +18,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  setup:
+  lint-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v4
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-
-  lint:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run lint
-
-  format:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run format:check
-
-  typecheck:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run typecheck
-
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run test
+      - run: pnpm lint
+      - run: pnpm format:check
+      - run: pnpm typecheck
+      - run: pnpm test
 
   build:
-    needs: [lint, format, typecheck, test]
+    needs: lint-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+      - run: pnpm build
       - uses: actions/upload-artifact@v4
         with:
           name: build-dist
@@ -132,20 +66,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: pnpm/action-setup@v4
-      - uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          cache: pnpm
       - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
         with:
           name: build-dist
           path: dist
-      - run: pnpm run lighthouse
+      - run: pnpm lighthouse
 
   deploy:
     if: github.ref == 'refs/heads/main'
