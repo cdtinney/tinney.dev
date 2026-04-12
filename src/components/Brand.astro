@@ -1,4 +1,6 @@
 ---
+import { site } from '../data/site';
+
 interface Props {
   title?: string;
   large?: boolean;
@@ -6,12 +8,7 @@ interface Props {
   class?: string;
 }
 
-const {
-  title = 'colin tinney',
-  large = false,
-  underline = true,
-  class: className = '',
-} = Astro.props;
+const { title = site.title, large = false, underline = true, class: className = '' } = Astro.props;
 const headerClass = [
   'header',
   large ? 'header-large' : '',

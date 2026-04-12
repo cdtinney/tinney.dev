@@ -59,7 +59,7 @@ export interface ThemePageContent {
 
 /**
  * A complete theme definition. Themes export an object satisfying this
- * interface and register it in src/themes/index.ts.
+ * interface and register it in src/themes/registry.ts.
  *
  * Properties should appear in this order:
  * name → swatches → colors → pageContent → html → baseCss → css → state → cleanup → init

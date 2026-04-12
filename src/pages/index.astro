@@ -15,11 +15,7 @@ const pageLinks = [
   <div class="container">
     <header>
       <Brand large title={site.title} />
-      <p>
-        Software engineer. Currently working at <a href="https://squareup.com"
-          >Block (formerly known as Square)</a
-        >.
-      </p>
+      <p set:html={site.bio} />
       <PageLinks links={pageLinks} />
     </header>
     <section class="contact-card">

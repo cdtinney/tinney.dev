@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from './DefaultLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import { site } from '../data/site';
 
 interface Props {
   title?: string;
@@ -10,7 +11,7 @@ interface Props {
   ogType?: string;
 }
 
-const { title, description, headerTitle, siteTitle = 'colin tinney', ogType } = Astro.props;
+const { title, description, headerTitle, siteTitle = site.title, ogType } = Astro.props;
 ---
 
 <DefaultLayout title={title} description={description} ogType={ogType}>

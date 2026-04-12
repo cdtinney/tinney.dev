@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('theme switching', () => {
+test.describe('themes load and can be switched', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
   });

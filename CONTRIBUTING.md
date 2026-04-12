@@ -8,8 +8,9 @@
 - `pnpm run lint:fix` — ESLint auto-fix
 - `pnpm run format` — Prettier format all files
 - `pnpm run format:check` — Prettier check
-- `pnpm run typecheck` — TypeScript type check (tsc --noEmit)
-- `pnpm run test` — Run Vitest tests
+- `pnpm run typecheck` — TypeScript type check (`astro check`)
+- `pnpm run test` — Run unit tests (Vitest)
+- `pnpm run test:e2e` — Run e2e tests (Playwright)
 
 ## Workflow
 
@@ -83,6 +84,7 @@ Themes are defined in `src/themes/` as TypeScript files. Each theme exports an o
 
 - `animation.ts` — shared animation functions (`createBouncer`, `createGlider`, `createDrifter`, `createGifPopup`, `createFallingItems`, `spawnAnimatedSprite`)
 - `cookies.ts` — `getCookie`, `setCookie`
+- `math.ts` — math helpers (`randomInRange`, `randomPhase`, etc.)
 - `ScoreCounter.ts` — persistent high score tracker
 - `formatDate.ts` — date formatting
 - `rehypeLazyImages.ts` — rehype plugin for lazy image loading
@@ -132,6 +134,6 @@ Theme images go in `public/images/themes/<theme-name>/`. Reference them via `IMA
 
 ## CI
 
-The CI pipeline runs: `lint` → `format:check` → `typecheck` → `test` → `build`
+The CI pipeline runs: `lint` → `format:check` → `typecheck` → `test` → `build` → `lighthouse`
 
 All checks must pass before merging.

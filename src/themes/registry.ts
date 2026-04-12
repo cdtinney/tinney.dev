@@ -1,10 +1,10 @@
 export type { Theme } from './types';
 import { getCookie, setCookie } from '../utils/cookies';
 import type { Theme } from './types';
-import defaultTheme from './default';
-import sharks from './sharks';
-import canada from './canada';
-import underwater from './underwater';
+import defaultTheme from './definitions/default';
+import sharks from './definitions/sharks';
+import canada from './definitions/canada';
+import underwater from './definitions/underwater';
 
 export const themes: Record<string, Theme> = {
   default: defaultTheme,

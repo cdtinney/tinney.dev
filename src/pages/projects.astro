@@ -2,11 +2,16 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import projectsData from '../data/projects.json';
+import { site } from '../data/site';
 
 const projects = projectsData.projects;
 ---
 
-<PageLayout title="colin tinney - projects" description="Personal projects." headerTitle="projects">
+<PageLayout
+  title={`${site.title} - projects`}
+  description="Personal projects."
+  headerTitle="projects"
+>
   <div class="banner" data-banner>
     <p class="banner-text" data-banner-default>
       None of these projects are actively maintained. They are preserved here for reference.

@@ -1,7 +1,7 @@
-import type { Theme } from './types';
-import type { GifPopup } from '../utils/animation';
-import { createBouncer, createGifPopup } from '../utils/animation';
-import { ScoreCounter } from '../utils/ScoreCounter';
+import type { Theme } from '../types';
+import type { GifPopup } from '../../utils/animation';
+import { createBouncer, createGifPopup } from '../../utils/animation';
+import { ScoreCounter } from '../../utils/ScoreCounter';
 
 const THEME_ID = 'sharks';
 const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
