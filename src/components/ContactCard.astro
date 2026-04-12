@@ -3,7 +3,7 @@ import AnchorButton from './AnchorButton.astro';
 
 interface Props {
   contact: { email: string; displayedEmail: string; resumeUrl: string };
-  social: { github: string; linkedin: string };
+  social: { github: string; linkedin: string; letterboxd: string };
 }
 
 const { contact, social } = Astro.props;
@@ -37,6 +37,50 @@ const { contact, social } = Astro.props;
           fill="currentColor"
           d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
         ></path></svg
+      >
+    </a>
+    <a
+      href={social.letterboxd}
+      title="Letterboxd profile"
+      aria-label="Letterboxd profile"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg class="icon" viewBox="0 0 500 500" width="20" height="20"
+        ><defs
+          ><rect id="lb-mask-1" x="0" y="0" width="129.85" height="141.44"></rect><rect
+            id="lb-mask-3"
+            x="0"
+            y="0"
+            width="129.85"
+            height="141.44"></rect></defs
+        ><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+          ><circle fill="currentColor" cx="250" cy="250" r="250"></circle><g
+            transform="translate(61, 180)"
+            ><ellipse fill="var(--color-bg)" cx="189" cy="70" rx="70.08" ry="70"></ellipse><g
+              transform="translate(248.15, 0)"
+              ><mask id="lb-mask-2" fill="white"><use href="#lb-mask-1"></use></mask><ellipse
+                fill="var(--color-bg)"
+                mask="url(#lb-mask-2)"
+                cx="59.77"
+                cy="70"
+                rx="70.08"
+                ry="70"></ellipse></g
+            ><g
+              ><mask id="lb-mask-4" fill="white"><use href="#lb-mask-3"></use></mask><ellipse
+                fill="var(--color-bg)"
+                mask="url(#lb-mask-4)"
+                cx="70.08"
+                cy="70"
+                rx="70.08"
+                ry="70"></ellipse></g
+            ><path
+              d="M129.54,107.06 C122.81,96.31 118.92,83.61 118.92,70 C118.92,56.39 122.81,43.69 129.54,32.94 C136.27,43.69 140.16,56.39 140.16,70 C140.16,83.61 136.27,96.31 129.54,107.06Z"
+              fill="currentColor"></path><path
+              d="M248.46,32.94 C255.19,43.69 259.08,56.39 259.08,70 C259.08,83.61 255.19,96.31 248.46,107.06 C241.73,96.31 237.84,83.61 237.84,70 C237.84,56.39 241.73,43.69 248.46,32.94Z"
+              fill="currentColor"></path></g
+          ></g
+        ></svg
       >
     </a>
   </div>
@@ -82,6 +126,7 @@ const { contact, social } = Astro.props;
   .social a,
   .email a {
     color: var(--color-text-muted);
+    text-decoration: none;
   }
 
   .social a:hover,

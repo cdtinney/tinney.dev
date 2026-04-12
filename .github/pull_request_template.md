@@ -4,4 +4,4 @@
 
 ## Testing
 
-<!-- How was this tested? -->
+<!-- How was this tested? A bullet point list is fine; no checklists. -->
