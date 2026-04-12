@@ -1,8 +1,9 @@
-import { createFallingItems } from '../utils/animation.js';
+import type { Theme } from './types';
+import { createFallingItems } from '../utils/animation';
 
-const ID = 'canada';
-const T = `[data-theme="${ID}"]`;
-const IMG = '/images/themes/canada';
+const THEME_ID = 'canada';
+const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
+const IMAGE_PATH = '/images/themes/canada';
 
 const PALETTE = {
   red: '#FF0000',
@@ -17,16 +18,16 @@ const PALETTE = {
   snowColor: 'rgba(255, 255, 255, 0.6)',
 };
 
-const LOONIE = { count: 10, size: 48 };
+const LOONIE_DROP_CONFIG = { count: 10, size: 48 };
 
-const SNOW = {
+const FALLING_SNOW_CONFIG = {
   slowDuration: '16s',
   fastDuration: '8s',
   tileSize: '100% 33.33%',
   offset: '-33.33%',
 };
 
-const FLAKES = [
+const SNOWFLAKE_CONFIG = [
   { cls: 'f1', left: '8%', size: '14px', dur: '22s', delay: '0s' },
   { cls: 'f2', left: '25%', size: '10px', dur: '18s', delay: '4s' },
   { cls: 'f3', left: '42%', size: '16px', dur: '25s', delay: '8s' },
@@ -35,9 +36,9 @@ const FLAKES = [
   { cls: 'f6', left: '92%', size: '9px', dur: '17s', delay: '6s' },
 ];
 
-const flakeRules = FLAKES.map(
+const snowflakeRules = SNOWFLAKE_CONFIG.map(
   (f) =>
-    `${T} [data-canada-snowflakes] .${f.cls} { left: ${f.left}; font-size: ${f.size}; animation-duration: ${f.dur}; animation-delay: ${f.delay}; }`,
+    `${THEME_SELECTOR} [data-canada-snowflakes] .${f.cls} { left: ${f.left}; font-size: ${f.size}; animation-duration: ${f.dur}; animation-delay: ${f.delay}; }`,
 ).join('\n    ');
 
 export default {
@@ -76,10 +77,16 @@ export default {
     '--header-border': `2px solid ${PALETTE.whiteHalf}`,
     '--card-link-border': `1px dashed ${PALETTE.whiteTint + '8'}`,
     '--card-link-padding-top': '0.5rem',
-    '--card-link-margin-top': '0.75rem',
     '--banner-border': `2px solid ${PALETTE.whiteHalf}`,
     '--banner-bg': PALETTE.whiteGhost,
     '--banner-radius': '6px',
+  },
+
+  pageContent: {
+    notFoundPage: {
+      heading: "Sorry, this page doesn't exist.",
+      message: 'We looked everywhere. Double-double sorry.',
+    },
   },
 
   html: `
@@ -98,31 +105,23 @@ export default {
     .canada-bg, .canada-snowflakes { display: none; pointer-events: none; }
     .canada-bg {
       position: fixed; inset: 0; z-index: -1;
-      background-image: url("${IMG}/maple-leaf.svg"), url("${IMG}/maple-leaf.svg");
+      background-image: url("${IMAGE_PATH}/maple-leaf.svg"), url("${IMAGE_PATH}/maple-leaf.svg");
       background-size: 300px 300px, 250px 250px;
       background-position: 0 0, 170px 130px;
       background-repeat: repeat;
     }
   `,
 
-  init() {
-    document.addEventListener('click', (e) => {
-      if (document.documentElement.getAttribute('data-theme') !== ID) return;
-      if (e.target.closest('a, button, [data-theme-ui], input, textarea')) return;
-      createFallingItems({ src: `${IMG}/loonie.png`, ...LOONIE, borderRadius: '50%' });
-    });
-  },
-
   css: `
-    ${T} [data-canada-bg] { display: block !important; }
-    ${T} [data-canada-bg]::before,
-    ${T} [data-canada-bg]::after {
+    ${THEME_SELECTOR} [data-canada-bg] { display: block !important; }
+    ${THEME_SELECTOR} [data-canada-bg]::before,
+    ${THEME_SELECTOR} [data-canada-bg]::after {
       content: '';
       position: fixed; top: -100%; left: 0;
       width: 100%; height: 300%;
       pointer-events: none; z-index: 1;
     }
-    ${T} [data-canada-bg]::before {
+    ${THEME_SELECTOR} [data-canada-bg]::before {
       background-image:
         radial-gradient(3px 3px at 2% 6%, rgba(255,255,255,0.9), transparent),
         radial-gradient(3.5px 3.5px at 5% 28%, rgba(255,255,255,0.8), transparent),
@@ -147,10 +146,10 @@ export default {
         radial-gradient(2.5px 2.5px at 89% 40%, rgba(255,255,255,0.9), transparent),
         radial-gradient(3px 3px at 93% 65%, rgba(255,255,255,0.8), transparent),
         radial-gradient(3px 3px at 97% 88%, rgba(255,255,255,0.85), transparent);
-      background-size: ${SNOW.tileSize};
-      animation: canada-snow-slow ${SNOW.slowDuration} linear infinite;
+      background-size: ${FALLING_SNOW_CONFIG.tileSize};
+      animation: canada-snow-slow ${FALLING_SNOW_CONFIG.slowDuration} linear infinite;
     }
-    ${T} [data-canada-bg]::after {
+    ${THEME_SELECTOR} [data-canada-bg]::after {
       background-image:
         radial-gradient(1.5px 1.5px at 1% 5%, rgba(255,255,255,0.7), transparent),
         radial-gradient(1px 1px at 4% 22%, rgba(255,255,255,0.6), transparent),
@@ -178,28 +177,28 @@ export default {
         radial-gradient(1px 1px at 91% 35%, rgba(255,255,255,0.65), transparent),
         radial-gradient(1.5px 1.5px at 95% 58%, rgba(255,255,255,0.7), transparent),
         radial-gradient(1px 1px at 99% 80%, rgba(255,255,255,0.6), transparent);
-      background-size: ${SNOW.tileSize};
-      animation: canada-snow-fast ${SNOW.fastDuration} linear infinite;
+      background-size: ${FALLING_SNOW_CONFIG.tileSize};
+      animation: canada-snow-fast ${FALLING_SNOW_CONFIG.fastDuration} linear infinite;
     }
     @keyframes canada-snow-slow {
-      0% { transform: translateY(${SNOW.offset}); }
+      0% { transform: translateY(${FALLING_SNOW_CONFIG.offset}); }
       100% { transform: translateY(0%); }
     }
     @keyframes canada-snow-fast {
-      0% { transform: translateY(${SNOW.offset}); }
+      0% { transform: translateY(${FALLING_SNOW_CONFIG.offset}); }
       100% { transform: translateY(0%); }
     }
 
-    ${T} [data-canada-snowflakes] {
+    ${THEME_SELECTOR} [data-canada-snowflakes] {
       display: block !important;
       position: fixed; inset: 0; z-index: 1; overflow: hidden;
     }
-    ${T} [data-canada-snowflakes] .flake {
+    ${THEME_SELECTOR} [data-canada-snowflakes] .flake {
       position: absolute; top: -20px;
       color: ${PALETTE.snowColor};
       animation: canada-flake-fall linear infinite;
     }
-    ${flakeRules}
+    ${snowflakeRules}
     @keyframes canada-flake-fall {
       0% { top: -20px; transform: rotate(0deg) translateX(0); opacity: 0; }
       5% { opacity: 0.6; }
@@ -208,11 +207,11 @@ export default {
       100% { top: calc(100vh + 20px); transform: rotate(360deg) translateX(-20px); opacity: 0; }
     }
 
-    ${T} a, ${T} button {
+    ${THEME_SELECTOR} a, ${THEME_SELECTOR} button {
       cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='-2015%20-2000%204030%204030'%3E%3Cpath%20fill='%23d52b1e'%20d='m-90%202030%2045-863a95%2095%200%200%200-111-98l-859%20151%20116-320a65%2065%200%200%200-20-73l-941-762%20212-99a65%2065%200%200%200%2034-79l-186-572%20542%20115a65%2065%200%200%200%2073-38l105-247%20423%20454a65%2065%200%200%200%20111-57l-204-1052%20327%20189a65%2065%200%200%200%2091-27l332-652%20332%20652a65%2065%200%200%200%2091%2027l327-189-204%201052a65%2065%200%200%200%20111%2057l423-454%20105%20247a65%2065%200%200%200%2073%2038l542-115-186%20572a65%2065%200%200%200%2034%2079l212%2099-941%20762a65%2065%200%200%200-20%2073l116%20320-859-151a95%2095%200%200%200-111%2098l45%20863z'/%3E%3C/svg%3E") 12 12, pointer;
     }
 
-    ${T} [data-card] {
+    ${THEME_SELECTOR} [data-card] {
       border: 2px solid ${PALETTE.whiteFaint} !important;
       border-radius: 2px;
       background: ${PALETTE.whiteBg} !important;
@@ -225,13 +224,13 @@ export default {
       from { opacity: 0; transform: translateY(-20px) rotate(-2deg); }
       to { opacity: 1; transform: translateY(0) rotate(0deg); }
     }
-    ${T} [data-card]::after {
+    ${THEME_SELECTOR} [data-card]::after {
       content: '';
       position: absolute; top: 0; right: 0; bottom: 0;
       width: 4px;
       background: repeating-linear-gradient(to bottom, transparent, transparent 3px, ${PALETTE.whiteTint} 3px, ${PALETTE.whiteTint} 6px);
     }
-    ${T} [data-postmark] {
+    ${THEME_SELECTOR} [data-postmark] {
       display: flex !important;
       position: absolute; top: 6px; right: 8px;
       font-size: 0.55rem; font-weight: 700;
@@ -243,12 +242,24 @@ export default {
       align-items: center; justify-content: center;
       transform: rotate(-15deg);
     }
-    ${T} [data-card-detail] { font-style: italic; }
-    ${T} [data-card-detail]::before { content: 'Ingredients: '; font-style: normal; font-weight: bold; font-size: 0.75rem; }
+    ${THEME_SELECTOR} [data-card-detail] { font-style: italic; }
+    ${THEME_SELECTOR} [data-card-detail]::before { content: 'Ingredients: '; font-style: normal; font-weight: bold; font-size: 0.75rem; }
 
-    ${T} [data-banner-default] { display: none !important; }
-    ${T} [data-banner-canada] { display: block !important; }
-    ${T} [data-404-default] { display: none !important; }
-    ${T} [data-404-canada] { display: block !important; }
+    ${THEME_SELECTOR} [data-banner-default] { display: none !important; }
+    ${THEME_SELECTOR} [data-banner-canada] { display: block !important; }
+    ${THEME_SELECTOR} [data-404] { display: none !important; }
+    ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
-};
+
+  init() {
+    document.addEventListener('click', (e) => {
+      if (document.documentElement.dataset.theme !== THEME_ID) return;
+      if ((e.target as Element)?.closest('a, button, [data-theme-ui], input, textarea')) return;
+      createFallingItems({
+        src: `${IMAGE_PATH}/loonie.png`,
+        ...LOONIE_DROP_CONFIG,
+        borderRadius: '50%',
+      });
+    });
+  },
+} satisfies Theme;

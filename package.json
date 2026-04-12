@@ -3,6 +3,7 @@
   "type": "module",
   "private": true,
   "version": "1.0.0",
+  "packageManager": "pnpm@10.14.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -12,8 +13,11 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "typecheck": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "lighthouse": "lhci autorun",
     "prepare": "husky"
   },
   "lint-staged": {
@@ -32,12 +36,20 @@
     "astro": "^5.7.10",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
+    "sharp": "^0.34.5",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.8",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^9.39.4",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.59.1",
+    "@types/hast": "^3.0.4",
     "eslint": "^9.39.4",
     "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-unicorn": "^64.0.0",
     "globals": "^17.4.0",
     "happy-dom": "^20.8.9",
     "husky": "^9.1.7",

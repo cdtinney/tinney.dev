@@ -1,10 +1,10 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import { getCollection } from 'astro:content';
-import { formatDate } from '../../utils/formatDate.js';
+import { formatDate } from '../../utils/formatDate';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.archived && !data.draft);
-const posts = allPosts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const posts = allPosts.toSorted((a, b) => b.data.date.getTime() - a.data.date.getTime());
 ---
 
 <BlogLayout title="colin tinney - blog" description="A personal blog">

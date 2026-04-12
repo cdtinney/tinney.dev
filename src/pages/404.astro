@@ -1,28 +1,23 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import { themes } from '../themes/index';
+
+const themeEntries = Object.entries(themes);
 ---
 
 <PageLayout title="404" description="This page is missing." headerTitle="404">
   <div class="container">
-    <div data-404-default>
-      <h1>This content is not available in your country.</h1>
-      <p class="truth">Just kidding. This page does not exist.</p>
-    </div>
-
-    <div data-404-sharks>
-      <h1>Offside!</h1>
-      <p class="truth">This page has been sent to the penalty box.</p>
-    </div>
-
-    <div data-404-canada>
-      <h1>Sorry, this page doesn't exist.</h1>
-      <p class="truth">We looked everywhere. Double-double sorry.</p>
-    </div>
-
-    <div data-404-underwater>
-      <h1>Lost at sea.</h1>
-      <p class="truth">This page sank beyond our maximum dive depth.</p>
-    </div>
+    {
+      themeEntries.map(([id, theme]) =>
+        theme.pageContent?.notFoundPage ? (
+          <div data-404={id} class={id === 'default' ? '' : 'hidden'}>
+            <h1>{theme.pageContent.notFoundPage.heading}</h1>
+            <p class="truth">{theme.pageContent.notFoundPage.message}</p>
+          </div>
+        ) : null,
+      )
+    }
+    <a href="/" class="home-link">Go home</a>
   </div>
 </PageLayout>
 
@@ -49,9 +44,7 @@ import PageLayout from '../layouts/PageLayout.astro';
 </style>
 
 <style is:global>
-  [data-404-sharks],
-  [data-404-canada],
-  [data-404-underwater] {
+  [data-404].hidden {
     display: none;
   }
 </style>

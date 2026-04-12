@@ -1,12 +1,14 @@
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import astro from 'eslint-plugin-astro';
+import unicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 
 export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
+  unicorn.configs['flat/recommended'],
   {
     languageOptions: {
       globals: {
@@ -19,6 +21,13 @@ export default [
         'warn',
         { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' },
       ],
+      // Relax some unicorn rules for this project
+      'unicorn/prevent-abbreviations': 'off',
+      'unicorn/no-null': 'off',
+      'unicorn/filename-case': 'off',
+      'unicorn/prefer-module': 'off',
+      'unicorn/prefer-top-level-await': 'off',
+      'unicorn/no-document-cookie': 'off',
     },
   },
   {

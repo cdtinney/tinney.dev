@@ -16,14 +16,14 @@
 </div>
 
 <script>
-  import { themes, applyTheme, getStoredThemeId } from '../themes/index.js';
+  import { themes, applyTheme, getStoredThemeId } from '../themes/index';
 
   const switcher = document.querySelector('.theme-switcher');
   const btn = document.querySelector('.theme-btn');
   const dropdown = document.querySelector('.theme-dropdown');
 
   // Build dropdown items styled with theme colors
-  Object.entries(themes).forEach(([id, theme]) => {
+  for (const [id, theme] of Object.entries(themes)) {
     const item = document.createElement('button');
     item.className = 'theme-option';
     item.dataset.themeId = id;
@@ -38,13 +38,14 @@
       updateActive(id);
       closeDropdown();
     });
-    dropdown?.appendChild(item);
-  });
+    dropdown?.append(item);
+  }
 
-  function updateActive(activeId) {
-    dropdown?.querySelectorAll('.theme-option').forEach((el) => {
-      el.classList.toggle('active', el.dataset.themeId === activeId);
-    });
+  function updateActive(activeId: string) {
+    if (!dropdown) return;
+    for (const el of dropdown.querySelectorAll('.theme-option')) {
+      el.classList.toggle('active', (el as HTMLElement).dataset.themeId === activeId);
+    }
   }
 
   function closeDropdown() {
