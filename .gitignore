@@ -47,3 +47,6 @@ playwright-report/
 
 # Lighthouse CI
 .lighthouseci/
+
+# Claude Code
+.claude/settings.local.json
