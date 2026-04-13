@@ -4,4 +4,4 @@
 
 ## Testing
 
-<!-- How was this tested? A bullet point list is fine; no checklists. -->
+<!-- How was this tested? Use a bullet point list, not checkboxes. -->

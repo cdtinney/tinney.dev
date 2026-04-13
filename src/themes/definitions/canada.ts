@@ -1,11 +1,13 @@
 import type { Theme } from '../types';
+import { ThemeId, createThemeConfig } from '../types';
 import { createFallingItems } from '../../utils/animation';
 
-const THEME_ID = 'canada';
-const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
-const IMAGE_PATH = '/images/themes/canada';
-
-const PALETTE = {
+const {
+  id: THEME_ID,
+  selector: THEME_SELECTOR,
+  imagePath: IMAGE_PATH,
+  palette: PALETTE,
+} = createThemeConfig(ThemeId.Canada, {
   red: '#FF0000',
   darkRed: '#cc0000',
   white: '#ffffff',
@@ -16,7 +18,7 @@ const PALETTE = {
   whiteGhost: 'rgba(255, 255, 255, 0.15)',
   whiteBg: 'rgba(255, 255, 255, 0.12)',
   snowColor: 'rgba(255, 255, 255, 0.6)',
-};
+});
 
 const LOONIE_DROP_CONFIG = { count: 10, size: 48 };
 

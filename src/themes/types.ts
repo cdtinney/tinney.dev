@@ -1,3 +1,32 @@
+/** Unique identifier for each registered theme. */
+export enum ThemeId {
+  Default = 'default',
+  Sharks = 'sharks',
+  Canada = 'canada',
+  Underwater = 'underwater',
+}
+
+/** Derived constants every non-default theme needs: CSS selector, asset path, and color palette. */
+export interface ThemeConfig<TPalette extends Record<string, string> = Record<string, string>> {
+  id: ThemeId;
+  selector: string;
+  imagePath: string;
+  palette: TPalette;
+}
+
+/** Creates a ThemeConfig, deriving the selector and image path from the theme ID. */
+export function createThemeConfig<TPalette extends Record<string, string>>(
+  id: ThemeId,
+  palette: TPalette,
+): ThemeConfig<TPalette> {
+  return {
+    id,
+    selector: `[data-theme="${id}"]`,
+    imagePath: `/images/themes/${id}`,
+    palette,
+  };
+}
+
 /**
  * CSS custom properties that every theme must define.
  * Required properties set the core palette; optional properties

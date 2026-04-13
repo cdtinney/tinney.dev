@@ -109,7 +109,7 @@ describe('createFallingItems', () => {
 });
 
 describe('spawnAnimatedSprite', () => {
-  const defaultOptions = { src: 'fish.png', width: 100, height: 50 };
+  const defaultOptions = { theme: 'test', src: 'fish.png', width: 100, height: 50 };
 
   beforeEach(() => {
     document.body.innerHTML = '';
