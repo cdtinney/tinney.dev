@@ -1,7 +1,7 @@
 ---
 import DefaultLayout from '../layouts/DefaultLayout.astro';
 import { site } from '../data/site';
-import { moviesByGenre } from '../data/favourites/movies';
+import { moviesByGenre, featuredLists } from '../data/favourites/movies';
 import { miniSeries, fullSeries } from '../data/favourites/tv';
 import music from '../data/favourites/music';
 
@@ -128,10 +128,39 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
         <h2 class="section-title">Movies</h2>
         <button class="random-btn" id="random-movie">Random</button>
       </div>
+      <p class="featured-lists">
+        <span class="featured-label">Featured lists</span>
+        {
+          featuredLists.map((list, i) => (
+            <>
+              {i > 0 && <span class="featured-sep">·</span>}
+              <a
+                href={list.url}
+                class:list={['featured-link', { 'featured-bold': list.bold }]}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {list.name}
+              </a>
+            </>
+          ))
+        }
+      </p>
       {
         sortedMoviesByGenre.map((group) => (
           <div class="genre-group">
-            <h3 class="genre-title">{group.genre}</h3>
+            <div class="genre-header">
+              <h3 class="genre-title">{group.genre}</h3>
+              {group.lists && (
+                <span class="genre-links">
+                  {group.lists.map((list) => (
+                    <a href={list.url} class="genre-link" target="_blank" rel="noopener noreferrer">
+                      {list.name}
+                    </a>
+                  ))}
+                </span>
+              )}
+            </div>
             <div class="poster-row" data-sortable>
               {group.movies.map((movie) => (
                 <div class="poster-card" data-year={movie.year}>
@@ -498,7 +527,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     display: flex;
     align-items: baseline;
     gap: 0.6rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.2rem;
   }
 
   .section-title {
@@ -532,9 +561,52 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     transform: translateY(0);
   }
 
+  /* Featured lists */
+  .featured-lists {
+    font-size: 0.72rem;
+    color: var(--color-text-secondary);
+    margin: 0 0 1.25rem;
+    line-height: 1.6;
+  }
+
+  .featured-label {
+    color: var(--color-text-muted);
+  }
+
+  .featured-label::after {
+    content: ':';
+    margin-right: 0.35rem;
+  }
+
+  .featured-sep {
+    margin: 0 0.3rem;
+    color: var(--color-border);
+  }
+
+  .featured-link {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .featured-link:hover {
+    color: var(--color-primary);
+  }
+
+  .featured-bold {
+    font-weight: 600;
+  }
+
   /* Genre groups (movies) */
   .genre-group {
     margin-bottom: 1.75rem;
+  }
+
+  .genre-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 
   .genre-title {
@@ -543,7 +615,27 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    margin: 0 0 0.5rem;
+    margin: 0;
+  }
+
+  .genre-links {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .genre-link {
+    font-size: 0.65rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .genre-link:hover {
+    color: var(--color-primary);
+  }
+
+  .genre-link::before {
+    content: '→ ';
   }
 
   /* 4-up poster row for movies */

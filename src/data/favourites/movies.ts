@@ -11,7 +11,24 @@ export interface Movie {
 export interface MovieGenreGroup {
   genre: string;
   movies: Movie[];
+  lists?: { name: string; url: string }[];
 }
+
+export interface FeaturedList {
+  name: string;
+  url: string;
+  bold?: boolean;
+}
+
+export const featuredLists: FeaturedList[] = [
+  { name: '2026 Faves', url: 'https://letterboxd.com/cdmt/list/2026_faves/' },
+  { name: 'Real Good Hope', url: 'https://letterboxd.com/cdmt/list/real-good-hope/' },
+  {
+    name: "They Don't Go Anywhere",
+    url: 'https://letterboxd.com/cdmt/list/they-dont-go-anywhere/',
+  },
+  { name: 'All Lists', url: 'https://letterboxd.com/cdmt/lists/', bold: true },
+];
 
 const movies: Movie[] = [
   {
@@ -243,11 +260,37 @@ const movies: Movie[] = [
     cover: '/images/favourites/movies/the-matrix.webp',
     letterboxd: 'https://letterboxd.com/film/the-matrix/',
   },
+  {
+    name: 'Sorry, Baby',
+    year: 2025,
+    director: 'Eva Victor',
+    favouriteCast: ['Eva Victor', 'Naomi Ackie'],
+    cover: '/images/favourites/movies/sorry-baby.webp',
+    letterboxd: 'https://letterboxd.com/film/sorry-baby-2025/',
+  },
+  {
+    name: 'There Will Be Blood',
+    year: 2007,
+    director: 'Paul Thomas Anderson',
+    favouriteCast: ['Daniel Day-Lewis', 'Paul Dano'],
+    cover: '/images/favourites/movies/there-will-be-blood.webp',
+    letterboxd: 'https://letterboxd.com/film/there-will-be-blood/',
+  },
+  {
+    name: 'Aftersun',
+    year: 2022,
+    director: 'Charlotte Wells',
+    favouriteCast: ['Paul Mescal', 'Frankie Corio'],
+    cover: '/images/favourites/movies/aftersun.webp',
+    letterboxd: 'https://letterboxd.com/film/aftersun/',
+  },
 ];
 
 export default movies;
 
 const byName = (name: string) => movies.find((m) => m.name === name)!;
+
+const LB = 'https://letterboxd.com/cdmt/list';
 
 export const moviesByGenre: MovieGenreGroup[] = [
   {
@@ -258,10 +301,17 @@ export const moviesByGenre: MovieGenreGroup[] = [
       byName('Sentimental Value'),
       byName('Incendies'),
     ],
+    lists: [{ name: 'All Time Faves', url: `${LB}/all-time-faves/` }],
   },
   {
     genre: 'Drama',
-    movies: [byName('Incendies'), byName('Oppenheimer'), byName('Sentimental Value')],
+    movies: [
+      byName('There Will Be Blood'),
+      byName('Aftersun'),
+      byName('Oppenheimer'),
+      byName('Sorry, Baby'),
+    ],
+    lists: [{ name: 'Real Good Drama', url: `${LB}/real-good-drama/` }],
   },
   {
     genre: 'Sci-Fi',
@@ -271,6 +321,7 @@ export const moviesByGenre: MovieGenreGroup[] = [
       byName('Annihilation'),
       byName('The Matrix'),
     ],
+    lists: [{ name: 'Sci-Fi Sundays', url: `${LB}/sci-fi-sundays/` }],
   },
   {
     genre: 'Thriller',
@@ -280,10 +331,12 @@ export const moviesByGenre: MovieGenreGroup[] = [
       byName('Ex Machina'),
       byName('Eastern Promises'),
     ],
+    lists: [{ name: 'Real Good Thrillers', url: `${LB}/real-good-thrillers/` }],
   },
   {
     genre: 'Horror',
     movies: [byName('Get Out'), byName('Coherence'), byName('The Descent'), byName('Martyrs')],
+    lists: [{ name: 'Real Good Scares', url: `${LB}/real-good-scares/` }],
   },
   {
     genre: 'Animation',
@@ -302,6 +355,7 @@ export const moviesByGenre: MovieGenreGroup[] = [
       byName('Force Majeure'),
       byName('The Death of Stalin'),
     ],
+    lists: [{ name: 'Real Good Comedies', url: `${LB}/real-good-comedies/` }],
   },
   {
     genre: 'Family',
@@ -311,5 +365,6 @@ export const moviesByGenre: MovieGenreGroup[] = [
       byName("Howl's Moving Castle"),
       byName('Kubo and the Two Strings'),
     ],
+    lists: [{ name: 'Real Good Family Movies', url: `${LB}/real-good-family-movies/` }],
   },
 ];
