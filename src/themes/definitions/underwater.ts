@@ -1,4 +1,5 @@
 import type { Theme } from '../types';
+import { ThemeId, createThemeConfig } from '../types';
 import type { GifPopup } from '../../utils/animation';
 import {
   createGlider,
@@ -6,13 +7,15 @@ import {
   createAnimationLoop,
   createGifPopup,
   spawnAnimatedSprite,
+  cleanupSpawnedSprites,
 } from '../../utils/animation';
 
-const THEME_ID = 'underwater';
-const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
-const IMAGE_PATH = '/images/themes/underwater';
-
-const PALETTE = {
+const {
+  id: THEME_ID,
+  selector: THEME_SELECTOR,
+  imagePath: IMAGE_PATH,
+  palette: PALETTE,
+} = createThemeConfig(ThemeId.Underwater, {
   teal: '#00b894',
   tealLight: '#00d6a8',
   tealBorder: 'rgba(0, 184, 148, 0.3)',
@@ -28,7 +31,7 @@ const PALETTE = {
   textLight: '#d4f1f9',
   textMid: '#7ec8d9',
   textMuted: '#a8dce6',
-};
+});
 
 const MANTA_RAY_CONFIG = [
   {
@@ -134,6 +137,7 @@ function spawnJellyfish() {
   let phase = randomPhase();
 
   spawnAnimatedSprite({
+    theme: THEME_ID,
     src: JELLYFISH_IMAGES[Math.floor(Math.random() * JELLYFISH_IMAGES.length)],
     width,
     height: width * SPAWNED_JELLYFISH_CONFIG.heightRatio,
@@ -170,6 +174,7 @@ function spawnShark() {
   let phase = randomPhase();
 
   spawnAnimatedSprite({
+    theme: THEME_ID,
     src: direction === 1 ? SHARK_IMAGES[1] : SHARK_IMAGES[0],
     width,
     height: width * SPAWNED_SHARK_CONFIG.heightRatio,
@@ -627,6 +632,7 @@ export default {
 
   cleanup() {
     this._wavePopup?.cleanup();
+    cleanupSpawnedSprites(THEME_ID);
   },
 
   init() {

@@ -1,13 +1,15 @@
 import type { Theme } from '../types';
+import { ThemeId, createThemeConfig } from '../types';
 import type { GifPopup } from '../../utils/animation';
 import { createBouncer, createGifPopup } from '../../utils/animation';
 import { ScoreCounter } from '../../utils/ScoreCounter';
 
-const THEME_ID = 'sharks';
-const THEME_SELECTOR = `[data-theme="${THEME_ID}"]`;
-const IMAGE_PATH = '/images/themes/sharks';
-
-const PALETTE = {
+const {
+  id: THEME_ID,
+  selector: THEME_SELECTOR,
+  imagePath: IMAGE_PATH,
+  palette: PALETTE,
+} = createThemeConfig(ThemeId.Sharks, {
   teal: '#006D75',
   orange: '#EA7200',
   darkTeal: '#004a50',
@@ -20,7 +22,7 @@ const PALETTE = {
   rinkRed: '#c8102e',
   rinkBlue: '#0033a0',
   textLight: '#a0b4b6',
-};
+});
 
 const BOUNCING_PUCK_CONFIG = { size: 62, speed: 1.5 };
 const CENTER_LOGO_MAX_WIDTH = '500px';

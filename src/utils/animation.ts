@@ -187,6 +187,8 @@ export interface FallingItemsOptions {
 
 /** Options for spawning an animated image element. */
 export interface SpawnSpriteOptions {
+  /** Theme ID — spawned element is tracked for cleanup when this theme deactivates. */
+  theme: string;
   /** Image source URL. */
   src: string;
   /** Image width in pixels. */
@@ -299,8 +301,10 @@ export function createFallingItems({
 }
 
 let nextSpriteId = 0;
+const spawnedSpritesByTheme = new Map<string, HTMLElement[]>();
 
 export function spawnAnimatedSprite({
+  theme,
   src,
   width,
   height,
@@ -328,8 +332,22 @@ export function spawnAnimatedSprite({
   container.append(imageElement);
   document.body.append(container);
 
+  if (!spawnedSpritesByTheme.has(theme)) spawnedSpritesByTheme.set(theme, []);
+  spawnedSpritesByTheme.get(theme)!.push(container);
+
   animate(container, spriteId);
   if (onClick) container.addEventListener('click', () => onClick(container));
 
   return container;
+}
+
+/**
+ * Remove all spawned sprites for the given theme from the DOM.
+ * Called during theme cleanup.
+ */
+export function cleanupSpawnedSprites(theme: string): void {
+  const sprites = spawnedSpritesByTheme.get(theme);
+  if (!sprites) return;
+  for (const el of sprites) el.remove();
+  spawnedSpritesByTheme.delete(theme);
 }
