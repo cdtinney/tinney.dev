@@ -238,15 +238,18 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     <!-- Music -->
     <section id="music" class="section">
       <h2 class="section-title">Music — Albums</h2>
-      <div class="music-list" data-sortable>
+      <div class="album-grid" data-sortable>
         {
           sortedMusic.map((album) => (
-            <div class="music-item" data-year={album.year}>
-              <span class="music-name">{album.name}</span>
-              <span class="music-artist">
-                {album.artist} · {album.year}
-              </span>
-              <span class="music-genres">{album.genres.join(', ')}</span>
+            <div class="album-card" data-year={album.year}>
+              <img src={album.cover} alt={album.name} class="album-img" loading="lazy" />
+              <div class="album-info">
+                <span class="album-name">{album.name}</span>
+                <span class="album-artist">
+                  {album.artist} · {album.year}
+                </span>
+                <span class="album-genres">{album.genres.join(', ')}</span>
+              </div>
             </div>
           ))
         }
@@ -745,32 +748,46 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   /* Music */
-  .music-list {
+  .album-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 0 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1rem;
   }
 
-  .music-item {
+  .album-card {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid var(--color-border);
+    transition: transform 0.15s;
   }
 
-  .music-name {
-    font-size: 0.82rem;
+  .album-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 3px;
+    transition: opacity 0.15s;
+  }
+
+  .album-info {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.3rem;
+  }
+
+  .album-name {
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--color-text);
+    line-height: 1.25;
+  }
+
+  .album-artist {
+    font-size: 0.68rem;
+    color: var(--color-text-muted);
     line-height: 1.3;
   }
 
-  .music-artist {
-    font-size: 0.72rem;
-    color: var(--color-text-muted);
-  }
-
-  .music-genres {
+  .album-genres {
     font-size: 0.68rem;
     color: var(--color-text-secondary);
     font-style: italic;
@@ -778,8 +795,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
 
   /* ===== View: covers only ===== */
   :global(.view-covers) .poster-info,
-  :global(.view-covers) .music-artist,
-  :global(.view-covers) .music-genres {
+  :global(.view-covers) .album-info {
     display: none;
   }
 
@@ -789,6 +805,11 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   :global(.view-covers) .poster-row {
+    gap: 0.4rem;
+  }
+
+  :global(.view-covers) .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
     gap: 0.4rem;
   }
 
@@ -827,15 +848,32 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     font-size: 0.82rem;
   }
 
-  :global(.view-compact) .music-list {
-    grid-template-columns: 1fr;
+  :global(.view-compact) .album-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  :global(.view-compact) .music-item {
+  :global(.view-compact) .album-card {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
     padding: 0.3rem 0;
+    border-bottom: 1px solid var(--color-border);
   }
 
-  :global(.view-compact) .music-genres {
+  :global(.view-compact) .album-img {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+
+  :global(.view-compact) .album-info {
+    padding-top: 0;
+  }
+
+  :global(.view-compact) .album-genres {
     display: none;
   }
 
@@ -853,8 +891,8 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
       grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     }
 
-    .music-list {
-      grid-template-columns: 1fr;
+    .album-grid {
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
     }
 
     .toolbar {
