@@ -242,7 +242,9 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
         {
           sortedMusic.map((album) => (
             <div class="album-card" data-year={album.year}>
-              <img src={album.cover} alt={album.name} class="album-img" loading="lazy" />
+              <a href={album.spotify} class="album-link" target="_blank" rel="noopener noreferrer">
+                <img src={album.cover} alt={album.name} class="album-img" loading="lazy" />
+              </a>
               <div class="album-info">
                 <span class="album-name">{album.name}</span>
                 <span class="album-artist">
@@ -758,6 +760,14 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     display: flex;
     flex-direction: column;
     transition: transform 0.15s;
+  }
+
+  .album-card:hover {
+    transform: scale(1.04);
+  }
+
+  .album-link {
+    display: block;
   }
 
   .album-img {
