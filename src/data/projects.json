@@ -9,7 +9,7 @@
       "lastCommitDate": "2026-04-08"
     },
     {
-      "name": "spune (broken)",
+      "name": "spune",
       "shortDescription": "Spotify visualizer for your living room TV, inspired by Zune.",
       "techStack": ["React/Redux", "Node.js", "Jest", "Heroku", "MongoDB"],
       "homepageUrl": "https://spune.tinney.dev",
