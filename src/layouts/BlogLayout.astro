@@ -18,14 +18,14 @@ const { title, description, ogType } = Astro.props;
 
 <style>
   .blog-content {
-    padding: 0 1.25rem;
+    padding: 0 var(--space-md);
     min-width: 40vw;
     max-width: 100%;
   }
 
   @media (max-width: 576px) {
     .blog-content {
-      padding: 0 1rem;
+      padding: 0 var(--space-md);
     }
   }
 </style>

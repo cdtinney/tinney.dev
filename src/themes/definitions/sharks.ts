@@ -25,6 +25,7 @@ const {
 });
 
 const BOUNCING_PUCK_CONFIG = { size: 62, speed: 1.5 };
+const SECRET_GOAL_THRESHOLD = 10;
 const CENTER_LOGO_MAX_WIDTH = '500px';
 const BACKGROUND_TILE_SIZE = '600px 500px';
 const GOAL_GIF_SIZE = '140px';
@@ -88,6 +89,7 @@ export default {
       <div class="goal-counter">
         <span class="goal-count"></span>
         <span class="goal-high"></span>
+        <a href="/secret" class="goal-secret">You found a secret.</a>
       </div>
     </div>
   `,
@@ -109,6 +111,8 @@ export default {
     .goal-counter { display: flex; flex-direction: column; align-items: flex-end; margin-top: 6px; font-family: 'Lato', sans-serif; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
     .goal-count { font-size: 1rem; color: ${PALETTE.orange}; }
     .goal-high { font-size: 0.75rem; color: ${PALETTE.textLight}; }
+    .goal-secret { display: none; font-size: 0.7rem; color: ${PALETTE.orange}; margin-top: 4px; pointer-events: auto; }
+    .goal-secret.revealed { display: block; }
   `,
 
   css: `
@@ -188,11 +192,15 @@ export default {
     const highEl = document.querySelector('.goal-high');
 
     const fin = createBouncer('.sharks-fin', { theme: THEME_ID, ...BOUNCING_PUCK_CONFIG });
+    const secretEl = document.querySelector('.goal-secret');
     fin?.addEventListener('click', () => {
       counter.increment();
       if (countEl) countEl.textContent = `Goals: ${counter.score}`;
       if (highEl) highEl.textContent = `Best: ${counter.highScore}`;
       goalPopup.show();
+      if (counter.score >= SECRET_GOAL_THRESHOLD) {
+        secretEl?.classList.add('revealed');
+      }
     });
   },
 } satisfies Theme;

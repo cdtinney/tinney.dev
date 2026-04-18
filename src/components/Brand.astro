@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { secretPages } from '../data/secret';
 
 interface Props {
   title?: string;
@@ -20,8 +21,52 @@ const headerClass = [
 ---
 
 <h1 class={headerClass}>
-  <a href="/" class="link">{title}</a>
+  <a href="/" class="link" data-brand>{title}</a>
+  <div class="secret-dropdown" data-secret-dropdown>
+    {
+      secretPages.map((page) => (
+        <a href={page.path} class="secret-link">
+          {page.name}
+        </a>
+      ))
+    }
+  </div>
 </h1>
+
+<script>
+  import { onMultiTap } from '../utils/multiTap';
+
+  const isHomePage = globalThis.location.pathname === '/';
+  const brand = document.querySelector<HTMLElement>('[data-brand]');
+  const dropdown = document.querySelector<HTMLElement>('[data-secret-dropdown]');
+
+  if (isHomePage && brand && dropdown) {
+    const show = () => {
+      dropdown.dataset.visible = '';
+    };
+    const hide = () => {
+      delete dropdown.dataset.visible;
+    };
+    const toggle = () => ('visible' in dropdown.dataset ? hide() : show());
+
+    // Hover for 3 seconds
+    let hoverTimer: ReturnType<typeof setTimeout> | null = null;
+    brand.addEventListener('mouseenter', () => {
+      hoverTimer = setTimeout(show, 3000);
+    });
+    brand.addEventListener('mouseleave', () => {
+      if (hoverTimer) clearTimeout(hoverTimer);
+    });
+
+    // Triple tap (only on home page)
+    onMultiTap(brand, toggle, { taps: 3 });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!brand.closest('h1')?.contains(e.target as Node)) hide();
+    });
+  }
+</script>
 
 <style>
   .header {
@@ -29,6 +74,7 @@ const headerClass = [
     margin: 0;
     padding: 0 4px;
     cursor: default;
+    position: relative;
   }
 
   .header-large {
@@ -48,6 +94,25 @@ const headerClass = [
 
   .link:hover {
     color: var(--color-text-secondary) !important;
+  }
+
+  [data-secret-dropdown] {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    flex-direction: column;
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-xs);
+    box-shadow: var(--shadow-dropdown);
+    z-index: 200;
+    min-width: 80px;
+  }
+
+  [data-secret-dropdown][data-visible] {
+    display: flex;
   }
 
   @media (max-width: 576px) {

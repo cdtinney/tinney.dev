@@ -1,0 +1,130 @@
+---
+interface Props {
+  name: string;
+  year: number;
+  cover: string;
+  subtitle: string;
+  extra?: string;
+  href?: string;
+  aspectRatio?: string;
+}
+
+const { name, year, cover, subtitle, extra, href, aspectRatio = '2 / 3' } = Astro.props;
+---
+
+<div class="media-card" data-year={year}>
+  {
+    href ? (
+      <a href={href} class="media-link" target="_blank" rel="noopener noreferrer">
+        <img
+          src={cover}
+          alt={name}
+          class="media-img"
+          style={`aspect-ratio: ${aspectRatio}`}
+          loading="lazy"
+        />
+      </a>
+    ) : (
+      <img
+        src={cover}
+        alt={name}
+        class="media-img"
+        style={`aspect-ratio: ${aspectRatio}`}
+        loading="lazy"
+      />
+    )
+  }
+  <div class="media-info flex-col">
+    <span class="media-name">{name}</span>
+    <span class="media-meta">{subtitle}</span>
+    {extra && <span class="media-extra">{extra}</span>}
+  </div>
+</div>
+
+<style>
+  .media-card {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform var(--transition-fast);
+  }
+
+  .media-link {
+    display: block;
+  }
+
+  .media-card:hover .media-img {
+    opacity: 0.85;
+  }
+
+  .media-img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    transition: opacity var(--transition-fast);
+    background: var(--faves-shimmer, var(--color-bg-surface));
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+
+  .media-img[data-loaded] {
+    animation: none;
+    background: none;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+
+  .media-info {
+    padding-top: 0.3rem;
+  }
+
+  .media-name {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.25;
+  }
+
+  .media-meta {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: 1.3;
+  }
+
+  .media-extra {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+</style>
+
+<style is:global>
+  .dark .media-img {
+    --faves-shimmer: #323238;
+  }
+
+  .media-card.highlight {
+    transform: scale(1.04);
+    z-index: 1;
+  }
+
+  .media-card.highlight .media-img {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+    box-shadow:
+      0 0 12px var(--color-primary),
+      0 4px 16px rgba(0, 0, 0, 0.3);
+    border-radius: var(--radius-sm);
+  }
+
+  .media-card.highlight .media-name {
+    color: var(--color-primary);
+  }
+</style>

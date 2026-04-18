@@ -1,5 +1,6 @@
 ---
 import DefaultLayout from '../layouts/DefaultLayout.astro';
+import MediaCard from '../components/faves/MediaCard.astro';
 import { site } from '../data/site';
 import { moviesByGenre, featuredLists } from '../data/favourites/movies';
 import { miniSeries, fullSeries } from '../data/favourites/tv';
@@ -29,10 +30,10 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   <div class="faves">
     <nav class="toolbar" id="toolbar">
       <div class="toolbar-tabs">
-        <a href="#movies" class="tab-link active" data-tab>Movies</a>
-        <a href="#tv-series" class="tab-link" data-tab>TV</a>
-        <a href="#tv-mini" class="tab-link" data-tab>Mini Series</a>
-        <a href="#music" class="tab-link" data-tab>Albums</a>
+        <a href="#movies" class="tab-link link-quiet active" data-tab>Movies</a>
+        <a href="#tv-series" class="tab-link link-quiet" data-tab>TV</a>
+        <a href="#tv-mini" class="tab-link link-quiet" data-tab>Mini Series</a>
+        <a href="#music" class="tab-link link-quiet" data-tab>Albums</a>
       </div>
       <div class="toolbar-controls">
         <div class="view-dropdown" id="view-dropdown">
@@ -65,7 +66,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
             </svg>
           </button>
           <div class="view-menu" id="view-menu" role="menu">
-            <button class="view-option active" data-view="full" role="menuitem">
+            <button class="view-option btn-reset active" data-view="full" role="menuitem">
               <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"
                 ><rect x="1" y="1" width="6" height="6" rx="1"></rect><rect
                   x="9"
@@ -81,7 +82,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
               >
               Full
             </button>
-            <button class="view-option" data-view="covers" role="menuitem">
+            <button class="view-option btn-reset" data-view="covers" role="menuitem">
               <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"
                 ><rect x="1" y="1" width="4" height="6" rx="1"></rect><rect
                   x="6"
@@ -102,7 +103,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
               >
               Covers
             </button>
-            <button class="view-option" data-view="compact" role="menuitem">
+            <button class="view-option btn-reset" data-view="compact" role="menuitem">
               <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"
                 ><rect x="1" y="2" width="14" height="2" rx="1"></rect><rect
                   x="1"
@@ -136,7 +137,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
               {i > 0 && <span class="featured-sep">·</span>}
               <a
                 href={list.url}
-                class:list={['featured-link', { 'featured-bold': list.bold }]}
+                class:list={['featured-link link-quiet', { 'featured-bold': list.bold }]}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -154,7 +155,12 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
               {group.lists && (
                 <span class="genre-links">
                   {group.lists.map((list) => (
-                    <a href={list.url} class="genre-link" target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={list.url}
+                      class="genre-link link-quiet"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {list.name}
                     </a>
                   ))}
@@ -163,25 +169,14 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
             </div>
             <div class="poster-row" data-sortable>
               {group.movies.map((movie) => (
-                <div class="poster-card" data-year={movie.year}>
-                  <a
-                    href={movie.letterboxd}
-                    class="poster-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src={movie.cover} alt={movie.name} class="poster-img" loading="lazy" />
-                  </a>
-                  <div class="poster-info">
-                    <span class="poster-name">{movie.name}</span>
-                    <span class="poster-meta">
-                      {movie.year} · {movie.director}
-                    </span>
-                    {movie.favouriteCast && (
-                      <span class="poster-meta poster-cast">{movie.favouriteCast.join(', ')}</span>
-                    )}
-                  </div>
-                </div>
+                <MediaCard
+                  name={movie.name}
+                  year={movie.year}
+                  cover={movie.cover}
+                  subtitle={`${movie.year} · ${movie.director}`}
+                  extra={movie.favouriteCast?.join(', ')}
+                  href={movie.letterboxd}
+                />
               ))}
             </div>
           </div>
@@ -195,18 +190,13 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
       <div class="poster-grid" data-sortable>
         {
           sortedFullSeries.map((show) => (
-            <div class="poster-card" data-year={show.year}>
-              <img src={show.cover} alt={show.name} class="poster-img" loading="lazy" />
-              <div class="poster-info">
-                <span class="poster-name">{show.name}</span>
-                <span class="poster-meta">
-                  {show.year} · {show.creator}
-                </span>
-                {show.favouriteCast && (
-                  <span class="poster-meta poster-cast">{show.favouriteCast.join(', ')}</span>
-                )}
-              </div>
-            </div>
+            <MediaCard
+              name={show.name}
+              year={show.year}
+              cover={show.cover}
+              subtitle={`${show.year} · ${show.creator}`}
+              extra={show.favouriteCast?.join(', ')}
+            />
           ))
         }
       </div>
@@ -218,18 +208,13 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
       <div class="poster-grid" data-sortable>
         {
           sortedMiniSeries.map((show) => (
-            <div class="poster-card" data-year={show.year}>
-              <img src={show.cover} alt={show.name} class="poster-img" loading="lazy" />
-              <div class="poster-info">
-                <span class="poster-name">{show.name}</span>
-                <span class="poster-meta">
-                  {show.year} · {show.creator}
-                </span>
-                {show.favouriteCast && (
-                  <span class="poster-meta poster-cast">{show.favouriteCast.join(', ')}</span>
-                )}
-              </div>
-            </div>
+            <MediaCard
+              name={show.name}
+              year={show.year}
+              cover={show.cover}
+              subtitle={`${show.year} · ${show.creator}`}
+              extra={show.favouriteCast?.join(', ')}
+            />
           ))
         }
       </div>
@@ -241,23 +226,20 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
       <div class="album-grid" data-sortable>
         {
           sortedMusic.map((album) => (
-            <div class="album-card" data-year={album.year}>
-              <a href={album.spotify} class="album-link" target="_blank" rel="noopener noreferrer">
-                <img src={album.cover} alt={album.name} class="album-img" loading="lazy" />
-              </a>
-              <div class="album-info">
-                <span class="album-name">{album.name}</span>
-                <span class="album-artist">
-                  {album.artist} · {album.year}
-                </span>
-                <span class="album-genres">{album.genres.join(', ')}</span>
-              </div>
-            </div>
+            <MediaCard
+              name={album.name}
+              year={album.year}
+              cover={album.cover}
+              subtitle={`${album.artist} · ${album.year}`}
+              extra={album.genres.join(', ')}
+              href={album.spotify}
+              aspectRatio="1 / 1"
+            />
           ))
         }
       </div>
     </section>
-    <button class="dark-toggle" id="dark-toggle" aria-label="Toggle dark mode">
+    <button class="dark-toggle icon-btn" id="dark-toggle" aria-label="Toggle dark mode">
       <svg
         class="dark-icon sun"
         viewBox="0 0 24 24"
@@ -309,18 +291,9 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     bottom: 1.25rem;
     right: 1.25rem;
     z-index: 20;
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
     color: var(--color-text-muted);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s;
+    transition: all var(--transition-fast);
   }
 
   .dark-toggle:hover {
@@ -368,15 +341,11 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   .tab-link {
-    font-size: 0.75rem;
+    font-size: var(--text-sm);
     font-weight: 500;
     color: var(--color-text-muted);
-    text-decoration: none;
-    padding: 0.25rem 0.5rem;
-    border-radius: 3px;
-    transition:
-      color 0.15s,
-      background 0.15s;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
   }
 
   .tab-link:hover {
@@ -409,11 +378,11 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     border: 1px solid var(--color-border);
     color: var(--color-text-muted);
     padding: 0.2rem 0.45rem;
-    border-radius: 3px;
-    font-size: 0.7rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all var(--transition-fast);
   }
 
   .view-toggle:hover {
@@ -432,7 +401,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   .view-chevron {
     flex-shrink: 0;
     opacity: 0.6;
-    transition: transform 0.15s;
+    transition: transform var(--transition-fast);
   }
 
   :global(.view-dropdown.open) .view-chevron {
@@ -446,10 +415,10 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     right: 0;
     background: var(--color-bg-surface);
     border: 1px solid var(--color-border);
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     padding: 0.2rem;
     min-width: 100px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-dropdown);
     z-index: 20;
   }
 
@@ -461,16 +430,13 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   .view-option {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    background: none;
-    border: none;
+    gap: var(--space-xs);
     color: var(--color-text-muted);
-    padding: 0.3rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    cursor: pointer;
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
     text-align: left;
-    transition: all 0.1s;
+    transition: all var(--transition-fast);
     width: 100%;
   }
 
@@ -488,11 +454,11 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     border: 1px solid transparent;
     color: var(--color-text-muted);
     padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    font-size: 0.7rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all var(--transition-fast);
   }
 
   .ctrl-btn:hover {
@@ -525,7 +491,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
 
   /* Sections */
   .section {
-    margin-bottom: 2.5rem;
+    margin-bottom: var(--space-lg);
   }
 
   .section-header {
@@ -536,7 +502,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   .section-title {
-    font-size: 1rem;
+    font-size: var(--text-md);
     font-weight: 700;
     color: var(--color-text);
     margin: 0 0 0.75rem;
@@ -547,14 +513,14 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     color: var(--color-bg);
     border: none;
     padding: 0.2rem 0.55rem;
-    border-radius: 3px;
-    font-size: 0.65rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
     font-weight: 600;
     cursor: pointer;
     letter-spacing: 0.03em;
     transition:
-      background 0.15s,
-      transform 0.1s;
+      background var(--transition-fast),
+      transform var(--transition-fast);
   }
 
   .random-btn:hover {
@@ -568,7 +534,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
 
   /* Featured lists */
   .featured-lists {
-    font-size: 0.72rem;
+    font-size: var(--text-sm);
     color: var(--color-text-secondary);
     margin: 0 0 1.25rem;
     line-height: 1.6;
@@ -590,8 +556,6 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
 
   .featured-link {
     color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color 0.15s;
   }
 
   .featured-link:hover {
@@ -615,7 +579,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   .genre-title {
-    font-size: 0.7rem;
+    font-size: var(--text-xs);
     font-weight: 600;
     color: var(--color-text-muted);
     text-transform: uppercase;
@@ -629,10 +593,8 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   .genre-link {
-    font-size: 0.65rem;
+    font-size: var(--text-xs);
     color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color 0.15s;
   }
 
   .genre-link:hover {
@@ -657,234 +619,62 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     gap: 0.75rem;
   }
 
-  /* Shared poster card */
-  .poster-card {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .poster-link {
-    display: block;
-  }
-
-  .poster-card:hover .poster-img {
-    opacity: 0.85;
-  }
-
-  .poster-img,
-  .tv-img {
-    background: var(--faves-shimmer, var(--color-bg-surface));
-    animation: pulse 2.5s ease-in-out infinite;
-  }
-
-  :global(.dark) .poster-img,
-  :global(.dark) .tv-img {
-    --faves-shimmer: #323238;
-  }
-
-  .poster-img[data-loaded],
-  .tv-img[data-loaded] {
-    animation: none;
-    background: none;
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.6;
-    }
-  }
-
-  .poster-img {
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-    border-radius: 3px;
-    transition: opacity 0.15s;
-  }
-
-  .poster-info {
-    display: flex;
-    flex-direction: column;
-    padding-top: 0.3rem;
-  }
-
-  .poster-name {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.25;
-  }
-
-  .poster-meta {
-    font-size: 0.68rem;
-    color: var(--color-text-muted);
-    line-height: 1.3;
-  }
-
-  .poster-cast {
-    color: var(--color-text-secondary);
-  }
-
-  :global(.poster-card.highlight) {
-    transform: scale(1.04);
-    z-index: 1;
-  }
-
-  :global(.poster-card.highlight) .poster-img {
-    outline: 3px solid var(--color-primary);
-    outline-offset: 2px;
-    box-shadow:
-      0 0 12px var(--color-primary),
-      0 4px 16px rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-  }
-
-  :global(.poster-card.highlight) .poster-name {
-    color: var(--color-primary);
-  }
-
-  /* Music */
+  /* Music grid */
   .album-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 1rem;
-  }
-
-  .album-card {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.15s;
-  }
-
-  .album-card:hover {
-    transform: scale(1.04);
-  }
-
-  .album-link {
-    display: block;
-  }
-
-  .album-img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 3px;
-    transition: opacity 0.15s;
-  }
-
-  .album-info {
-    display: flex;
-    flex-direction: column;
-    padding-top: 0.3rem;
-  }
-
-  .album-name {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.25;
-  }
-
-  .album-artist {
-    font-size: 0.68rem;
-    color: var(--color-text-muted);
-    line-height: 1.3;
-  }
-
-  .album-genres {
-    font-size: 0.68rem;
-    color: var(--color-text-secondary);
-    font-style: italic;
+    gap: var(--space-md);
   }
 
   /* ===== View: covers only ===== */
-  :global(.view-covers) .poster-info,
-  :global(.view-covers) .album-info {
+  :global(.view-covers) .media-info {
     display: none;
   }
 
-  :global(.view-covers) .poster-grid {
+  :global(.view-covers) .poster-grid,
+  :global(.view-covers) .album-grid {
     grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 0.4rem;
+    gap: var(--space-xs);
   }
 
   :global(.view-covers) .poster-row {
-    gap: 0.4rem;
-  }
-
-  :global(.view-covers) .album-grid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 0.4rem;
+    gap: var(--space-xs);
   }
 
   /* ===== View: compact list ===== */
   :global(.view-compact) .poster-row,
-  :global(.view-compact) .poster-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  :global(.view-compact) .poster-card {
-    flex-direction: row;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.3rem 0;
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  :global(.view-compact) .poster-img {
-    width: 32px;
-    height: 48px;
-    flex-shrink: 0;
-    border-radius: 2px;
-  }
-
-  :global(.view-compact) .poster-info {
-    padding-top: 0;
-  }
-
-  :global(.view-compact) .poster-cast {
-    display: none;
-  }
-
-  :global(.view-compact) .poster-name {
-    font-size: 0.82rem;
-  }
-
+  :global(.view-compact) .poster-grid,
   :global(.view-compact) .album-grid {
     display: flex;
     flex-direction: column;
     gap: 0;
   }
 
-  :global(.view-compact) .album-card {
+  :global(.view-compact) .media-card {
     flex-direction: row;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.3rem 0;
+    gap: var(--space-sm);
+    padding: var(--space-xs) 0;
     border-bottom: 1px solid var(--color-border);
   }
 
-  :global(.view-compact) .album-img {
-    width: 40px;
-    height: 40px;
+  :global(.view-compact) .media-img {
+    width: 32px;
+    height: 48px;
     flex-shrink: 0;
     border-radius: 2px;
   }
 
-  :global(.view-compact) .album-info {
+  :global(.view-compact) .media-info {
     padding-top: 0;
   }
 
-  :global(.view-compact) .album-genres {
+  :global(.view-compact) .media-extra {
     display: none;
+  }
+
+  :global(.view-compact) .media-name {
+    font-size: var(--text-base);
   }
 
   /* ===== Responsive ===== */
@@ -912,12 +702,6 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
     .toolbar-tabs {
       flex-wrap: wrap;
     }
-  }
-</style>
-
-<style is:global>
-  .theme-switcher {
-    display: none !important;
   }
 </style>
 
@@ -1005,7 +789,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
 
   // Random movie
   document.querySelector('#random-movie')?.addEventListener('click', () => {
-    const allCards = document.querySelectorAll<HTMLElement>('#movies .poster-card');
+    const allCards = document.querySelectorAll<HTMLElement>('#movies .media-card');
     if (allCards.length === 0) return;
 
     // Clear previous highlight
@@ -1041,7 +825,7 @@ const sortedMoviesByGenre = moviesByGenre.map((g) => ({ ...g, movies: byYearDesc
   }
 
   // Remove shimmer when images load
-  for (const img of document.querySelectorAll<HTMLImageElement>('.poster-img, .tv-img')) {
+  for (const img of document.querySelectorAll<HTMLImageElement>('.media-img')) {
     if (img.complete) {
       img.dataset.loaded = '';
     } else {

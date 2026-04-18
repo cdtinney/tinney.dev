@@ -20,7 +20,7 @@ const { title, siteTitle = site.title } = Astro.props;
     <a href="/projects" class="desktop-menu-item">projects</a>
   </nav>
   <span class="mobile-menu">
-    <button class="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+    <button class="hamburger-btn btn-reset" aria-label="Toggle menu" aria-expanded="false">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
@@ -63,7 +63,7 @@ const { title, siteTitle = site.title } = Astro.props;
     line-height: 50px;
     align-items: center;
     border-bottom: var(--header-border);
-    transition: border-bottom 0.3s ease;
+    transition: border-bottom var(--transition-normal) ease;
     position: relative;
   }
 
@@ -101,9 +101,6 @@ const { title, siteTitle = site.title } = Astro.props;
     justify-content: space-around;
     width: 24px;
     height: 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
     padding: 0;
   }
 
@@ -112,7 +109,7 @@ const { title, siteTitle = site.title } = Astro.props;
     width: 100%;
     height: 1px;
     background-color: var(--color-text);
-    transition: all 0.25s ease;
+    transition: all var(--transition-fast) ease;
     transform-origin: center;
   }
 
@@ -143,7 +140,7 @@ const { title, siteTitle = site.title } = Astro.props;
     padding: 0.5em;
     font-size: 1.4rem;
     background-color: var(--color-bg-surface);
-    box-shadow: 3px 3px 6px rgba(15, 15, 15, 0.5);
+    box-shadow: var(--shadow-dropdown);
     z-index: 100;
   }
 
@@ -163,7 +160,7 @@ const { title, siteTitle = site.title } = Astro.props;
     height: 100%;
     background-color: rgb(75, 75, 75);
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity var(--transition-fast) ease-in-out;
     pointer-events: none;
     z-index: 50;
   }

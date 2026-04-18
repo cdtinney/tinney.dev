@@ -6,7 +6,7 @@ const themeEntries = Object.entries(themes);
 ---
 
 <PageLayout title="404" description="This page is missing." headerTitle="404">
-  <div class="container">
+  <div class="container flex-center">
     {
       themeEntries.map(([id, theme]) =>
         theme.pageContent?.notFoundPage ? (
@@ -18,28 +18,37 @@ const themeEntries = Object.entries(themes);
       )
     }
     <a href="/" class="home-link">Go home</a>
+    <a href="/secret" class="hidden-link" aria-label="Secret">.</a>
   </div>
 </PageLayout>
 
 <style>
   .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    padding: var(--space-lg);
     text-align: center;
   }
 
   .truth {
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    margin-top: var(--space-md);
+    font-size: var(--text-base);
     color: var(--color-text-secondary);
   }
 
   .home-link {
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    margin-top: var(--space-lg);
+    font-size: var(--text-base);
+  }
+
+  .hidden-link {
+    margin-top: var(--space-lg);
+    color: var(--color-bg);
+    text-decoration: none;
+    font-size: 0.5rem;
+    transition: color var(--transition-normal);
+  }
+
+  .hidden-link:hover {
+    color: var(--color-text-muted);
   }
 </style>
 

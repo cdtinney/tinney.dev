@@ -26,7 +26,7 @@ const { title, description, headerTitle, siteTitle = site.title, ogType } = Astr
     margin: 0 auto;
     width: 100%;
     max-width: 50rem;
-    padding: 0 1.3125rem 2.625rem;
+    padding: 0 var(--space-md) var(--space-lg);
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -34,7 +34,7 @@ const { title, description, headerTitle, siteTitle = site.title, ogType } = Astr
 
   @media (max-width: 576px) {
     .container {
-      padding: 0 1rem;
+      padding: 0 var(--space-md);
     }
   }
 </style>
