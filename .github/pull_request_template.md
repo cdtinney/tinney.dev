@@ -4,4 +4,4 @@
 
 ## Testing
 
-<!-- How was this tested? Use a bullet point list, not checkboxes. -->
+<!-- How was this tested? Use a bullet point list, not checkboxes. Omit prefixing every list item with "Verified.." or "tested...". -->
