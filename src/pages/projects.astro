@@ -12,21 +12,6 @@ const projects = projectsData.projects;
   description="Personal projects."
   headerTitle="projects"
 >
-  <div class="banner" data-banner>
-    <p class="banner-text" data-banner-default>
-      None of these projects are actively maintained. They are preserved here for reference.
-    </p>
-    <p class="banner-text" data-banner-sharks>
-      These players have been sent to the press box. No longer on the active roster.
-    </p>
-    <p class="banner-text" data-banner-canada>
-      Sorry, none of these projects are actively maintained, eh. They're preserved here for
-      reference.
-    </p>
-    <p class="banner-text" data-banner-underwater>
-      These vessels have been scuttled. They rest on the ocean floor for exploration.
-    </p>
-  </div>
   <section class="projects">
     {projects.map((project, i) => <ProjectCard {...project} index={i} />)}
   </section>
@@ -39,34 +24,5 @@ const projects = projectsData.projects;
     justify-content: center;
     box-sizing: content-box;
     padding: 1rem 0;
-  }
-
-  .banner {
-    margin: 1rem auto;
-    max-width: 600px;
-    padding: 0.75rem 1.25rem;
-    border: var(--banner-border);
-    border-radius: var(--banner-radius);
-    background-color: var(--banner-bg);
-    text-align: center;
-    transition:
-      border 0.3s ease,
-      background-color 0.3s ease,
-      border-radius 0.3s ease;
-  }
-
-  .banner-text {
-    margin: 0;
-    font-size: 0.9rem;
-    color: var(--color-text);
-  }
-</style>
-
-<style is:global>
-  /* Theme-specific banner text — hidden by default, shown by theme CSS */
-  [data-banner-sharks],
-  [data-banner-canada],
-  [data-banner-underwater] {
-    display: none;
   }
 </style>

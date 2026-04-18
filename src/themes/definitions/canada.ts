@@ -79,9 +79,6 @@ export default {
     '--header-border': `2px solid ${PALETTE.whiteHalf}`,
     '--card-link-border': `1px dashed ${PALETTE.whiteTint + '8'}`,
     '--card-link-padding-top': '0.5rem',
-    '--banner-border': `2px solid ${PALETTE.whiteHalf}`,
-    '--banner-bg': PALETTE.whiteGhost,
-    '--banner-radius': '6px',
   },
 
   pageContent: {
@@ -247,8 +244,6 @@ export default {
     ${THEME_SELECTOR} [data-card-detail] { font-style: italic; }
     ${THEME_SELECTOR} [data-card-detail]::before { content: 'Ingredients: '; font-style: normal; font-weight: bold; font-size: 0.75rem; }
 
-    ${THEME_SELECTOR} [data-banner-default] { display: none !important; }
-    ${THEME_SELECTOR} [data-banner-canada] { display: block !important; }
     ${THEME_SELECTOR} [data-404] { display: none !important; }
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,

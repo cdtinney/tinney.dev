@@ -22,6 +22,7 @@ export interface FeaturedList {
 
 export const featuredLists: FeaturedList[] = [
   { name: '2026 Faves', url: 'https://letterboxd.com/cdmt/list/2026_faves/' },
+  { name: '2025 Faves', url: 'https://letterboxd.com/cdmt/list/2025_faves/' },
   { name: 'Real Good Hope', url: 'https://letterboxd.com/cdmt/list/real-good-hope/' },
   {
     name: "They Don't Go Anywhere",

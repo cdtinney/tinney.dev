@@ -164,11 +164,6 @@ table {
   /* Card link tokens */
   --card-link-border: none;
   --card-link-padding-top: 0;
-
-  /* Banner tokens */
-  --banner-border: 1px solid var(--color-secondary);
-  --banner-bg: var(--color-bg);
-  --banner-radius: 3px;
 }
 
 /* Global styles */

@@ -70,9 +70,6 @@ export interface ThemeColors {
   '--header-border'?: string;
   '--card-link-border'?: string;
   '--card-link-padding-top'?: string;
-  '--banner-border'?: string;
-  '--banner-bg'?: string;
-  '--banner-radius'?: string;
 }
 
 /** Content displayed on the 404 page for a given theme. */

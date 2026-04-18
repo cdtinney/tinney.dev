@@ -236,9 +236,6 @@ export default {
     '--header-border': '2px solid transparent',
     '--card-link-border': '1px solid rgba(0, 184, 148, 0.2)',
     '--card-link-padding-top': '0.5rem',
-    '--banner-border': '1px solid rgba(0, 184, 148, 0.4)',
-    '--banner-bg': 'rgba(0, 184, 148, 0.08)',
-    '--banner-radius': '8px',
   },
 
   pageContent: {
@@ -622,8 +619,6 @@ export default {
     }
     ${THEME_SELECTOR} [data-card-detail] { color: #7ec8d9; font-size: 0.75rem; }
 
-    ${THEME_SELECTOR} [data-banner-default] { display: none !important; }
-    ${THEME_SELECTOR} [data-banner-underwater] { display: block !important; }
     ${THEME_SELECTOR} [data-404] { display: none !important; }
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
