@@ -282,7 +282,7 @@ code {
     color var(--transition-slow) ease;
   padding: 2px 4px;
   border-radius: var(--radius-sm);
-  font-size: var(--text-base);
+  font-size: 0.85em;
 }
 
 pre > code {
