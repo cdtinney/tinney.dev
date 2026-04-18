@@ -66,9 +66,6 @@ export default {
     '--header-border': '3px solid',
     '--card-link-border': `1px solid ${PALETTE.orangeBorder}`,
     '--card-link-padding-top': '0.5rem',
-    '--banner-border': `2px solid ${PALETTE.orange}`,
-    '--banner-bg': `linear-gradient(180deg, ${PALETTE.scoreTeal} 0%, ${PALETTE.midTeal} 100%)`,
-    '--banner-radius': '3px',
   },
 
   pageContent: {
@@ -172,9 +169,6 @@ export default {
     ${THEME_SELECTOR} [data-card-name] { text-transform: uppercase; letter-spacing: 0.03em; font-size: 1.15em; }
     ${THEME_SELECTOR} [data-card-detail] { display: inline-flex; flex-wrap: wrap; gap: 4px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; }
 
-    ${THEME_SELECTOR} [data-banner] { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
-    ${THEME_SELECTOR} [data-banner-default] { display: none !important; }
-    ${THEME_SELECTOR} [data-banner-sharks] { display: block !important; }
     ${THEME_SELECTOR} [data-404] { display: none !important; }
     ${THEME_SELECTOR} [data-404="${THEME_ID}"] { display: block !important; }
   `,
