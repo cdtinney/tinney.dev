@@ -1,3 +1,4 @@
+// Fact text is rendered via set:html — only use trusted content here.
 export interface Fact {
   text: string;
   source?: string;
