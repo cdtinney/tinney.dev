@@ -22,7 +22,7 @@ const headerClass = [
 
 <h1 class={headerClass}>
   <a href="/" class="link" data-brand>{title}</a>
-  <div class="secret-dropdown" data-secret-dropdown>
+  <div class="secret-dropdown dropdown-menu flex-col" data-secret-dropdown>
     {
       secretPages.map((page) => (
         <a href={page.path} class="secret-link link-quiet">
@@ -97,17 +97,8 @@ const headerClass = [
   }
 
   [data-secret-dropdown] {
-    display: none;
-    position: absolute;
     top: 100%;
     left: 0;
-    flex-direction: column;
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    padding: var(--space-xs);
-    box-shadow: var(--shadow-dropdown);
-    z-index: 200;
     min-width: 80px;
   }
 

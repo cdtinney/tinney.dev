@@ -6,6 +6,8 @@
 - `pnpm build` — Production build
 - `pnpm lint` — ESLint check
 - `pnpm lint:fix` — ESLint auto-fix
+- `pnpm lint:css` — Stylelint check (CSS files only)
+- `pnpm lint:css:fix` — Stylelint auto-fix
 - `pnpm format` — Prettier format all files
 - `pnpm format:check` — Prettier check
 - `pnpm typecheck` — TypeScript type check (`astro check`)

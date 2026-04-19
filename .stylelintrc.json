@@ -1,0 +1,23 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "declaration-property-value-disallowed-list": {
+      "border-radius": ["/^[0-9]+(px|rem)/"],
+      "box-shadow": ["/^[0-9]/"]
+    },
+    "import-notation": null,
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": null,
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "keyframes-name-pattern": null,
+    "color-function-notation": null,
+    "color-function-alias-notation": null,
+    "alpha-value-notation": null,
+    "font-family-name-quotes": null,
+    "declaration-block-no-shorthand-property-overrides": null,
+    "selector-pseudo-element-colon-notation": null,
+    "rule-empty-line-before": null
+  },
+  "ignoreFiles": ["dist/**", "node_modules/**"]
+}
