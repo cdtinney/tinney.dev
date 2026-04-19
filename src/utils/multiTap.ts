@@ -23,10 +23,11 @@ export function onMultiTap(
     if (count >= taps) {
       count = 0;
       callback();
-    } else {
-      timer = setTimeout(() => {
-        count = 0;
-      }, tapWindow);
+      return;
     }
+
+    timer = setTimeout(() => {
+      count = 0;
+    }, tapWindow);
   });
 }

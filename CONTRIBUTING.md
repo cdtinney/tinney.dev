@@ -6,6 +6,8 @@
 - `pnpm build` — Production build
 - `pnpm lint` — ESLint check
 - `pnpm lint:fix` — ESLint auto-fix
+- `pnpm lint:css` — Stylelint check (CSS files only)
+- `pnpm lint:css:fix` — Stylelint auto-fix
 - `pnpm format` — Prettier format all files
 - `pnpm format:check` — Prettier check
 - `pnpm typecheck` — TypeScript type check (`astro check`)
@@ -89,6 +91,7 @@ Themes are defined in `src/themes/` as TypeScript files. Each theme exports an o
 - `ScoreCounter.ts` — persistent high score tracker
 - `formatDate.ts` — date formatting
 - `rehypeLazyImages.ts` — rehype plugin for lazy image loading
+- `multiTap.ts` — `onMultiTap(element, callback, { taps, window })` for multi-click interactions
 
 ### Images
 
@@ -126,10 +129,34 @@ Theme images go in `public/images/themes/<theme-name>/`. Reference them via `IMA
 
 ### CSS
 
+**Design tokens** — defined in `global.css` `:root`. Use tokens instead of hardcoded values:
+
+- **Spacing**: `--space-xs` (0.25rem), `--space-sm` (0.5rem), `--space-md` (1rem), `--space-lg` (2rem), `--space-xl` (4rem)
+- **Font sizes**: `--text-xs` (0.7rem), `--text-sm` (0.75rem), `--text-base` (0.85rem), `--text-md` (1rem), `--text-lg` (1.25rem), `--text-xl` (1.5rem)
+- **Border radius**: `--radius-sm` (3px), `--radius-md` (4px), `--radius-lg` (6px), `--radius-full` (100px)
+- **Transitions**: `--transition-fast` (0.15s), `--transition-normal` (0.3s), `--transition-slow` (0.5s)
+- **Shadows**: `--shadow-button`, `--shadow-dropdown`
+
+Stylelint enforces token usage for `border-radius` and `box-shadow` in `.css` files. Hardcoded values will fail CI.
+
+**Utility classes** — defined in `src/styles/utility.css`, available globally. Use these before writing new CSS:
+
+- Layout: `flex-center`, `flex-col`, `flex-row`
+- Buttons: `btn-reset`, `btn-accent`, `icon-btn`
+- Links: `link-quiet` (no underline, fast color transition)
+- Nav: `nav-pill` (bordered pill-shaped link)
+- Dropdowns: `dropdown-menu` (hidden by default; consumer toggles display)
+- Text: `text-muted`, `text-secondary`
+
+**When writing CSS:**
+
+- Check `utility.css` first — if a class exists, use it instead of writing new CSS
+- Use design tokens for all spacing, font sizes, radii, transitions, and shadows
 - Themeable properties use CSS custom properties defined in `global.css` `:root`
 - Themes override variables in their `colors` object
 - Don't use `!important` for color overrides — use CSS variable specificity
 - `!important` is acceptable only for `display: block/none` toggling of easter egg elements
+- Avoid naming utility classes that could collide with Astro scoped class names (e.g. don't name a utility `btn-primary` if a component already uses that name internally)
 
 ## Testing
 
@@ -139,6 +166,6 @@ Theme images go in `public/images/themes/<theme-name>/`. Reference them via `IMA
 
 ## CI
 
-The CI pipeline runs: `lint` → `format:check` → `typecheck` → `test` → `build` → `lighthouse`
+The CI pipeline runs: `lint` → `lint:css` → `format:check` → `typecheck` → `test` → `build` → `lighthouse`
 
 All checks must pass before merging.
