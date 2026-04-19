@@ -46,7 +46,7 @@
   color: var(--color-bg);
   border: none;
   padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   font-size: var(--text-xs);
   font-weight: 600;
   cursor: pointer;
@@ -61,7 +61,7 @@
 }
 
 /* Pill nav link */
-.pill {
+.nav-pill {
   font-size: var(--text-sm);
   font-weight: 500;
   color: var(--color-text-muted);
@@ -71,12 +71,12 @@
   transition: border-color var(--transition-fast);
 }
 
-.pill:hover {
+.nav-pill:hover {
   color: var(--color-text);
   border-color: var(--color-text-secondary);
 }
 
-/* Dropdown menu */
+/* Dropdown menu — hidden by default; consumers must toggle display via their own class/attribute */
 .dropdown-menu {
   display: none;
   position: absolute;

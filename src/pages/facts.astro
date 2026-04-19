@@ -14,12 +14,13 @@ import sections from '../data/facts';
     <nav class="section-nav">
       {
         sections.map((section) => (
-          <a href={`#${section.id}`} class="pill link-quiet">
+          <a href={`#${section.id}`} class="nav-pill link-quiet">
             {section.title}
           </a>
         ))
       }
-      <button class="btn-accent" id="random-fact">Choose a random fact</button>
+      <button class="btn-accent" id="random-fact" style="margin: auto;">Choose a random fact</button
+      >
     </nav>
 
     {
@@ -116,7 +117,7 @@ import sections from '../data/facts';
   });
 
   // Smooth scroll for nav pills
-  for (const pill of document.querySelectorAll<HTMLAnchorElement>('.pill')) {
+  for (const pill of document.querySelectorAll<HTMLAnchorElement>('.nav-pill')) {
     pill.addEventListener('click', (e) => {
       e.preventDefault();
       const id = pill.getAttribute('href')?.slice(1);
