@@ -2,9 +2,9 @@
 import DefaultLayout from '../layouts/DefaultLayout.astro';
 import MediaCard from '../components/faves/MediaCard.astro';
 import { site } from '../data/site';
-import { moviesByGenre, featuredLists } from '../data/favourites/movies';
-import { miniSeries, fullSeries } from '../data/favourites/tv';
-import music from '../data/favourites/music';
+import { moviesByGenre, featuredLists } from '../data/faves/movies';
+import { miniSeries, fullSeries } from '../data/faves/tv';
+import music from '../data/faves/music';
 
 const byYearDesc = <T extends { year: number }>(items: T[]) =>
   items.toSorted((a, b) => b.year - a.year);
