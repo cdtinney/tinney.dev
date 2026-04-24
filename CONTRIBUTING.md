@@ -39,7 +39,32 @@ Examples:
 
 ## Architecture
 
-This is an Astro static site with a declarative theme system. The primary branch is `main`.
+This is an Astro static site with a declarative theme system, hosted on Cloudflare Pages. The primary branch is `main`.
+
+### Microsites
+
+The repo hosts multiple standalone sites, each with its own domain:
+
+- **tinney.dev** — main site (themes, blog, projects)
+- **useyourdamnhands.com** — routed to `/hands/`
+- **whatarewedoinghere.org** — routed to `/whatarewedoinghere/`
+
+Domain routing is handled by Cloudflare Pages Functions middleware (`functions/_middleware.ts`), which rewrites requests based on the `Host` header.
+
+**Microsite file structure:**
+
+- `src/microsites/<name>/` — layouts, components, data, styles (not routed by Astro)
+- `src/pages/<name>/` — page routes, robots.txt, sitemap, 404
+- `public/<name>/` — static assets (images, favicon)
+
+**Key conventions:**
+
+- Microsite layouts are standalone HTML documents — they do NOT extend `DefaultLayout` or import `global.css`
+- Each microsite has fully independent styling (no shared design tokens or utility classes)
+- Static assets use `/&lt;name&gt;/` prefixed paths (e.g. `/hands/images/human-hands.jpg`)
+- Each microsite has its own `robots.txt.ts`, `sitemap.xml.ts`, and `404.astro`
+- The main site's sitemap excludes microsite paths via the `filter` option in `astro.config.mjs`
+- Middleware does NOT run in local dev — access microsites at `localhost:4321/<name>/`
 
 ### Theme System
 
@@ -166,6 +191,6 @@ Stylelint enforces token usage for `border-radius` and `box-shadow` in `.css` fi
 
 ## CI
 
-The CI pipeline runs: `lint` → `lint:css` → `format:check` → `typecheck` → `test` → `build` → `lighthouse`
+The CI pipeline runs: `lint` → `lint:css` → `format:check` → `typecheck` → `test` → `build` → `lighthouse` → `deploy`
 
-All checks must pass before merging.
+All checks must pass before merging. Deployment to Cloudflare Pages happens on pushes to `main` via `wrangler pages deploy`.

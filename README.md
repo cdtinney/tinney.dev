@@ -9,7 +9,8 @@
 This website is built with:
 
 - [Astro](https://astro.build) - Static site generation
-- [GitHub Actions](https://github.com/features/actions) - CI/CD and deployment to GitHub Pages
+- [GitHub Actions](https://github.com/features/actions) - CI/CD
+- [Cloudflare Pages](https://pages.cloudflare.com/) - Hosting and deployment
 
 ## Content
 
@@ -33,6 +34,15 @@ archived: true # optional, excluded from listing
 ### Projects
 
 Projects are defined in `src/data/projects.json`. Sorted by `lastCommitDate` (newest first).
+
+### Microsites
+
+This repo also hosts standalone microsites, each with its own domain, layout, and styles:
+
+- **[useyourdamnhands.com](https://useyourdamnhands.com)** — A public service announcement about single-purpose kitchen gadgets
+- **[whatarewedoinghere.org](https://whatarewedoinghere.org)** — Coming soon
+
+Microsites live under `src/microsites/<name>/` (layouts, components, styles) and `src/pages/<name>/` (routes). Domain routing is handled by Cloudflare Pages Functions middleware (`functions/_middleware.ts`).
 
 ### Themes
 
@@ -83,11 +93,13 @@ ESLint and Prettier run automatically:
 
 ## Deploying
 
-Deployed to GitHub Pages via GitHub Actions (`.github/workflows/main.yml`).
+Deployed to Cloudflare Pages via GitHub Actions (`.github/workflows/main.yml`).
 
 1. Code is pushed to `main`
 2. CI runs lint, format check, typecheck, tests, build, and Lighthouse
-3. Build output is deployed via `actions/deploy-pages`
+3. Build output is deployed via `wrangler pages deploy`
+
+Custom domains (`tinney.dev`, `useyourdamnhands.com`, `whatarewedoinghere.org`) are configured in the Cloudflare Pages dashboard. Domain-based routing is handled by the middleware in `functions/_middleware.ts`.
 
 ## Contributing
 
