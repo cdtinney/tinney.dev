@@ -38,4 +38,8 @@ export const SCENARIOS: Scenario[] = [
     title: 'The Finger Chopsticks',
     toolImage: `${IMAGE_PATH}/finger-chopsticks.png`,
   },
+  {
+    title: 'The Churu Holder',
+    toolImage: `${IMAGE_PATH}/churu-holder.png`,
+  },
 ];
