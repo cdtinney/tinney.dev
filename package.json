@@ -25,10 +25,12 @@
   "lint-staged": {
     "*.{js,ts,astro}": [
       "eslint --fix",
+      "eslint",
       "prettier --write"
     ],
     "*.css": [
       "stylelint --fix",
+      "stylelint",
       "prettier --write"
     ],
     "*.{md,json}": [
