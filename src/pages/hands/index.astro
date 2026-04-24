@@ -1,0 +1,20 @@
+---
+import HandsLayout from '../../microsites/hands/layouts/HandsLayout.astro';
+import Scenario from '../../microsites/hands/components/Scenario.astro';
+import { SCENARIOS } from '../../microsites/hands/data/scenarios';
+---
+
+<HandsLayout>
+  <header>
+    <h1>Use Your Damn Hands</h1>
+    <p class="subtitle">A public service announcement.</p>
+  </header>
+
+  <main>
+    {SCENARIOS.map((s) => <Scenario title={s.title} toolImage={s.toolImage} />)}
+  </main>
+
+  <footer>
+    <p>You have hands. They are free, clean, and highly specialized. Use them.</p>
+  </footer>
+</HandsLayout>

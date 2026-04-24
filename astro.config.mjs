@@ -7,10 +7,11 @@ import { rehypeLazyImages } from './src/utils/rehypeLazyImages';
 export default defineConfig({
   site: 'https://tinney.dev',
   trailingSlash: 'never',
-  integrations: [sitemap()],
-  redirects: {
-    '/hands': 'http://useyourdamnhands.com/',
-  },
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/hands/') && !page.includes('/whatarewedoinghere/'),
+    }),
+  ],
   markdown: {
     shikiConfig: {
       theme: 'one-dark-pro',

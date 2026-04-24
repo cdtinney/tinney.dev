@@ -1,0 +1,53 @@
+---
+import { HANDS_IMAGE } from '../data/scenarios';
+
+interface Props {
+  title: string;
+  toolImage: string;
+}
+
+const { title, toolImage } = Astro.props;
+---
+
+<section class="scenario">
+  <h2 class="scenario-title">{title}</h2>
+  <div class="comparison">
+    <div class="panel wrong">
+      <div class="image-wrapper">
+        <img src={toolImage} alt={title} loading="lazy" />
+        <svg class="overlay-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <line
+            x1="20"
+            y1="20"
+            x2="80"
+            y2="80"
+            stroke="#e53e3e"
+            stroke-width="12"
+            stroke-linecap="round"></line>
+          <line
+            x1="80"
+            y1="20"
+            x2="20"
+            y2="80"
+            stroke="#e53e3e"
+            stroke-width="12"
+            stroke-linecap="round"></line>
+        </svg>
+      </div>
+    </div>
+    <div class="panel right">
+      <div class="image-wrapper">
+        <img src={HANDS_IMAGE} alt="Your bare hands" loading="lazy" />
+        <svg class="overlay-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polyline
+            points="20,55 40,75 80,25"
+            fill="none"
+            stroke="#38a169"
+            stroke-width="12"
+            stroke-linecap="round"
+            stroke-linejoin="round"></polyline>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
