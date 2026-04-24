@@ -12,6 +12,7 @@
       "shortDescription": "A public service announcement about unnecessary tools.",
       "techStack": ["Astro", "Cloudflare Pages"],
       "homepageUrl": "https://useyourdamnhands.com",
+      "micrositePath": "/hands",
       "gitHubUrl": "https://github.com/cdtinney/tinney.dev"
     },
     {
