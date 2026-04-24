@@ -34,6 +34,12 @@ const columns = getColumns(projects.length);
 
   @media (width >= 500px) {
     .projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (width >= 900px) {
+    .projects {
       grid-template-columns: repeat(var(--columns), 1fr);
     }
   }
