@@ -19,10 +19,15 @@ const projects = projectsData.projects;
 
 <style>
   .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    box-sizing: content-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
     padding: var(--space-md) 0;
+  }
+
+  @media (width >= 500px) {
+    .projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 </style>
