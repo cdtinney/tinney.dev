@@ -11,7 +11,9 @@ module.exports = async ({ github, context, deploymentUrl }) => {
   if (existing) {
     const urlPattern = /https:\/\/\S+\.pages\.dev/g;
     const previousUrls = existing.body.match(urlPattern) || [];
-    const currentUrl = existing.body.split('\n').find((l) => l.match(urlPattern) && !l.startsWith('-'));
+    const currentUrl = existing.body
+      .split('\n')
+      .find((l) => l.match(urlPattern) && !l.startsWith('-'));
     const deduplicated = [...new Set([currentUrl?.trim(), ...previousUrls])].filter(
       (u) => u && u !== deploymentUrl,
     );
