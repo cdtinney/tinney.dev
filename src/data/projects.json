@@ -3,8 +3,15 @@
     {
       "name": "tinney.dev",
       "shortDescription": "Personal website.",
-      "techStack": ["Astro", "GitHub Pages"],
+      "techStack": ["Astro", "Cloudflare Pages"],
       "homepageUrl": "https://tinney.dev",
+      "gitHubUrl": "https://github.com/cdtinney/tinney.dev"
+    },
+    {
+      "name": "useyourdamnhands.com",
+      "shortDescription": "A public service announcement about unnecessary tools.",
+      "techStack": ["Astro", "Cloudflare Pages"],
+      "homepageUrl": "https://useyourdamnhands.com",
       "gitHubUrl": "https://github.com/cdtinney/tinney.dev"
     },
     {
