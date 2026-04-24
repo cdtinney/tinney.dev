@@ -11,5 +11,6 @@ export const site = {
     github: 'cdtinney',
     linkedin: 'cdtinney',
     letterboxd: 'https://letterboxd.com/cdmt/',
+    spotify: 'https://open.spotify.com/user/cdtinney?si=8b51d08775e04554',
   },
 };
