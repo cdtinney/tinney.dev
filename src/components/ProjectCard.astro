@@ -33,7 +33,6 @@ const jerseyNumber = String(index + 1).padStart(2, '0');
     flex-direction: column;
     width: 100%;
     padding: var(--space-md);
-    margin: var(--space-sm);
     transition: top ease 1s;
     border-radius: var(--radius-sm);
     background-color: var(--color-bg-surface);
@@ -42,18 +41,6 @@ const jerseyNumber = String(index + 1).padStart(2, '0');
 
   .card:hover {
     top: -1px;
-  }
-
-  @media all and (min-width: 400px) {
-    .card {
-      width: 75%;
-    }
-  }
-
-  @media all and (min-width: 500px) {
-    .card {
-      width: 45%;
-    }
   }
 
   .name {
