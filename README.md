@@ -95,9 +95,16 @@ ESLint and Prettier run automatically:
 
 Deployed to Cloudflare Pages via GitHub Actions (`.github/workflows/main.yml`).
 
-1. Code is pushed to `main`
-2. CI runs lint, format check, typecheck, tests, build, and Lighthouse
-3. Build output is deployed via `wrangler pages deploy`
+**Production** — on push to `main`:
+
+1. CI runs lint, format check, typecheck, tests, build, and Lighthouse
+2. Build output is deployed via `wrangler pages deploy --branch=main`
+
+**Preview** — on pull requests:
+
+1. CI runs the same checks, then deploys with `--branch=${{ github.head_ref }}`
+2. A preview URL (e.g. `feat-my-thing.tinney-dev.pages.dev`) is posted as a PR comment
+3. The comment is updated on subsequent pushes to the same PR
 
 Custom domains (`tinney.dev`, `useyourdamnhands.com`, `whatarewedoinghere.org`) are configured in the Cloudflare Pages dashboard. Domain-based routing is handled by the middleware in `functions/_middleware.ts`.
 

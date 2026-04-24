@@ -39,6 +39,6 @@ export default [
     },
   },
   {
-    ignores: ['dist/', '.astro/', 'node_modules/'],
+    ignores: ['dist/', '.astro/', '.github/scripts/', 'node_modules/'],
   },
 ];
