@@ -1,0 +1,30 @@
+---
+import '../styles/hands.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'USE YOUR DAMN HANDS',
+  description = 'Stop buying single-purpose kitchen gadgets and household tools. You have hands. They are free, clean, and highly specialized. Use them.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/hands/favicon.svg" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

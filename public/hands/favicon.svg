@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Raised hand / open palm favicon -->
+  <!-- Palm -->
+  <path d="M20 38 Q18 30 20 22 L22 20 Q24 18 26 20 L26 14 Q28 11 30 14 L30 12 Q32 9 34 12 L34 14 Q36 11 38 14 L38 20 Q40 18 42 20 L44 22 Q46 30 44 38Z" fill="#f4c28c" stroke="#333" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Finger lines -->
+  <line x1="26" y1="16" x2="26" y2="24" stroke="#e0a868" stroke-width="1" opacity="0.6"/>
+  <line x1="30" y1="13" x2="30" y2="24" stroke="#e0a868" stroke-width="1" opacity="0.6"/>
+  <line x1="34" y1="13" x2="34" y2="24" stroke="#e0a868" stroke-width="1" opacity="0.6"/>
+  <line x1="38" y1="16" x2="38" y2="24" stroke="#e0a868" stroke-width="1" opacity="0.6"/>
+  <!-- Thumb -->
+  <path d="M20 30 Q15 28 14 24 Q14 21 17 20 Q20 19 22 22" fill="#f4c28c" stroke="#333" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Wrist -->
+  <path d="M22 38 Q24 44 24 52 L40 52 Q40 44 42 38" fill="#f4c28c" stroke="#333" stroke-width="2"/>
+  <!-- Palm crease -->
+  <path d="M23 32 Q32 28 43 32" fill="none" stroke="#e0a868" stroke-width="1" opacity="0.5"/>
+</svg>
