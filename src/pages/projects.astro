@@ -5,8 +5,13 @@ import projectsData from '../data/projects.json';
 import { site } from '../data/site';
 
 const projects = projectsData.projects;
-const count = projects.length;
-const columns = count % 3 === 0 ? 3 : count % 2 === 0 ? 2 : 3;
+function getColumns(count: number) {
+  if (count % 3 === 0) return 3;
+  if (count % 2 === 0) return 2;
+  return 3;
+}
+
+const columns = getColumns(projects.length);
 ---
 
 <PageLayout
