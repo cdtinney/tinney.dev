@@ -21,6 +21,7 @@ jobs:
   lint-and-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - run: pnpm lint
       - run: pnpm lint:css
@@ -32,6 +33,7 @@ jobs:
     needs: lint-and-test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - run: pnpm build
       - uses: actions/upload-artifact@v4
@@ -44,6 +46,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - uses: actions/download-artifact@v4
         with:
@@ -59,6 +62,7 @@ jobs:
       name: production
       url: https://tinney.dev
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - uses: actions/download-artifact@v4
         with:
@@ -75,6 +79,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
       - uses: actions/download-artifact@v4
         with:
