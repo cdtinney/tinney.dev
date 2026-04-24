@@ -1,6 +1,4 @@
 ---
-import { resolveProjectUrl } from '../utils/resolveProjectUrl';
-
 interface Props {
   name: string;
   shortDescription: string;
@@ -21,22 +19,42 @@ const {
   index = 0,
 } = Astro.props;
 const jerseyNumber = String(index + 1).padStart(2, '0');
-const resolvedHomepageUrl = resolveProjectUrl({ homepageUrl, micrositePath });
 ---
 
 <div class="card" data-card style={`--card-index: ${index}`}>
   <span class="jersey-number" data-jersey>{jerseyNumber}</span>
   <span class="postmark" data-postmark>PROJECT</span>
-  <a href={resolvedHomepageUrl}>
+  <a href={homepageUrl} data-microsite-path={micrositePath}>
     <h2 class="name" data-card-name>{name}</h2>
   </a>
   <p class="short-description">{shortDescription}</p>
   <p class="detail" data-card-detail>{techStack.join(', ')}</p>
   <div class="links" data-card-links>
-    <a class="link" href={resolvedHomepageUrl} aria-label={`${name} homepage`}>homepage</a>
+    <a
+      class="link"
+      href={homepageUrl}
+      data-microsite-path={micrositePath}
+      aria-label={`${name} homepage`}>homepage</a
+    >
     <a class="link" href={gitHubUrl} aria-label={`${name} source code`}>code</a>
   </div>
 </div>
+
+<script>
+  import { resolveProjectUrl } from '../utils/resolveProjectUrl';
+
+  const anchors = document.querySelectorAll<HTMLAnchorElement>('a[data-microsite-path]');
+  for (const anchor of anchors) {
+    const micrositePath = anchor.dataset.micrositePath;
+    if (!micrositePath) continue;
+    anchor.href = resolveProjectUrl({
+      homepageUrl: anchor.href,
+      micrositePath,
+      hostname: globalThis.location.hostname,
+      origin: globalThis.location.origin,
+    });
+  }
+</script>
 
 <style>
   .card {

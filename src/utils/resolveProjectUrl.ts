@@ -1,15 +1,19 @@
 interface ProjectUrlInput {
   homepageUrl: string;
   micrositePath?: string;
+  hostname: string;
+  origin: string;
 }
 
-export function resolveProjectUrl({ homepageUrl, micrositePath }: ProjectUrlInput): string {
+const PRODUCTION_HOSTNAMES = new Set(['tinney.dev', 'www.tinney.dev']);
+
+export function resolveProjectUrl({
+  homepageUrl,
+  micrositePath,
+  hostname,
+  origin,
+}: ProjectUrlInput): string {
   if (!micrositePath) return homepageUrl;
-
-  const branch = process.env.CF_PAGES_BRANCH;
-  const pagesUrl = process.env.CF_PAGES_URL;
-  const isPreview = !!branch && branch !== 'main' && !!pagesUrl;
-
-  if (isPreview) return `${pagesUrl}${micrositePath}/`;
-  return homepageUrl;
+  if (PRODUCTION_HOSTNAMES.has(hostname)) return homepageUrl;
+  return `${origin}${micrositePath}/`;
 }
