@@ -23,16 +23,21 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{js,ts,astro}": [
+    "*.{js,cjs,ts,astro}": [
       "eslint --fix",
-      "prettier --write"
+      "eslint",
+      "prettier --write",
+      "prettier --check"
     ],
     "*.css": [
       "stylelint --fix",
-      "prettier --write"
+      "stylelint",
+      "prettier --write",
+      "prettier --check"
     ],
-    "*.{md,json}": [
-      "prettier --write"
+    "*.{md,json,yml,yaml}": [
+      "prettier --write",
+      "prettier --check"
     ]
   },
   "dependencies": {

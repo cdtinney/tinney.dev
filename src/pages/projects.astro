@@ -5,6 +5,13 @@ import projectsData from '../data/projects.json';
 import { site } from '../data/site';
 
 const projects = projectsData.projects;
+function getColumns(count: number) {
+  if (count % 3 === 0) return 3;
+  if (count % 2 === 0) return 2;
+  return 3;
+}
+
+const columns = getColumns(projects.length);
 ---
 
 <PageLayout
@@ -12,17 +19,28 @@ const projects = projectsData.projects;
   description="Personal projects."
   headerTitle="projects"
 >
-  <section class="projects">
+  <section class="projects" style={`--columns: ${columns}`}>
     {projects.map((project, i) => <ProjectCard {...project} index={i} />)}
   </section>
 </PageLayout>
 
 <style>
   .projects {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    box-sizing: content-box;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
     padding: var(--space-md) 0;
+  }
+
+  @media (width >= 500px) {
+    .projects {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (width >= 900px) {
+    .projects {
+      grid-template-columns: repeat(var(--columns), 1fr);
+    }
   }
 </style>

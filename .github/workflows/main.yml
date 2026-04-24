@@ -96,4 +96,4 @@ jobs:
         with:
           script: |
             const script = require('./.github/scripts/post-preview-comment.cjs');
-            await script({ github, context, deploymentUrl: '${{ steps.deploy.outputs.deployment-url }}' });
+            await script({ github, context, deploymentUrl: '${{ steps.deploy.outputs.deployment-url }}', sha: context.sha });
