@@ -39,7 +39,7 @@ Projects are defined in `src/data/projects.json`. Sorted by `lastCommitDate` (ne
 
 This repo also hosts standalone microsites, each with its own domain, layout, and styles:
 
-- **[useyourdamnhands.com](https://useyourdamnhands.com)** — A public service announcement about single-purpose kitchen gadgets
+- **[useyourdamnhands.com](https://useyourdamnhands.com)** — A public service announcement about unnecessary tools
 - **[whatarewedoinghere.org](https://whatarewedoinghere.org)** — Coming soon
 
 Microsites live under `src/microsites/<name>/` (layouts, components, styles) and `src/pages/<name>/` (routes). Domain routing is handled by Cloudflare Pages Functions middleware (`functions/_middleware.ts`).
