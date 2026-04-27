@@ -1,60 +1,56 @@
+const MARKER = '<!-- cf-preview -->';
+const MAX_PREVIOUS_ENTRIES = 10;
+
+const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+
 const formatRelativeTime = (nowMs, thenMs) => {
-  const diff = Math.max(0, Math.floor((nowMs - thenMs) / 1000));
-  if (diff < 60) return 'just now';
-  const mins = Math.floor(diff / 60);
-  if (mins < 60) return `${mins} min ago`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `${hours} hr ago`;
-  const days = Math.floor(hours / 24);
-  return `${days} day${days === 1 ? '' : 's'} ago`;
+  const seconds = Math.max(0, Math.floor((nowMs - thenMs) / 1000));
+  if (seconds < 60) return rtf.format(0, 'second');
+  if (seconds < 3600) return rtf.format(-Math.floor(seconds / 60), 'minute');
+  if (seconds < 86400) return rtf.format(-Math.floor(seconds / 3600), 'hour');
+  return rtf.format(-Math.floor(seconds / 86400), 'day');
 };
 
-const formatEntry = (url, commit, iso, nowMs) => {
+const formatEntry = ({ url, sha, iso }, repo, nowMs) => {
+  const commitLink = `[\`${sha.slice(0, 7)}\`](https://github.com/${repo}/commit/${sha})`;
   const relative = formatRelativeTime(nowMs, new Date(iso).getTime());
-  return `${url} (${commit}) · ${relative} <!-- ts:${iso} -->`;
+  return `${url} (${commitLink}) · ${relative} <!-- sha:${sha} ts:${iso} -->`;
 };
 
-const entryPattern =
-  /(https:\/\/\S+\.pages\.dev)\s+\((\[`[a-f0-9]+`\]\(https:\/\/github\.com\/\S+?\))\)\s+·\s+[^<\n]*?<!--\s*ts:(\S+?)\s*-->/g;
+const entryPattern = /(https:\/\/\S+\.pages\.dev).*?<!-- sha:([a-f0-9]+) ts:(\S+?) -->/g;
 
 module.exports = async ({ github, context, deploymentUrl, sha }) => {
   const { data: comments } = await github.rest.issues.listComments({
     issue_number: context.issue.number,
     owner: context.repo.owner,
     repo: context.repo.repo,
+    per_page: 100,
   });
-  const marker = '<!-- cf-preview -->';
-  const existing = comments.find((c) => c.body.includes(marker));
+  const existing = comments.find((c) => c.body.includes(MARKER));
   const repo = `${context.repo.owner}/${context.repo.repo}`;
-  const shortSha = sha.slice(0, 7);
-  const commitLink = `[\`${shortSha}\`](https://github.com/${repo}/commit/${sha})`;
-
   const nowMs = Date.now();
-  const nowIso = new Date(nowMs).toISOString();
 
   const priorEntries = [];
   if (existing) {
-    for (const match of existing.body.matchAll(entryPattern)) {
-      const [, url, commit, iso] = match;
-      priorEntries.push({ url, commit, iso });
+    for (const [, url, prevSha, iso] of existing.body.matchAll(entryPattern)) {
+      if (url !== deploymentUrl) priorEntries.push({ url, sha: prevSha, iso });
     }
   }
+  const kept = priorEntries.slice(0, MAX_PREVIOUS_ENTRIES);
 
-  const seen = new Set([deploymentUrl]);
-  const kept = priorEntries.filter((entry) => {
-    if (seen.has(entry.url)) return false;
-    seen.add(entry.url);
-    return true;
-  });
+  const previousSection =
+    kept.length > 0
+      ? `\n\n<details>\n<summary>Previous previews</summary>\n\n${kept
+          .map((e) => `- ${formatEntry(e, repo, nowMs)}`)
+          .join('\n')}\n</details>`
+      : '';
 
-  let previous = '';
-  if (kept.length > 0) {
-    const list = kept.map((e) => `- ${formatEntry(e.url, e.commit, e.iso, nowMs)}`).join('\n');
-    previous = `\n\n<details>\n<summary>Previous previews</summary>\n\n${list}\n</details>`;
-  }
-
-  const currentEntry = formatEntry(deploymentUrl, commitLink, nowIso, nowMs);
-  const body = `${marker}\n### Preview deployment\n\n${currentEntry}${previous}`;
+  const current = formatEntry(
+    { url: deploymentUrl, sha, iso: new Date(nowMs).toISOString() },
+    repo,
+    nowMs,
+  );
+  const body = `${MARKER}\n### Preview deployment\n\n${current}${previousSection}`;
 
   if (existing) {
     await github.rest.issues.updateComment({
