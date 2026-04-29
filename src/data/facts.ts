@@ -25,6 +25,8 @@ const sections: FactSection[] = [
       { text: 'Did you know that computers are powered by lots of tiny calculators?' },
       { text: 'There are more airplanes in the ocean than submarines in the sky.' },
       { text: 'If you stacked every elephant on earth on top of each other, they would all die.' },
+      { text: 'One strand of spaghetti is called a spaghetto.' },
+      { text: "It's impossible to cry while eating baby carrots." },
     ],
   },
   {
