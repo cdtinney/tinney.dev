@@ -1,6 +1,6 @@
 export const site = {
   title: 'colin tinney',
-  bio: 'Software engineer. Currently working at <a href="https://squareup.com">Block (formerly known as Square)</a>.',
+  bio: 'Software engineer. Previously at <a href="https://squareup.com">Block (formerly known as Square)</a>.',
   description: 'A personal website',
   contact: {
     email: 'colintinney@gmail.com',
