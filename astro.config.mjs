@@ -6,7 +6,7 @@ import { rehypeLazyImages } from './src/utils/rehypeLazyImages';
 
 export default defineConfig({
   site: 'https://tinney.dev',
-  trailingSlash: 'never',
+  trailingSlash: 'ignore',
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/hands/') && !page.includes('/whatarewedoinghere/'),

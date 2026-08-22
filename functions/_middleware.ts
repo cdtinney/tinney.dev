@@ -9,10 +9,7 @@ interface CFContext {
   env: { ASSETS: { fetch: (req: Request | URL | string) => Promise<Response> } };
 }
 
-const MICROSITES: MicrositeRoute[] = [
-  { prefix: '/hands', domain: 'useyourdamnhands.com' },
-  { prefix: '/whatarewedoinghere', domain: 'whatarewedoinghere.org' },
-];
+const MICROSITES: MicrositeRoute[] = [{ prefix: '/hands', domain: 'useyourdamnhands.com' }];
 
 function findMicrositeByHost(hostname: string): MicrositeRoute | undefined {
   return MICROSITES.find((m) => hostname === m.domain || hostname === `www.${m.domain}`);

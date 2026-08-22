@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Useless Box</title>
+    <style>
+      body {
+        --wood-bg-image: url('/useless-box/images/wood.png');
+        --dark-wood-bg-image: url('/useless-box/images/dark-wood.png');
+        --wood-bg-color: #c4a484;
+        --wood-bg-color-dark: rgb(172, 141, 112);
+
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: white;
+      }
+
+      .wood-texture {
+        background-color: var(--wood-bg-color);
+        background-image: var(--wood-bg-image);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .box-container {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        --depth: 30px;
+        border-radius: 0 var(--depth);
+        corner-shape: bevel;
+        border-right: var(--depth) solid var(--wood-bg-color-dark);
+        border-bottom: var(--depth) solid var(--wood-bg-color-dark);
+
+        box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.4);
+
+        /* Inside the box */
+        background-image: var(--dark-wood-bg-image);
+        background-color: rgba(123, 0, 0, 0.95);
+      }
+
+      .box-container--on {
+        background-color: rgba(0, 123, 0, 0.95);
+      }
+
+      .box-top {
+        height: 200px;
+        box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+
+        transform: rotateX(0);
+        transform-origin: top center;
+        transition: transform 0.6s ease;
+        z-index: 1;
+      }
+
+      .box-top--open {
+        transform: rotateX(35deg);
+      }
+
+      .box-bottom {
+        height: 240px;
+        display: flex;
+        justify-content: center;
+        z-index: 0;
+      }
+
+      #switch {
+        height: 64px;
+        margin-top: 24px;
+        cursor: pointer;
+
+        &.switch--on {
+          cursor: default;
+        }
+      }
+
+      .hand-container {
+        position: absolute;
+        top: 30px;
+        left: 70px;
+        height: 175px;
+        width: auto;
+      }
+
+      .hand-container--moving {
+        animation:
+          hand-move-down 1s ease-in-out forwards,
+          hand-move-up 1s linear forwards 1s;
+      }
+
+      .hand {
+        height: 100%;
+      }
+
+      @keyframes hand-move-down {
+        0% {
+          transform: translateY(0);
+        }
+
+        100% {
+          transform: translateY(65px);
+        }
+      }
+
+      @keyframes hand-move-up {
+        0% {
+          transform: translateY(65px);
+        }
+
+        100% {
+          transform: translateY(0px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box-container">
+      <div class="box-top wood-texture"></div>
+      <div class="box-bottom wood-texture">
+        <img id="switch" src="/useless-box/images/off.png" alt="Toggle switch" />
+      </div>
+
+      <div class="hand-container">
+        <img class="hand" src="/useless-box/images/robot-hand.png" alt="Hand" />
+      </div>
+    </div>
+
+    <script>
+      const BoxState = {
+        OPENING: 'opening',
+        OPEN: 'open',
+        CLOSED: 'closed',
+        CLOSING: 'closing',
+      };
+
+      const globalState = {
+        toggleSwitchOn: false,
+        boxState: BoxState.CLOSED,
+      };
+
+      const elements = {
+        boxContainer: () => document.querySelector('.box-container'),
+        boxTop: () => document.querySelector('.box-top'),
+        toggleSwitch: () => document.getElementById('switch'),
+        handContainer: () => document.querySelector('.hand-container'),
+      };
+
+      const imageUrls = {
+        SWITCH_ON: '/useless-box/images/on.png',
+        SWITCH_OFF: '/useless-box/images/off.png',
+      };
+
+      function triggerHandAnimation({ onHandMoveDownEnd, onHandMoveUpEnd }) {
+        const movingClass = 'hand-container--moving';
+        const handContainer = elements.handContainer();
+        // Adding the class triggers the animation
+        handContainer.classList.add(movingClass);
+
+        const AnimationNames = {
+          HAND_MOVE_DOWN: 'hand-move-down',
+          HAND_MOVE_UP: 'hand-move-up',
+        };
+        handContainer.addEventListener('animationend', ({ animationName }) => {
+          if (animationName === AnimationNames.HAND_MOVE_DOWN) {
+            onHandMoveDownEnd();
+          }
+
+          if (animationName === AnimationNames.HAND_MOVE_UP) {
+            handContainer.classList.remove(movingClass);
+            onHandMoveUpEnd();
+          }
+        });
+      }
+
+      function updateSwitchUi() {
+        const on = globalState.toggleSwitchOn;
+        const toggleSwitch = elements.toggleSwitch();
+        toggleSwitch.src = on ? imageUrls.SWITCH_ON : imageUrls.SWITCH_OFF;
+        toggleSwitch.classList.toggle('switch--on', on);
+      }
+
+      function updateBoxUi() {
+        const boxTop = elements.boxTop();
+        boxTop.classList.toggle('box-top--open', globalState.boxState === BoxState.OPENING);
+      }
+
+      function updateBoxContainerUi() {
+        const boxContainer = elements.boxContainer();
+        boxContainer.classList.toggle('box-container--on', globalState.toggleSwitchOn);
+      }
+
+      function updateUiBasedOnGlobalState() {
+        updateSwitchUi();
+        updateBoxUi();
+        updateBoxContainerUi();
+      }
+
+      function waitForBoxTopTransitionEnd(onEnd) {
+        elements.boxTop().addEventListener(
+          'transitionend',
+          ({ propertyName }) => {
+            if (event.propertyName !== 'transform') {
+              return;
+            }
+
+            onEnd();
+          },
+          { once: true },
+        );
+      }
+
+      function playClickSound() {
+        const clickSound = new Audio('/useless-box/sounds/switch.mp3');
+        clickSound.currentTime = 0.11;
+        clickSound.play();
+      }
+
+      function setupToggleSwitch() {
+        const toggleSwitch = elements.toggleSwitch();
+        toggleSwitch.addEventListener('click', () => {
+          if (globalState.boxState !== BoxState.CLOSED) {
+            return;
+          }
+
+          playClickSound();
+          globalState.toggleSwitchOn = !globalState.toggleSwitchOn;
+          globalState.boxState = BoxState.OPENING;
+          updateUiBasedOnGlobalState();
+
+          waitForBoxTopTransitionEnd(() => {
+            triggerHandAnimation({
+              // Switch is clicked, hand moves down to turn it off
+              onHandMoveDownEnd: () => {
+                globalState.toggleSwitchOn = false;
+                playClickSound();
+                updateUiBasedOnGlobalState();
+              },
+
+              // Hand moves back inside box
+              onHandMoveUpEnd: () => {
+                globalState.boxState = BoxState.CLOSING;
+                updateUiBasedOnGlobalState();
+
+                waitForBoxTopTransitionEnd(() => {
+                  globalState.boxState = BoxState.CLOSED;
+                  updateUiBasedOnGlobalState();
+                });
+              },
+            });
+          });
+        });
+      }
+
+      setupToggleSwitch();
+    </script>
+  </body>
+</html>
