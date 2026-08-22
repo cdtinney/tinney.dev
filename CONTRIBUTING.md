@@ -61,7 +61,7 @@ Domain routing is handled by Cloudflare Pages Functions middleware (`functions/_
 
 - Microsite layouts are standalone HTML documents — they do NOT extend `DefaultLayout` or import `global.css`
 - Each microsite has fully independent styling (no shared design tokens or utility classes)
-- Static assets use `/&lt;name&gt;/` prefixed paths (e.g. `/hands/images/human-hands.jpg`)
+- Static assets use `/<name>/` prefixed paths (e.g. `/hands/images/human-hands.jpg`)
 - Each microsite has its own `robots.txt.ts`, `sitemap.xml.ts`, and `404.astro`
 - The main site's sitemap excludes microsite paths via the `filter` option in `astro.config.mjs`
 - Middleware does NOT run in local dev — access microsites at `localhost:4321/<name>/`

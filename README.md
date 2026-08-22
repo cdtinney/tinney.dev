@@ -42,7 +42,29 @@ This repo also hosts standalone microsites, each with its own domain, layout, an
 - **[useyourdamnhands.com](https://useyourdamnhands.com)** — A public service announcement about unnecessary tools
 - **[whatarewedoinghere.org](https://whatarewedoinghere.org)** — Coming soon
 
-Microsites live under `src/microsites/<name>/` (layouts, components, styles) and `src/pages/<name>/` (routes). Domain routing is handled by Cloudflare Pages Functions middleware (`functions/_middleware.ts`).
+Domain routing is handled by Cloudflare Pages Functions middleware (`functions/_middleware.ts`). There are two ways to create a microsite:
+
+#### Option A: Single index.html (simple)
+
+For lightweight microsites that don't need Astro's build pipeline:
+
+1. Create `src/pages/<name>/index.html` — Astro treats raw `.html` files in `src/pages/` as page routes without any processing. The file is served at `/<name>/` in both dev and production.
+2. To attach a custom domain, add an entry to `MICROSITES` in `functions/_middleware.ts`:
+   ```ts
+   { prefix: '/<name>', domain: 'example.com' }
+   ```
+
+`src/pages/useless-box/index.html` is a minimal example that renders a red box.
+
+#### Option B: Full Astro microsite (complex)
+
+For microsites that need components, data, TypeScript, or multiple routes:
+
+- `src/microsites/<name>/` — layouts, components, data, styles (not routed by Astro)
+- `src/pages/<name>/` — page routes (`index.astro`, `404.astro`, `robots.txt.ts`, `sitemap.xml.ts`)
+- `public/<name>/` — static assets (images, favicon)
+
+After adding routes under `src/pages/<name>/`, exclude the prefix from the main sitemap in `astro.config.mjs` and register the domain in the middleware as above.
 
 ### Themes
 
@@ -59,7 +81,7 @@ Themes are defined in `src/themes/` as TypeScript files satisfying the `Theme` i
 
 ### Requirements
 
-- [Node.js](https://nodejs.org/) 22+
+- [Node.js](https://nodejs.org/) 22+ - install via `brew install node` (assuming you have Homebrew installed)
 - [pnpm](https://pnpm.io/) — install via `corepack enable pnpm`
 
 ### Quick Start

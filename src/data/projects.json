@@ -8,6 +8,14 @@
       "gitHubUrl": "https://github.com/cdtinney/tinney.dev"
     },
     {
+      "name": "useless-box",
+      "shortDescription": "A useless box.",
+      "techStack": ["HTML", "Cloudflare Pages"],
+      "homepageUrl": "https://tinney.dev/useless-box",
+      "micrositePath": "/useless-box",
+      "gitHubUrl": "https://github.com/cdtinney/tinney.dev"
+    },
+    {
       "name": "useyourdamnhands.com",
       "shortDescription": "A public service announcement about unnecessary tools.",
       "techStack": ["Astro", "Cloudflare Pages"],
