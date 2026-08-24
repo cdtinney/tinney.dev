@@ -29,6 +29,8 @@ Format: `type(scope): description`
 
 Common types: `feat`, `fix`, `refactor`, `docs`, `chore`, `test`, `style`
 
+**Microsite scope:** Changes to a microsite must include the microsite name as the scope. The scope matches the directory name under `src/microsites/`, `src/pages/`, and `public/` (currently `hands` and `whatarewedoinghere`). Commits that mix microsite and main-site changes should be split.
+
 Examples:
 
 - `feat: add underwater theme`
@@ -36,6 +38,8 @@ Examples:
 - `refactor: extract math helpers from animation.ts`
 - `docs: update CONTRIBUTING.md`
 - `test: add e2e tests for theme switching`
+- `feat(hands): add new hands background`
+- `fix(whatarewedoinghere): correct sitemap URL`
 
 ## Architecture
 
